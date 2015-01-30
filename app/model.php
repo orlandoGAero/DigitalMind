@@ -36,6 +36,20 @@
 			return $Contactos;
 		}
 		
+		public function obtenerContacto($idCon)
+		{
+			$idCon = htmlspecialchars($idCon);
+			
+			$consulta = "SELECT * FROM contacto WHERE id_contacto = ".$idCon;
+			$ejecutar = mysql_query($consulta, $this->conexion);
+			
+			$contactl= array();
+			$rows = mysql_fetch_assoc($ejecutar);
+			
+			return $rows;
+		}
+		
+		//CODIGOS POSTALES
 		public function obtenerCodigosPostales()
 		{
 			$consulta = "SELECT * FROM codigos_postales WEHERE ORDER BY id_cp LIMIT 250";

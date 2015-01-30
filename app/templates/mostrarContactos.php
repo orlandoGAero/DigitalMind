@@ -41,7 +41,7 @@
 			
 			
 			<?php 
-				foreach ($obtenerDatosContacto['contactos'] as $contact) :
+				foreach ($obtenerDatosContactos['contactos'] as $contact) :
 				$idContacto = $contact['id_contacto'];
 				// Encriptamos el texto
 				//$c = Encrypter::encrypt("$idContacto");
@@ -56,7 +56,7 @@
 					<td><?php echo $contact['tel_oficina'] ?></td>
 					<td><?php echo $contact['correo_instu'] ?></td>
 					<td>
-						<?php echo "<a href='index.php?url=verCont&idContact=$idContacto'>" ?> <img src="images/detalle.png" title="Detalle"/></a>
+						<?php echo "<a href='index.php?url=viewContact&idContact=$idContacto'>" ?> <img src="images/detalle.png" title="Detalle"/></a>
 						<a href="index.php?---------"><img src="images/editar.png" title="Modificar"/></a>
 						<a href="index.php?---------"><img src="images/eliminar.png" title="Eliminar"/></a>
 					</td>

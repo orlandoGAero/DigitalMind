@@ -26,7 +26,6 @@
 				</tr>
 			</tfoot>
 			
-			
 			<?php 
 				foreach ($obtenerDatos['codigos_postales'] as $codP) :
 				$idCodPost = $codP['id_cp'];

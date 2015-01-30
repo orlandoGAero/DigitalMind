@@ -1,20 +1,20 @@
 <?php ob_start() ?>
 	<?php $obtenerDatos['id_cp'] ?>
-	<table border="1">
+	<table class="table-bordered">
 		<tr>
-			<td>Código Postal</td>
+			<th>Código Postal</th>
 			<td><?php  echo $codPost['codigoP'] ?></td>
 		</tr>
 		<tr>
-			<td>Localidad</td>
+			<th>Localidad</th>
 			<td><?php echo $codPost['localidad'] ?></td>
 		</tr>
 		<tr>
-			<td>Municipio</td>
+			<th>Municipio</th>
 			<td><?php echo $codPost['municipio'] ?></td>
 		</tr>
 		<tr>
-			<td>Estado</td>
+			<th>Estado</th>
 			<td><?php echo $codPost['estado'] ?></td>
 		</tr>
 	</table>

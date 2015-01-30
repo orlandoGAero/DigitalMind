@@ -24,7 +24,7 @@
 	     'verCodPost' => array('controller' =>'Controller', 'action' =>'verCodPost'),
 	     //Contactos
 	     'listContact' => array('controller' =>'Controller', 'action' =>'listarContacto'),
-	     'viewContacto' => array('controller' =>'Controller', 'action' =>'verContacto'),
+	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
 	     'insertContact' => array('controller' =>'Controller', 'action' =>'insertarContacto')
 	 );
  

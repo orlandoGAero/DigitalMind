@@ -20,7 +20,7 @@
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 						
-			$obtenerDatosContacto = array(
+			$obtenerDatosContactos = array(
 				'contactos' => $m->obtenerContactos(),
 			); 
 			
@@ -28,9 +28,21 @@
 		}
 		
 		public function verContacto(){
-			if(!isset($_GET['idContacto'])){
+			if(!isset($_GET['idContact'])){
 				throw new Exception("Página no encontrada", 1);
 			}
+			
+			$IdContacto = $_GET['idContact'];
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$detalleContacto = $m->obtenerContacto($IdContacto);
+			
+			$obtenerDatosContacto = $detalleContacto;
+			
+			require __DIR__ . '/templates/verContacto.php';
+			
 		}
 		
 		/* CODIGOS POSTALES */
