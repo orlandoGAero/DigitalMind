@@ -1,9 +1,37 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
 @import url(http://fonts.googleapis.com/css?family=Oswald:400,300);
 
+/*header*/
+
+.principal{
+    /*2c95ae*/
+    background: #2c95ae url("../images/encabezado.png") no-repeat scroll 50%;
+    height: 151px;
+    position: relative;
+    display: block;
+    margin-top: 0;
+    z-index: 1;
+}
+
+ .banner{ 
+    position: absolute;
+    top: 10px;
+    left: 200px;
+    z-index: 2;
+}
+
+.logomundo{ 
+    padding-top: 25px;
+    padding-left: 10px;
+    position: relative;
+    z-index: 3;
+}
+
+/*en header*/
 
 body {
-    background:#FFFFFF;    url(../images/background.jpg) no-repeat;*/
+    background-color: rgb(255,255,255,0.5);    
+    /*url(../images/background.jpg) no-repeat;*/
     background-attachment: fixed;
     background-size: cover;
     background-position: 50% 50%;
@@ -216,9 +244,7 @@ height:35px;
 
 .menu-item:hover a {
     background-color: transparent;
-    /*background:rgba(0, 114, 215, 0.4);*/    
     text-decoration: none;
-    //color: #333;
 	animation: wobble;
 	-webkit-animation: wobble;
 	animation-duration: 1000ms;
