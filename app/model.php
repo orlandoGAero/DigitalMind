@@ -159,10 +159,8 @@
 			d.`id_cp`,cp.`municipio`,cp.`codigoP`,cp.`localidad`,cp.`estado`,tr.`tipo`,dir.`id_direccion`,dir.`calle`,dir.`num_ext`,
 			dir.`num_int`,dir.`colonia`,dir.`referencia`,con.`id_contacto`,con.`nombreCon`,con.`ap_paterno`,con.`ap_materno`,con.`nombre_area`,con.`correo_instu`,
 			con.`movil`,con.`tel_oficina`,db.`id_datBank`,db.`sucursal`,db.`titular`,db.`no_cuenta`,db.`no_cuenta_interbancario`,b.`nombre_banco`,tc.`tipo_cuenta`
-
 			FROM datos_fiscales df,clientes c,direcciones d,codigos_postales cp,tipos_razon_social tr,direcciones dir,contacto con,
 			cliente_contacto cc,datos_bancarios db,det_bank_cli ddb,bancos b,tipo_cuenta tc
-
 			WHERE df.`id_datFiscal`= c.`id_datFiscal`
 			AND d.`id_direccion`= c.`id_direccion`
 			AND tr.`id_tipo_ra`= df.`id_tipo_ra`
@@ -235,39 +233,6 @@
 			$cv_db=mysql_result($consulta,0,'id_datBank');
 			$cv_db=($cv_db + 1);
 			return $cv_db;
-		}
-		//elimiancion de cliente
-		public function elimCliente($del_cli)
-		{
-		
-		$band = 0;
-			if ($band==0) {
-				
-				$sql = "SELECT dbc.`id_cliente`,dbc.`id_bank_bcl`,dbc.`id_datBank`
-				FROM  clientes c,det_bank_cli dbc
-				WHERE c.`id_cliente`= dbc.`id_cliente`
-				AND dbc.`id_cliente`  = $del_cli";				
-				$ejecutar =mysql_query($sql) or die (mysql_error());				
-				$filas = mysql_num_rows($ejecutar);				
-				if($filas!=0){
-					$band =1;
-						$sqlDes = "UPDATE `clientes` SET  `activo` = 'No' WHERE `id_cliente` = $del_cli";
-						$ejecutarDes = mysql_query($sqlDes) or die (mysql_error());
-						echo" <script> alert('El registro no puede ser eliminado, solo se desactivo') 
-						window.location='index.php?url=listaCliente';
-				 		</script> ";
-
-						}else{
-					//elimi
-					$sqlEl = "DELETE FROM clientes WHERE id_cliente = $del_cli ";
-					$ejecutarEl = mysql_query($sqlEl) or die (mysql_error());
-					echo" <script> alert('El registro ha sido eliminado correctamente') 
-						window.location='index.php?url=listaCliente';
-				 	</script> ";
-
-				}
-			}
-
 		}
 	
 
