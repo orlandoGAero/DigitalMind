@@ -298,22 +298,6 @@
 
 
 
-		public function busquedaX($busqueda)
-		{
-		$busqueda = htmlspecialchars($busqueda);
-		//print($busqueda);
-         $sql = "SELECT * FROM clientes where nombre LIKE '%".$busqueda."%' OR activo LIKE '%".$busqueda."%' OR fecha_alta LIKE '%".$busqueda."%'";
-
-         $result = mysql_query($sql, $this->conexion);
-
-         $cliente_result = array();
-         while ($row = mysql_fetch_assoc($result))
-         {
-             $cliente_result[] = $row;
-         }
-
-         return $cliente_result;
-		 }
     }
     
 ?>
