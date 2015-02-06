@@ -129,6 +129,26 @@
 			
 			return $rows;
 		}
+
+		/*---------------------------------------------CLIENTES-------------------------------------------*/
+		/*Consulta para el listado de clientes*/
+		public function obtieneClientes()
+		{
+			$consultaC = "SELECT c.`id_cliente`,c.`nombre`,df.`razon_social`,df.`rfc`,d.`id_cp`,cp.`municipio`,cp.`estado`,c.`activo`
+			FROM datos_fiscales df,clientes c,direcciones d,codigos_postales cp
+			WHERE df.`id_datFiscal`=c.`id_datFiscal`
+			AND d.`id_direccion`=c.`id_direccion`
+			AND cp.`id_cp`=d.`id_cp`
+			ORDER BY  id_cliente";
+			$ejecutarC = mysql_query($consultaC, $this->conexion);
+			
+			$Clientes = array();
+			while ($rows = mysql_fetch_assoc($ejecutarC)) {
+				$Clientes[] = $rows;
+			}
+			
+			return $Clientes;  
+			}
     }
     
 ?>
