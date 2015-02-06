@@ -14,26 +14,22 @@
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
         <!-- Bootstrap Core CSS-->
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Font Awesome CSS -->
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-		
-		<!-- Custom CSS -->
-        <link href="css/animate.css" rel="stylesheet">
+        <link href="<?php echo 'bootstrap/css/'.config::$bootstrap_min_css ?>" rel="stylesheet" />
 
         <!-- Custom CSS -->
-        <link href="<?php echo 'css/'.config::$mvc_style_css ?>" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-
+        <link href="<?php echo 'css/'.config::$style_css ?>" rel="stylesheet" />
         
-        <!--Style CSS Menu Horizontal mover-->
-        <link rel="stylesheet" type="text/css" href="css/styles-menu.css">
+        <!-- Style CSS Formulario Listas Desplegables -->
+        <link rel="stylesheet" href="<?php echo 'css/'.config::$estilos_css ?>" />
+        
+        <!-- Style CSS Menu Horizontal mover-->
+        <link rel="stylesheet" type="text/css" href="<?php echo 'css/'.config::$styles_menu_css ?>" />
+        
+        <!-- Style CSS Tablas -->
+        <link rel="stylesheet" type="text/css" href="<?php echo 'css/'.config::$style_table_css ?>"/>
 
-        <!--libreria menu fijo -->
-       <script src="js/jquery-1.6.2.min.js" type="text/javascript"></script>
+        <!-- JS libreria menu fijo -->
+       <script src="<?php echo 'js/'.config::$jquery162_min_js ?>" type="text/javascript"></script>
             <script>
     // Llamado cuando se cargue la página
             posicionarMenu();
@@ -54,21 +50,7 @@
                     $('.content').css('margin-top', '0');
                 }
             }
-</script>
-
-        <!-- Template js 
-        <script src="js/jquery-2.1.1.min.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="js/jquery.appear.js"></script>
-        <script src="js/contact_me.js"></script>
-        <script src="js/jqBootstrapValidation.js"></script>
-        <script src="js/modernizr.custom.js"></script>
-        <script src="js/script.js"></script>
-
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->       
+</script>   
     </head>
 
     <body>

@@ -4,8 +4,8 @@
 	<div class="table-responsive">
 		
 		<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
-			"id" para utilizar la librería de DataTable(ordenar, buscar y paginar) -->
-    	<table class="table table-bordered"> 
+			"id" para incluir los estilos a la tabla -->
+    	<table class="table" id="miTabla"> 
 			<thead>
 				<tr>
 					<th>CP</th>

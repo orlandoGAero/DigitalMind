@@ -1,4 +1,5 @@
 ﻿h1{color: #28C7E0;-webkit-text-shadow: 0 0 3px #666;-moz-text-shadow: 0 0 3px #666;text-shadow: 0 0 3px #666; font-size:1.3em;}
+h2{color: red;-webkit-text-shadow: 0 0 3px #666;-moz-text-shadow: 0 0 3px #666;text-shadow: 0 0 3px #666; font-size:1.3em;}
 
 section#contenido, footer{
   margin: 0 auto;
@@ -9,6 +10,14 @@ section#principal{
   margin-bottom: 1em;
   max-width: 960px;
 }
+
+/*eSTILOS PARA LA CAJA DE TEXTO*/
+.panel{background: #16555B;margin: 0 auto;text-transform: uppercase;width: 960px;}
+
+.buscar{border-bottom: 1px dashed #CCC;text-align: left;width: 100%;}
+.dos{text-align: right;}
+.azul{color: #28C7E0;}
+/*hasta aqi*/
 
 .menu-pro{width:960px;}
 .menu-pro ul{list-style: none;margin:0;padding:0;}

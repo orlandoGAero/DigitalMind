@@ -1,6 +1,6 @@
 <?php
     /**
-     * 
+     *  
      */
     class config {
         
@@ -8,7 +8,17 @@
 		static public $mvc_db_user = "root";
 		static public $mvc_db_pass = "";
 		static public $mvc_db_name = "digitalmind";
-		static public $mvc_style_css = "style.css";
+		//CSS
+		static public $style_css = "style.css";
+		static public $estilos_css = "estilos.css";
+		static public $style_table_css = "style-table.css";
+		static public $bootstrap_min_css = "bootstrap.min.css";
+		static public $styles_menu_css = "styles-menu.css";
+		static public $animate_css = "animate.css";
+		
+		//JS
+		static public $jquery162_min_js = "jquery-1.6.2.min.js";
+		static public $jquery_lksMenu_js = "jquery.lksMenu.js";
     }
     
 ?>

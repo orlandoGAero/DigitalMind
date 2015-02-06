@@ -45,6 +45,58 @@
 			
 		}
 		
+		public function insertarContacto(){
+			
+			$parametrosContactos = array(
+				'idCont' => '',
+				'nombre' => '',
+				'app' => '',
+				'apm' => '',
+				'area' => '',
+				'movil' => '',
+				'tel_ofi' => '',
+				'tel_emer' => '',
+				'correoPers' => '',
+				'correoInsti' => '',
+				'RSFacebook' => '',
+				'RSTwitter' => '',
+				'RSSkype' => '',
+				'pagWeb' => '',
+			);
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			
+				if($m->registrarContacto($_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['telOficina'],
+						$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],$_POST['redSocialS'],
+						$_POST['webPage'])){
+							header('Location: index.php?url=listContact');
+				} else {
+						$parametrosContactos = array(
+						'idCont' => $_POST['idContact'],
+						'nombre' => $_POST['nameContact'],
+						'app' => $_POST['ApPContact'],
+						'apm' => $_POST['ApMContact'],
+						'area' => $_POST['nameArea'],
+						'movil' => $_POST['telMovil'],
+						'tel_ofi' => $_POST['telOficina'],
+						'tel_emer' => $_POST['telEmergencia'],
+						'correoPers' => $_POST['emailPersonal'],
+						'correoInsti' => $_POST['emailInstitucional'],
+						'RSFacebook' => $_POST['redSocialF'],
+						'RSTwitter' => $_POST['redSocialT'],
+						'RSSkype' => $_POST['redSocialS'],
+						'pagWeb' => $_POST['webPage'],
+					);
+					$parametrosContactos['mensaje'] = 'Error al registrar contactos. Revise el formulario';
+				}
+			}
+			
+			require __DIR__.'/templates/insertarContacto.php';
+		}
+		
 		/* CODIGOS POSTALES */
 		public function listarCodPost()
 		{

@@ -25,7 +25,7 @@
 		
 		//CONTACTOS
 		public function obtenerContactos(){
-			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,correo_instu FROM contacto ORDER BY nombreCon";
+			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,correo_instu FROM contacto ORDER BY nombreCon;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			
 			$Contactos = array();
@@ -49,10 +49,64 @@
 			return $rows;
 		}
 		
+		public function obtenerIdContacto($idCo){
+			$consulta = "SELECT id_contacto FROM contacto ORDER BY id_contacto DESC LIMIT 1;";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			$filas = mysql_num_rows($ejecutar);
+			
+			if($filas==0){
+				$idCo = 1;
+			}else	{
+				$idCo = mysql_result($ejecutar,0,'id_contacto');
+				$idCo = $idCo+1;
+			}
+			
+			return $idCo;
+		}
+		
+		public function registrarContacto($nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
+		$correoInstituCont,$facebookCont,$twitterCont,$skypeCont,$dirWebCont)
+		{
+			//Convertir a mayúsculas
+			$nomCont = mb_strtoupper($nomCont);
+			$apCont = mb_strtoupper($apCont);
+			$amCont = mb_strtoupper($amCont);
+			$areaCont = mb_strtoupper($areaCont);
+			//Convertir a minúsculas
+			$correoPersonalCont = mb_strtolower($correoPersonalCont);
+			$correoInstituCont = mb_strtolower($correoInstituCont);
+			$facebookCont = mb_strtolower($facebookCont);
+			$twitterCont = mb_strtolower($twitterCont);
+			$skypeCont = mb_strtolower($skypeCont);
+			$dirWebCont = mb_strtolower($dirWebCont);
+			
+			$consulta = "INSERT INTO contacto (nombreCon,ap_paterno,ap_materno,nombre_area,fecha_alta,movil,tel_oficina,tel_emergencia,correo_p,
+								correo_instu,facebook,twitter,skype,direccion_web)
+								VALUES ('".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',NOW(),".$telMovilCont.",".$telOficinaCont.",".$telEmergenciaCont.",'".$correoPersonalCont."',
+								'".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."','".$dirWebCont."');";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			
+			return $ejecutar;
+		}
+
+		public function validarDuplicidadContactos($nomCont,$apCont,$amCont,$idCont){
+			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno 
+								FROM contacto 
+								WHERE nombreCon = '".$nomCont."' 
+									AND ap_paterno = '".$apCont."' 
+									AND ap_materno = '".$amCont."' 
+									AND id_contacto != ".$idCont.";";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			
+			$rows = mysql_num_rows($ejecutar);
+			
+			return $rows;
+		}
+		
 		//CODIGOS POSTALES
 		public function obtenerCodigosPostales()
 		{
-			$consulta = "SELECT * FROM codigos_postales WEHERE ORDER BY id_cp LIMIT 250";
+			$consulta = "SELECT * FROM codigos_postales WEHERE ORDER BY id_cp LIMIT 250;";
 			$ejecutar = mysql_query($consulta, $this->conexion) or die(mysql_error());
 			
 			$codigosPostales = array();
