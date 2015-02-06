@@ -2,6 +2,8 @@
     /**
      * Modelo
      */
+     
+     /*HOLA SAM */
     class model {
         protected $conexion;
         
