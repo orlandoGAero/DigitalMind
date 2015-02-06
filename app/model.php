@@ -269,53 +269,8 @@
 			}
 
 		}
-		
-		//combo dinamico para nombre de banco
-		public function obtieneBanco()
-    	{
-    		$sql = "SELECT * FROM bancos";
-			$ejecutar = mysql_query($sql) or die ("Error de Consulta");
+	
 
-			$nombreB = array();
-			while ($rows = mysql_fetch_assoc($ejecutar)) {
-				$nombreB[] = $rows;
-			}
-			
-			return $nombreB;
-		}
-
-		//combo dinamico para el tipo de cuenta
-		public function obtieneTipoC()
-    	{
-    		$sql = "SELECT * FROM tipo_cuenta";
-			$ejecutar = mysql_query($sql) or die ("Error de Consulta");
-
-			$tipo_c = array();
-			while ($rows = mysql_fetch_assoc($ejecutar)) {
-				$tipo_c[] = $rows;
-			}
-			
-			return $tipo_c;
-		}
-
-
-
-		public function busquedaX($busqueda)
-		{
-		$busqueda = htmlspecialchars($busqueda);
-		//print($busqueda);
-         $sql = "SELECT * FROM clientes where nombre LIKE '%".$busqueda."%' OR activo LIKE '%".$busqueda."%' OR fecha_alta LIKE '%".$busqueda."%'";
-
-         $result = mysql_query($sql, $this->conexion);
-
-         $cliente_result = array();
-         while ($row = mysql_fetch_assoc($result))
-         {
-             $cliente_result[] = $row;
-         }
-
-         return $cliente_result;
-		 }
     }
     
 ?>
