@@ -267,36 +267,7 @@
 			}
 
 		}
-		
-		//combo dinamico para nombre de banco
-		public function obtieneBanco()
-    	{
-    		$sql = "SELECT * FROM bancos";
-			$ejecutar = mysql_query($sql) or die ("Error de Consulta");
-
-			$nombreB = array();
-			while ($rows = mysql_fetch_assoc($ejecutar)) {
-				$nombreB[] = $rows;
-			}
-			
-			return $nombreB;
-		}
-
-		//combo dinamico para el tipo de cuenta
-		public function obtieneTipoC()
-    	{
-    		$sql = "SELECT * FROM tipo_cuenta";
-			$ejecutar = mysql_query($sql) or die ("Error de Consulta");
-
-			$tipo_c = array();
-			while ($rows = mysql_fetch_assoc($ejecutar)) {
-				$tipo_c[] = $rows;
-			}
-			
-			return $tipo_c;
-		}
-
-
+	
 
     }
     
