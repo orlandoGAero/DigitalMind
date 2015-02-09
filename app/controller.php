@@ -51,6 +51,7 @@
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 										
 			$parametrosContactos = array(
+				//Datos Contacto
 				'idCont' => $m->obtenerIdContacto(),
 				'nombre' => '',
 				'app' => '',
@@ -65,13 +66,21 @@
 				'RSTwitter' => '',
 				'RSSkype' => '',
 				'pagWeb' => '',
+				//Datos dirección física
+				'idDir' => $m->incrementoDir(),
+				'calleD' => '',
+				'numExterior' => '',
+				'numInterior' => '',
+				'coloniaD' => '',
+				'referenciaD' => '',
 			);
 			
 			
 			
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
-				if($m->registrarContacto($_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['telOficina'],
+				if($m->registrarContacto($_POST['idAddress'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
+						$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['telOficina'],
 						$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],$_POST['redSocialS'],
 						$_POST['webPage'])){
 							header('Location: index.php?url=listContact');
@@ -91,6 +100,12 @@
 						'RSTwitter' => $_POST['redSocialT'],
 						'RSSkype' => $_POST['redSocialS'],
 						'pagWeb' => $_POST['webPage'],
+						'idDir' => $_POST['idAddress'],
+						'calleD' => $_POST['street'],
+						'numExterior' => $_POST['numExt'],
+						'numInterior' => $_POST['numInt'],
+						'coloniaD' => $_POST['colonia'],
+						'referenciaD' => $_POST['reference'],
 					);
 					$parametrosContactos['mensaje'] = 'Error al registrar contactos. Revise el formulario';
 				}

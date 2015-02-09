@@ -24,16 +24,16 @@
 					<ul>
 						<li>
 							<table  class="table" >
-								<tr> <!-- IdContacto --> <td> <input type="text" name="idContact" required value="<?php echo $parametrosContactos['idCont'] ?>" /> </td>  </tr>
+								<tr> <!-- IdContacto --> <td> <input type="text" name="idContact" required value="<?php echo $parametrosContactos['idCont']  ?>" readonly /> </td>  </tr>
 								<tr> <th> Nombre </th> <td> <input type="text" name="nameContact" required value="<?php echo $parametrosContactos['nombre'] ?>" /> * </td>  </tr>
 								<tr> <th> Apellido Paterno </th> <td> <input type="text" name="ApPContact" required value="<?php echo $parametrosContactos['app'] ?>"  /> * </td>  </tr>
 								<tr> <th> Apellido Materno </th> <td> <input type="text" name="ApMContact" required value="<?php echo $parametrosContactos['apm'] ?>" /> * </td>  </tr>
 								<tr> <th> Área </th> <td> <input type="text" name="nameArea" required value="<?php echo $parametrosContactos['area'] ?>" /> * </td>  </tr>
-								<tr> <th> Teléfono Móvil </th> <td> <input type="text" name="telMovil" required value="<?php echo $parametrosContactos['movil'] ?>" /> * </td>  </tr>
-								<tr> <th> Teléfono Oficina </th> <td> <input type="text" name="telOficina" required value="<?php echo $parametrosContactos['tel_ofi'] ?>" /> * </td>  </tr>
-								<tr> <th> Teléfono Emergencia </th> <td> <input type="text" name="telEmergencia" required value="<?php echo $parametrosContactos['tel_emer'] ?>" /> * </td>  </tr>
+								<tr> <th> Teléfono Móvil </th> <td> <input type="text" name="telMovil" required maxlength="10" value="<?php echo $parametrosContactos['movil'] ?>" /> * </td>  </tr>
+								<tr> <th> Teléfono Oficina </th> <td> <input type="text" name="telOficina" required maxlength="10" value="<?php echo $parametrosContactos['tel_ofi'] ?>" /> * </td>  </tr>
+								<tr> <th> Teléfono Emergencia </th> <td> <input type="text" name="telEmergencia" required maxlength="10" value="<?php echo $parametrosContactos['tel_emer'] ?>" /> * </td>  </tr>
 								<tr> <th> Correo Personal </th> <td> <input type="text" name="emailPersonal" required value="<?php echo $parametrosContactos['correoPers'] ?>" /> * </td>  </tr>
-								<tr> <th> Correo Institucional </th> <td> <input type="text" name="emailInstitucional" required value="<?php echo $parametrosContactos['correoInsti'] ?>" /> * </td>  </tr>
+								<tr> <th> Correo Institucional </th> <td> <input type="text" name="emailInstitucional" required value="<?php echo $parametrosContactos['correoInsti'] ?>" /> </td>  </tr>
 								<tr> <th> Facebook </th> <td> <input type="text" name="redSocialF"  value="<?php echo $parametrosContactos['RSFacebook'] ?>" /> </td>  </tr>
 								<tr> <th> Twitter </th> <td> <input type="text" name="redSocialT" value="<?php echo $parametrosContactos['RSTwitter'] ?>" /> </td> </tr>
 								<tr> <th> Skype </th> <td> <input type="text" name="redSocialS"  value="<?php echo $parametrosContactos['RSSkype'] ?>" /> </td> </tr>
@@ -59,17 +59,16 @@
 										</table>
 									</td>
 								</tr>
-									<?php  //$id_dir = model::incrementoDir(['id_direccion']);	?>
-									<tr><th>Clave</th><td><input type="text"  name="id_direccion" value="<?php //echo $id_dir  ?>" readonly /></td></tr>
-									<tr><th>Código P.</th><td><input type="text" id="cp" name="cp"/></td></tr>
-									<tr><th>Municipio</th><td><input type="text" id="muni" name="muni"/></td></tr>
-									<tr><th>Localidad</th><td><input type="text" id="localidad" name="localidad"/></td></tr>
-									<tr><th>Estado</th><td><input type="text" id="estado" name="estado"/></td></tr>
-									<tr><th>Calle</th><td><input type="text" id="Calle" name="Calle" /></td></tr>
-									<tr><th>No. Ext</th><td><input type="text" id="Num_Ext" name="Num_Ext" readonly /></td></tr>
-									<tr><th>No. Int</th><td><input type="text" id="Num_Int" name="Num_Int" readonly /></td></tr>
-									<tr><th>Colonia</th><td><input type="text" id="Colonia" name="Colonia" readonly /></td></tr>
-									<tr><th>Referencia</th><td><input type="text" id="Referencia" name="Referencia" readonly /></td></tr>
+									<tr><!-- IdDirección --><td><input type="text"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></td></tr>
+									<tr><th>Código Postal</th><td><input type="text" id="cp" name="postcode"/></td></tr>
+									<tr><th>Municipio</th><td><select id="muni" name="municipality"></select></td></tr>
+									<tr><th>Localidad</th><td><select id="loc" name="locality"></select></td></tr>
+									<tr><th>Estado</th><td><select id="muni" name="state"></select></td></tr>
+									<tr><th>Calle</th><td><input type="text" name="street" required value="<?php echo $parametrosContactos['calleD'] ?>" /> * </td></tr>
+									<tr><th>No. Ext</th><td><input type="text" name="numExt" value="<?php echo $parametrosContactos['numExterior'] ?>" /></td></tr>
+									<tr><th>No. Int</th><td><input type="text"  name="numInt" value="<?php echo $parametrosContactos['numInterior'] ?>" /></td></tr>
+									<tr><th>Colonia</th><td><input type="text" name="colonia" required value="<?php echo $parametrosContactos['coloniaD'] ?>" /> * </td></tr>
+									<tr><th>Referencia</th><td><input type="text" name="reference" value="<?php echo $parametrosContactos['referenciaD'] ?>" /></td></tr>
 									<tr><th>GPS Ubicación</th><td><input type="text" id="GPS_Ubicacion" name="GPS_Ubicacion" readonly /></td></tr>
 							</table>
 						</li>

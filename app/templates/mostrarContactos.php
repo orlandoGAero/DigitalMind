@@ -11,7 +11,8 @@
 		
 		<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
 			"id" para incluir los estilos a la tabla -->
-    	<table class="table" id="miTabla"> 
+    	<table class="table" id="miTabla">
+    		<caption>Contactos</caption>
 			<thead>
 				<tr>
 					<th>Nombre</th>
