@@ -2,8 +2,6 @@
     /**
      * Modelo
      */
-     
-     /*HOLA SAM */
     class model {
         protected $conexion;
         
@@ -51,7 +49,7 @@
 			return $rows;
 		}
 		
-		public function obtenerIdContacto($idCo){
+		public function obtenerIdContacto(){
 			$consulta = "SELECT id_contacto FROM contacto ORDER BY id_contacto DESC LIMIT 1;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			$filas = mysql_num_rows($ejecutar);
@@ -60,7 +58,7 @@
 				$idCo = 1;
 			}else	{
 				$idCo = mysql_result($ejecutar,0,'id_contacto');
-				$idCo = $idCo+1;
+				$idCo = ($idCo + 1);
 			}
 			
 			return $idCo;

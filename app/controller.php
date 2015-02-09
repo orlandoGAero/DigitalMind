@@ -46,9 +46,12 @@
 		}
 		
 		public function insertarContacto(){
-			
+				
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+										
 			$parametrosContactos = array(
-				'idCont' => '',
+				'idCont' => $m->obtenerIdContacto(),
 				'nombre' => '',
 				'app' => '',
 				'apm' => '',
@@ -64,8 +67,7 @@
 				'pagWeb' => '',
 			);
 			
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
 			
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
