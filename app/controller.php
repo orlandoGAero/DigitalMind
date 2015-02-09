@@ -141,5 +141,83 @@
 			
 			require __DIR__ . '/templates/________';
 		}
+
+
+		/*---------------------------------------------CLIENTES-------------------------------------------*/
+		public function listaCliente()
+		{
+			/*variable de conexion*/	
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			$obtenerCliente = array(
+				'm_clientes' => $m->obtieneClientes(),
+			);
+			require __DIR__ . '/templates/clientes/mostrarCliente.php';
+    	}
+    	
+    	public function verCliente()
+    	{
+    		if(!isset($_GET['id_cli'])){
+    			throw new Exception("Página no encontrada", 1);    			
+    		}
+    		$cv_cli=$_GET['id_cli'];
+
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+    	
+			$lisCliente=$m->obtieneVcliente($cv_cli);		
+			$obtenerCliente=$lisCliente;					
+			require __DIR__ . '/templates/clientes/verCliente.php';
+    	}
+    		//funcion para el formulario de nuevo_cliente
+    		public function agregarCl()
+    		{
+    			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			require __DIR__ . '/templates/clientes/nuevoCl.php';
+    	}
+    	
+    	public function eli_cli()
+    	{
+    		if(!isset($_GET['id_cli'])){
+    			throw new Exception("Página no encontrada", 1);    			
+    		}
+    		$del_cli=$_GET['id_cli'];
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+    	
+			$lisCliente=$m->elimCliente($del_cli);		
+			$obtenerCliente=$lisCliente;				
+			require __DIR__ . '/templates/clientes/elim.php';
+    	}
+		
+		//funcion para el formulario de editar_cliente
+    	public function modCl()
+    		{	
+    	
+			require __DIR__ . '/templates/clientes/modificar_cl.php';
+    	}
+
+    	
+    	public function buscarXC()
+    	{
+    	$crit = array(
+			'busqueda' => '',
+			'resultado' => array(),
+			);
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+             $crit['busqueda'] = $_POST['busqueda'];
+             $crit['resultado'] = $m->busquedaX($_POST['busqueda']);
+         }
+		 
+			require __DIR__ . '/templates/clientes/buscador.php';
+    	}
 }
 ?>

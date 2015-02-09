@@ -131,7 +131,30 @@
 			
 			return $rows;
 		}
+		
 		/*---------------------------------------------CLIENTES-------------------------------------------*/
+		
+		/*Funcion para cargar ventana emergente los datos del formulario Dirección segun el CP ingresado*/
+		public function obtenerCodigoP($idCp)
+		{
+			$idCp = htmlspecialchars($idCp);
+				
+			$consulta = "SELECT * FROM codigos_postales WHERE codigoP = ".$idCp." order by localidad";
+			$ejecutar = mysql_query($consulta, $this->conexion);
+			$filas = mysql_num_rows($ejecutar);
+           
+			$codigoPostal= array();
+		
+            	if($filas!=0){
+        
+            while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$codigosPostales[] = $rows;
+			}
+            
+		    return $codigosPostales;
+            }
+		}
+		
 		/*Consulta para el listado de clientes*/
 		public function obtieneClientes()
 		{
@@ -201,74 +224,8 @@
 			return $cv_dfiscal;
 		}
 
-		//obtiene id direccion para insercion
-		public function incrementoDir($cv_dir)
-		{			
-			$sql="SELECT id_direccion FROM direcciones ORDER BY id_direccion DESC LIMIT 1";
-			$consulta=mysql_query($sql)or die ("Error de Consulta-Increment-Dir");
-			$filas=mysql_num_rows($consulta);
-			$cv_dir=mysql_result($consulta,0,'id_direccion');
-			$cv_dir=($cv_dir + 1);
-			return $cv_dir;
-		}
-
-		//combo dinamico para tipo de razon_social (FISICA,MORAL)
-		public function obtieneTrazon()
-    	{
-    		$sql3 = "SELECT * FROM tipos_razon_social";
-			$ejecutar = mysql_query($sql3)or die ("Error de Consulta-razonS");
-
-			$tipoRa = array();
-			while ($rows = mysql_fetch_assoc($ejecutar)) {
-				$tipoRa[] = $rows;
-			}
-			
-			return $tipoRa;
-		}
-
-		/*id para insercion */
-		public function incrementoDB($cv_db)
-		{			
-			$sql="SELECT id_datBank FROM datos_bancarios ORDER BY id_datBank DESC LIMIT 1";
-			$consulta=mysql_query($sql)or die ("Error de Consulta-Increment-DatBank");
-			$filas=mysql_num_rows($consulta);
-			$cv_db=mysql_result($consulta,0,'id_datBank');
-			$cv_db=($cv_db + 1);
-			return $cv_db;
-		}
-		//elimiancion de cliente
-		public function elimCliente($del_cli)
-		{
 		
-		$band = 0;
-			if ($band==0) {
-				
-				$sql = "SELECT dbc.`id_cliente`,dbc.`id_bank_bcl`,dbc.`id_datBank`
-				FROM  clientes c,det_bank_cli dbc
-				WHERE c.`id_cliente`= dbc.`id_cliente`
-				AND dbc.`id_cliente`  = $del_cli";				
-				$ejecutar =mysql_query($sql) or die (mysql_error());				
-				$filas = mysql_num_rows($ejecutar);				
-				if($filas!=0){
-					$band =1;
-						$sqlDes = "UPDATE `clientes` SET  `activo` = 'No' WHERE `id_cliente` = $del_cli";
-						$ejecutarDes = mysql_query($sqlDes) or die (mysql_error());
-						echo" <script> alert('El registro no puede ser eliminado, solo se desactivo') 
-						window.location='index.php?url=listaCliente';
-				 		</script> ";
-
-						}else{
-					//elimi
-					$sqlEl = "DELETE FROM clientes WHERE id_cliente = $del_cli ";
-					$ejecutarEl = mysql_query($sqlEl) or die (mysql_error());
-					echo" <script> alert('El registro ha sido eliminado correctamente') 
-						window.location='index.php?url=listaCliente';
-				 	</script> ";
-
-				}
-			}
-
-		}
+		
 	
 
     }
