@@ -209,10 +209,8 @@
 			d.`id_cp`,cp.`municipio`,cp.`codigoP`,cp.`localidad`,cp.`estado`,tr.`tipo`,dir.`id_direccion`,dir.`calle`,dir.`num_ext`,
 			dir.`num_int`,dir.`colonia`,dir.`referencia`,con.`id_contacto`,con.`nombreCon`,con.`ap_paterno`,con.`ap_materno`,con.`nombre_area`,con.`correo_instu`,
 			con.`movil`,con.`tel_oficina`,db.`id_datBank`,db.`sucursal`,db.`titular`,db.`no_cuenta`,db.`no_cuenta_interbancario`,b.`nombre_banco`,tc.`tipo_cuenta`
-
 			FROM datos_fiscales df,clientes c,direcciones d,codigos_postales cp,tipos_razon_social tr,direcciones dir,contacto con,
 			cliente_contacto cc,datos_bancarios db,det_bank_cli ddb,bancos b,tipo_cuenta tc
-
 			WHERE df.`id_datFiscal`= c.`id_datFiscal`
 			AND d.`id_direccion`= c.`id_direccion`
 			AND tr.`id_tipo_ra`= df.`id_tipo_ra`
@@ -251,10 +249,30 @@
 			return $cv_dfiscal;
 		}
 
-		
-		
-	
+		//combo dinamico para tipo de razon_social (FISICA,MORAL)
+		public function obtieneTrazon()
+    	{
+    		$sql3 = "SELECT * FROM tipos_razon_social";
+			$ejecutar = mysql_query($sql3)or die ("Error de Consulta-razonS");
 
+			$tipoRa = array();
+			while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$tipoRa[] = $rows;
+			}
+			
+			return $tipoRa;
+		}
+
+		/*id para insercion */
+		public function incrementoDB($cv_db)
+		{			
+			$sql="SELECT id_datBank FROM datos_bancarios ORDER BY id_datBank DESC LIMIT 1";
+			$consulta=mysql_query($sql)or die ("Error de Consulta-Increment-DatBank");
+			$filas=mysql_num_rows($consulta);
+			$cv_db=mysql_result($consulta,0,'id_datBank');
+			$cv_db=($cv_db + 1);
+			return $cv_db;
+		}
     }
     
 ?>
