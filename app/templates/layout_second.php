@@ -86,8 +86,9 @@
         <!-- Start Main Body Section-->
         <div class="mainbody-section text-center" id="menu-index">
             <div class="container">          
-                     <div><?php echo $contenido ?></div>
-
+				<div>
+					<?php echo $contenido ?>
+				</div>
             </div>
         </div>
         <!-- End Main Body Section --> 

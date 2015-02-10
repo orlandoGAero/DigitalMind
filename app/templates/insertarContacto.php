@@ -61,9 +61,16 @@
 								</tr>
 									<tr><!-- IdDirección --><td><input type="text"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></td></tr>
 									<tr><th>Código Postal</th><td><input type="text" id="cp" name="postcode"/></td></tr>
+									<tr>
+										<th>Estado</th>
+										<td>
+											<select id="st" name="state" >
+												<option value=""><?php echo $parametrosDir['estado'] ?></option>
+											</select>
+										</td>
+									</tr>
 									<tr><th>Municipio</th><td><select id="muni" name="municipality"></select></td></tr>
 									<tr><th>Localidad</th><td><select id="loc" name="locality"></select></td></tr>
-									<tr><th>Estado</th><td><select id="muni" name="state"></select></td></tr>
 									<tr><th>Calle</th><td><input type="text" name="street" required value="<?php echo $parametrosContactos['calleD'] ?>" /> * </td></tr>
 									<tr><th>No. Ext</th><td><input type="text" name="numExt" value="<?php echo $parametrosContactos['numExterior'] ?>" /></td></tr>
 									<tr><th>No. Int</th><td><input type="text"  name="numInt" value="<?php echo $parametrosContactos['numInterior'] ?>" /></td></tr>
