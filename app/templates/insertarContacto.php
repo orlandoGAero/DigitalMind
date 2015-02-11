@@ -65,7 +65,9 @@
 										<th>Estado</th>
 										<td>
 											<select id="st" name="state" >
-												<option value=""><?php echo $parametrosDir['estado'] ?></option>
+												<?php foreach ($parametrosContactos['dirEstado'] as $state) : ?>
+														<option value="<?php echo $state['estado'] ?>"><?php echo $state['estado'] ?></option>
+												<?php endforeach; ?>
 											</select>
 										</td>
 									</tr>
