@@ -13,7 +13,6 @@
 					$('.menu-pro').lksMenu();
 				});
 			</script>
-			
 			<!--Scripts para el funcionamiento de la ventana-->
 			<script>
 				!window.jQuery && document.write('\x3cscript src=\x22js/fancybox/jquery-1.4.3.min.js\x22\x3e \x3C/script\x22');

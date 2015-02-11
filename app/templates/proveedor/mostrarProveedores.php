@@ -7,7 +7,6 @@
 		    <link rel="stylesheet" type="text/css" href="css/style-table.css">
 		</head>
 		<body>
-			
 			<div align="right"><a href="index.php?url=NuevoProveedor"><img src="images/add-provider.png" alt="Nuevo Proveedor" title="Nuevo Proveedor"></a></div>
 		
 			<div class="table-responsive">

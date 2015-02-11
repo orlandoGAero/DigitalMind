@@ -244,20 +244,20 @@ input[type=file]:focus, input[type=checkbox]:focus, select:focus {
   box-shadow: none;
 }
 
-<!-- Estilos div en columnas -->
+/*Estilos div en columnas */
 
 .columns_left{
 float: left;
 margin: 5px;
-padding: 15px;
+padding: 5px;
 width: 350px;
-height: 710px;
+height: auto;
 }
 
 .columns_right{
 float: left;
 margin: 5px;
-padding: 15px 0 0 43px;
+padding: 5px 0 0 43px;
 width: 350px;
-height: 300px;
+height: auto;
 }

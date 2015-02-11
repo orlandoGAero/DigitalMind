@@ -87,7 +87,7 @@
 			</tr>
 		</table>
 	</div>
-	
+
 <?php $contenido = ob_get_clean() ?>
 
 <?php include 'layout_second.php' ?>
