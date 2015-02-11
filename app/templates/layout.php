@@ -40,7 +40,7 @@
                         
                         <div class="menu-item blue">
 
-                           <a href="registrarClientes.php"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>                          
+                           <a href="ndex.php?url=listaContact"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>                          
                         </div>
                         
                         <div class="menu-item green">
