@@ -1,10 +1,4 @@
 <?php
-/**
- * Esta clase implementa una serie de métodos públicos, que hemos denominado acciones para indicar que son métodos asociados a URL’s. 
- * En cada una de las acciones se declara un array asociativo con los datos que serán pintados en la plantilla. Pero en ningún caso hay información 
- * acerca de como se pintarán dichos datos. Por otro lado, casi todas las acciones utilizan un objeto de la clase Models para realizar operaciones relativas
- * a la lógica de negocio.
- */
     class controller{
     	public function inicio(){
     		$obtenerDatos = array(
@@ -13,7 +7,7 @@
 			
 			require __DIR__ . '/templates/inicio.php';
     	}
-		
+
 		//CONTACTOS
 		public function listarContacto()
 		{
@@ -118,7 +112,7 @@
 			
 			require __DIR__.'/templates/insertarContacto.php';
 		}
-		
+
 		/* CODIGOS POSTALES */
 		public function listarCodPost()
 		{
@@ -131,27 +125,7 @@
 			
 			require __DIR__ . '/templates/mostrarCodigosPostales.php';
 		}
-			
-		public function verCodPost()
-		{				
-			if (!isset($_GET['idCP'])) {
-				throw new Exception("Página no encontrada", 1);
-			}
-			
-			
-			$idCodPost = $_GET['idCP'];
-			//$idCodPost = Encrypter::decrypt("$idCodigoPostal");
-			
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-						
-			$codPost = $m->obtenerCodigoPostal($idCodPost);
-			
-			$obtenerDatos = $codPost;
-			
-			require __DIR__ . '/templates/verCodigoPostal.php';
-		}
-    
+		
 		public function insertarCodPost()
 		{
 			
@@ -163,83 +137,45 @@
 			
 			require __DIR__ . '/templates/________';
 		}
-
-
-		/*---------------------------------------------CLIENTES-------------------------------------------*/
-		public function listaCliente()
-		{
-			/*variable de conexion*/	
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-						
-			$obtenerCliente = array(
-				'm_clientes' => $m->obtieneClientes(),
-			);
-			require __DIR__ . '/templates/clientes/mostrarCliente.php';
-    	}
-    	
-    	public function verCliente()
-    	{
-    		if(!isset($_GET['id_cli'])){
-    			throw new Exception("Página no encontrada", 1);    			
-    		}
-    		$cv_cli=$_GET['id_cli'];
-
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-    	
-			$lisCliente=$m->obtieneVcliente($cv_cli);		
-			$obtenerCliente=$lisCliente;					
-			require __DIR__ . '/templates/clientes/verCliente.php';
-    	}
-    		//funcion para el formulario de nuevo_cliente
-    		public function agregarCl()
-    		{
-    			
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-			require __DIR__ . '/templates/clientes/nuevoCl.php';
-    	}
-    	
-    	public function eli_cli()
-    	{
-    		if(!isset($_GET['id_cli'])){
-    			throw new Exception("Página no encontrada", 1);    			
-    		}
-    		$del_cli=$_GET['id_cli'];
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-    	
-			$lisCliente=$m->elimCliente($del_cli);		
-			$obtenerCliente=$lisCliente;				
-			require __DIR__ . '/templates/clientes/elim.php';
-    	}
 		
-		//funcion para el formulario de editar_cliente
-    	public function modCl()
-    		{	
-    	
-			require __DIR__ . '/templates/clientes/modificar_cl.php';
-    	}
-
-    	
-    	public function buscarXC()
-    	{
-    	$crit = array(
-			'busqueda' => '',
-			'resultado' => array(),
-			);
+		public function verCodPost()
+		{				
+			if (!isset($_GET['idCP'])) {
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$idCodPost = $_GET['idCP'];
 			
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 						
-			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-             $crit['busqueda'] = $_POST['busqueda'];
-             $crit['resultado'] = $m->busquedaX($_POST['busqueda']);
-         }
-		 
-			require __DIR__ . '/templates/clientes/buscador.php';
-    	}
-}
+			$codPost = $m->obtenerCodigoPostal($idCodPost);
+			
+			$obtenerDatos = $codPost;
+			
+			require __DIR__ . '/templates/verCodigoPostal.php';
+		}
+
+		// FUNCIONES PROVEEDORES
+
+		public function Proveedor()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			$obtenerDat = array(
+			'proveedores' => $model->obtenerProveedores(),
+			);
+
+			require '/templates/proveedor/mostrarProveedores.php';
+		}
+
+		public function InsertarProveedor()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			require '/templates/proveedor/nuevoPro.php';
+		}
+    }
 ?>
