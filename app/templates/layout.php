@@ -14,22 +14,41 @@
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
         <!-- Bootstrap Core CSS -->
-        <link href="<?php echo 'bootstrap/css/'.config::$bootstrap_min_css ?>" rel="stylesheet" />
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Font Awesome CSS 
-        <link href="css/font-awesome.min.css" rel="stylesheet"> -->
+        <!-- Font Awesome CSS -->
+        <link href="css/font-awesome.min.css" rel="stylesheet">
 		
-		<!-- Custom CSS animaciones-->
-        <link href="<?php echo 'css/'.config::$animate_css ?>" rel="stylesheet" />
+		<!-- Custom CSS -->
+        <link href="css/animate.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="<?php echo 'css/'.config::$style_css ?>" rel="stylesheet" /''>
+        <link href="<?php echo 'css/'.config::$mvc_style_css ?>" rel="stylesheet">
 
-        <!-- Custom Fonts 
-        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'> -->        
+        <!-- Custom Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+
+        <!-- Template js -->
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.appear.js"></script>
+        <script src="js/contact_me.js"></script>
+        <script src="js/jqBootstrapValidation.js"></script>
+        <script src="js/modernizr.custom.js"></script>
+        <script src="js/script.js"></script>
+
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        
     </head>
     
     <body>
+
+
         
         <!-- Start Main Body Section MENU-->
         <div class="mainbody-section text-center" id="menu-index">
@@ -40,16 +59,16 @@
                         
                         <div class="menu-item blue">
 
-                           <a href="index.php?url=listaCliente"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>   
+                           <a href="registrarClientes.php"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>                          
                         </div>
                         
                         <div class="menu-item green">
-                            <a href="index.php?url=listContact"><img src="images/icono-agenda.png"/><br><b>CONTACTOS</b></a> 
+                            <a href="./agenda"><img src="images/icono-agenda.png"/><br><b>CONTACTOS</b></a> 
                         </div>
                         
 						
 						<div class="menu-item color responsive">
-                             <a href="./proveedores"><img src="images/icono-instructores.png"/><br><b>PROVEEDORES</b></a>                     
+                             <a href="index.php?url=Proveedores"><img src="images/icono-instructores.png"/><br><b>PROVEEDORES</b></a>                     
                         </div>
                      							
                         <div class="menu-item light-red">
@@ -132,6 +151,7 @@
         </div>
         <!-- End Main Body Section -->
         
+
     </body>
     
 </html>
