@@ -172,6 +172,8 @@
 			$rows = mysql_fetch_assoc($ejecutar);
 			
 			return $rows;
+			
+			
 		}
 
 		//proveedores
