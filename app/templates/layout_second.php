@@ -68,7 +68,7 @@
                     <li class="active"> <a href="./" alt="Inicio" title="Inicio"><img src="images/home.png"/></a> </li>
                     <li class=""> <a href="./" alt="Clientes" title="Clientes"><img src="images/icon-cliente-menu.png" />Clientes</a> </li>
                     <li class=""> <a href="index.php?url=listContact" alt="Contactos" title="Contacto"><img src="images/icon-contacto-menu.png" />Contactos</a> </li>
-                    <li class=""> <a href="./" alt="Proveedores" title="Proveedor"><img src="images/icon-proveedor-menu.png" />Proveedores</a> </li>
+                    <li class=""> <a href="index.php?url=Proveedores" alt="Proveedores" title="Proveedor"><img src="images/icon-proveedor-menu.png" />Proveedores</a> </li>
                     <li class=""> <a href="./" alt="Productos" title="Producto"><img src="images/icon-producto-menu.png" />Productos</a> </li>
                     <li class="has-sub"> <a href="#"><img src="images/avatar.png" />Usuario</a>
                         <ul>
