@@ -11,13 +11,13 @@
 		
 		<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
 			"id" para incluir los estilos a la tabla -->
-    	<table class="table" id="miTabla">
+    	<table class="table display miTabla" id="contactos">
     		<caption>Contactos</caption>
 			<thead>
 				<tr>
 					<th>Nombre</th>
 					<th>Apellido Paterno</th>
-					<th>Apallido Materno</th>
+					<th>Apellido Materno</th>
 					<th>Área</th>
 					<th>Móvill</th>
 					<th>Télefono Oficina</th>
@@ -65,6 +65,35 @@
 			<?php endforeach; ?>
 		</table>
 	</div>
+	
+	<!-- <script type="text/javascript">		
+		$(document).ready( function () {
+    		$('#contactos').DataTable();
+		} );
+	</script> -->
+	
+	<!--<script type="text/javascript">
+		$(function() {
+		    $('#contactos').dataTable( {
+		 
+		        "iDisplayLength": 25,
+		        "aLengthMenu": [25, 50],
+		        "sPaginationType": "full_numbers",
+		 
+		        "bProcessing": true,
+		        "bServerSide": true,
+		        "sAjaxSource": "http://<?php echo $appIni['general']['base_url']; ?>/users/paginate",
+		        "sServerMethod": "POST",            
+		 
+		        //"bJQueryUI": true,
+		        "bPaginate": true,
+		        "bSort": false 
+		    });
+		 
+		    // ...
+		 
+		});
+	</script>-->
 
 <?php $contenido = ob_get_clean() ?>
 

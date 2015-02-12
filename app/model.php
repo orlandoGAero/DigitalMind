@@ -62,6 +62,14 @@
 				$Contactos[] = $rows;
 			}
 			
+			/*$TableContactos = array(
+		         'sEcho' => $_POST['sEcho'],
+		         //'iTotalRecords' => $nTotal,
+		         //'iTotalDisplayRecords' => $nTotal,
+		         'aaData' => $Contactos);
+		 
+		    print_r(json_encode($TableContactos));*/
+			
 			return $Contactos;
 		}
 		
