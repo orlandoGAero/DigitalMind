@@ -22,7 +22,7 @@
 	     'insertarCP' => array('controller' =>'Controller', 'action' =>'insertarCP'),
 	     'buscarCP' => array('controller' =>'Controller', 'action' =>'buscarCP'),
 	     'verCodPost' => array('controller' =>'Controller', 'action' =>'verCodPost'),
-	     //Contactos
+	     //CONTACTOS
 	     'listContact' => array('controller' =>'Controller', 'action' =>'listarContacto'),
 	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
 	     'insertContact' => array('controller' =>'Controller', 'action' =>'insertarContacto'),
