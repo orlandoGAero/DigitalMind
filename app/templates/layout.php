@@ -40,7 +40,11 @@
                         
                         <div class="menu-item blue">
 
+<<<<<<< HEAD
                            <a href="ndex.php?url=listaContact"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>                          
+=======
+                           <a href="index.php?url=listaCliente"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>   
+>>>>>>> 8849375dfd5ed73a417bd829d9c9732b5307a22f
                         </div>
                         
                         <div class="menu-item green">

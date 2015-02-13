@@ -22,10 +22,19 @@
 	     'insertarCP' => array('controller' =>'Controller', 'action' =>'insertarCP'),
 	     'buscarCP' => array('controller' =>'Controller', 'action' =>'buscarCP'),
 	     'verCodPost' => array('controller' =>'Controller', 'action' =>'verCodPost'),
-	     //Contactos
+	     //CONTACTOS
 	     'listContact' => array('controller' =>'Controller', 'action' =>'listarContacto'),
 	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
-	     'insertContact' => array('controller' =>'Controller', 'action' =>'insertarContacto')
+	     'insertContact' => array('controller' =>'Controller', 'action' =>'insertarContacto'),
+
+	     //-------------------------CLIENTES-------------------------------------------
+	     'listaCliente' => array('controller' =>'Controller', 'action' =>'listaCliente'), 
+     	 'verCliente' => array('controller' =>'Controller', 'action' =>'verCliente') ,
+     	 'eli_cli' => array('controller' =>'Controller', 'action' =>'eli_cli'),
+     	 'buscarXC' => array('controller' =>'Controller', 'action' =>'buscarXC'),
+     	 'agregarCl' => array('controller' =>'Controller', 'action' =>'agregarCl'),     	 
+     	 'modCl' => array('controller' =>'Controller', 'action' =>'modCl')
+
 	 );
  
  	// PARSEO DE LA RUTA
