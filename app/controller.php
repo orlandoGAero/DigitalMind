@@ -178,5 +178,141 @@
 
 			require '/templates/proveedor/nuevoPro.php';
 		}
+
+
+
+
+
+
+
+//------------------------------------------------------------------------------------------------
+//---------------------------------------------CLIENTES-------------------------------------------
+
+		public function listaCliente()
+		{
+			/*variable de conexion*/	
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			$obtenerCliente = array(
+				'm_clientes' => $m->obtieneClientes(),
+			);
+			require __DIR__ . '/templates/clientes/mostrarCliente.php';
+    	}
+    	
+    	public function verCliente()
+    	{
+    		if(!isset($_GET['id_cli'])){
+    			throw new Exception("Página no encontrada", 1);    			
+    		}
+    		$cv_cli=$_GET['id_cli'];
+
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+    	
+			$lisCliente=$m->obtieneVcliente($cv_cli);		
+			$obtenerCliente=$lisCliente;					
+			require __DIR__ . '/templates/clientes/verCliente.php';
+    	}
+		
+		public function buscarXC()
+    	{
+    	$crit = array(
+			'busqueda' => '',
+			'resultado' => array(),
+			);
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+             $crit['busqueda'] = $_POST['busqueda'];
+             $crit['resultado'] = $m->busquedaX($_POST['busqueda']);
+         }
+		 
+			require __DIR__ . '/templates/clientes/buscador.php';
+    	}
+
+    	public function eli_cli()
+    	{
+    		if(!isset($_GET['id_cli'])){
+    			throw new Exception("Página no encontrada", 1);    			
+    		}
+    		$del_cli=$_GET['id_cli'];
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+    	
+			$lisCliente=$m->elimCliente($del_cli);		
+			$obtenerCliente=$lisCliente;				
+			require __DIR__ . '/templates/clientes/elim.php';
+    	}
+		
+
+    	//funcion para el formulario de nuevo_cliente
+    	public function agregarCl()
+    	{
+    	$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+										
+			$Clientes = array(
+				//datos_cliente
+				'idCli' => $m->incrementoCli(),
+				'nombre' => '',
+				'fecha_alta' => '',
+				'activo' => '',
+				'idDatF' => $m->incrementodFiscal(),
+				'razonS' => '',				
+				'rfc' => '',
+				'tipoRason_Social' => '',				
+				'idDir' => $m->incrementoDir(),
+				'idDBank' => $m->incrementoDB(),
+				
+			);
+						
+			
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			
+				if($m->addCliente($_POST['idCliente'],$_POST['nomb'],$_POST['f_alta'],$_POST['activo'],$_POST['idDatF'],$_POST['razonS'],$_POST['rfc'],$_POST['tipoRason_Social'],$_POST['idAddress'],
+						$_POST['idDBank'],$_POST['nombreB'],$_POST['sucursal'],$_POST['titular'],$_POST['n_cuenta'],$_POST['n_claveInterbancaria'],$_POST['tipo_c'])){
+							header('Location: index.php?url=listaCliente');
+				} else {
+						$Clientes = array(
+						//Datos_cliente
+						'idCli' => $_POST['idCliente'],
+						'nombre' => $_POST['nomb'],
+						'fecha_alta' => $_POST['f_alta'],
+						'activo' => $_POST['activo'],
+						//Datos_fiscales
+						'idDatF' => $_POST['idDatF'],
+						'razonS' => $_POST['razonS'],
+						'rfc' => $_POST['rfc'],
+						'tipoRason_Social' => $_POST['tipoRason_Social'],
+						//id_direccion
+						'idDir' => $_POST['idAddress'],
+						//id_contacto
+						//'idCont' => $_POST['idCont'],
+						//Datos_bancarios
+						'idDBank' => $_POST['idDBank'],
+						'nombreB' => $_POST['nombreB'],
+						'sucursal' => $_POST['sucursal'],
+						'titular' => $_POST['titular'],
+						'n_cuenta' => $_POST['n_cuenta'],
+						'n_claveInterbancaria' => $_POST['n_claveInterbancaria'],
+						'tipo_c' => $_POST['tipo_c'],
+																		
+					);
+					$Clientes['mensaje'] = 'Error al registrar clientes. Revise el formulario';
+				}
+			}
+			require __DIR__ . '/templates/clientes/nuevoCl.php';
+    	}
+		//funcion para el formulario de editar_cliente
+    	public function modCl()
+    		{	
+    	
+			require __DIR__ . '/templates/clientes/modificar_cl.php';
+    	}
+
+
     }
 ?>

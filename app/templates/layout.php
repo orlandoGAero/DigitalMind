@@ -2,7 +2,6 @@
 <html lang="en">
 
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +9,7 @@
         <meta name="author" content="">
 
         <title>Intranet|Digital Mind</title>
+        
 		
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
@@ -39,8 +39,7 @@
                     <div class="col-md-3">
                         
                         <div class="menu-item blue">
-
-                           <a href="registrarClientes.php"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>                          
+                           <a href="index.php?url=listaCliente"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>   
                         </div>
                         
                         <div class="menu-item green">

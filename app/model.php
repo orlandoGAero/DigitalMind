@@ -179,11 +179,247 @@
 			$codigoPostal= array();
 			$rows = mysql_fetch_assoc($ejecutar);
 			
+			return $rows;	 
+			}
+
+		//---------------------------------------------------------------------------------------------------------------
+		/*--------------------------------------------------CLIENTES----------------------------------------------------*/
+		
+		/*Funcion para cargar ventana emergente los datos del formulario Dirección segun el CP ingresado*/
+		public function obtenerCodigoP($idCp)
+		{
+			$idCp = htmlspecialchars($idCp);				
+			$consulta = "SELECT * FROM codigos_postales WHERE codigoP = ".$idCp." order by localidad";
+			$ejecutar = mysql_query($consulta, $this->conexion);
+			$filas = mysql_num_rows($ejecutar);
+           		$codigoPostal= array();
+		
+            	if($filas!=0){
+                    while ($rows = mysql_fetch_assoc($ejecutar)) {
+					$codigosPostales[] = $rows;
+			}
+            
+		    return $codigosPostales;
+            }
+		}
+		
+		/*Consulta para el listado de clientes*/
+		public function obtieneClientes()
+		{
+			$consultaC = "SELECT c.`id_cliente`,c.`nombre`,df.`razon_social`,df.`rfc`,d.`id_cp`,cp.`municipio`,cp.`estado`,c.`activo`
+			FROM datos_fiscales df,clientes c,direcciones d,codigos_postales cp
+			WHERE df.`id_datFiscal`=c.`id_datFiscal`
+			AND d.`id_direccion`=c.`id_direccion`
+			AND cp.`id_cp`=d.`id_cp`
+			ORDER BY  id_cliente";
+			$ejecutarC = mysql_query($consultaC, $this->conexion);
+
+			$Clientes = array();
+			while ($rows = mysql_fetch_assoc($ejecutarC)) {
+				$Clientes[] = $rows;
+			}
+			
+			return $Clientes;  
+			}
+
+		/*Consulta para el detalle_ Cliente*/
+		public function  obtieneVcliente($cv_cli)
+		{
+			$cv_cli = htmlspecialchars($cv_cli);
+			$consultaC = "SELECT c.`id_cliente`,c.`nombre`,c.`fecha_alta`,c.`activo`,df.`razon_social`,df.`id_datFiscal`,df.`rfc`,tr.`tipo`,cp.`codigoP` ,
+			cp.`estado`,cp.`municipio`,cp.`localidad`,d.`id_direccion`,d.`calle`,d.`colonia`,d.`num_ext`,d.`num_int`,d.`referencia`,con.`id_contacto`,
+			con.`nombreCon`,con.`ap_paterno`,con.`ap_materno`,con.`nombre_area`,con.`correo_instu`,con.`movil`,con.`tel_oficina`,db.`id_datBank`,
+			b.`nombre_banco`,db.`sucursal`,db.`titular`,db.`no_cuenta`,db.`no_cuenta_interbancario`,tp.`tipo_cuenta`
+			FROM datos_fiscales df,clientes c,direcciones d,codigos_postales cp,tipos_razon_social tr,contacto con,cliente_contacto cc,
+			det_bank_cli dbc,datos_bancarios db,bancos b,tipo_cuenta tp
+			WHERE df.`id_datFiscal`= c.`id_datFiscal`
+			AND d.`id_direccion` = c.`id_direccion`
+			AND cp.`id_cp` = d.`id_cp`
+			AND tr.`id_tipo_ra` = df.`id_tipo_ra`
+			AND c.`id_cliente` = cc.`id_cliente`
+			AND con.`id_contacto` = cc.`id_contacto`
+			AND c.`id_cliente` = dbc.`id_cliente`
+			AND db.`id_datBank` = dbc.`id_datBank`
+			AND b.`id_banco` = db.`id_banco`
+			AND tp.`id_tipo_cuenta` = db.`id_tipo_cuenta`
+			AND c.`id_cliente` =  ".$cv_cli;
+			$ejecutarC = mysql_query($consultaC, $this->conexion);
+			$Cliente= array();
+			$rows = mysql_fetch_assoc($ejecutarC);
 			return $rows;
-			
-			
 		}
 
+		/*Busqueda por criterio Clientes*/
+		public function busquedaX($busqueda)
+		{
+		$busqueda = htmlspecialchars($busqueda);
+         $sql = "SELECT * FROM clientes where nombre LIKE '%".$busqueda."%' OR fecha_alta LIKE '%".$busqueda."%'";
+         $result = mysql_query($sql, $this->conexion);
+         $cliente_result = array();
+
+		         while ($row = mysql_fetch_assoc($result))
+		         {
+		             $cliente_result[] = $row;
+		         }
+				if(mysql_num_rows($result)<1){
+				    echo "<script>  alert ('No se encuentran registros con el criterio solicitado')
+				    window.location='index.php?url=listaCliente';</script>";
+				}
+		         return $cliente_result;
+				 }
+
+
+		//elimianción de cliente
+		public function elimCliente($del_cli)
+		{
+		
+		$band = 0;
+			if ($band==0) {
+				
+				$sql = "SELECT dbc.`id_cliente`,dbc.`id_bank_bcl`,dbc.`id_datBank`
+				FROM  clientes c,det_bank_cli dbc
+				WHERE c.`id_cliente`= dbc.`id_cliente`
+				AND dbc.`id_cliente`  = $del_cli";				
+				$ejecutar =mysql_query($sql) or die (mysql_error());				
+				$filas = mysql_num_rows($ejecutar);				
+				if($filas!=0){
+					$band =1;
+						$sqlDes = "UPDATE `clientes` SET  `activo` = 'No' WHERE `id_cliente` = $del_cli";
+						$ejecutarDes = mysql_query($sqlDes) or die (mysql_error());
+						echo" <script> alert('El registro no puede ser eliminado, solo se desactivo') 
+						window.location='index.php?url=listaCliente';
+				 		</script> ";
+						}else{
+					//elimi
+					$sqlEl = "DELETE FROM clientes WHERE id_cliente = $del_cli ";
+					$ejecutarEl = mysql_query($sqlEl) or die (mysql_error());
+					echo" <script> alert('El registro ha sido eliminado correctamente') 
+						window.location='index.php?url=listaCliente';
+				 	</script> ";
+
+				}
+			}
+
+		}
+		
+		/*obtiene id del cliente para inserción*/
+			public function incrementoCli()
+		{			
+			$sql="SELECT id_cliente FROM clientes ORDER BY id_cliente DESC LIMIT 1";
+			$consulta=mysql_query($sql)or die ("Error de Consulta-Increment-Cli");
+			$filas=mysql_num_rows($consulta);
+			
+			if($filas==0){
+				$cv_cli = 1;
+			}else	{
+				$cv_cli = mysql_result($consulta,0,'id_cliente');
+				$cv_cli = ($cv_cli + 1);
+			}
+			return $cv_cli;
+		}
+		//obtiene id de datos fiscales inserción
+		public function incrementodFiscal()
+		{
+			$sql="SELECT id_datFiscal FROM datos_fiscales ORDER BY id_datFiscal DESC LIMIT 1";
+			$consulta=mysql_query($sql)or die ("Error de Consulta-Increment-datF");
+			$filas=mysql_num_rows($consulta);
+			
+			if($filas==0){
+				$cv_dfiscal = 1;
+			}else	{
+				$cv_dfiscal = mysql_result($consulta,0,'id_datFiscal');
+				$cv_dfiscal = ($cv_dfiscal + 1);
+			}
+			return $cv_dfiscal;
+		}
+
+		//combo dinamico para tipo de razon_social (FISICA,MORAL)
+		public function obtieneTrazon()
+    	{
+    		$sql3 = "SELECT * FROM tipos_razon_social";
+			$ejecutar = mysql_query($sql3)or die ("Error de Consulta-razonS");
+
+			$tipoRa = array();
+			while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$tipoRa[] = $rows;
+			}
+			
+			return $tipoRa;
+		}
+
+		/*id para inserción */
+		public function incrementoDB()
+		{			
+			$sql="SELECT id_datBank FROM datos_bancarios ORDER BY id_datBank DESC LIMIT 1";
+			$consulta=mysql_query($sql)or die ("Error de Consulta-Increment-datBANK");
+			$filas=mysql_num_rows($consulta);
+			
+			if($filas==0){
+				$cv_db = 1;
+			}else	{
+				$cv_db = mysql_result($consulta,0,'id_datBank');
+				$cv_db = ($cv_db + 1);
+			}
+			return $cv_db;
+		}
+				
+		//combo dinamico para nombre de banco
+		public function obtieneBanco()
+    	{
+    		$sql = "SELECT * FROM bancos";
+			$ejecutar = mysql_query($sql) or die ("Error de Consulta");
+
+			$nombreB = array();
+			while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$nombreB[] = $rows;
+			}
+			
+			return $nombreB;
+		}
+
+		//combo dinamico para el tipo de cuenta
+		public function obtieneTipoC()
+    	{
+    		$sql = "SELECT * FROM tipo_cuenta";
+			$ejecutar = mysql_query($sql) or die ("Error de Consulta");
+
+			$tipo_c = array();
+			while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$tipo_c[] = $rows;
+			}
+			
+			return $tipo_c;
+		}
+
+		/*Funcion para insertar la dirección del cliente*/
+        public function addDir($id_dir,$calle,$numext,$numint,$colonia,$referencia,$id_cp)
+		{			
+	     $sql = "INSERT INTO direcciones VALUES ('$id_dir','$calle','$numext','$numint','$colonia','$referencia','$id_cp')";				
+         $ejecutar =mysql_query($sql) or die (mysql_error());				
+        }
+			 
+		 public function addCliente($idCli,$nombreCli,$fecha_alta,$activo,$idDatFiscal,$razonS,$rfc,$id_direccion)
+		{
+			$nombreCli = mb_strtoupper($nombreCli);
+			$razonS = mb_strtoupper($razonS);
+			$rfc = mb_strtoupper($rfc);			
+			
+			$consulta1 = "INSERT INTO datos_fiscales (id_datFiscal,razon_social,rfc) 
+								VALUES(".$idDatFiscal.",'".$razonS."','".$rfc."')";
+			$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar datosFIS".mysql_error());
+			
+			$consulta2 = "INSERT INTO clientes (id_cliente,nombre,fecha_alta,id_datFiscal,id_direccion,activo) 
+									VALUES (".$idCli.",'".$nombreCli."','".$fecha_alta."','".$idDatFiscal."','".$id_direccion."','".$activo."')";
+				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar cliente ".mysql_error());	
+
+			$consulta3 = "INSERT INTO datos_bancarios (id_datBank,id_banco,sucursal,titular,no_cuenta,no_cuenta_interbancario,id_tipo_cuenta)
+							VALUES(".$idDatFiscal.",'".$razonS."','".$rfc."')";
+			$ejecutar3 = mysql_query($consulta3,$this->conexion) or die ("Error en insertar datos_bancarios".mysql_error());
+
+			return $ejecutar1 & $ejecutar2 & $ejecutar3;
+			}
+	//-----------------------------------------------------------------------------------------------------------------
+			
 		//proveedores
 
 		public function obtenerProveedores()
