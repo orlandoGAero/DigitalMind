@@ -21,7 +21,7 @@ section#principal{
 
 .menu-pro{width:800px;}
 .menu-pro ul{list-style: none;margin:0;padding:0;}
-.menu-pro ul li a{background: #99CCFF url(../images/arrow2.png) no-repeat center right;color: #FFF;display:block;font-size: 14px;padding:5px 0 5px 1em;text-align: left;text-decoration: none;}
+.menu-pro ul li a{background: #99CCFF url(../images/arrow.png) no-repeat center right;color: #FFF;display:block;font-size: 14px;padding:5px 0 5px 1em;text-align: left;text-decoration: none;}
 /*.menu-pro ul li a:hover{background: #5DB1E0 url(../images/arrow2.png) no-repeat center right;}
 .menu-pro ul.vinculos{list-style: none;font-family: Tahoma, Geneva, sans-serif;font-size: 16px;} */
 .menu-pro ul li ul{display:none; width:100%; background-color:#E0FFFF;}    /*COLOR DEL CNTENIDO LISTADO*/
@@ -161,3 +161,20 @@ input[type=file]:focus, input[type=checkbox]:focus,input[type=radio], select:foc
   outline: 0px dotted #FF8C00;
 }
 
+/*Estilos div en columnas */
+
+.columns_left{
+float: left;
+margin: 5px;
+padding: 15px;
+width: 350px;
+height: auto;
+}
+
+.columns_right{
+float: left;
+margin: 5px;
+padding: 15px 0 0 43px;
+width: 350px;
+height: 300px;
+}

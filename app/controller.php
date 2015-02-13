@@ -18,7 +18,7 @@
 				'contactos' => $m->obtenerContactos(),
 			); 
 			
-			require __DIR__ . '/templates/mostrarContactos.php';
+			require __DIR__ . '/templates/contactos/mostrarContactos.php';
 		}
 		
 		public function verContacto(){
@@ -35,7 +35,7 @@
 			
 			$obtenerDatosContacto = $detalleContacto;
 			
-			require __DIR__ . '/templates/verContacto.php';
+			require __DIR__ . '/templates/contactos/verContacto.php';
 			
 		}
 		
@@ -110,9 +110,8 @@
 				}
 			}
 			
-			require __DIR__.'/templates/insertarContacto.php';
+			require __DIR__.'/templates/contactos/insertarContacto.php';
 		}
-
 
 		/* CODIGOS POSTALES */
 		public function listarCodPost()
@@ -178,13 +177,7 @@
 
 			require '/templates/proveedor/nuevoPro.php';
 		}
-
-
-
-
-
-
-
+		
 //------------------------------------------------------------------------------------------------
 //---------------------------------------------CLIENTES-------------------------------------------
 

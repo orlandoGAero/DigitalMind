@@ -62,14 +62,6 @@
 				$Contactos[] = $rows;
 			}
 			
-			/*$TableContactos = array(
-		         'sEcho' => $_POST['sEcho'],
-		         //'iTotalRecords' => $nTotal,
-		         //'iTotalDisplayRecords' => $nTotal,
-		         'aaData' => $Contactos);
-		 
-		    print_r(json_encode($TableContactos));*/
-			
 			return $Contactos;
 		}
 		
@@ -141,7 +133,7 @@
 			return $ejecutar1 & $ejecutar2;
 		}
 
-		public function validarDuplicidadContactos($nomCont,$apCont,$amCont,$idCont){
+		/*public function validarDuplicidadContactos($nomCont,$apCont,$amCont,$idCont){
 			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno 
 								FROM contacto 
 								WHERE nombreCon = '".$nomCont."' 
@@ -153,12 +145,12 @@
 			$rows = mysql_num_rows($ejecutar);
 			
 			return $rows;
-		}
+		}*/
 		
 		//CODIGOS POSTALES
 		public function obtenerCodigosPostales()
 		{
-			$consulta = "SELECT * FROM codigos_postales WHERE ORDER BY id_cp LIMIT 100";
+			$consulta = "SELECT * FROM codigos_postales LIMIT 5000";
 			$ejecutar = mysql_query($consulta, $this->conexion);
 			
 			$codigosPostales = array();

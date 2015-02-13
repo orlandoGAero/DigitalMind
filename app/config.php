@@ -19,6 +19,7 @@
 		//JS
 		static public $jquery162_min_js = "jquery-1.6.2.min.js";
 		static public $jquery_lksMenu_js = "jquery.lksMenu.js";
+		static public $paging_js = "paging.js";
 		//static public $jquery_dataTables_min = "jquery.dataTables.min.js";
     }
     

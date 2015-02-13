@@ -90,4 +90,4 @@
 
 <?php $contenido = ob_get_clean() ?>
 
-<?php include 'layout_second.php' ?>
+<?php include '../app/templates/layout_second.php' ?>

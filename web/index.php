@@ -3,7 +3,6 @@
     require_once __DIR__ . '/../app/config.php';
 	require_once __DIR__ . '/../app/model.php';
 	require_once __DIR__ . '/../app/controller.php';
-	require_once __DIR__ . '/../app/Encrypter.php';
 	
 	 $map = array(
 	     'inicio' => array('controller' =>'Controller', 'action' =>'inicio'),
