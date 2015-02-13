@@ -11,7 +11,7 @@
 		
 		<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
 			"id" para incluir los estilos a la tabla -->
-    	<table class="table display miTabla" id="contactos">
+    	<table class="table" id="miTabla">
     		<caption>Contactos</caption>
 			<thead>
 				<tr>
@@ -46,7 +46,6 @@
 				// Encriptamos el texto
 				//$c = Encrypter::encrypt("$idContacto");
 			?>
-			<tbody>
 				<tr>
 					<td><?php echo $contact['nombreCon'] ?></td>
 					<td><?php echo $contact['ap_paterno'] ?></td>
@@ -61,7 +60,6 @@
 						<a href="index.php?---------"><img src="images/eliminar.png" title="Eliminar"/></a>
 					</td>
 				</tr>
-			</tbody>
 			<?php endforeach; ?>
 		</table>
 	</div>

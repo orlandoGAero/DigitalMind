@@ -26,7 +26,8 @@ section#principal{
 /*.menu-pro ul li a:hover{background: #5DB1E0 url(../images/arrow2.png) no-repeat center right;}
 .menu-pro ul.vinculos{list-style: none;font-family: Tahoma, Geneva, sans-serif;font-size: 16px;} */
 .menu-pro ul li ul{display:none; width:100%;}
-.menu-pro ul li ul a{background: #F5F5F5; color:#28C7E0; cursor: pointer; display:block;font-weight: normal;margin-top:2px;padding-left: 10px;text-decoration: none;}
+/*cambio de color #fff antes: F5F5F5*/
+.menu-pro ul li ul a{background: #fff; color:#28C7E0; cursor: pointer; display:block;font-weight: normal;margin-top:2px;padding-left: 10px;text-decoration: none;}
 .menu-pro ul li ul a:hover{color: #111;}
 
 
@@ -56,17 +57,12 @@ input,
 select,
 textarea {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: normal;
   line-height: normal;
 }
 label {
-  padding-top: 6px;
-  margin-top: 1em;
-  font-size: 13px;
-  line-height: 18px;
-  width: 120px;
-  color: #404040;
+  
 }
 input,
 textarea,
@@ -260,4 +256,24 @@ margin: 5px;
 padding: 5px 0 0 43px;
 width: 350px;
 height: auto;
+}
+
+.dform {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.dform div label {
+  width: 15%;
+  color: #404040;
+  text-align: left;
+  line-height: 50px
+}
+
+.date {
+  border: none;
+}
+
+.date a:hover {
+  background-color: #fff;
 }
