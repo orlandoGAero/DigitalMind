@@ -333,22 +333,6 @@
 			return $cv_dfiscal;
 		}
 
-		//obtiene id direccion para inserción
-		public function incrementoDir()
-		{			
-			$sql="SELECT id_direccion FROM direcciones ORDER BY id_direccion DESC LIMIT 1";
-			$consulta=mysql_query($sql)or die ("Error de Consulta-Increment-Dir");
-			$filas=mysql_num_rows($consulta);
-			
-			if($filas==0){
-				$cv_dir = 1;
-			}else	{
-				$cv_dir = mysql_result($consulta,0,'id_direccion');
-				$cv_dir = ($cv_dir + 1);
-			}
-			return $cv_dir;
-		}
-
 		//combo dinamico para tipo de razon_social (FISICA,MORAL)
 		public function obtieneTrazon()
     	{

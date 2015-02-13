@@ -158,6 +158,13 @@
 												<label for="clabe">Clabe Interbancaria:</label>
 												<input type="text" name="clabe" maxlength="18"/>
 											</div>
+											<div>
+												<label for="tipo_cuenta"></label>
+												<select>
+													<option value selected>Selecciona un tipo de cuenta...</option>
+													<option></option>
+												</select>
+											</div>
 										</div>
 										</li>
 									</ul>
