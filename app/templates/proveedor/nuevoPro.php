@@ -186,4 +186,4 @@
 	</html>
 <?php $contenido = ob_get_clean() ?>
 
-<?php include '../app/templates/layout_second.php' ?>
+<?php include '../app/templates/layout_second.php' ?> 

@@ -4,7 +4,6 @@
 	<html>
 		<head>
 			<!-- Style CSS tabla--> 
-			
 		    <link rel="stylesheet" type="text/css" href="css/style-table.css">
 		</head>
 		<body>
