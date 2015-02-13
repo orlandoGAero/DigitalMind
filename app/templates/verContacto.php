@@ -5,7 +5,7 @@
 	<br />
 	
 	<div class="columns_left">
-		<table class="" id="miTabla">
+		<table class="miTabla" >
 			<caption>Contacto</caption>
 			<tr>
 				<th>Nombre</th>
@@ -63,7 +63,7 @@
 	</div>
 	
 	<div class="columns_right">
-		<table class="" id="miTabla">
+		<table class="miTabla" >
 			<caption>Dirección</caption>
 			<tr>
 				<th>Calle</th>

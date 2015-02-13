@@ -31,26 +31,35 @@
         <!-- JS libreria menu fijo -->
        <script src="<?php echo 'js/'.config::$jquery162_min_js ?>" type="text/javascript"></script>
             <script>
-    // Llamado cuando se cargue la página
-            posicionarMenu();
-
-            $(window).scroll(function() {    
-                posicionarMenu();
-            });
-
-            function posicionarMenu() {
-                var altura_del_header = $('header').outerHeight(true);
-                var altura_del_menu = $('nav').outerHeight(true);
-
-                if ($(window).scrollTop() >= altura_del_header){
-                    $('nav').addClass('fixed');
-                    $('.content').css('margin-top', (altura_del_menu) + 'px');
-                } else {
-                    $('nav').removeClass('fixed');
-                    $('.content').css('margin-top', '0');
-                }
-            }
-</script>   
+			    // Llamado cuando se cargue la página
+			            posicionarMenu();
+			
+			            $(window).scroll(function() {    
+			                posicionarMenu();
+			            });
+			
+			            function posicionarMenu() {
+			                var altura_del_header = $('header').outerHeight(true);
+			                var altura_del_menu = $('nav').outerHeight(true);
+			
+			                if ($(window).scrollTop() >= altura_del_header){
+			                    $('nav').addClass('fixed');
+			                    $('.content').css('margin-top', (altura_del_menu) + 'px');
+			                } else {
+			                    $('nav').removeClass('fixed');
+			                    $('.content').css('margin-top', '0');
+			                }
+			            }
+			</script>
+		
+		 <!-- DataTables CSS -->
+        <link rel="stylesheet" type="text/css" href="css/dataTables.css">
+        
+        <!-- DataTables jquery -->
+        <script type="text/javascript" charset="UTF-8" src="js/jquery.js"></script>
+        
+        <!-- DataTables -->
+		<script type="text/javascript" charset="UTF-8" src="js/jquery.dataTables.js"></script>
     </head>
 
     <body>

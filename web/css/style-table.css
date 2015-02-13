@@ -1,8 +1,8 @@
-#miTabla {
+.miTabla {
 	border-collapse : separate;
 }
 
-#miTabla caption{
+.miTabla caption{
 	text-align: center;
 	background-color: #003e6d;
 	color: #fff;
@@ -15,7 +15,7 @@
 	border-radius: 8px;
 }
 
-#miTabla th{
+.miTabla th{
 	/*estilo de los elementos(th)*/
 	background-color: #16555b;
 	color: #fff;
@@ -25,7 +25,7 @@
 	padding: 10px;
 }
 
-#miTabla td {
+.miTabla td {
 	/*estilo a los elementos (td)*/
 	border: 2px solid #fff;
 		-Moz-border-radius: 5px;
@@ -34,7 +34,7 @@
 	padding-right: 5px;
 }
 
-#miTabla tr:nth-child(odd) {
+.miTabla tr:nth-child(odd) {
 	/*para los colores de las filas impares*/
 	background-color: #00d29a;
 	color: #000;
@@ -42,14 +42,14 @@
 
 }
 
-#miTabla tr:nth-child(even) {
+.miTabla tr:nth-child(even) {
 	/*para los colores de las filas pares*/
 	background-color: #00e3cd;
 	color: #000;
 	font-weight: 500;
 }
 
-#miTabla tr:hover {
+.miTabla tr:hover {
 	background: #aae3cd;
 	color: #000;
 	cursor: pointer;
