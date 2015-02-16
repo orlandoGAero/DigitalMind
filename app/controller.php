@@ -39,14 +39,27 @@
 			
 		}
 		
+		function obtenerDireccion()
+		{
+			if (!isset($_REQUEST['cp'])) {
+				throw new Exception("Página no encontrada", 1);
+			}
+        
+			$idCodPost = $_REQUEST['cp'];
+				
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			$codPost = $m->obtenerCodigoP($idCodPost);			
+			$obtenerDatosDir = $codPost;
+			
+			require __DIR__ . '/templates/contactos/verDireccion.php';
+		}
+		
 		public function insertarContacto(){
 				
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
-			
-			/*$parametrosEstado = array(
-				'dirEstado' => $m->obtieneEstado(),
-			);*/
 			
 			$parametrosContactos = array(
 				//Datos Contacto
@@ -66,7 +79,7 @@
 				'pagWeb' => '',
 				//Datos dirección física
 				'idDir' => $m->incrementoDir(),
-				'dirEstado' => $m->obtieneEstado(),
+				//'dirEstado' => $m->obtieneEstado(),
 				'calleD' => '',
 				'numExterior' => '',
 				'numInterior' => '',
@@ -81,7 +94,7 @@
 				if($m->registrarContacto($_POST['idAddress'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
 						$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['telOficina'],
 						$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],$_POST['redSocialS'],
-						$_POST['webPage'],$_POST['state'])){
+						$_POST['webPage'])){
 							header('Location: index.php?url=listContact');
 				} else {
 						$parametrosContactos = array(

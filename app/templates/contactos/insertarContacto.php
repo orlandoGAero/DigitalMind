@@ -19,7 +19,7 @@
 	<h1><!-- <a href="index.php?url=listContact" title="regresar" onclick="return confirm('Desea salir antes de guardar?');"><img src="images/salir.png" width="20px" height="20px" /></a> -->Nuevo Contacto</h1>
 	<div class="menu-pro">
 		<ul>
-			<form action="index.php?url=insertContact" method="POST" name="formContact">
+			<form action="index.php?url=insertContact" method="POST" id="formContact">
 				<li><a href="#">Datos Contacto</a>
 					<ul>
 						<li>
@@ -60,8 +60,9 @@
 									</td>
 								</tr>
 									<tr><!-- IdDirección --><td><input type="text"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></td></tr>
-									<tr><th>Código Postal</th><td><input type="text" id="cp" name="postcode"/></td></tr>
-									<tr>
+									<tr><th>Código Postal</th><td><input type="text" name="postcode" required method="POST" onkeyup="new Ajax.Updater('resultado','index.php?url=obtenerDir&cp='+this.value, {method: 'POST'})"/></td></tr>
+									<div id="resultado"></div>
+									<!--<tr>
 										<th>Estado</th>
 										<td>
 											<select id="st" name="state" >
@@ -72,7 +73,7 @@
 										</td>
 									</tr>
 									<tr><th>Municipio</th><td><select id="muni" name="municipality"></select></td></tr>
-									<tr><th>Localidad</th><td><select id="loc" name="locality"></select></td></tr>
+									<tr><th>Localidad</th><td><select id="loc" name="locality"></select></td></tr> -->
 									<tr><th>Calle</th><td><input type="text" name="street" required value="<?php echo $parametrosContactos['calleD'] ?>" /> * </td></tr>
 									<tr><th>No. Ext</th><td><input type="text" name="numExt" value="<?php echo $parametrosContactos['numExterior'] ?>" /></td></tr>
 									<tr><th>No. Int</th><td><input type="text"  name="numInt" value="<?php echo $parametrosContactos['numInterior'] ?>" /></td></tr>

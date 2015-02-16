@@ -15,6 +15,7 @@
 	     'listContact' => array('controller' =>'Controller', 'action' =>'listarContacto'),
 	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
 	     'insertContact' => array('controller' =>'Controller', 'action' =>'insertarContacto'),
+	     'obtenerDir' => array('controller' =>'Controller', 'action' =>'obtenerDireccion'),
 
 	     //-------------------------CLIENTES-------------------------------------------
 	     'listaCliente' => array('controller' =>'Controller', 'action' =>'listaCliente'), 
