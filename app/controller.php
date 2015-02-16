@@ -178,5 +178,17 @@
 
 			require '/templates/proveedor/nuevoPro.php';
 		}
+
+		public function cargarContactosPro()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+				$obtContactos = array(
+					'listcontacto' => $model->obtenerContactos(),
+				); 
+				
+			require __DIR__ . '/templates/proveedor/table-contact.php';
+		}
     }
 ?>
