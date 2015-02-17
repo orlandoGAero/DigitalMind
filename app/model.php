@@ -185,7 +185,7 @@
 			$ejecutar = mysql_query($consulta, $this->conexion);
 			$filas = mysql_num_rows($ejecutar);
 		
-            if($filas!=0){
+            if($filas != 0){
             	$codigoPostal= array();
             	while ($rows = mysql_fetch_assoc($ejecutar)) {
 					$codigosPostales[] = $rows;

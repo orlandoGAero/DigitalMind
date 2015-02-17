@@ -178,3 +178,7 @@ padding: 15px 0 0 43px;
 width: 350px;
 height: 300px;
 }
+
+/*input:valid, textarea:valid {
+background: green;
+}*/

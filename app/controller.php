@@ -41,18 +41,17 @@
 		
 		function obtenerDireccion()
 		{
-			if (!isset($_REQUEST['postcode'])) {
-				throw new Exception("Página no encontrada", 1);
-			}
-        
-			$idCodPost = $_REQUEST['postcode'];
+			if ($_REQUEST['postcode']!="") {
 				
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-						
-			$codPost = $m->obtenerCodigoP($idCodPost);			
-			$obtenerDatosDir = $codPost;
-			
+				$idCodPost = $_REQUEST['postcode'];
+				
+				$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+							config::$mvc_db_pass, config::$mvc_db_hostname);
+							
+				$codPost = $m->obtenerCodigoP($idCodPost);			
+				$obtenerDatosDir = $codPost;
+			}
+
 			require __DIR__ . '/templates/contactos/verDireccion.php';
 		}
 		
