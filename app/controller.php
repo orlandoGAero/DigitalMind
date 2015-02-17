@@ -41,11 +41,11 @@
 		
 		function obtenerDireccion()
 		{
-			if (!isset($_REQUEST['cp'])) {
+			if (!isset($_REQUEST['postcode'])) {
 				throw new Exception("Página no encontrada", 1);
 			}
         
-			$idCodPost = $_REQUEST['cp'];
+			$idCodPost = $_REQUEST['postcode'];
 				
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);

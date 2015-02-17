@@ -60,8 +60,9 @@
 									</td>
 								</tr>
 									<tr><!-- IdDirección --><td><input type="text"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></td></tr>
-									<tr><th>Código Postal</th><td><input type="text" name="postcode" required method="POST" onkeyup="new Ajax.Updater('resultado','index.php?url=obtenerDir&cp='+this.value, {method: 'POST'})"/></td></tr>
-									<div id="resultado"></div>
+									<tr><th>Código Postal</th><td><input type="text" name="postcode" required maxlength="6" onKeyUp="cpview(this.form)" />
+										<!--method="POST" onkeyup="new Ajax.Updater('resultado','index.php?url=obtenerDir&postcode='+this.value, {method: 'POST'})"--> </td></tr>
+									<tr><th></th><td><div id="resultado"></div></td></tr>
 									<!--<tr>
 										<th>Estado</th>
 										<td>
@@ -90,7 +91,21 @@
 			</form>
 		</ul>
 	</div>
-
+	
+	<script type="text/javascript">
+		$(function (e) {
+			$('#formContact').submit(function (e) {
+				e.preventDefault()
+				$('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())
+			})
+		})
+		
+		function cpview(form)
+		{
+	       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    
+		}
+	</script>
+	
 <?php $contenido = ob_get_clean() ?>
 
 <?php include '../app/templates/layout_second.php' ?>

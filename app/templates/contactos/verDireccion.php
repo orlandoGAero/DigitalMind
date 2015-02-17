@@ -1,21 +1,15 @@
-<?php ob_start() ?>
-	<?php $obtenerDatosDir['id_cp'] ?>
+<?php if (isset($obtenerDatosDir[0]['id_cp'])): ?>
+	<?php $obtenerDatosDir[0]['id_cp'] ?>
 	
-	Estado <?php $obtenerDatosDir['estado'] ?>
-	Municipio <?php $obtenerDatosDir['municipio'] ?>
-	holalmklm
-	<tr>
-		<th>Localidad</th>
-		<td>
-			<select id="loc" name="locality" >
-				<?php foreach ($obtenerDatosDir as $locality) : ?>
-						<option value="<?php echo $locality['id_cp'] ?>"><?php echo $locality['localidad'] ?></option>
-				<?php endforeach; ?>
-			</select>
-		</td>
-	</tr>
-	
-	
-<?php $contenido = ob_get_clean() ?>
-
-<?php include '../app/templates/layout_second.php' ?>
+	<b>Estado:</b> <?php echo $codPost[0]['estado'] ?>
+	<br />
+	<b>Municipio:</b> <?php echo $codPost[0]['municipio'] ?>
+	<br />
+	<b>Localidad</b>
+		
+	<select id="loc" name="locality" >
+		<?php foreach ($obtenerDatosDir as $locality) : ?>
+				<option value="<?php echo $locality['id_cp'] ?>"><?php echo $locality['localidad'] ?></option>
+		<?php endforeach; ?>
+	</select>
+<?php endif ?>

@@ -184,14 +184,14 @@
 			$consulta = "SELECT * FROM codigos_postales WHERE codigoP = ".$idCp." order by localidad";
 			$ejecutar = mysql_query($consulta, $this->conexion);
 			$filas = mysql_num_rows($ejecutar);
-           		$codigoPostal= array();
 		
-            	if($filas!=0){
-                    while ($rows = mysql_fetch_assoc($ejecutar)) {
+            if($filas!=0){
+            	$codigoPostal= array();
+            	while ($rows = mysql_fetch_assoc($ejecutar)) {
 					$codigosPostales[] = $rows;
-			}
+				}
             
-		    return $codigosPostales;
+		    	return $codigosPostales;
             }
 		}
 		
