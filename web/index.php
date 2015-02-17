@@ -28,7 +28,7 @@
      	 /*------------------------------PROVEEDOR----------------------------------------------*/
 	     'Proveedores' => array('controller' =>'Controller', 'action' =>'Proveedor'),
 	     'NuevoProveedor' => array('controller' =>'Controller', 'action' =>'InsertarProveedor'),
-	     'listcontactpro' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
+	     'TablaContactos' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
 
 	 );
  

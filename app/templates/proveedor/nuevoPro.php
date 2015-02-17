@@ -32,7 +32,7 @@
 				{
 					$('#tablecontact').click(function(event)
 					{
-						$('#tablaCont').load('../app/templates/proveedor/table-contact.php');
+						$('#tablaCont').load('index.php?url=TablaContactos');
 					});
 				});
 			</script>
@@ -137,6 +137,31 @@
 																</div>
 															</div>
 														</div> <!--fin de div de ventana emergente-->
+														<!-- div para mostrar datos del contacto -->
+														<div id="datosContacto">
+															<h4>Datos del Contacto Seleccionado</h4>
+															<div>
+																<label>Nombre:</label>
+																<label></label>
+															</div>
+															<div>
+																<label>&Aacute;rea</label>
+																<label></label>
+															</div>
+															<div>
+																<label></label>
+																<label></label>
+															</div>
+															<div>
+																<label></label>
+																<label></label>
+															</div>
+															<div>
+																<label></label>
+																<label></label>
+															</div>
+														</div>
+														<!-- fin de div para mostrar datos del contacto -->
 													</div>
 												</div>
 											</li>
