@@ -90,11 +90,12 @@
 			
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
-				if($m->registrarContacto($_POST['idAddress'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
+				if($m->registrarContacto($_POST['idAddress'],$_POST['locality'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
 						$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['telOficina'],
 						$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],$_POST['redSocialS'],
 						$_POST['webPage'])){
-							header('Location: index.php?url=listContact');
+							echo "<script> alert('Registro guradado'); </script>";
+							//header('Location: index.php?url=listContact');
 				} else {
 						$parametrosContactos = array(
 						'idCont' => $_POST['idContact'],
@@ -112,6 +113,7 @@
 						'RSSkype' => $_POST['redSocialS'],
 						'pagWeb' => $_POST['webPage'],
 						'idDir' => $_POST['idAddress'],
+						'idCP' => $_POST['locality'],
 						'calleD' => $_POST['street'],
 						'numExterior' => $_POST['numExt'],
 						'numInterior' => $_POST['numInt'],

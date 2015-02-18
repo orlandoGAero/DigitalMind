@@ -70,10 +70,11 @@
 			$idCon = htmlspecialchars($idCon);
 			
 			$consulta = "SELECT c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,c.nombre_area,c.movil,c.tel_oficina,c.tel_emergencia,c.correo_p,c.correo_instu,
-												c.facebook,c.twitter,c.skype,c.direccion_web,d.calle,d.num_ext,d.num_int,d.colonia,d.referencia
-								FROM contacto c, direcciones d
-								WHERE d.id_direccion=c.id_direccion
-									AND c.id_contacto = ".$idCon;
+								c.facebook,c.twitter,c.skype,c.direccion_web,cp.estado,cp.municipio,cp.localidad,cp.codigoP,d.calle,d.num_ext,d.num_int,d.colonia,d.referencia
+								FROM codigos_postales cp, direcciones d, contacto c
+								WHERE cp.id_cp = d.id_cp
+									AND d.id_direccion=c.id_direccion
+									AND c.id_contacto =  ".$idCon;
 			$ejecutar = mysql_query($consulta, $this->conexion);
 			
 			$contactl= array();
@@ -97,7 +98,7 @@
 			return $idCo;
 		}
 		
-		public function registrarContacto($idDireccion,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,
+		public function registrarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,
 		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
 		$correoInstituCont,$facebookCont,$twitterCont,$skypeCont,$dirWebCont)
 		{
@@ -120,8 +121,8 @@
 			$skypeCont = mb_strtolower($skypeCont);
 			$dirWebCont = mb_strtolower($dirWebCont);
 			
-			$consulta1 = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia) 
-								VALUES(".$idDireccion.",'".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."');";
+			$consulta1 = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia,id_cp) 
+								VALUES(".$idDireccion.",'".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."',".$idCP.");";
 			$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
 			
 			echo $consulta2 = "INSERT INTO contacto (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,

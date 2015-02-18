@@ -10,8 +10,8 @@
 	<table class="buscar">
 		<tr>
 			<td width="100%">
-				<form name="formBusqueda" action="index.php?url=----" method="POST">
-				<b class="azul">Buscar</b> <input type="text" name="busqueda" maxlength="50" required />
+				<form name="formBusqueda">
+				<b class="azul">Buscar</b> <input type="search" name="busqueda" id="buscador" autocomplete="off" maxlength="50" required="required" placeholder="Agrega lo que deseas buscar" />
 				</form>
 				<td>
 				<a href='index.php?url=insertContact'><img src="images/add.png" title="Nuevo Contacto" align='right' width="25px" height="25px"/></a>
@@ -19,6 +19,8 @@
 			</td>	
 		</tr>
 	</table>
+	
+	<br />
 	
 	<div id="NavPosicion"></div> 	<!--Div donde se mostrara las opciones del paginado 1|2|3...-->
 	
@@ -66,11 +68,38 @@
 		</table>
 	</div>
 	
+	<!-- Script para paginar la tabla de contactos en 5 filas -->
 	<script type="text/javascript">
-		var pager = new Pager('miTabla', 4);
+		var pager = new Pager('miTabla', 5);
 		pager.init();
 		pager.showPageNav('pager', 'NavPosicion');
 		pager.showPage(1);
+	</script>
+	
+	<!-- Función JQuery para filtrar los datos de la tabla de contactos -->
+	<script type="text/javascript">
+		jQuery("#buscador").keyup(function(){
+		    if( jQuery(this).val() != ""){
+		        jQuery("#miTabla tbody>tr").hide();
+		        jQuery("#miTabla td:contiene-palabra('" + jQuery(this).val() + "')").parent("tr").show();
+		        $('#NavPosicion').hide();
+		    }
+		    else{
+		        jQuery("#miTabla  tbody>tr").show();
+		        $('#NavPosicion').show();
+		        var pager = new Pager('miTabla', 5);
+				pager.init();
+				pager.showPageNav('pager', 'NavPosicion');
+				pager.showPage(1);
+		    }
+		});
+		 
+		jQuery.extend(jQuery.expr[":"], 
+		{
+		    "contiene-palabra": function(elem, i, match, array) {
+		        return (elem.textContent || elem.innerText || jQuery(elem).text() || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+		    }
+		});
 	</script>
 	
 <?php $contenido = ob_get_clean() ?>
