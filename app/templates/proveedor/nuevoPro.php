@@ -200,7 +200,7 @@
 													<input type="text" name="clabe" maxlength="18"/>
 												</div>
 												<div>
-													<label for="tipo_cuenta"></label>
+													<label for="tipo_cuenta">Tipo de cuenta:</label>
 													<select>
 														<option value selected>Selecciona un tipo de cuenta...</option>
 														<option></option>

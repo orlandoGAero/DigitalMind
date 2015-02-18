@@ -25,6 +25,24 @@
 		</table>
 	</div>
 
+	<div class="columns_left">
+		<table class="miTabla" >
+			<caption>Datos Fiscales</caption>
+			<tr>
+				<th>Raz&oacute;n Social</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>RFC</th>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Tipo de Raz&oacute;n</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
 	<div class="columns_right">
 		<table class="miTabla" >
 			<caption>Direcci&oacute;n</caption>
@@ -64,4 +82,39 @@
 				<th>Estado</th>
 				<td></td>
 			</tr>
+		</table>
 	</div>
+
+	<div class="columns_left">
+		<table class="miTabla" >
+			<caption>Datos Bancarios</caption>
+			<tr>
+				<th>Banco</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>Sucursal</th>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Titular</td>
+				<td></td>hgvhgc
+			</tr>
+			<tr>
+				<td>No.Cuenta</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Clabe Interbancaria</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Tipo de cuenta</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+<?php $contenido = ob_get_clean() ?>
+
+<?php include 'layout_second.php' ?>
