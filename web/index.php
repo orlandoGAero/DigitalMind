@@ -29,6 +29,7 @@
 	     'Proveedores' => array('controller' =>'Controller', 'action' =>'Proveedor'),
 	     'NuevoProveedor' => array('controller' =>'Controller', 'action' =>'InsertarProveedor'),
 	     'TablaContactos' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
+	     'DetalleProveedor' => array('controller' =>'Controller', 'action' =>'verProveedor'),
 
 	 );
  

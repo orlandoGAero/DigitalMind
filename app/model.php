@@ -204,6 +204,8 @@
 
 		public function obtenerDetalleProveedor($idProv)
 		{
+			$idProv = htmlspecialchars($idProv);
+
 			$sqldetPro = "SELECT pro.id_prov, pro.proveedor, pro.tel, pro.dirweb, 
 						       	 ctepro.categoria,
 						         datf.razon_social, datf.rfc,
@@ -226,7 +228,7 @@
 						     datos_bancarios datbank,
 						     tipo_cuenta tcuenta,
 						     det_bank_prov dtbapro
-						WHERE pro.id_prov = ".$idProv;
+						WHERE pro.id_prov = ".$idProv."
 						AND ctepro.id_categoria=pro.id_categoria
 						AND datf.id_datFiscal=pro.id_datFiscaL
 						AND tdatfis.id_tipo_ra=datf.id_tipo_ra
