@@ -122,7 +122,7 @@
 			$dirWebCont = mb_strtolower($dirWebCont);
 			
 			$consulta1 = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia,id_cp) 
-								VALUES(".$idDireccion.",'".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."',".$idCP.");";
+								VALUES('$idDireccion','$calleCont',$numExtCont,$numIntCont,'$coloniaCont','$referenciaCont',$idCP);";
 			$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
 			
 			echo $consulta2 = "INSERT INTO contacto (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,

@@ -89,7 +89,13 @@
 					</tr>
 					<tr>
 						<th>Número Interior</th>
-						<td><?php echo $detalleContacto['num_int'] ?></td>
+						<td>
+							<?php if ($detalleContacto['num_int'] == 0) :?>
+								<?php echo $detalleContacto['num_int'] = "S/N" ?>
+							<?php  else :?>
+								<?php echo $detalleContacto['num_int'] ?>
+							<?php endif; ?>
+							</td>
 					</tr>
 					<tr>
 						<th>Código Postal</th>

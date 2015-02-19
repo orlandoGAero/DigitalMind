@@ -86,18 +86,14 @@
 				'referenciaD' => '',
 			);
 			
-			
-			
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			
-				if($m->registrarContacto($_POST['idAddress'],$_POST['locality'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
-						$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['telOficina'],
-						$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],$_POST['redSocialS'],
-						$_POST['webPage'])){
-							echo "<script> alert('Registro guradado'); </script>";
-							//header('Location: index.php?url=listContact');
-				} else {
-						$parametrosContactos = array(
+				print_r($_POST);
+				$band = 0;
+				
+				if ($_POST['nameContact'] == "" && $_POST['ApPContact'] == "" && $_POST['ApMContact'] == ""){
+					$band = 1;
+					
+					$parametrosContactos = array(
 						'idCont' => $_POST['idContact'],
 						'nombre' => $_POST['nameContact'],
 						'app' => $_POST['ApPContact'],
@@ -120,9 +116,51 @@
 						'coloniaD' => $_POST['colonia'],
 						'referenciaD' => $_POST['reference'],
 					);
-					$parametrosContactos['mensaje'] = 'Error al registrar contactos. Revise el formulario';
+					$parametrosContactos['mensaje'] = 'Complete toda la información requerida antes de continuar';
 				}
-			}
+
+				if($_POST['locality'] == 0 ){
+					$band = 1;
+					
+					$parametrosContactos = array(
+						'idCont' => $_POST['idContact'],
+						'nombre' => $_POST['nameContact'],
+						'app' => $_POST['ApPContact'],
+						'apm' => $_POST['ApMContact'],
+						'area' => $_POST['nameArea'],
+						'movil' => $_POST['telMovil'],
+						'tel_ofi' => $_POST['telOficina'],
+						'tel_emer' => $_POST['telEmergencia'],
+						'correoPers' => $_POST['emailPersonal'],
+						'correoInsti' => $_POST['emailInstitucional'],
+						'RSFacebook' => $_POST['redSocialF'],
+						'RSTwitter' => $_POST['redSocialT'],
+						'RSSkype' => $_POST['redSocialS'],
+						'pagWeb' => $_POST['webPage'],
+						'idDir' => $_POST['idAddress'],
+						'idCP' => $_POST['locality'],
+						'calleD' => $_POST['street'],
+						'numExterior' => $_POST['numExt'],
+						'numInterior' => $_POST['numInt'],
+						'coloniaD' => $_POST['colonia'],
+						'referenciaD' => $_POST['reference'],
+					);
+					$parametrosContactos['mensaje2'] = 'Seleccione una localidad';
+				}
+				
+				if($_POST['numInt'] == ""){
+					$_POST['numInt'] = 0;
+				}
+				
+				if($band == 0){
+					if($m->registrarContacto($_POST['idAddress'],$_POST['locality'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
+						$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['telOficina'],
+						$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],$_POST['redSocialS'],
+						$_POST['webPage'])){
+							header('Location: index.php?url=listContact');
+						}
+					}
+				}
 			
 			require __DIR__.'/templates/contactos/insertarContacto.php';
 		}
