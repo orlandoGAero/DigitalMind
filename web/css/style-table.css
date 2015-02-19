@@ -23,6 +23,7 @@
 	border: 2px solid #fff;
 	text-align: center;
 	padding: 10px;
+	cursor: default;
 }
 
 #miTabla td {

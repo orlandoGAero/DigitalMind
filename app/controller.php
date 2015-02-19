@@ -8,7 +8,7 @@
 			require __DIR__ . '/templates/inicio.php';
     	}
 
-		//CONTACTOS
+		//---------------------------------------------CONTACTOS-------------------------------------------
 		public function listarContacto()
 		{
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
@@ -165,72 +165,6 @@
 			require __DIR__.'/templates/contactos/insertarContacto.php';
 		}
 
-		/* CODIGOS POSTALES */
-		public function listarCodPost()
-		{
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-						
-			$obtenerDatos = array(
-				'codigos_postales' => $m->obtenerCodigosPostales(),
-			);
-			
-			require __DIR__ . '/templates/mostrarCodigosPostales.php';
-		}
-		
-		public function insertarCodPost()
-		{
-			
-			require __DIR__ . '/templates/________';
-		}
-		
-		public function buscarCodPost()
-		{
-			
-			require __DIR__ . '/templates/________';
-		}
-		
-		public function verCodPost()
-		{				
-			if (!isset($_GET['idCP'])) {
-				throw new Exception("Página no encontrada", 1);
-			}
-			
-			$idCodPost = $_GET['idCP'];
-			
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-						
-			$codPost = $m->obtenerCodigoPostal($idCodPost);
-			
-			$obtenerDatos = $codPost;
-			
-			require __DIR__ . '/templates/verCodigoPostal.php';
-		}
-
-		// FUNCIONES PROVEEDORES
-
-		public function Proveedor()
-		{
-			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-			$obtenerDat = array(
-			'proveedores' => $model->obtenerProveedores(),
-			);
-
-			require '/templates/proveedor/mostrarProveedores.php';
-		}
-
-		public function InsertarProveedor()
-		{
-			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-			require '/templates/proveedor/nuevoPro.php';
-		}
-		
-//------------------------------------------------------------------------------------------------
 //---------------------------------------------CLIENTES-------------------------------------------
 
 		public function listaCliente()
@@ -358,6 +292,99 @@
 			require __DIR__ . '/templates/clientes/modificar_cl.php';
     	}
 
+		// FUNCIONES PROVEEDORES
+	
+		public function Proveedor()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
 
+			$obtenerDat = array(
+			'proveedores' => $model->obtenerProveedores(),
+			);
+
+			require '/templates/proveedor/mostrarProveedores.php';
+		}
+
+		public function InsertarProveedor()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			require '/templates/proveedor/nuevoPro.php';
+		}
+
+		public function cargarContactosPro()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+				$obtContactos = array(
+					'listcontacto' => $model->obtenerContactos(),
+				); 
+				
+			require __DIR__ . '/templates/proveedor/table-contact.php';
+		}
+
+		public function verProveedor()
+		{
+			if (!isset($_GET['id_Proveedor'])) {
+				throw new Exception("Página no encontrada", 1);
+			}
+
+			$idProveedor = $_GET['id_Proveedor'];
+
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			$detProveedor = $model->obtenerDetalleProveedor($idProveedor);
+
+			$obtenerDatosProveedor = $detProveedor;
+
+			require __DIR__ . '/templates/proveedor/verProveedor.php';
+		}
+		
+		/* CODIGOS POSTALES */
+		public function listarCodPost()
+		{
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			$obtenerDatos = array(
+				'codigos_postales' => $m->obtenerCodigosPostales(),
+			);
+			
+			require __DIR__ . '/templates/mostrarCodigosPostales.php';
+		}
+		
+		public function insertarCodPost()
+		{
+			
+			require __DIR__ . '/templates/________';
+		}
+		
+		public function buscarCodPost()
+		{
+			
+			require __DIR__ . '/templates/________';
+		}
+		
+		public function verCodPost()
+		{				
+			if (!isset($_GET['idCP'])) {
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$idCodPost = $_GET['idCP'];
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			$codPost = $m->obtenerCodigoPostal($idCodPost);
+			
+			$obtenerDatos = $codPost;
+			
+			require __DIR__ . '/templates/verCodigoPostal.php';
+		}
     }
 ?>

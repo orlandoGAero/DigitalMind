@@ -3,7 +3,8 @@
     require_once __DIR__ . '/../app/config.php';
 	require_once __DIR__ . '/../app/model.php';
 	require_once __DIR__ . '/../app/controller.php';
-	
+
+	// enrutamiento
 	 $map = array(
 	     'inicio' => array('controller' =>'Controller', 'action' =>'inicio'),
 	     'listarCodPos' => array('controller' =>'Controller', 'action' =>'listarCodPost'),
@@ -11,7 +12,7 @@
 	     'buscarCP' => array('controller' =>'Controller', 'action' =>'buscarCP'),
 	     'verCodPost' => array('controller' =>'Controller', 'action' =>'verCodPost'),
 	     
-	     //CONTACTOS
+	     //-------------------------CONTACTOS-------------------------------------------
 	     'listContact' => array('controller' =>'Controller', 'action' =>'listarContacto'),
 	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
 	     'insertContact' => array('controller' =>'Controller', 'action' =>'insertarContacto'),
@@ -25,10 +26,11 @@
      	 'agregarCl' => array('controller' =>'Controller', 'action' =>'agregarCl'),     	 
      	 'modCl' => array('controller' =>'Controller', 'action' =>'modCl'),
      	 
-		 // proveedor
-		 'Proveedores' => array('controller' =>'Controller', 'action' =>'Proveedor'),
-		 'NuevoProveedor' => array('controller' =>'Controller', 'action' =>'InsertarProveedor'),
-
+     	 /*------------------------------PROVEEDOR----------------------------------------------*/
+	     'Proveedores' => array('controller' =>'Controller', 'action' =>'Proveedor'),
+	     'NuevoProveedor' => array('controller' =>'Controller', 'action' =>'InsertarProveedor'),
+	     'TablaContactos' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
+	     'DetalleProveedor' => array('controller' =>'Controller', 'action' =>'verProveedor'),
 	 );
 	 
  	// Parseo de la ruta

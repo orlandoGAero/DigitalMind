@@ -4,7 +4,6 @@
 	<html>
 		<head>
 			<!-- Style CSS tabla--> 
-			
 		    <link rel="stylesheet" type="text/css" href="css/style-table.css">
 		</head>
 		<body>
@@ -26,7 +25,7 @@
 					</thead>
 					<?php 
 						foreach ($obtenerDat['proveedores'] as $prov) :
-							$pro = $prov['id_prov'];
+							$idpro = $prov['id_prov'];
 					?>
 					<tr>
 						<td><?php echo $prov['id_prov'] ?></td>
@@ -35,7 +34,7 @@
 						<td><?php echo $prov['rfc'] ?></td>
 						<td><?php echo $prov['municipio'] ?></td>
 						<td><?php echo $prov['estado'] ?></td>
-						<td><?php echo "<a href=''><img src='images/detalle.png'></a>"; ?></td>
+						<td><?php echo "<a href='index.php?url=DetalleProveedor&id_Proveedor=$idpro'>" ?> <img src='images/detalle.png' title="Detalle"></a></td>
 						<td><?php echo "<a href=''><img src='images/editar.png'></a>"; ?></td>
 						<td><?php echo "<a href=''><img src='images/eliminar.png'></a>";?></td>			
 					</tr>

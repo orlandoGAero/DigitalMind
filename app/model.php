@@ -442,6 +442,50 @@
 			}
 			return $proveedores;
 		}
+
+		public function obtenerDetalleProveedor($idProv)
+		{
+			$idProv = htmlspecialchars($idProv);
+
+			$sqldetPro = "SELECT pro.id_prov, pro.proveedor, pro.tel, pro.dirweb, 
+						       	 ctepro.categoria,
+						         datf.razon_social, datf.rfc,
+						         tdatfis.tipo,
+						         cp.codigoP, cp.localidad, cp.municipio, cp.estado,
+						         dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,
+						         bank.nombre_banco,
+						         datbank.sucursal,
+						         datbank.titular,
+						         datbank.no_cuenta,
+						         datbank.no_cuenta_interbancario,
+						         tcuenta.tipo_cuenta
+						FROM proveedores pro, 
+						     categoria_prov ctepro,
+						     datos_fiscales datf, 
+						     tipos_razon_social tdatfis,
+						     codigos_postales cp, 
+						     direcciones dir,
+						     bancos bank,
+						     datos_bancarios datbank,
+						     tipo_cuenta tcuenta,
+						     det_bank_prov dtbapro
+						WHERE pro.id_prov = ".$idProv."
+						AND ctepro.id_categoria=pro.id_categoria
+						AND datf.id_datFiscal=pro.id_datFiscaL
+						AND tdatfis.id_tipo_ra=datf.id_tipo_ra
+						AND cp.id_cp=dir.id_cp
+						AND dir.id_direccion=pro.id_direccion
+						AND bank.id_banco=datbank.id_banco
+						AND tcuenta.id_tipo_cuenta=datbank.id_tipo_cuenta
+						AND pro.id_prov=dtbapro.id_prov
+						AND datbank.id_datBank=dtbapro.id_datBank";
+			$ejecutardetPro = mysql_query($sqldetPro, $this->conexion);
+
+			$detallePro = array();
+			$rowsPro = mysql_fetch_assoc($ejecutardetPro);
+			
+			return $rowsPro;
+		}
     }
     
 ?>
