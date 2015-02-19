@@ -264,7 +264,7 @@
 				'razonS' => '',				
 				'rfc' => '',
 				'tipoRason_Social' => '',				
-				'idDir' => $m->incrementoDir(),
+				'idAddress' => $m->incrementoDir(),
 				'idDBank' => $m->incrementoDB(),
 				
 			);
@@ -288,7 +288,7 @@
 						'rfc' => $_POST['rfc'],
 						'tipoRason_Social' => $_POST['tipoRason_Social'],
 						//id_direccion
-						'idDir' => $_POST['idAddress'],
+						'idAddress' => $_POST['idAddress'],
 						//id_contacto
 						//'idCont' => $_POST['idCont'],
 						//Datos_bancarios

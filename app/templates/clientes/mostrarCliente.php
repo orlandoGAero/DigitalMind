@@ -55,10 +55,10 @@
 
 
 <script type="text/javascript">
-var pager = new Pager('miTabla', 4);
-pager.init();
-pager.showPageNav('pager', 'NavPosicion');
-pager.showPage(1);
+	var pager = new Pager('miTabla', 4);
+	pager.init();
+	pager.showPageNav('pager', 'NavPosicion');
+	pager.showPage(1);
 </script>
 	
 <?php $contenido = ob_get_clean() ?>
