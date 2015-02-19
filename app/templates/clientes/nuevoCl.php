@@ -246,7 +246,7 @@
 								<div id="nContacto" style="width:720px;height:450px;overflow:auto;">
 							<!-- Aqui va el contenido de la ventana-->
 
-							<form action="guardar.php" method="post" id="nuevo" style="display: none;"><br>
+							<form action="guardar.php" method="post" id="frmdoC" name="frmdoC"><br>
 				<table>
 					<tr>
 						<td>
