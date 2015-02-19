@@ -58,6 +58,24 @@
             
                 
 			</script>
+
+<!--FORM_contacto-->
+			<script type="text/javascript">		
+				$('document').ready(function() {
+					$('#newC').fancybox();
+				});
+			</script>
+	
+			<script >
+			$(function (e) {
+				$('#frmdoC').submit(function (e) {
+					e.preventDefault()
+					$('#nContacto').load('../app/templates/clientes/new_contacto.php?' + $('#frmdoC').serialize())
+				})
+			})
+	</script> 	<!--Fin-->
+
+
 </head>
 
 <body>
@@ -76,12 +94,12 @@
 					<li>
 					<form action="index.php?url=agregarCl" method="post">
 						<table class="nuevo-pro">
-							<tr><th></th><td><input type="hidden" name="idCliente" value="<?php echo $Clientes['idCli']?>"required class="form-control"/></td></tr>
-							<tr><th><label><b>Nombre</b></label></th><td><input type="text" name="nomb"  value="<?php echo $Clientes['nombre']?>"required class="form-control"/></td></tr>
+							<tr><th><label>Clave</label></th><td><input type="text" name="idCliente" value="<?php echo $Clientes['idCli']?>" readonly class="form-control"/></td></tr>
+							<tr><th><label><b>Nombre</b></label></th><td><input type="text" name="nomb"  value="<?php echo $Clientes['nombre']?>" class="form-control" required placeholder="KRISMAR" /></td></tr>
 							<tr><th><label><b>Fecha Alta</b></label></th><td><input type="date" name="f_alta" value="<?php echo date("Y-m-d"); ?>" required class="form-control" /></td></tr>
 							<tr><th><label><b>Activo<b></label></th><td>
-								Si <input type = 'radio' name = 'activo' value = 'Si'  />
-								No <input type = 'radio' name = 'activo' value = 'No' /></td></tr>                                         
+								Si <input type = 'radio' name = 'activo' value = 'Si' required="required" />
+								No <input type = 'radio' name = 'activo' value = 'No'  required="required" /></td></tr>                                         
 									
 						</table>
 					</li>
@@ -91,9 +109,9 @@
 				<ul>
 					<li>
 						<table class="nuevo-pro">
-							<tr><th></th><td><input type="hidden" name="idDatF" value="<?php echo $Clientes['idDatF']?>"required class="form-control"/></td></tr>
-							<tr><th><label><b>Razón Social</b></label></th><td><input type="text" name="razonS" value="<?php echo $Clientes['razonS']?>" class="form-control"/></td><td></td></tr>
-							<tr><th><label><b>RFC</b></label></th><td><input type="text" name="rfc" maxlength="15" placeholder="VECJ880326 XXXX" value="<?php echo $Clientes['rfc']?>" class="form-control"/></td><td></td></tr>
+							<tr><th><label>Clave</label></th><td><input type="text" name="idDatF" value="<?php echo $Clientes['idDatF']?>"readonly class="form-control"/></td></tr>
+							<tr><th><label><b>Razón Social</b></label></th><td><input type="text" name="razonS" value="<?php echo $Clientes['razonS']?>" placeholder="GRUPO RSA S.A. DE C.V." class="form-control" required/></td><td></td></tr>
+							<tr><th><label><b>RFC</b></label></th><td><input type="text" name="rfc" maxlength="15" placeholder="VECJ880326 XXXX" value="<?php echo $Clientes['rfc']?>" class="form-control" required pattern="[a-zA-Z0-9]+"/></td><td></td></tr>
 							<tr><th><label><b>Tipo Razón</b></label></th><td><select name="tipoRason_Social" class="form-control">
 							<?php  
 									$obtenerTipo = array(
@@ -138,12 +156,11 @@
 								<table>
 										<td width="253px"></td>
 										<td width="253px"></td>
-										<td width="220px"><a href=""><img src="images/new_cont.png" alt="Nuevo Contacto" title="Nuevo Contacto" /> Nuevo Contacto</a></td>
+										<td width="220px"><a id='newC' href="#nContacto" title="Nueva Contacto"><img src="images/new_cont.png" alt="Nuevo Contacto" title="Nuevo Contacto" /> Nuevo Contacto</a></td>
 										<td width="235px"><a href=""><img src="images/buscar.png" alt="Agregar Contacto" title="Agregar Contacto" /> Agregar</a></td>
 									</tr>
 								</table>
-							</td></tr>
-							</td></tr>
+							
 						</table>
 					</li>
 				</ul>
@@ -203,12 +220,12 @@
             <table  class="nuevo-pro ">
 
     		<?php
-                 $id_dir = model::incrementoDir(['id_direccion']);
+                 $id_dir = model::idDir(['id_direccion']);
 			?>
             
-			<tr><th>Clave</th><td><input type="text"  name="id_dir" value="<?php echo $id_dir ?>" readonly /></td></tr>
+			<tr><th>Clave</th><td><input type="number"  name="id_dir" value="<?php echo $id_dir ?>" readonly /></td></tr>
             
-            <tr><td>CP:</td><td><input name="cp" type="text" maxlength="6" onKeyUp="cpview(this.form)" /></td></tr>
+            <tr><td>CP:</td><td><input name="cp" type="text" minlength="4" maxlength="5" onKeyUp="cpview(this.form)" required /></td></tr>
           
 </table>	
 
@@ -222,6 +239,47 @@
         
 	</div>
 </div>
+
+<!--  ventana emergente-->
+
+							<div style="display: none;">
+								<div id="nContacto" style="width:720px;height:450px;overflow:auto;">
+							<!-- Aqui va el contenido de la ventana-->
+
+							<form action="guardar.php" method="post" id="frmdoC" name="frmdoC"><br>
+				<table>
+					<tr>
+						<td>
+							<table class="nuevo">
+								<tr><th></th><td><input type="hidden" name="id_contacto" required disabled /></td></tr>
+								<tr><th width="140px">Nombre</th><td><input type="text" name="nombre" autofocus required /></td><th>Twitter</th><td><input type="text" name="twitter" /></td></tr>
+								<tr><th>A. Paterno</th><td><input type="text" name="a_paterno" required /></td><th>Skype</th><td><input type="text" name="skype" placeholder="skype" /></td></tr>
+								<tr><th>A. Materno</th><td><input type="text" name="a_materno" required /></td><th>Web</th><td><input type="url" name="direccion_web" placeholder="http://dominio.com.mx" /></td></tr>
+								<tr><th>Area Contacto</th><td><input type="text" name="areaC"/></td></th>
+								<?php
+                					 $id_dir = model::incrementoDir(['id_direccion']);
+								?>
+
+								<th>Clave</th><td><input type="text"  name="idd" value="<?php echo $id_dir ?>" readonly /></td></tr>
+								<tr><th>Fecha Alta</th><td><input type="date" name="Fecha_Alta"value="<?php echo date("Y-m-d"); ?>" class="form-control" readonly /></td><th>CP:</td><td><input name="cp" type="number"  required maxlength="6" onKeyUp="cpview(this.form)" /></td></tr>
+								<tr><th>Móvil</th><td><input type="tel" name="movil" maxlength="12" /></td></th></td><th>Facebook</th><td><input type="text" name="facebook" /></td></tr>
+								<tr><th>Tel. Oficina</th><td><input type="tel" name="Tel_Oficina" maxlength="12" /></td><th></th><td></td></tr>									
+								<tr><th>Tel. Emergencia</th><td><input type="tel" name="Tel_Emergencia" maxlength="12" /></td><th></th><td></td></tr>	
+								<tr><th>Email Personal</th><td><input type="email" name="correo" placeholder="ejemplo@dominio.com" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" /></td><th></th><td></td></tr>	
+								<tr><th>Email Institucional</th><td><input type="email" name="correo_inst" placeholder="ejemplo@dominio.com" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" /></td><th></th><td></td></tr>	
+								<tr><th>Facebook</th><td><input type="text" name="facebook" /></td><th></th><td></td></tr>	
+						
+							</table>
+						</td>
+					</tr><br>
+					<tr><td colspan="2"><input type="submit" class="btn primary" value="Guardar" name="Guardar" /></td></tr>
+				</table>
+			</form>	
+					</center>
+							        
+								</div>
+							</div>
+
 
 
 <?php $contenido = ob_get_clean() ?>

@@ -195,7 +195,9 @@
 		    	return $codigosPostales;
             }
 		}
-		
+
+
+
 		/*Consulta para el listado de clientes*/
 		public function obtieneClientes()
 		{
@@ -215,6 +217,19 @@
 			return $Clientes;  
 			}
 
+
+			//obtiene id direccion para insercion
+		public function idDir($cv_dir)
+		{			
+			$sql="SELECT id_direccion FROM direcciones ORDER BY id_direccion DESC LIMIT 1";
+			$consulta=mysql_query($sql)or die ("Error de Consulta-Increment-Dir");
+			$filas=mysql_num_rows($consulta);
+			$cv_dir=mysql_result($consulta,0,'id_direccion');
+			$cv_dir=($cv_dir + 1);
+			return $cv_dir;
+		}
+
+	
 		/*Consulta para el detalle_ Cliente*/
 		public function  obtieneVcliente($cv_cli)
 		{
@@ -262,7 +277,7 @@
 				 }
 
 
-		//elimianción de cliente
+		//eliminación de cliente
 		public function elimCliente($del_cli)
 		{
 		
@@ -391,6 +406,7 @@
          $ejecutar =mysql_query($sql) or die (mysql_error());				
         }
 			 
+			//inserta CLIENTE
 		 public function addCliente($idCli,$nombreCli,$fecha_alta,$activo,$idDatFiscal,$razonS,$rfc,$id_direccion)
 		{
 			$nombreCli = mb_strtoupper($nombreCli);
@@ -403,13 +419,9 @@
 			
 			$consulta2 = "INSERT INTO clientes (id_cliente,nombre,fecha_alta,id_datFiscal,id_direccion,activo) 
 									VALUES (".$idCli.",'".$nombreCli."','".$fecha_alta."','".$idDatFiscal."','".$id_direccion."','".$activo."')";
-				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar cliente ".mysql_error());	
+			$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar cliente ".mysql_error());	
 
-			$consulta3 = "INSERT INTO datos_bancarios (id_datBank,id_banco,sucursal,titular,no_cuenta,no_cuenta_interbancario,id_tipo_cuenta)
-							VALUES(".$idDatFiscal.",'".$razonS."','".$rfc."')";
-			$ejecutar3 = mysql_query($consulta3,$this->conexion) or die ("Error en insertar datos_bancarios".mysql_error());
-
-			return $ejecutar1 & $ejecutar2 & $ejecutar3;
+			return $ejecutar1 & $ejecutar2;
 			}
 	//-----------------------------------------------------------------------------------------------------------------
 			

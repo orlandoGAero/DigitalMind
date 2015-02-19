@@ -28,6 +28,7 @@ function agregarDir()
 
 $holo=agregarDir();
 
-echo "Exito!!!"
-
+echo" <script> alert('La direccion ha sido registrada') 
+			window.location='index.php?url=listaCliente';
+				 		</script> ";
 ?>
