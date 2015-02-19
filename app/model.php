@@ -236,7 +236,7 @@
 			return $cv_dir;
 		}
 
-
+	
 		/*Consulta para el detalle_ Cliente*/
 		public function  obtieneVcliente($cv_cli)
 		{
@@ -428,8 +428,7 @@
 									VALUES (".$idCli.",'".$nombreCli."','".$fecha_alta."','".$idDatFiscal."','".$id_direccion."','".$activo."')";
 			$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar cliente ".mysql_error());	
 
-
-			return $ejecutar1 & $ejecutar2/* & $ejecutar3*/;
+			return $ejecutar1 & $ejecutar2;
 			}
 	//-----------------------------------------------------------------------------------------------------------------
 			

@@ -260,7 +260,7 @@
                 					 $id_dir = model::incrementoDir(['id_direccion']);
 								?>
 
-								<th>Clave</th><td><input type="text"  name="id_dir" value="<?php echo $id_dir ?>" readonly /></td></tr>
+								<th>Clave</th><td><input type="text"  name="idd" value="<?php echo $id_dir ?>" readonly /></td></tr>
 								<tr><th>Fecha Alta</th><td><input type="date" name="Fecha_Alta"value="<?php echo date("Y-m-d"); ?>" class="form-control" readonly /></td><th>CP:</td><td><input name="cp" type="number"  required maxlength="6" onKeyUp="cpview(this.form)" /></td></tr>
 								<tr><th>Móvil</th><td><input type="tel" name="movil" maxlength="12" /></td></th></td><th>Facebook</th><td><input type="text" name="facebook" /></td></tr>
 								<tr><th>Tel. Oficina</th><td><input type="tel" name="Tel_Oficina" maxlength="12" /></td><th></th><td></td></tr>									
