@@ -54,7 +54,7 @@
 		
 		//CONTACTOS
 		public function obtenerContactos(){
-			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,correo_instu FROM contacto ORDER BY nombreCon;";
+			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,correo_p,activo FROM contacto ORDER BY nombreCon;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			
 			$Contactos = array();
@@ -122,19 +122,19 @@
 			$dirWebCont = mb_strtolower($dirWebCont);
 			
 			$consulta1 = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia,id_cp) 
-								VALUES('$idDireccion','$calleCont',$numExtCont,$numIntCont,'$coloniaCont','$referenciaCont',$idCP);";
+								VALUES('".$idDireccion."','".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."',".$idCP.");";
 			$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
 			
-			echo $consulta2 = "INSERT INTO contacto (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,
-									correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,fecha_alta)
+			$consulta2 = "INSERT INTO contacto (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,
+									correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,activo,fecha_alta)
 									VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",".$telOficinaCont.",".$telEmergenciaCont.",'".$correoPersonalCont."',
-									'".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."','".$dirWebCont."',".$idDireccion.",NOW());";
+									'".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."','".$dirWebCont."',".$idDireccion.",'Si',NOW());";
 				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar contacto ".mysql_error());	
 			
 			return $ejecutar1 & $ejecutar2;
 		}
 
-		/*public function validarDuplicidadContactos($nomCont,$apCont,$amCont,$idCont){
+		public function validarDuplicidadContactos($nomCont,$apCont,$amCont,$idCont){
 			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno 
 								FROM contacto 
 								WHERE nombreCon = '".$nomCont."' 
@@ -145,37 +145,55 @@
 			
 			$rows = mysql_num_rows($ejecutar);
 			
-			return $rows;
-		}*/
-		
-		//CODIGOS POSTALES
-		public function obtenerCodigosPostales()
-		{
-			$consulta = "SELECT * FROM codigos_postales LIMIT 5000";
-			$ejecutar = mysql_query($consulta, $this->conexion);
-			
-			$codigosPostales = array();
-			while ($rows = mysql_fetch_assoc($ejecutar)) {
-				$codigosPostales[] = $rows;
+			if($rows != 0){
+				echo "El contacto".$nomCont." ".$apCont."  ". $amCont;
 			}
 			
-			return $codigosPostales;
+			return $ejecutar;
 		}
 		
-		public function obtenerCodigoPostal($idCp)
-		{
-			$idCp = htmlspecialchars($idCp);
+		public function borrarContacto($idCont){
+			$consulta1 = "SELECT cc.id_contacto
+								FROM contacto c, cliente_contacto cc
+								WHERE c.id_contacto = cc.id_contacto
+									AND c.id_contacto = ".$idCont;
+			$ejecutar1 = mysql_query($consulta1,$this->conexion) or die (mysql_error());
+			$filas1 = mysql_num_rows($ejecutar1);
 			
-			$consulta = "SELECT * FROM codigos_postales WHERE id_cp = ".$idCp;
-			$ejecutar = mysql_query($consulta, $this->conexion);
+			$consulta2 = "SELECT pc.id_contacto
+								FROM contacto c, proveedores_contacto pc
+								WHERE c.id_contacto = pc.id_contacto
+									AND c.id_contacto = ".$idCont;
+			$ejecutar2 = mysql_query($consulta2,$this->conexion) or die (mysql_error());
+			$filas2 = mysql_num_rows($ejecutar2);
 			
-			$codigoPostal= array();
-			$rows = mysql_fetch_assoc($ejecutar);
-			
-			return $rows;	 
-			}
+			if($filas1 !=0  || $filas2 != 0){
+				$consulta = "SELECT activo FROM contacto WHERE id_contacto = ".$idCont;
+				$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+				$Activo = mysql_result($ejecutar, 0, 'activo');
+				
+				if($Activo != 'No'){
+					$cunsultaActualiza = "UPDATE contacto SET activo = 'No' WHERE id_contacto = ".$idCont;
+					$ejecutarActualiza = mysql_query($cunsultaActualiza,$this->conexion) or die (mysql_error());
+					echo" <script> alert('El registro no puede ser eliminado, soló se desactivo') 
+								window.location='index.php?url=listContact';
+						 	</script> ";
+				}else{
+					echo" <script> alert('El registro ya esta desactivado') 
+								window.location='index.php?url=listContact';
+						 	</script> ";
+				}
+				
+			}else{
+				$consultaElim = "DELETE FROM contacto WHERE id_contacto = ".$idCont;
+				$ejecutarElim = mysql_query($consultaElim,$this->conexion) or die (mysql_error());
+				
+				echo" <script> alert('El registro ha sido eliminado correctamente') 
+							window.location='index.php?url=listContact';
+					 	</script> ";
+			}			
+		}		
 
-		//---------------------------------------------------------------------------------------------------------------
 		/*--------------------------------------------------CLIENTES----------------------------------------------------*/
 		
 		/*Funcion para cargar ventana emergente los datos del formulario Dirección segun el CP ingresado*/
@@ -485,6 +503,33 @@
 			$rowsPro = mysql_fetch_assoc($ejecutardetPro);
 			
 			return $rowsPro;
+		}
+		
+		//CODIGOS POSTALES
+		public function obtenerCodigosPostales()
+		{
+			$consulta = "SELECT * FROM codigos_postales LIMIT 5000";
+			$ejecutar = mysql_query($consulta, $this->conexion);
+			
+			$codigosPostales = array();
+			while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$codigosPostales[] = $rows;
+			}
+			
+			return $codigosPostales;
+		}
+		
+		public function obtenerCodigoPostal($idCp)
+		{
+			$idCp = htmlspecialchars($idCp);
+			
+			$consulta = "SELECT * FROM codigos_postales WHERE id_cp = ".$idCp;
+			$ejecutar = mysql_query($consulta, $this->conexion);
+			
+			$codigoPostal= array();
+			$rows = mysql_fetch_assoc($ejecutar);
+			
+			return $rows;	 
 		}
     }
     

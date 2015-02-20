@@ -1,4 +1,4 @@
-<?php if (isset($obtenerDatosDir[0]['codigoP'])): ?>
+<?php if (isset($obtenerDatosDir[0]['codigoP'])) :?>
 	<table class="table" id="miTabla">
 			<tr>
 				<th>Estado</th>

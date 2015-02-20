@@ -39,7 +39,8 @@
 					<th>Área</th>
 					<th>Móvill</th>
 					<th>Télefono Oficina</th>
-					<th>Correo Institucional</th>
+					<th>Correo Personal</th>
+					<th>Activo</th>
 					<th>Operaciones</th>
 				</tr>
 			</thead>			
@@ -57,11 +58,12 @@
 					<td><?php echo $contact['nombre_area'] ?></td>
 					<td><?php echo $contact['movil'] ?></td>
 					<td><?php echo $contact['tel_oficina'] ?></td>
-					<td><?php echo $contact['correo_instu'] ?></td>
+					<td><?php echo $contact['correo_p'] ?></td>
+					<td><?php echo $contact['activo'] ?></td>
 					<td>
-						<?php echo "<a href='index.php?url=viewContact&idContact=$idContacto'>" ?> <img src="images/detalle.png" title="Detalle"/></a>
+						<?php echo "<a href='index.php?url=viewContact&idContact=".$idContacto."'>" ?> <img src="images/detalle.png" title="Detalle"/></a>
 						<a href="index.php?"><img src="images/editar.png" title="Modificar"/></a>
-						<a href="index.php?---------"><img src="images/eliminar.png" title="Eliminar"/></a>
+						<?php echo "<a href='index.php?url=deletedContact&idContact=".$idContacto."'>" ?> <img src="images/eliminar.png" title="Eliminar"/></a>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -78,6 +80,7 @@
 	
 	<!-- Función JQuery para filtrar los datos de la tabla de contactos -->
 	<script type="text/javascript">
+	
 		jQuery("#buscador").keyup(function(){
 		    if( jQuery(this).val() != ""){
 		        jQuery("#miTabla tbody>tr").hide();
@@ -100,6 +103,7 @@
 		        return (elem.textContent || elem.innerText || jQuery(elem).text() || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
 		    }
 		});
+		
 	</script>
 	
 <?php $contenido = ob_get_clean() ?>

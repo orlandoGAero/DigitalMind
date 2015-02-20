@@ -78,7 +78,7 @@
 				'pagWeb' => '',
 				//Datos dirección física
 				'idDir' => $m->incrementoDir(),
-				//'dirEstado' => $m->obtieneEstado(),
+				'cp' => '',
 				'calleD' => '',
 				'numExterior' => '',
 				'numInterior' => '',
@@ -90,7 +90,7 @@
 				print_r($_POST);
 				$band = 0;
 				
-				if ($_POST['nameContact'] == "" && $_POST['ApPContact'] == "" && $_POST['ApMContact'] == ""){
+				if ($_POST['nameContact'] == ""){
 					$band = 1;
 					
 					$parametrosContactos = array(
@@ -109,7 +109,8 @@
 						'RSSkype' => $_POST['redSocialS'],
 						'pagWeb' => $_POST['webPage'],
 						'idDir' => $_POST['idAddress'],
-						'idCP' => $_POST['locality'],
+						//'idCP' => $_POST['locality'],
+						'cp' => $_POST['postcode'],
 						'calleD' => $_POST['street'],
 						'numExterior' => $_POST['numExt'],
 						'numInterior' => $_POST['numInt'],
@@ -138,18 +139,51 @@
 						'RSSkype' => $_POST['redSocialS'],
 						'pagWeb' => $_POST['webPage'],
 						'idDir' => $_POST['idAddress'],
-						'idCP' => $_POST['locality'],
+						//'idCP' => $_POST['locality'],
+						'cp' => $_POST['postcode'],
 						'calleD' => $_POST['street'],
 						'numExterior' => $_POST['numExt'],
 						'numInterior' => $_POST['numInt'],
 						'coloniaD' => $_POST['colonia'],
 						'referenciaD' => $_POST['reference'],
 					);
-					$parametrosContactos['mensaje2'] = 'Seleccione una localidad';
+					$parametrosContactos['mensaje'] = 'Seleccione una localidad';
 				}
 				
 				if($_POST['numInt'] == ""){
 					$_POST['numInt'] = 0;
+				}
+
+				if($band == 0){
+					$m->validarDuplicidadContactos($_POST['nameContact'], $_POST['ApPContact'], $_POST['ApMContact'], $_POST['idContact']);
+						
+							$band = 1;
+							$parametrosContactos = array(
+								'idCont' => $_POST['idContact'],
+								'nombre' => $_POST['nameContact'],
+								'app' => $_POST['ApPContact'],
+								'apm' => $_POST['ApMContact'],
+								'area' => $_POST['nameArea'],
+								'movil' => $_POST['telMovil'],
+								'tel_ofi' => $_POST['telOficina'],
+								'tel_emer' => $_POST['telEmergencia'],
+								'correoPers' => $_POST['emailPersonal'],
+								'correoInsti' => $_POST['emailInstitucional'],
+								'RSFacebook' => $_POST['redSocialF'],
+								'RSTwitter' => $_POST['redSocialT'],
+								'RSSkype' => $_POST['redSocialS'],
+								'pagWeb' => $_POST['webPage'],
+								'idDir' => $_POST['idAddress'],
+								//'idCP' => $_POST['locality'],
+								'cp' => $_POST['postcode'],
+								'calleD' => $_POST['street'],
+								'numExterior' => $_POST['numExt'],
+								'numInterior' => $_POST['numInt'],
+								'coloniaD' => $_POST['colonia'],
+								'referenciaD' => $_POST['reference'],
+							);
+						
+					
 				}
 				
 				if($band == 0){
@@ -163,6 +197,20 @@
 				}
 			
 			require __DIR__.'/templates/contactos/insertarContacto.php';
+		}
+
+		public function eliminarContacto(){
+				
+			if(!isset($_GET['idContact'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$IdContacto = $_GET['idContact'];
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$eliminarContacto = $m-> borrarContacto($IdContacto);
 		}
 
 //---------------------------------------------CLIENTES-------------------------------------------
@@ -387,4 +435,4 @@
 			require __DIR__ . '/templates/verCodigoPostal.php';
 		}
     }
-?>''
+?>

@@ -22,7 +22,7 @@
         <link href="<?php echo 'css/'.config::$animate_css ?>" rel="stylesheet" />
 
         <!-- Custom CSS -->
-        <link href="<?php echo 'css/'.config::$style_css ?>" rel="stylesheet" /''>
+        <link href="<?php echo 'css/'.config::$style_css ?>" rel="stylesheet" />
 
         <!-- Custom Fonts 
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'> -->        
@@ -124,7 +124,6 @@
                         </div>
                        
                     </div>
-                     <div><?php echo $contenido ?></div>
                 </div>
             </div>
         </div>

@@ -2,7 +2,6 @@
 <html lang="en">
 
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,19 +50,10 @@
 			                }
 			            }
 			</script>
-		
-		 <!-- DataTables CSS -->
-        <link rel="stylesheet" type="text/css" href="css/dataTables.css">
-        
-        <!-- DataTables jquery -->
-        <script type="text/javascript" charset="UTF-8" src="js/jquery.js"></script>
-        
-        <!-- DataTables -->
-		<script type="text/javascript" charset="UTF-8" src="js/jquery.dataTables.js"></script>
     </head>
 
     <body>
-  
+ 
         <header>
             <div class="banner"><img src="images/banerletras.png"></div>
             <div class="principal">
@@ -95,9 +85,7 @@
         <!-- Start Main Body Section-->
         <div class="mainbody-section text-center" id="menu-index">
             <div class="container">          
-				<div>
 					<?php echo $contenido ?>
-				</div>
             </div>
         </div>
         <!-- End Main Body Section --> 

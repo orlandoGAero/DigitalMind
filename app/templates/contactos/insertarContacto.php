@@ -24,7 +24,7 @@
 											<li>
 												<table  class="nuevo-pro" >
 													<tr> <!-- IdContacto --> <td> <?php echo $parametrosContactos['idCont'] ?> <input type="hidden" name="idContact" value="<?php echo $parametrosContactos['idCont']  ?>" readonly /> </td>  </tr>
-													<tr> <th> Nombre </th> <td> <input type="text" name="nameContact" autofocus="autofocus" autocomplete="off"  required="required" maxlength="50" value="<?php echo $parametrosContactos['nombre'] ?>" /> * </td>  </tr>
+													<tr> <th> Nombre </th> <td> <input type="text" name="nameContact" autofocus="autofocus" autocomplete="off"   maxlength="50" value="<?php echo $parametrosContactos['nombre'] ?>" /> * </td>  </tr>
 													<tr> <th> Apellido Paterno </th> <td> <input type="text" name="ApPContact" autocomplete="off"  required="required" maxlength="50" value="<?php echo $parametrosContactos['app'] ?>"  /> * </td>  </tr>
 													<tr> <th> Apellido Materno </th> <td> <input type="text" name="ApMContact" autocomplete="off"  required="required" maxlength="50" value="<?php echo $parametrosContactos['apm'] ?>" /> * </td>  </tr>
 													<tr> <th> Área </th> <td> <input type="text" name="nameArea" autocomplete="off" required="required" maxlength="50" value="<?php echo $parametrosContactos['area'] ?>" /> * </td>  </tr>
@@ -61,11 +61,11 @@
 														<tr><!-- IdDirección --><td> <?php echo $parametrosContactos['idDir'] ?> <input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></td></tr>
 														<tr>
 															<th>Código Postal</th>
-															<td><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  onKeyUp="cpview(this.form)"  /></td>
+															<td><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  value="<?php echo $parametrosContactos['cp'] ?>" onKeyUp="cpview(this.form)"  /></td>
 															<!--method="POST" onkeyup="new Ajax.Updater('resultado','index.php?url=obtenerDir&postcode='+this.value, {method: 'POST'})" />-->
 														</tr>
 														
-														<tr><td colspan="2"><div id="resultado"></div></td></tr>
+														<tr><td colspan="2"><div id="resultado"> </div></td></tr>
 														
 														<tr><th>Calle</th><td><input type="text" name="street" autocomplete="off" required="required" maxlength="50" value="<?php echo $parametrosContactos['calleD'] ?>" /> * </td></tr>
 														<tr><th>No. Ext</th><td><input type="text" class="keysNumbers" name="numExt" autocomplete="off" required="required" maxlength="5" value="<?php echo $parametrosContactos['numExterior'] ?>" /> * </td></tr>
@@ -78,7 +78,7 @@
 										</ul>
 									</li>
 									
-									<input type="submit" class="boton2" value="Guardar" name="btnGuardar" />
+									<input type="submit" class="boton2" value="Guardar" name="btnGuardar" id="btnGuardar"  />
 									
 								</form>
 							</ul>
@@ -89,12 +89,14 @@
 	</div>
 	
 	<script type="text/javascript">
+		function mostrar(){
+			document.getElementById('resultado').style.display='block';
+		}
+		
 		$('document').ready(function(){
 			$('.menu-pro').lksMenu();
 		});
-	</script>
-	
-	<script type="text/javascript">
+		
 		function cpview(form)
 		{
 	       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    
