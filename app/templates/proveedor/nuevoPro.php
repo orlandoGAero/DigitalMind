@@ -41,6 +41,7 @@
 			<section id="contenido">
 				<div align="left"><a href="index.php?url=Proveedores"><img src="images/leftarrow.png"></a></div>
 				<section id="principal">
+					<h1>Nuevo Proveedor</h1>
 					<div class="menu-pro">
 						<form action="" name="" id="" method="" class="cmxform">
 							<fieldset>
@@ -49,6 +50,10 @@
 										<ul>
 											<li>	
 												<div class="dform">
+													<div>
+														<input type="hidden" name="idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
+													</div>
+
 													<div>
 														<label for="fecha">Fecha Alta:</label>
 														<input type="date" name="f_alta" value="<?php echo date("Y-m-d"); ?>" readonly class="date"/>
@@ -61,9 +66,11 @@
 
 													<div>
 														<label for="categoria">Categor&iacute;a:</label>
-														<select>
+														<select id="catprov" name="catprov">
 															<option value selected>Ingresa una categor&iacute;a...</option>
-															<option></option>
+															<?php foreach ($parametrosProveedores['categoriaprov'] as $catpro) : ?>
+															<option value="<?php echo $catpro['categoria'] ?>"><?php echo $catpro['categoria']?></option>
+															<?php endforeach; ?>
 														</select>
 													</div>
 
@@ -97,9 +104,11 @@
 
 													<div>
 														<label for="tipo">Tipo Raz&oacute;n:</label></td>
-														<select>
+														<select id="tipo_rs" name="tipo_rs">
 																<option value selected>Ingresa un tipo de raz&oacute;n...</option>
-																<option></option>
+																<?php foreach($parametrosProveedores ['tipo_razon'] as $tipors) : ?>
+																<option value="<?php echo $tipors['tipo'] ?>"><?php echo $tipors['tipo'] ?></option>
+																<?php endforeach; ?>
 														</select>
 													</div>
 												</div>
@@ -110,8 +119,10 @@
 									<li><a href="#">Datos Direcci&oacute;n F&iacute;sica</a>
 										<ul>
 											<li>	
-												<div>
-													
+												<div class="dform">
+													<div>
+														
+													</div>
 												</div>
 											</li>
 										</ul>
@@ -130,7 +141,7 @@
 														<!-- div para ventana emergente -->
 														<div style="display: none;">
 															<!-- contenido de la ventana emergente -->
-															<div id="contact" style="width:800px;height:350px;overflow:auto;">
+															<div id="contact" style="width:800px;height:410px;overflow:auto;">
 																<!-- div para tabla de contactos -->
 																<div id="tablaCont">
 																		
@@ -141,23 +152,23 @@
 														<div id="datosContacto">
 															<h4>Datos del Contacto Seleccionado</h4>
 															<div>
+																<label>Clave:</label>
+																<label name="id_cont"></label>
+															</div>
+															<div>
 																<label>Nombre:</label>
 																<label></label>
 															</div>
 															<div>
-																<label>&Aacute;rea</label>
+																<label>&Aacute;rea:</label>
 																<label></label>
 															</div>
 															<div>
-																<label></label>
-																<label></label>
-															</div>
-															<div>
-																<label></label>
+																<label>Tel&eacute;fono M&oacute;vil:</label>
 																<label></label>
 															</div>
 															<div>
-																<label></label>
+																<label>Correo Institucional:</label>
 																<label></label>
 															</div>
 														</div>
@@ -174,9 +185,11 @@
 											<div class="dform">
 												<div>
 													<label for="banco">Banco:</label>
-													<select>
+													<select id="banco" name="banco">
 														<option value selected>Selecciona un banco...</option>
-														<option></option>
+														<?php foreach($parametrosProveedores ['banco'] as $bank) : ?>
+														<option value="<?php echo $bank['nombre_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
+														<?php endforeach; ?>
 													</select>
 												</div>
 													
@@ -199,11 +212,14 @@
 													<label for="clabe">Clabe Interbancaria:</label>
 													<input type="text" name="clabe" maxlength="18"/>
 												</div>
+
 												<div>
 													<label for="tipo_cuenta">Tipo de cuenta:</label>
-													<select>
+													<select id="tipo_c" name="tipo_c">
 														<option value selected>Selecciona un tipo de cuenta...</option>
-														<option></option>
+														<?php foreach ($parametrosProveedores ['tipo_cta'] as $tipo_c) : ?>
+														<option value="<?php echo $tipo_c['tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
+														<?php endforeach; ?>
 													</select>
 												</div>
 											</div>
@@ -211,6 +227,11 @@
 										</ul>
 									</li>
 								</ul>
+
+								<div>
+									<input type="submit" class="" value="Guardar" name="btnGuardar" />
+								</div>
+
 							</fieldset>
 						</form>
 					</div>

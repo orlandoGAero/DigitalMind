@@ -157,7 +157,7 @@
 			require __DIR__ . '/templates/verCodigoPostal.php';
 		}
 
-		// FUNCIONES PROVEEDORES
+		// -----------------------FUNCIONES PROVEEDORES---------------------------------
 
 		public function Proveedor()
 		{
@@ -175,6 +175,26 @@
 		{
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			$parametrosProveedores = array(
+				// datos proveedor
+				'idprov' => $model->obtenerIdProveedor(),
+				'proveedor' => '',
+				'categoriaprov' => $model->obtenerCategoria(),
+				'phone' => '',
+				'direweb' => '',
+				// datos fiscales
+				'razon_s' => '',
+				'rfc' => '',
+				'tipo_razon' => $model->obtieneTrazon(),
+				// datos bancarios
+				'banco' => $model->obtieneBanco(),
+				'sucursal' => '',
+				'titular' => '',
+				'num_cuenta' => '',
+				'clabe' => '',
+				'tipo_cta' => $model->obtieneTipoC(),
+			);
 
 			require '/templates/proveedor/nuevoPro.php';
 		}

@@ -1,11 +1,17 @@
 <!-- Style CSS tabla--> 
 <link rel="stylesheet" type="text/css" href="css/style-table.css">
 <div class="table-responsive">
-		
+
 	<!-- "id" para incluir los estilos a la tabla -->
 	<table class="table" id="miTabla">
 		<caption>Contactos</caption>
 		<thead>
+			<tr>
+				<th colspan="7">
+					<label>Buscar:</label>
+					<input type="text"/>
+				</th>
+			</tr>
 			<tr>
 				<th>Nombre</th>
 				<th>Apellido Paterno</th>
@@ -29,7 +35,7 @@
 				<td><?php echo $contacto['nombre_area'] ?></td>
 				<td><?php echo $contacto['movil'] ?></td>
 				<td><?php echo $contacto['correo_instu'] ?></td>
-				<td align="center"><a href=""><img src="images/choose.png"></a></td>
+				<td align="center"><a href=""><img src="images/elegir.png" class="palomita"></a></td>
 			</tr>
 		<?php endforeach; ?>
 	</table>

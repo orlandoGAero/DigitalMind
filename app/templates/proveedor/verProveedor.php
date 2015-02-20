@@ -117,6 +117,64 @@
 		</table>
 	</div>
 
+	<div class="columns_right">
+		<table class="miTabla" >
+			<caption>Contactos</caption>
+			<tr>
+				<th>Nombre</th>
+				<td><?php echo $detProveedor['nombreCon'] ?></td>
+			</tr>
+			<tr>
+				<th>Apellido Paterno</th>
+				<td><?php echo $detProveedor['ap_paterno'] ?></td>
+			</tr>
+			<tr>
+				<th>Apellido Materno</th>
+				<td><?php echo $detProveedor['ap_paterno'] ?></td>
+			</tr>
+			<tr>
+				<th>&Aacute;rea</th>
+				<td><?php echo $detProveedor['nombre_area'] ?></td>
+			</tr>
+			<tr>
+				<th>Tel&eacute;fono M&oacute;vil</th>
+				<td><?php echo $detProveedor['movil'] ?></td>
+			</tr>
+			<tr>
+				<th>Tel&eacute;fono Oficina</th>
+				<td><?php echo $detProveedor['tel_oficina'] ?></td>
+			</tr>
+			<tr>
+				<th>Tel&eacute;fono Emergencia</th>
+				<td><?php echo $detProveedor['tel_emergencia'] ?></td>
+			</tr>
+			<tr>
+				<th>Correo Personal</th>
+				<td><?php echo $detProveedor['correo_p'] ?></td>
+			</tr>
+			<tr>
+				<th>Correo Institucional</th>
+				<td><?php echo $detProveedor['correo_instu'] ?></td>
+			</tr>
+			<tr>
+				<th>Facebook</th>
+				<td><?php echo $detProveedor['facebook'] ?></td>
+			</tr>
+			<tr>
+				<th>Twitter</th>
+				<td><?php echo $detProveedor['twitter'] ?></td>
+			</tr>
+			<tr>
+				<th>Skype</th>
+				<td><?php echo $detProveedor['skype'] ?></td>
+			</tr>
+			<tr>
+				<th>Direcci&oacute;n Web</th>
+				<td><?php echo $detProveedor['direccion_web'] ?></td>
+			</tr>
+		</table>
+	</div>
+
 <?php $contenido = ob_get_clean() ?>
 
 <?php include '../app/templates/layout_second.php' ?>

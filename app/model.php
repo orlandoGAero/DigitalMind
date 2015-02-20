@@ -207,37 +207,54 @@
 			$idProv = htmlspecialchars($idProv);
 
 			$sqldetPro = "SELECT pro.id_prov, pro.proveedor, pro.tel, pro.dirweb, 
-						       	 ctepro.categoria,
-						         datf.razon_social, datf.rfc,
-						         tdatfis.tipo,
-						         cp.codigoP, cp.localidad, cp.municipio, cp.estado,
-						         dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,
-						         bank.nombre_banco,
-						         datbank.sucursal,
-						         datbank.titular,
-						         datbank.no_cuenta,
-						         datbank.no_cuenta_interbancario,
-						         tcuenta.tipo_cuenta
-						FROM proveedores pro, 
-						     categoria_prov ctepro,
-						     datos_fiscales datf, 
-						     tipos_razon_social tdatfis,
-						     codigos_postales cp, 
-						     direcciones dir,
-						     bancos bank,
-						     datos_bancarios datbank,
-						     tipo_cuenta tcuenta,
-						     det_bank_prov dtbapro
-						WHERE pro.id_prov = ".$idProv."
-						AND ctepro.id_categoria=pro.id_categoria
-						AND datf.id_datFiscal=pro.id_datFiscaL
-						AND tdatfis.id_tipo_ra=datf.id_tipo_ra
-						AND cp.id_cp=dir.id_cp
-						AND dir.id_direccion=pro.id_direccion
-						AND bank.id_banco=datbank.id_banco
-						AND tcuenta.id_tipo_cuenta=datbank.id_tipo_cuenta
-						AND pro.id_prov=dtbapro.id_prov
-						AND datbank.id_datBank=dtbapro.id_datBank";
+							       ctepro.categoria,
+							       datf.razon_social, datf.rfc,
+							       tdatfis.tipo,
+							       cp.codigoP, cp.localidad, cp.municipio, cp.estado,
+							       dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,
+							       bank.nombre_banco,
+							       datbank.sucursal,
+							       datbank.titular,
+							       datbank.no_cuenta,
+							       datbank.no_cuenta_interbancario,
+							       tcuenta.tipo_cuenta,
+							       cont.nombreCon,
+							       cont.ap_paterno,
+							       cont.ap_materno,
+							       cont.nombre_area,
+							       cont.movil,
+							       cont.tel_oficina,
+							       cont.tel_emergencia,
+							       cont.correo_p,
+							       cont.correo_instu,
+							       cont.facebook,
+							       cont.twitter,
+							       cont.skype,
+							       cont.direccion_web
+							FROM proveedores pro, 
+							     categoria_prov ctepro,
+							     datos_fiscales datf, 
+							     tipos_razon_social tdatfis,
+							     codigos_postales cp, 
+							     direcciones dir,
+							     bancos bank,
+							     datos_bancarios datbank,
+							     tipo_cuenta tcuenta,
+							     det_bank_prov dtbapro,
+							     contacto cont,
+							     proveedores_contacto procont
+							WHERE pro.id_prov = ".$idProv."
+							AND ctepro.id_categoria=pro.id_categoria
+							AND datf.id_datFiscal=pro.id_datFiscaL
+							AND tdatfis.id_tipo_ra=datf.id_tipo_ra
+							AND cp.id_cp=dir.id_cp
+							AND dir.id_direccion=pro.id_direccion
+							AND bank.id_banco=datbank.id_banco
+							AND tcuenta.id_tipo_cuenta=datbank.id_tipo_cuenta
+							AND pro.id_prov=dtbapro.id_prov
+							AND datbank.id_datBank=dtbapro.id_datBank
+							AND pro.id_prov=procont.id_prov
+							AND cont.id_contacto=procont.id_contacto";
 			$ejecutardetPro = mysql_query($sqldetPro, $this->conexion);
 
 			$detallePro = array();
@@ -245,6 +262,108 @@
 			
 			return $rowsPro;
 		}
+
+		public function obtdatContactPro()
+		{
+			$idContPro = htmlspecialchars($idContPro);
+
+			$sqlContPro = "SELECT id_contacto,
+							       nombreCon,
+							       ap_paterno,
+							       ap_materno,
+							       nombre_area,
+							       movil,
+							       correo_instu
+							FROM contacto
+							WHERE id_contacto = ".$idContPro" ";
+			$ejecutarContPro = mysql_query($sqlContPro, $this->conexion);
+
+			$verCont = array();
+			$rows = mysql_fetch_assoc($ejecutarContPro);
+
+			return $rows;
+		}
+
+		// funcion para obtener el id de la tabla proveedor
+		public function obtenerIdProveedor()
+		{
+			$sqlidProv = " SELECT id_prov
+						  FROM proveedores
+						  ORDER BY id_prov
+						  DESC LIMIT 1;";
+			$ejecutaridProv = mysql_query($sqlidProv,$this->conexion) or die (mysql_error());
+			$rows = mysql_num_rows($ejecutaridProv);
+			
+			if($rows==0){
+				$idProv = 1;
+			}else	{
+				$idProv = mysql_result($ejecutaridProv,0,'id_prov');
+				$idProv = ($idProv + 1);
+			}
+			
+			return $idProv;
+		}
+
+		// funcion para obtener una categoria del proveedor
+		public function obtenerCategoria()
+		{
+			$sqlCat = "SELECT categoria
+						FROM categoria_prov
+						GROUP BY categoria";
+			$ejecutarCat = mysql_query($sqlCat,$this->conexion) or die("Error de consulta obtener categoria".mysql_error());
+
+			$categoriaPro = array();
+			while ($rows = mysql_fetch_assoc($ejecutarCat)) {
+				$categoriaPro[] = $rows;
+			}
+
+			return $categoriaPro;
+		}
+
+		//combo dinamico para tipo de razon_social (FISICA,MORAL)
+		public function obtieneTrazon()
+    	{
+    		$sql3 = "SELECT * FROM tipos_razon_social";
+			$ejecutar = mysql_query($sql3)or die ("Error de Consulta-razonS");
+			$filas = mysql_num_rows($ejecutar);
+		
+            if($filas != 0){
+			$tipoRa = array();
+			while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$tipoRa[] = $rows;
+			}
+			
+			return $tipoRa;
+			}
+		}
+
+		//combo dinamico para nombre de banco
+		public function obtieneBanco()
+    	{
+    		$sql = "SELECT * FROM bancos";
+			$ejecutar = mysql_query($sql) or die ("Error de Consulta");
+
+			$nombreB = array();
+			while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$nombreB[] = $rows;
+			}
+			
+			return $nombreB;
+		}
+
+		//combo dinamico para el tipo de cuenta
+		public function obtieneTipoC()
+    	{
+    		$sql = "SELECT * FROM tipo_cuenta";
+			$ejecutar = mysql_query($sql) or die ("Error de Consulta");
+
+			$tipo_c = array();
+			while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$tipo_c[] = $rows;
+			}
+			
+			return $tipo_c;
+		}
+
     }
-    
 ?>
