@@ -25,8 +25,8 @@
 												<table  class="nuevo-pro" >
 													<tr> <!-- IdContacto --> <td> <?php echo $parametrosContactos['idCont'] ?> <input type="hidden" name="idContact" value="<?php echo $parametrosContactos['idCont']  ?>" readonly /> </td>  </tr>
 													<tr> <th> Nombre </th> <td> <input type="text" name="nameContact" autofocus="autofocus" autocomplete="off"   maxlength="50" value="<?php echo $parametrosContactos['nombre'] ?>" /> * </td>  </tr>
-													<tr> <th> Apellido Paterno </th> <td> <input type="text" name="ApPContact" autocomplete="off"  required="required" maxlength="50" value="<?php echo $parametrosContactos['app'] ?>"  /> * </td>  </tr>
-													<tr> <th> Apellido Materno </th> <td> <input type="text" name="ApMContact" autocomplete="off"  required="required" maxlength="50" value="<?php echo $parametrosContactos['apm'] ?>" /> * </td>  </tr>
+													<tr> <th> Apellido Paterno </th> <td> <input type="text" name="ApPContact" autocomplete="off" maxlength="50" value="<?php echo $parametrosContactos['app'] ?>"  /> * </td>  </tr>
+													<tr> <th> Apellido Materno </th> <td> <input type="text" name="ApMContact" autocomplete="off"  maxlength="50" value="<?php echo $parametrosContactos['apm'] ?>" /> * </td>  </tr>
 													<tr> <th> Área </th> <td> <input type="text" name="nameArea" autocomplete="off" required="required" maxlength="50" value="<?php echo $parametrosContactos['area'] ?>" /> * </td>  </tr>
 													<tr> <th> Teléfono Móvil </th> <td> <input type="text" id="tel" class="keysNumbers" name="telMovil" autocomplete="off" required="required" maxlength="10" value="<?php echo $parametrosContactos['movil'] ?>" /> * </td>  </tr>
 													<tr> <th> Teléfono Oficina </th> <td> <input type="text" id="tel" class="keysNumbers" name="telOficina" autocomplete="off" required="required" maxlength="10" value="<?php echo $parametrosContactos['tel_ofi'] ?>" /> * </td>  </tr>
@@ -78,7 +78,7 @@
 										</ul>
 									</li>
 									
-									<input type="submit" class="boton2" value="Guardar" name="btnGuardar" id="btnGuardar"  />
+									<input type="submit" class="boton2" value="Guardar" name="btnGuardar" id="btnGuardar" />
 									
 								</form>
 							</ul>

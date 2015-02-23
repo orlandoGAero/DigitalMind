@@ -54,7 +54,7 @@
 		
 		//CONTACTOS
 		public function obtenerContactos(){
-			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,correo_p,activo FROM contacto ORDER BY nombreCon;";
+			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,correo_p,activo FROM contactos ORDER BY nombreCon;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			
 			$Contactos = array();
@@ -71,7 +71,7 @@
 			
 			$consulta = "SELECT c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,c.nombre_area,c.movil,c.tel_oficina,c.tel_emergencia,c.correo_p,c.correo_instu,
 								c.facebook,c.twitter,c.skype,c.direccion_web,cp.estado,cp.municipio,cp.localidad,cp.codigoP,d.calle,d.num_ext,d.num_int,d.colonia,d.referencia
-								FROM codigos_postales cp, direcciones d, contacto c
+								FROM codigos_postales cp, direcciones d, contactos c
 								WHERE cp.id_cp = d.id_cp
 									AND d.id_direccion=c.id_direccion
 									AND c.id_contacto =  ".$idCon;
@@ -84,7 +84,7 @@
 		}
 		
 		public function obtenerIdContacto(){
-			$consulta = "SELECT id_contacto FROM contacto ORDER BY id_contacto DESC LIMIT 1;";
+			$consulta = "SELECT id_contacto FROM contactos ORDER BY id_contacto DESC LIMIT 1;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			$filas = mysql_num_rows($ejecutar);
 			
@@ -102,78 +102,95 @@
 		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
 		$correoInstituCont,$facebookCont,$twitterCont,$skypeCont,$dirWebCont)
 		{
-				
+			$band = 0;
 			
-			//Convertir a mayúsculas
-			$nomCont = mb_strtoupper($nomCont);
-			$apCont = mb_strtoupper($apCont);
-			$amCont = mb_strtoupper($amCont);
-			$areaCont = mb_strtoupper($areaCont);
+			if($nomCont == "" && $apCont == "" && $amCont == ""){
+				$band = 1;
+				echo" <script> alert('Complete toda la información requerida antes de continuar') </script> ";
+			}
 			
-			$calleCont = mb_strtoupper($calleCont);
-			$coloniaCont = mb_strtoupper($coloniaCont);
-			$referenciaCont = mb_strtoupper($referenciaCont);
-			//Convertir a minúsculas
-			$correoPersonalCont = mb_strtolower($correoPersonalCont);
-			$correoInstituCont = mb_strtolower($correoInstituCont);
-			$facebookCont = mb_strtolower($facebookCont);
-			$twitterCont = mb_strtolower($twitterCont);
-			$skypeCont = mb_strtolower($skypeCont);
-			$dirWebCont = mb_strtolower($dirWebCont);
+			if($idCP == 0){
+				$band = 1;
+				echo" <script> alert('Seleccione una localidad') </script> ";
+			}
 			
-			$consulta1 = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia,id_cp) 
-								VALUES('".$idDireccion."','".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."',".$idCP.");";
-			$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
-			
-			$consulta2 = "INSERT INTO contacto (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,
-									correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,activo,fecha_alta)
-									VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",".$telOficinaCont.",".$telEmergenciaCont.",'".$correoPersonalCont."',
-									'".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."','".$dirWebCont."',".$idDireccion.",'Si',NOW());";
-				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar contacto ".mysql_error());	
-			
-			return $ejecutar1 & $ejecutar2;
-		}
-
-		public function validarDuplicidadContactos($nomCont,$apCont,$amCont,$idCont){
-			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno 
-								FROM contacto 
+			if($band == 0){
+				$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno 
+								FROM contactos
 								WHERE nombreCon = '".$nomCont."' 
 									AND ap_paterno = '".$apCont."' 
 									AND ap_materno = '".$amCont."' 
 									AND id_contacto != ".$idCont.";";
-			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
-			
-			$rows = mysql_num_rows($ejecutar);
-			
-			if($rows != 0){
-				echo "El contacto".$nomCont." ".$apCont."  ". $amCont;
+				$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+				
+				$rows = mysql_num_rows($ejecutar);
+				
+				//Convertir a mayúsculas
+				$nomCont = mb_strtoupper($nomCont);
+				$apCont = mb_strtoupper($apCont);
+				$amCont = mb_strtoupper($amCont);
+				
+				if($rows != 0){
+					$band = 1;
+					echo" <script> alert('El contacto $nomCont $apCont $amCont ya se encuentra registrado') </script> ";
+				}
 			}
 			
-			return $ejecutar;
+			if($band == 0){
+				//Convertir a mayúsculas
+				$nomCont = mb_strtoupper($nomCont);
+				$apCont = mb_strtoupper($apCont);
+				$amCont = mb_strtoupper($amCont);
+				$areaCont = mb_strtoupper($areaCont);
+				
+				$calleCont = mb_strtoupper($calleCont);
+				$coloniaCont = mb_strtoupper($coloniaCont);
+				$referenciaCont = mb_strtoupper($referenciaCont);
+				//Convertir a minúsculas
+				$correoPersonalCont = mb_strtolower($correoPersonalCont);
+				$correoInstituCont = mb_strtolower($correoInstituCont);
+				$facebookCont = mb_strtolower($facebookCont);
+				$twitterCont = mb_strtolower($twitterCont);
+				$skypeCont = mb_strtolower($skypeCont);
+				$dirWebCont = mb_strtolower($dirWebCont);
+				
+				$consulta1 = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia,id_cp) 
+									VALUES('".$idDireccion."','".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."',".$idCP.");";
+				$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
+				
+				$consulta2 = "INSERT INTO contactos (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,
+										correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,activo,fecha_alta)
+										VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",".$telOficinaCont.",".$telEmergenciaCont.",'".$correoPersonalCont."',
+										'".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."','".$dirWebCont."',".$idDireccion.",'Si',NOW());";
+					$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar contacto ".mysql_error());	
+				
+				return $ejecutar1 & $ejecutar2;	
+			}
+			
 		}
 		
 		public function borrarContacto($idCont){
 			$consulta1 = "SELECT cc.id_contacto
-								FROM contacto c, cliente_contacto cc
+								FROM contactos c, cliente_contacto cc
 								WHERE c.id_contacto = cc.id_contacto
 									AND c.id_contacto = ".$idCont;
 			$ejecutar1 = mysql_query($consulta1,$this->conexion) or die (mysql_error());
 			$filas1 = mysql_num_rows($ejecutar1);
 			
 			$consulta2 = "SELECT pc.id_contacto
-								FROM contacto c, proveedores_contacto pc
+								FROM contactos c, proveedores_contacto pc
 								WHERE c.id_contacto = pc.id_contacto
 									AND c.id_contacto = ".$idCont;
 			$ejecutar2 = mysql_query($consulta2,$this->conexion) or die (mysql_error());
 			$filas2 = mysql_num_rows($ejecutar2);
 			
 			if($filas1 !=0  || $filas2 != 0){
-				$consulta = "SELECT activo FROM contacto WHERE id_contacto = ".$idCont;
+				$consulta = "SELECT activo FROM contactos WHERE id_contacto = ".$idCont;
 				$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 				$Activo = mysql_result($ejecutar, 0, 'activo');
 				
 				if($Activo != 'No'){
-					$cunsultaActualiza = "UPDATE contacto SET activo = 'No' WHERE id_contacto = ".$idCont;
+					$cunsultaActualiza = "UPDATE contactos SET activo = 'No' WHERE id_contacto = ".$idCont;
 					$ejecutarActualiza = mysql_query($cunsultaActualiza,$this->conexion) or die (mysql_error());
 					echo" <script> alert('El registro no puede ser eliminado, soló se desactivo') 
 								window.location='index.php?url=listContact';
@@ -185,9 +202,13 @@
 				}
 				
 			}else{
-				$consultaElim = "DELETE FROM contacto WHERE id_contacto = ".$idCont;
+				$consulta2 = "SELECT id_direccion FROM contactos WHERE id_contacto = ".$idCont;
+				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die (mysql_error());
+				$idDir = mysql_result($ejecutar2, 0, 'id_direccion');
+									
+				$consultaElim = "DELETE d,c FROM direcciones d INNER JOIN contactos c WHERE d.id_direccion = c.id_direccion AND d.id_direccion = ".$idDir;
 				$ejecutarElim = mysql_query($consultaElim,$this->conexion) or die (mysql_error());
-				
+								
 				echo" <script> alert('El registro ha sido eliminado correctamente') 
 							window.location='index.php?url=listContact';
 					 	</script> ";

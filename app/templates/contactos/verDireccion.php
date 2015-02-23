@@ -13,7 +13,8 @@
 					<select id="loc" name="locality" >
 						<option value='0'>Seleccione una Opción</option>
 						<?php foreach ($obtenerDatosDir as $locality) : ?>
-								<option required="required" value="<?php echo $locality['id_cp'] ?>"><?php echo $locality['localidad'] ?></option>
+								<option required='required' value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option>"; ?>
+								<!--<input type="text" value="<?php echo $locality['id_cp'] ?>" />-->
 						<?php endforeach; ?>
 					</select>
 				</td>
