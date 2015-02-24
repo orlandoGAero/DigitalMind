@@ -3,9 +3,6 @@
 <?php if (isset($parametrosContactos['mensaje'])) :?>
 	<b><span style="color: red;"><?php echo $parametrosContactos['mensaje'] ?></span></b>
 <?php endif; ?>
-<?php if (isset($parametrosContactos['mensaje2'])) :?>
-	<b><span style="color: red;"><?php echo $parametrosContactos['mensaje2'] ?></span></b>
-<?php endif; ?>
 	 <br/>
 	 <!-- JS Formulario Listas Desplegables -->
 	 <script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
@@ -23,7 +20,7 @@
 										<ul>
 											<li>
 												<table  class="nuevo-pro" >
-													<tr> <!-- IdContacto --> <td> <?php echo $parametrosContactos['idCont'] ?> <input type="hidden" name="idContact" value="<?php echo $parametrosContactos['idCont']  ?>" readonly /> </td>  </tr>
+													<tr> <!-- IdContacto --> <td><input type="hidden" name="idContact" value="<?php echo $parametrosContactos['idCont']  ?>" readonly /> </td>  </tr>
 													<tr> <th> Nombre </th> <td> <input type="text" name="nameContact" autofocus="autofocus" autocomplete="off"   maxlength="50" value="<?php echo $parametrosContactos['nombre'] ?>" /> * </td>  </tr>
 													<tr> <th> Apellido Paterno </th> <td> <input type="text" name="ApPContact" autocomplete="off" maxlength="50" value="<?php echo $parametrosContactos['app'] ?>"  /> * </td>  </tr>
 													<tr> <th> Apellido Materno </th> <td> <input type="text" name="ApMContact" autocomplete="off"  maxlength="50" value="<?php echo $parametrosContactos['apm'] ?>" /> * </td>  </tr>
@@ -58,27 +55,52 @@
 															</table>
 														</td>
 													</tr>
-														<tr><!-- IdDirección --><td> <?php echo $parametrosContactos['idDir'] ?> <input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></td></tr>
+														<tr><!-- IdDirección --><td><input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></td></tr>
 														<tr>
 															<th>Código Postal</th>
-															<td><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  value="<?php echo $parametrosContactos['cp'] ?>" onKeyUp="cpview(this.form)"  /></td>
-															<!--method="POST" onkeyup="new Ajax.Updater('resultado','index.php?url=obtenerDir&postcode='+this.value, {method: 'POST'})" />-->
+															<td><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  value="<?php echo $parametrosContactos['cp'] ?>"    onKeyUp="cpview(this.form)" /></td>
 														</tr>
 														
-														<tr><td colspan="2"><div id="resultado"> </div></td></tr>
+														<?php if($parametrosContactos['cp'] != "") :?>
+															<tr><td colspan="2">
+																<div id="resultado"> 
+																	<table class="table" id="miTabla">
+																		<tr>
+																			<th>Estado</th>
+																			<th>Municipio</th>
+																			<th>Localidad</th>
+																		</tr>
+																		
+																		<tr>
+																			<td><?php echo $obtenerDatosDir['estado'] ?> <input type="text" name="state" readonly="readonly" value="<?php echo $obtenerDatosDir['estado'] ?>" </td>
+																			<td><?php echo $obtenerDatosDir['municipio'] ?>  <input type="text" name="municipality" readonly="readonly" value="<?php echo $obtenerDatosDir['municipio'] ?>" </td>
+																			<td>
+																				<select id="loc" name="idcp-locality" >
+																					<option value="<?php echo $obtenerDatosDir['idCP'] ?>"><?php echo $obtenerDatosDir['localidad'] ?></option>
+																					<?php foreach ($obtenerDatosDir['codigoP'] as $locality) : ?>
+																							<option required='required' value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option> ?>
+																					<?php endforeach; ?>
+																				</select>
+																			</td>
+																		</tr> 
+																	</table>
+																</div>
+															</td></tr>
+														<?php else :?>
+															<tr><td colspan="2"><div id="resultado"> </div></td></tr>
+														<?php endif; ?>
 														
 														<tr><th>Calle</th><td><input type="text" name="street" autocomplete="off" required="required" maxlength="50" value="<?php echo $parametrosContactos['calleD'] ?>" /> * </td></tr>
 														<tr><th>No. Ext</th><td><input type="text" class="keysNumbers" name="numExt" autocomplete="off" required="required" maxlength="5" value="<?php echo $parametrosContactos['numExterior'] ?>" /> * </td></tr>
 														<tr><th>No. Int</th><td><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $parametrosContactos['numInterior'] ?>" /></td></tr>
 														<tr><th>Colonia</th><td><input type="text" name="colonia" autocomplete="off" required="required" maxlength="50" value="<?php echo $parametrosContactos['coloniaD'] ?>" /> * </td></tr>
 														<tr><th>Referencia</th><td><input type="text" name="reference" autocomplete="off" value="<?php echo $parametrosContactos['referenciaD'] ?>" /></td></tr>
-														<!--<tr><th>GPS Ubicación</th><td><input type="text" id="GPS_Ubicacion" name="GPS_Ubicacion" readonly /></td></tr>-->
 												</table>
 											</li>
 										</ul>
 									</li>
 									
-									<input type="submit" class="boton2" value="Guardar" name="btnGuardar" id="btnGuardar" />
+									<input type="submit" class="boton2" value="Guardar" name="btnGuardar" id="btnGuardar"/>
 									
 								</form>
 							</ul>
@@ -89,9 +111,6 @@
 	</div>
 	
 	<script type="text/javascript">
-		function mostrar(){
-			document.getElementById('resultado').style.display='block';
-		}
 		
 		$('document').ready(function(){
 			$('.menu-pro').lksMenu();

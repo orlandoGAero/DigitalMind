@@ -39,17 +39,14 @@
 			return $cv_dir;
 		}
 		
-		public function obtieneEstado()
+		public function obtieneNombreLocalidad($idcp)
     	{
-    		$consulta = "SELECT estado FROM codigos_postales GROUP BY estado";
-			$ejecutar = mysql_query($consulta)or die ("Error de Consulta obtener estado".mysql_error());
-	
-			$estado= array();
-			while ($rows = mysql_fetch_assoc($ejecutar)) {
-				$estado[] = $rows;
-			}
+    		$consulta = "SELECT localidad FROM codigos_postales WHERE id_cp =".$idcp;
+			$ejecutar = mysql_query($consulta)or die ("Error de Consulta obtener localidad".mysql_error());
+				
+			$localidad = mysql_result($ejecutar, 0, 'localidad');
 			
-			return $estado;
+			return $localidad;
 		}
 		
 		//CONTACTOS

@@ -7,16 +7,16 @@
 			</tr>
 			
 			<tr>
-				<td><?php echo $codPost[0]['estado'] ?></td>
-				<td><?php echo $codPost[0]['municipio'] ?></td>
+				<td><?php echo $codPost[0]['estado'] ?> <input type="text" name="state" readonly="readonly" value="<?php echo $codPost[0]['estado'] ?>" /> </td>
+				<td><?php echo $codPost[0]['municipio'] ?> <input type="text" name="municipality" readonly="readonly" value="<?php echo $codPost[0]['municipio'] ?>" </td>
 				<td>
-					<select id="loc" name="locality" >
+					<select name="idcp-locality" >
 						<option value='0'>Seleccione una Opción</option>
 						<?php foreach ($obtenerDatosDir as $locality) : ?>
-								<option required='required' value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option>"; ?>
-								<!--<input type="text" value="<?php echo $locality['id_cp'] ?>" />-->
+								<option required='required' value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option> ?>
 						<?php endforeach; ?>
 					</select>
 				</td>
 			</tr>
+	</table>
 <?php endif ?>
