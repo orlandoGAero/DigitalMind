@@ -263,6 +263,7 @@
 			return $rowsPro;
 		}
 
+		/*
 		public function obtdatContactPro()
 		{
 			$idContPro = htmlspecialchars($idContPro);
@@ -275,15 +276,15 @@
 							       movil,
 							       correo_instu
 							FROM contacto
-							WHERE id_contacto = ".$idContPro" ";
+							WHERE id_contacto = ".$idContPro." ";
 			$ejecutarContPro = mysql_query($sqlContPro, $this->conexion);
 
 			$verCont = array();
 			$rows = mysql_fetch_assoc($ejecutarContPro);
 
 			return $rows;
-		}
-
+		}*/
+		
 		// funcion para obtener el id de la tabla proveedor
 		public function obtenerIdProveedor()
 		{

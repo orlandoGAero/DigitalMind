@@ -1,42 +1,50 @@
-<!-- Style CSS tabla--> 
-<link rel="stylesheet" type="text/css" href="css/style-table.css">
-<div class="table-responsive">
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Style CSS tabla--> 
+	<link rel="stylesheet" type="text/css" href="css/style-table.css">
+</head>
+<body>
+	<div class="table-responsive">
+		<!-- "id" para incluir los estilos a la tabla -->
+		<table class="table" id="miTabla">
+			<caption>Contactos</caption>
+			<thead>
+				<tr>
+					<th colspan="7">
+						<label>Buscar:</label>
+						<input type="text"/>
+					</th>
+				</tr>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido Paterno</th>
+					<th>Apellido Materno</th>
+					<th>Área</th>
+					<th>Móvil</th>
+					<th>Correo Institucional</th>
+					<th>Elegir</th>
+				</tr>
+			</thead>
 
-	<!-- "id" para incluir los estilos a la tabla -->
-	<table class="table" id="miTabla">
-		<caption>Contactos</caption>
-		<thead>
-			<tr>
-				<th colspan="7">
-					<label>Buscar:</label>
-					<input type="text"/>
-				</th>
-			</tr>
-			<tr>
-				<th>Nombre</th>
-				<th>Apellido Paterno</th>
-				<th>Apellido Materno</th>
-				<th>Área</th>
-				<th>Móvil</th>
-				<th>Correo Institucional</th>
-				<th>Elegir</th>
-			</tr>
-		</thead>
+			<?php
+				foreach ($obtContactos['listcontacto'] as $contacto) :
+				$idContact = $contacto['id_contacto'];
+			?>
 
-		<?php
-			foreach ($obtContactos['listcontacto'] as $contacto) :
-			$Contact = $contacto['id_contacto'];
-		?>
-
-			<tr>
-				<td><?php echo $contacto['nombreCon'] ?></td>
-				<td><?php echo $contacto['ap_paterno'] ?></td>
-				<td><?php echo $contacto['ap_materno'] ?></td>
-				<td><?php echo $contacto['nombre_area'] ?></td>
-				<td><?php echo $contacto['movil'] ?></td>
-				<td><?php echo $contacto['correo_instu'] ?></td>
-				<td align="center"><a href=""><img src="images/elegir.png" class="palomita"></a></td>
-			</tr>
-		<?php endforeach; ?>
-	</table>
-</div>
+				<tr>
+					<td><?php echo $contacto['nombreCon'] ?></td>
+					<td><?php echo $contacto['ap_paterno'] ?></td>
+					<td><?php echo $contacto['ap_materno'] ?></td>
+					<td><?php echo $contacto['nombre_area'] ?></td>
+					<td><?php echo $contacto['movil'] ?></td>
+					<td><?php echo $contacto['correo_instu'] ?></td>
+					<td><?php echo "<a href='id=$idContact'>" ?><center><img src="images/elegir.png" class="palomita"></center></a></td>
+					<!-- <td align="center">echo "<a href='id_cont=$idContact'>" ?> <img src="images/elegir.png" class="palomita"></a></td> -->
+				</tr>
+			<?php endforeach; ?>
+		</table>
+	</div>
+</body>
+</html>

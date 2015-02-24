@@ -30,7 +30,6 @@
 	     'NuevoProveedor' => array('controller' =>'Controller', 'action' =>'InsertarProveedor'),
 	     'TablaContactos' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
 	     'DetalleProveedor' => array('controller' =>'Controller', 'action' =>'verProveedor'),
-
 	 );
  
  	// Parseo de la ruta

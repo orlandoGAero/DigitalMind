@@ -58,4 +58,8 @@ img.palomita:hover {
 	background: url("../images/palomita.png") no-repeat;
 }
 
-
+#miTabla a 
+{
+	background: transparent;
+	padding: 0 0;
+}

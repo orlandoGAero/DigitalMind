@@ -14,28 +14,13 @@
 					$('.menu-pro').lksMenu();
 				});
 			</script>
-			<!--Scripts para el funcionamiento de la ventana-->
-			<script>
-				!window.jQuery && document.write('\x3cscript src=\x22js/fancybox/jquery-1.4.3.min.js\x22\x3e \x3C/script\x22');
-			</script>
-			<script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-			<link rel="stylesheet" type="text/css" href="css/fancybox/fancybox.css" media="screen" />
-			<script type="text/javascript">
-				$('document').ready(function() 
-				{
-					$('#tablecontact').fancybox();
-				});
-			</script>
-			<!-- fin de scripts-->
 			<script type="text/javascript">
 				$('document').ready(function()
 				{
-					$('#tablecontact').click(function(event)
-					{
-						$('#tablaCont').load('index.php?url=TablaContactos');
-					});
+					$('#tablaCont').load('index.php?url=TablaContactos');
 				});
 			</script>
+			
 		</head>
 		<body>
 			<section id="contenido">
@@ -43,7 +28,7 @@
 				<section id="principal">
 					<h1>Nuevo Proveedor</h1>
 					<div class="menu-pro">
-						<form action="" name="" id="" method="" class="cmxform">
+						<form action="" name="formprov" id="formprov" method="" class="cmxform">
 							<fieldset>
 								<ul>
 									<li><a href="#">Datos Proveedor</a>
@@ -134,45 +119,44 @@
 												<div class="dform">
 													<div align="left">
 														<table><tr>
-																<td><a href="#contact" id="tablecontact"><img alt="Selecciona Contacto" title="Selecciona Contacto" src="images/select-contacto.png"></a></td>
-																<td><a href=""><img alt="Nuevo Contacto" title="Nuevo Contacto" src="images/new-contacto.png"></a></td>
+																	<td><a href=""><img alt="Nuevo Contacto" title="Nuevo Contacto" src="images/new-contacto.png"></a></td>
 															   </tr>
 														</table>
-														<!-- div para ventana emergente -->
-														<div style="display: none;">
-															<!-- contenido de la ventana emergente -->
-															<div id="contact" style="width:800px;height:410px;overflow:auto;">
-																<!-- div para tabla de contactos -->
-																<div id="tablaCont">
-																		
-																</div>
-															</div>
-														</div> <!--fin de div de ventana emergente-->
-														<!-- div para mostrar datos del contacto -->
-														<div id="datosContacto">
-															<h4>Datos del Contacto Seleccionado</h4>
-															<div>
-																<label>Clave:</label>
-																<label name="id_cont"></label>
-															</div>
-															<div>
-																<label>Nombre:</label>
-																<label></label>
-															</div>
-															<div>
-																<label>&Aacute;rea:</label>
-																<label></label>
-															</div>
-															<div>
-																<label>Tel&eacute;fono M&oacute;vil:</label>
-																<label></label>
-															</div>
-															<div>
-																<label>Correo Institucional:</label>
-																<label></label>
-															</div>
-														</div>
-														<!-- fin de div para mostrar datos del contacto -->
+														<div> <!-- div para seleccionar contacto-->
+															<h1>Seleccione contacto</h4>
+																
+															<div id="steps"> <!-- div step -->
+																<!-- paso numero 1 -->
+																<fieldset class="step">
+																	<legend>Contactos</legend>
+																		<div id="tablaCont"></div>
+																</fieldset>
+																<!-- paso numero 2 -->
+																<fieldset class="step">
+																	<legend>Contacto Seleccionado</legend>
+																		<div>
+																			<label>Clave:</label>
+																			<label name="id_cont"></label>
+																		</div>
+																		<div>
+																			<label>Nombre:</label>
+																			<label></label>
+																		</div>
+																		<div>
+																			<label>&Aacute;rea:</label>
+																			<label></label>
+																		</div>
+																		<div>
+																			<label>Tel&eacute;fono M&oacute;vil:</label>
+																			<label></label>
+																		</div>
+																		<div>
+																			<label>Correo Institucional:</label>
+																			<label></label>
+																		</div>
+																</fieldset>
+															</div> <!-- fin div step -->
+														</div> <!--fin de div para seleccionar contactos-->
 													</div>
 												</div>
 											</li>

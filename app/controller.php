@@ -215,7 +215,7 @@
 		{
 			if (!isset($_GET['id_Proveedor'])) {
 				throw new Exception("Página no encontrada", 1);
-			}
+			} 
 
 			$idProveedor = $_GET['id_Proveedor'];
 
