@@ -14,9 +14,10 @@
 	     
 	     //-------------------------CONTACTOS-------------------------------------------
 	     'listContact' => array('controller' =>'Controller', 'action' =>'listarContacto'),
-	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
 	     'insertContact' => array('controller' =>'Controller', 'action' =>'insertarContacto'),
 	     'obtenerDir' => array('controller' =>'Controller', 'action' =>'obtenerDireccion'),
+	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
+	     'updateContact' => array('controller' =>'Controller', 'action' =>'modificarContacto'),
 	     'deletedContact' => array('controller' =>'Controller', 'action' =>'eliminarContacto'),
 
 	     //-------------------------CLIENTES-------------------------------------------

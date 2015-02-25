@@ -11,7 +11,16 @@ section#principal{
   max-width: 960px;
 }
 
-/*eSTILOS PARA LA CAJA DE TEXTO*/
+.span{
+	color: red;
+	font: bold 13px "Comic Sans MS";
+	float : right;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-right: 4px;
+}
+
+/*ESTILOS PARA LA CAJA DE TEXTO*/
 .panel{background: #16555B;margin: 0 auto;text-transform: uppercase;width: 960px;}
 
 .buscar{border-bottom: 1px dashed #CCC;text-align: left;width: 100%; top:15em;}
@@ -81,11 +90,14 @@ textarea {
   line-height: normal;
 }
 label {
-  padding-top: 6px;
-  margin-top: 1em;
-  font-size: 13px;
-  line-height: 18px;
-  width: 120px;
+  padding-top: 7px;
+  padding-right: 5px;
+  margin-top: .5em;
+  margin-bottom: 1.5em;
+  font-weight: bold;
+  text-align: left;
+  line-height: 15px;
+  width: 170px;
   color: #404040;
 }
 input,
@@ -101,7 +113,8 @@ select,
   line-height: 18px;
   margin: .3em 0 0 0;
   padding: 4px;
-  width: 200px;
+  width: 400px;
+  height: 40px;
 }
 input[type=button], input[type=reset], input[type=submit] {
   width: auto;

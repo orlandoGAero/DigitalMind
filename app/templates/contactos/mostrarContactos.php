@@ -62,7 +62,7 @@
 					<td><?php echo $contact['activo'] ?></td>
 					<td>
 						<?php echo "<a href='index.php?url=viewContact&idContact=".$idContacto."'>" ?> <img src="images/detalle.png" title="Detalle"/></a>
-						<a href="index.php?"><img src="images/editar.png" title="Modificar"/></a>
+						<?php echo "<a href='index.php?url=updateContact&idContact=".$idContacto."'>" ?> <img src="images/editar.png" title="Modificar"/></a>
 						<?php echo "<a href='index.php?url=deletedContact&idContact=".$idContacto."'>" ?> <img src="images/eliminar.png" title="Eliminar"/></a>
 					</td>
 				</tr>
