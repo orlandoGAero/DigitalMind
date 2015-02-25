@@ -4,9 +4,17 @@
 	<html>
 		<head>
 			<link rel="stylesheet" type="text/css" href="css/estilos.css">
-			 <!-- JS Formulario Listas Desplegables -->
-			 
-			
+			<link rel="stylesheet" type="text/css" href="css/style-stepscontact.css">
+
+			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    		<script type="text/javascript" src="js/formToWizard.js"></script>
+		    <script type="text/javascript">
+		        $(document).ready(function(){
+		            $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
+		        });
+		    </script>
+
+		    <!-- JS Formulario Listas Desplegables -->
 			<!-- modificar linea de abajo-->
 			<script type="text/javascript" src="js/jquery.lksMenu.js"></script>
 			<script>
@@ -20,7 +28,6 @@
 					$('#tablaCont').load('index.php?url=TablaContactos');
 				});
 			</script>
-			
 		</head>
 		<body>
 			<section id="contenido">
@@ -123,39 +130,21 @@
 															   </tr>
 														</table>
 														<div> <!-- div para seleccionar contacto-->
-															<h1>Seleccione contacto</h4>
-																
-															<div id="steps"> <!-- div step -->
+																														
+															<div id="SignupForm"> <!-- div SignupForm -->
 																<!-- paso numero 1 -->
-																<fieldset class="step">
-																	<legend>Contactos</legend>
+																<fieldset>
+																	<legend>Seleccionar Contacto</legend>
 																		<div id="tablaCont"></div>
 																</fieldset>
 																<!-- paso numero 2 -->
-																<fieldset class="step">
+																<fieldset>
 																	<legend>Contacto Seleccionado</legend>
-																		<div>
-																			<label>Clave:</label>
-																			<label name="id_cont"></label>
-																		</div>
-																		<div>
-																			<label>Nombre:</label>
-																			<label></label>
-																		</div>
-																		<div>
-																			<label>&Aacute;rea:</label>
-																			<label></label>
-																		</div>
-																		<div>
-																			<label>Tel&eacute;fono M&oacute;vil:</label>
-																			<label></label>
-																		</div>
-																		<div>
-																			<label>Correo Institucional:</label>
-																			<label></label>
+																		<div id='accion'>
+																			
 																		</div>
 																</fieldset>
-															</div> <!-- fin div step -->
+															</div>	<!-- </div> fin div SignupForm -->
 														</div> <!--fin de div para seleccionar contactos-->
 													</div>
 												</div>
@@ -213,7 +202,7 @@
 								</ul>
 
 								<div>
-									<input type="submit" class="" value="Guardar" name="btnGuardar" />
+									<input type="submit" class="" id="" value="Guardar" name="btnGuardar" />
 								</div>
 
 							</fieldset>

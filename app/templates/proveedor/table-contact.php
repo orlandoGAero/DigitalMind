@@ -11,12 +11,12 @@
 		<table class="table" id="miTabla">
 			<caption>Contactos</caption>
 			<thead>
-				<tr>
+				<!--<tr>
 					<th colspan="7">
 						<label>Buscar:</label>
 						<input type="text"/>
 					</th>
-				</tr>
+				</tr>-->
 				<tr>
 					<th>Nombre</th>
 					<th>Apellido Paterno</th>
@@ -41,7 +41,6 @@
 					<td><?php echo $contacto['movil'] ?></td>
 					<td><?php echo $contacto['correo_instu'] ?></td>
 					<td><?php echo "<a href='id=$idContact'>" ?><center><img src="images/elegir.png" class="palomita"></center></a></td>
-					<!-- <td align="center">echo "<a href='id_cont=$idContact'>" ?> <img src="images/elegir.png" class="palomita"></a></td> -->
 				</tr>
 			<?php endforeach; ?>
 		</table>

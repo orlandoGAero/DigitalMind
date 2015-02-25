@@ -228,5 +228,23 @@
 
 			require __DIR__ . '/templates/proveedor/verProveedor.php';
 		}
+
+		public function mostrarContactoS(){
+			if(!isset($_GET['idCont'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$IdCo = $_GET['idCont'];
+			
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$detContacto = $model->obtenerContacto($IdCo);
+			
+			$MostrarDatosContacto = $detContacto;
+			
+			require __DIR__ . '/templates/proveedor/datosContProv.php';
+			
+		}
     }
 ?>
