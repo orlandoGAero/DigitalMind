@@ -87,7 +87,7 @@
 			);
 			
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				print_r($_POST);
+				//print_r($_POST);
 				
 				if($_POST['numInt'] == ""){
 					$_POST['numInt'] = 0;
@@ -124,7 +124,7 @@
 					);
 					
 					$obtenerDatosDir = array(
-						'codigoP' => $m -> obtenerCodigoP($_POST['postcode']),
+						'codigoP' => $m -> obtenerDatosDireccion($_POST['postcode'],$_POST['idcp-locality']),
 						'idCP' => $_POST['idcp-locality'], 
 						'localidad' => $m -> obtieneNombreLocalidad($_POST['idcp-locality']), 
 						'municipio' => $_POST['state'],

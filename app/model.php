@@ -23,7 +23,7 @@
 			
 		}
 		
-		//obtiene id direccion para insercion
+		//Función que obtiene el ultimo id de direccion registrado en la base de datos.
 		public function incrementoDir()
 		{			
 			$sql="SELECT id_direccion FROM direcciones ORDER BY id_direccion DESC LIMIT 1";
@@ -39,6 +39,24 @@
 			return $cv_dir;
 		}
 		
+		/*Funcion para cargar div de los datos del formulario Dirección según el CP ingresado*/
+		public function obtenerDatosDireccion($CodigoPostal,$idCp)
+		{
+			$idCp = htmlspecialchars($idCp);				
+			$consulta = "SELECT * FROM codigos_postales WHERE codigoP = ".$CodigoPostal." AND id_cp != ".$idCp." ORDER BY localidad";
+			$ejecutar = mysql_query($consulta, $this->conexion);
+			$filas = mysql_num_rows($ejecutar);
+		
+            if($filas != 0){
+            	$codigoPostal= array();
+            	while ($rows = mysql_fetch_assoc($ejecutar)) {
+					$codigosPostales[] = $rows;
+				}
+            
+		    	return $codigosPostales;
+            }
+		}
+		
 		public function obtieneNombreLocalidad($idcp)
     	{
     		$consulta = "SELECT localidad FROM codigos_postales WHERE id_cp =".$idcp;
@@ -49,7 +67,7 @@
 			return $localidad;
 		}
 		
-		//CONTACTOS
+		//------------------------------------------------------------------CONTACTOS------------------------------------------------------------------------//
 		public function obtenerContactos(){
 			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,correo_p,activo FROM contactos ORDER BY nombreCon;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
@@ -101,7 +119,9 @@
 		{
 			$band = 0;
 			
-			if($nomCont == "" && $apCont == "" && $amCont == ""){
+			if($nomCont != "" && $apCont != "" && $amCont != ""){
+				//Valdaciones de las cadenas
+			}else{
 				$band = 1;
 				echo" <script> alert('Complete toda la información requerida antes de continuar') </script> ";
 			}

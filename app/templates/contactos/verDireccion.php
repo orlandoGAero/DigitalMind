@@ -7,8 +7,8 @@
 			</tr>
 			
 			<tr>
-				<td><?php echo $codPost[0]['estado'] ?> <input type="text" name="state" readonly="readonly" value="<?php echo $codPost[0]['estado'] ?>" /> </td>
-				<td><?php echo $codPost[0]['municipio'] ?> <input type="text" name="municipality" readonly="readonly" value="<?php echo $codPost[0]['municipio'] ?>" </td>
+				<td><?php echo $codPost[0]['estado'] ?> <input type="hidden" name="state" readonly="readonly" value="<?php echo $codPost[0]['estado'] ?>" /> </td>
+				<td><?php echo $codPost[0]['municipio'] ?> <input type="hidden" name="municipality" readonly="readonly" value="<?php echo $codPost[0]['municipio'] ?>" </td>
 				<td>
 					<select name="idcp-locality" >
 						<option value='0'>Seleccione una Opción</option>
