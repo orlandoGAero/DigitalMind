@@ -229,7 +229,7 @@
 			require __DIR__ . '/templates/proveedor/verProveedor.php';
 		}
 
-		public function mostrarContactoS(){
+		public function mostrarContactos(){
 			if(!isset($_GET['idCont'])){
 				throw new Exception("Página no encontrada", 1);
 			}

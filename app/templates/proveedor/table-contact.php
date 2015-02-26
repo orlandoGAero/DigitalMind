@@ -40,10 +40,14 @@
 					<td><?php echo $contacto['nombre_area'] ?></td>
 					<td><?php echo $contacto['movil'] ?></td>
 					<td><?php echo $contacto['correo_instu'] ?></td>
-					<td><?php echo "<a href='id=$idContact'>" ?><center><img src="images/elegir.png" class="palomita"></center></a></td>
+					<td>
+						<input type="checkbox" id="c1" name="c1" unchecked value="<?php echo $idContact ?>" />
+						<label for="c1"></label>
+					</td>
 				</tr>
 			<?php endforeach; ?>
 		</table>
 	</div>
+	<div id="accion"></div>
 </body>
 </html>
