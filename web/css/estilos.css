@@ -102,25 +102,44 @@ label {
 }
 input,
 textarea,
-select,
-.uneditable-input {
+select, .uneditable-input {
   border: 1px solid #ccc;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  color: #808080;
   display: inline-block;
   line-height: 18px;
   margin: .3em 0 0 0;
   padding: 4px;
   width: 400px;
-  height: 40px;
+  height: 40px;'
 }
-input[type=button], input[type=reset], input[type=submit] {
+
+.radio {
+	padding: 40px;
+	width: 20px
+	height: 20px;
+}
+
+.filtrosBusqueda {
+	border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  /*color: #808080;*/ 
+  display: inline-block;
+  line-height: 18px;
+  margin: .3em 0 0 0;
+  padding: 4px;
+  width: 200px;
+}
+
+/*input[type=button], input[type=reset], input[type=submit] {
   width: auto;
   height: auto;
   margin-bottom: .5em;
-}
+}*/
+
 select, input[type=file] {
   height: 27px;
   *height: auto;
@@ -148,7 +167,7 @@ textarea {
   color: #bfbfbf;
 }
 ::-webkit-input-placeholder {
-  color: #bfbfbf;
+  color: #6E6E6E;
 }
 input, textarea {
   -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
@@ -192,6 +211,10 @@ width: 350px;
 height: auto;
 }
 
-/*input:valid, textarea:valid {
-background: green;
-}*/
+input[type=text]:valid, input[type=email]:valid, input[type=url]:valid, textarea:valid{
+	background: #A9F5A9;
+}
+
+input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, textarea:invalid {
+	background: #F6CECE;
+}

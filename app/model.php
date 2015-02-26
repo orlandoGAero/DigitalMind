@@ -39,11 +39,40 @@
 			return $cv_dir;
 		}
 		
-		/*Funcion para cargar div de los datos del formulario Dirección según el CP ingresado*/
-		public function obtenerDatosDireccion($CodigoPostal,$idCp)
+		/*Funcion para cargar div de los datos del formulario Dirección según el CP ingresado y con el  parametro de calve de contacto */
+		public function obtenerDatosDireccionUpdate($idContact)
+		{
+			$consulta1 = "SELECT cp.id_cp,cp.codigoP
+								FROM codigos_postales cp, direcciones d, contactos c
+								WHERE cp.id_cp = d.id_cp
+								 AND d.id_direccion = c.id_direccion
+								 AND c.id_contacto = ".$idContact;
+			$ejecutar1 = mysql_query($consulta1, $this->conexion) or die (mysql_error());
+			$filas1 = mysql_num_rows($ejecutar1);
+			if ($filas1 != 0) {
+				$CodigoPostal = mysql_result($ejecutar1, 0, 'codigoP');
+				$idCp = mysql_result($ejecutar1, 0, 'id_cp');
+			}
+				
+			$consulta2 = "SELECT * FROM codigos_postales WHERE codigoP = ".$CodigoPostal." AND id_cp != ".$idCp." ORDER BY localidad";
+			$ejecutar2 = mysql_query($consulta2, $this->conexion) or die (mysql_error());
+			$filas2 = mysql_num_rows($ejecutar2);
+		
+            if($filas2 != 0){
+            	$codigoPostal= array();
+            	while ($rows = mysql_fetch_assoc($ejecutar2)) {
+					$codigosPostales[] = $rows;
+				}
+            
+		    	return $codigosPostales;
+            }
+		}
+		
+		/*Funcion para cargar div de los datos del formulario Dirección según el CP ingresado y con los parametros de código postal y llave primaria de la entidad codigos postales*/
+		public function obtenerDatosDireccionInsert($CodigoPostal,$idCp)
 		{
 			$consulta = "SELECT * FROM codigos_postales WHERE codigoP = ".$CodigoPostal." AND id_cp != ".$idCp." ORDER BY localidad";
-			$ejecutar = mysql_query($consulta, $this->conexion);
+			$ejecutar = mysql_query($consulta, $this->conexion) or die (mysql_error());
 			$filas = mysql_num_rows($ejecutar);
 		
             if($filas != 0){
@@ -85,12 +114,12 @@
 			$idCon = htmlspecialchars($idCon);
 			
 			$consulta = "SELECT c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,c.nombre_area,c.movil,c.tel_oficina,c.tel_emergencia,c.correo_p,c.correo_instu,
-								c.facebook,c.twitter,c.skype,c.direccion_web,cp.estado,cp.municipio,cp.localidad,cp.codigoP,d.calle,d.num_ext,d.num_int,d.colonia,d.referencia,d.id_cp
+								c.facebook,c.twitter,c.skype,c.direccion_web,c.activo,cp.estado,cp.municipio,cp.localidad,cp.codigoP,d.calle,d.num_ext,d.num_int,d.colonia,d.referencia,d.id_cp
 								FROM codigos_postales cp, direcciones d, contactos c
 								WHERE cp.id_cp = d.id_cp
 									AND d.id_direccion=c.id_direccion
 									AND c.id_contacto =  ".$idCon;
-			$ejecutar = mysql_query($consulta, $this->conexion);
+			$ejecutar = mysql_query($consulta, $this->conexion) or die (mysql_error());
 			
 			$contactl= array();
 			$rows = mysql_fetch_assoc($ejecutar);
@@ -169,13 +198,89 @@
 			if($band == 0){
 								
 				$consulta1 = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia,id_cp) 
-									VALUES('".$idDireccion."','".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."',".$idCP.");";
+									VALUES(".$idDireccion.",'".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."',".$idCP.");";
 				$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
 				
 				$consulta2 = "INSERT INTO contactos (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,
 										correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,activo,fecha_alta)
 										VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",".$telOficinaCont.",".$telEmergenciaCont.",'".$correoPersonalCont."',
 										'".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."','".$dirWebCont."',".$idDireccion.",'Si',NOW());";
+				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar contacto ".mysql_error());	
+				
+				return $ejecutar1 & $ejecutar2;	
+			}
+			
+		}
+		
+		public function actualizarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,
+		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
+		$correoInstituCont,$facebookCont,$twitterCont,$skypeCont,$dirWebCont)
+		{
+			$band = 0;
+			
+			//Convertir a mayúsculas
+			$nomCont = mb_strtoupper($nomCont);
+			$apCont = mb_strtoupper($apCont);
+			$amCont = mb_strtoupper($amCont);
+			$areaCont = mb_strtoupper($areaCont);
+			
+			$calleCont = mb_strtoupper($calleCont);
+			$coloniaCont = mb_strtoupper($coloniaCont);
+			$referenciaCont = mb_strtoupper($referenciaCont);
+			//Convertir a minúsculas
+			$correoPersonalCont = mb_strtolower($correoPersonalCont);
+			$correoInstituCont = mb_strtolower($correoInstituCont);
+			$facebookCont = mb_strtolower($facebookCont);
+			$twitterCont = mb_strtolower($twitterCont);
+			$skypeCont = mb_strtolower($skypeCont);
+			$dirWebCont = mb_strtolower($dirWebCont);
+			
+			if($nomCont != "" && $apCont != "" && $amCont != "" && $areaCont != "" && $telMovilCont != "" && $telOficinaCont != "" && $telEmergenciaCont != "" && $correoPersonalCont!= ""
+					&& $calleCont != "" && $numExtCont != "" && $coloniaCont != ""){
+				//Valdaciones de las cadenas
+			}else{
+				$band = 1;
+				echo" <script> alert('Complete toda la información requerida antes de continuar') </script> ";
+			}
+			
+			if($idCP == 0){
+				$band = 1;
+				echo" <script> alert('Seleccione una localidad') </script> ";
+			}
+			
+			if($band == 0){
+				$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno 
+								FROM contactos
+								WHERE nombreCon = '".$nomCont."' 
+									AND ap_paterno = '".$apCont."' 
+									AND ap_materno = '".$amCont."' 
+									AND id_contacto != ".$idCont.";";
+				$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+				
+				$rows = mysql_num_rows($ejecutar);
+				
+				if($rows != 0){
+					$band = 1;
+					echo" <script> alert('El contacto $nomCont $apCont $amCont ya se encuentra registrado') </script> ";
+				}
+			}
+			
+			if($band == 0){
+								
+				$consulta1 = "UPDATE direcciones 
+									SET calle = '".$calleCont."',num_ext = ".$numExtCont.",num_int = ".$numIntCont.",colonia = ".$coloniaCont."',referencia = ".$referenciaCont."',id_cp = ".$idCP."
+									WHERE id_direccion = ".$idDireccion;
+				$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
+				
+				$consulta2 = "UPDATE contactos
+									SET nombreCon = '".$nomCont."',ap_paterno = '".$apCont."',ap_materno = ".$amCont."',nombre_area = ".$areaCont."',movil = ".$telMovilCont.",tel_oficina = ".$telOficinaCont.",
+									tel_emergencia = ".$telEmergenciaCont.",correo_p = ".$correoPersonalCont."',correo_instu = '".$correoInstituCont."',facebook = ".$facebookCont."',twitter = ".$twitterCont."',
+									skype = '".$skypeCont."',direccion_web = ".$idDireccion.",activo = 
+									WHERE id_contacto = ".$idCont;
+				// INSERT INTO contactos (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,
+									// correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,activo,fecha_alta)
+				// VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",".$telOficinaCont.",".$telEmergenciaCont.",'".$correoPersonalCont."',
+										// '".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."','".$dirWebCont."',".$idDireccion.",'Si',NOW());";
 				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar contacto ".mysql_error());	
 				
 				return $ejecutar1 & $ejecutar2;	

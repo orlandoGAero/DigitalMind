@@ -11,7 +11,7 @@
 		<tr>
 			<td width="100%">
 				<form name="formBusqueda">
-				<b class="azul">Buscar</b> <input type="search" name="busqueda" id="buscador" autocomplete="off" maxlength="50" required="required" placeholder="Agrega lo que deseas buscar" />
+				<b class="azul">Buscar</b> <input type="search" name="busqueda" id="buscador" autocomplete="off" maxlength="50" required="required" class="filtrosBusqueda" placeholder="Agrega lo que deseas buscar" />
 				</form>
 				<td>
 				<a href='index.php?url=insertContact'><img src="images/add.png" title="Nuevo Contacto" align='right' width="25px" height="25px"/></a>
