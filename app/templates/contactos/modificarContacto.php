@@ -25,10 +25,10 @@
 												
 												<ul>
 													<li> <!-- IdContacto -->  <input type="hidden" name="idContact" value="<?php echo $obtenerDatosContacto['id_contacto']  ?>" readonly /> </li>
-													<li><label>Nombre</label><input type="text" name="nameContact" autofocus="autofocus" autocomplete="off" required="required" maxlength="50" pattern="[A-Za-z]{1,}" value="<?php echo $obtenerDatosContacto['nombreCon'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Apellido Paterno</label><input type="text" name="ApPContact" autocomplete="off" required="required" maxlength="50" pattern="[A-Za-z]{1,}" value="<?php echo $obtenerDatosContacto['ap_paterno'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Apellido Materno</label><input type="text" name="ApMContact" autocomplete="off" required="required" maxlength="50" pattern="[A-Za-z]{1,}" value="<?php echo $obtenerDatosContacto['ap_materno'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Área</label><input type="text" name="nameArea" autocomplete="off" required="required" maxlength="50" pattern="[A-Za-z]{1,}" value="<?php echo $obtenerDatosContacto['nombre_area'] ?>" /><span style="color: red;"><b>&nbsp*</b></span></li>
+													<li><label>Nombre</label><input type="text" name="nameContact" autofocus="autofocus" autocomplete="off" required="required" maxlength="50"  pattern="|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|" value="<?php echo $obtenerDatosContacto['nombreCon'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Apellido Paterno</label><input type="text" name="ApPContact" autocomplete="off" required="required" maxlength="50" pattern="|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|"  value="<?php echo $obtenerDatosContacto['ap_paterno'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Apellido Materno</label><input type="text" name="ApMContact" autocomplete="off" required="required" maxlength="50" pattern="|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|" value="<?php echo $obtenerDatosContacto['ap_materno'] ?>" onChange="conMayusculas(this)"/><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Área</label><input type="text" name="nameArea" autocomplete="off" required="required" maxlength="50" pattern="|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|" value="<?php echo $obtenerDatosContacto['nombre_area'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp*</b></span></li>
 													<li><label>Teléfono Móvil</label><input type="text" id="tel" class="keysNumbers" name="telMovil" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $obtenerDatosContacto['movil'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Teléfono Oficina</label><input type="text" id="tel" class="keysNumbers" name="telOficina" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $obtenerDatosContacto['tel_oficina'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Teléfono Emergencia</label><input type="text" id="tel" class="keysNumbers" name="telEmergencia" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $obtenerDatosContacto['tel_emergencia'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
@@ -39,16 +39,16 @@
 													<li><label>Skype</label><input type="text" name="redSocialS"  autocomplete="off" maxlength="20" value="<?php echo $obtenerDatosContacto['skype'] ?>" />&nbsp;&nbsp;&nbsp;</li>
 													<li><label>Página Web</label><input type="url" name="webPage"  autocomplete="off" maxlength="30" placeholder="http://www.ejemplo.com" value="<?php echo $obtenerDatosContacto['direccion_web'] ?>" />&nbsp;&nbsp;&nbsp;</li>
 													<?php if ($obtenerDatosContacto['activo'] == "Si") :?>
-														<li>
+														<li class="li_radio" >
 															<label>Activo</label>
-															Si<input type="radio" name="activoC" value="Si" checked  class="radio" />
-															No<input type="radio" name="activoC" value="No" class="radio" />
+															<input type="radio" name="activoC" value="Si" checked  /> Si
+															<input type="radio" name="activoC" value="No" /> No
 														</li>
 													<?php else :?>
-														<li>
+														<li class="li_radio" >
 															<label>Activo</label>
-															Si<input type="radio" name="activoC" value="Si" class="radio"/>
-															No<input type="radio" name="activoC" value="No" checked class="radio"/>
+															<input type="radio" name="activoC" value="Si" /> Si
+															<input type="radio" name="activoC" value="No" checked /> No
 														</li>
 													<?php endif; ?>
 												</ul>
@@ -95,11 +95,11 @@
 															</div>
 														</li>
 													<?php endif; ?>
-													<li><label>Calle</label><input type="text" name="street" autocomplete="off" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['calle'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Número Exterior</label><input type="text" class="keysNumbers" name="numExt" autocomplete="off" required="required" maxlength="5" value="<?php echo $obtenerDatosContacto['num_ext'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Calle</label><input type="text" name="street" autocomplete="off" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['calle'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Número Exterior</label><input type="text" class="keysNumbers" name="numExt" autocomplete="off" required="required" maxlength="5" value="<?php echo $obtenerDatosContacto['num_ext'] ?>"  /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Número Interior</label><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $obtenerDatosContacto['num_int'] ?>" />&nbsp;&nbsp;&nbsp;</li>
-													<li><label>Colonia</label><input type="text" name="colonia" autocomplete="off" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['colonia'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Referencia</label><input type="text" name="reference" autocomplete="off" value="<?php echo $obtenerDatosContacto['referencia'] ?>" />&nbsp;&nbsp;&nbsp;</li>
+													<li><label>Colonia</label><input type="text" name="colonia" autocomplete="off" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['colonia'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Referencia</label><input type="text" name="reference" autocomplete="off" value="<?php echo $obtenerDatosContacto['referencia'] ?>" onChange="conMayusculas(this)" />&nbsp;&nbsp;&nbsp;</li>
 												</ul>
 											</li>
 										</ul>
@@ -135,6 +135,10 @@
 		        if(tecla.charCode < 48 || tecla.charCode > 57) return false;
 		    });
 		});
+		
+	    function conMayusculas(field) {
+	            field.value = field.value.toUpperCase()
+		}
 	</script>
 	
 <?php $contenido = ob_get_clean() ?>

@@ -114,7 +114,7 @@
 			$idCon = htmlspecialchars($idCon);
 			
 			$consulta = "SELECT c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,c.nombre_area,c.movil,c.tel_oficina,c.tel_emergencia,c.correo_p,c.correo_instu,
-								c.facebook,c.twitter,c.skype,c.direccion_web,c.activo,cp.estado,cp.municipio,cp.localidad,cp.codigoP,d.calle,d.num_ext,d.num_int,d.colonia,d.referencia,d.id_cp
+								c.facebook,c.twitter,c.skype,c.direccion_web,c.activo,cp.estado,cp.municipio,cp.localidad,cp.codigoP,d.id_direccion,d.calle,d.num_ext,d.num_int,d.colonia,d.referencia,d.id_cp
 								FROM codigos_postales cp, direcciones d, contactos c
 								WHERE cp.id_cp = d.id_cp
 									AND d.id_direccion=c.id_direccion
@@ -214,7 +214,7 @@
 		
 		public function actualizarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,
 		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
-		$correoInstituCont,$facebookCont,$twitterCont,$skypeCont,$dirWebCont)
+		$correoInstituCont,$facebookCont,$twitterCont,$skypeCont,$dirWebCont,$activoCont)
 		{
 			$band = 0;
 			
@@ -268,20 +268,16 @@
 			if($band == 0){
 								
 				$consulta1 = "UPDATE direcciones 
-									SET calle = '".$calleCont."',num_ext = ".$numExtCont.",num_int = ".$numIntCont.",colonia = ".$coloniaCont."',referencia = ".$referenciaCont."',id_cp = ".$idCP."
+									SET calle = '".$calleCont."',num_ext = ".$numExtCont.",num_int = ".$numIntCont.",colonia = '".$coloniaCont."',referencia = '".$referenciaCont."',id_cp = ".$idCP."
 									WHERE id_direccion = ".$idDireccion;
-				$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
+				$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en actualizar dirección ".mysql_error());
 				
 				$consulta2 = "UPDATE contactos
-									SET nombreCon = '".$nomCont."',ap_paterno = '".$apCont."',ap_materno = ".$amCont."',nombre_area = ".$areaCont."',movil = ".$telMovilCont.",tel_oficina = ".$telOficinaCont.",
-									tel_emergencia = ".$telEmergenciaCont.",correo_p = ".$correoPersonalCont."',correo_instu = '".$correoInstituCont."',facebook = ".$facebookCont."',twitter = ".$twitterCont."',
-									skype = '".$skypeCont."',direccion_web = ".$idDireccion.",activo = 
+									SET nombreCon = '".$nomCont."',ap_paterno = '".$apCont."',ap_materno = '".$amCont."',nombre_area = '".$areaCont."',movil = ".$telMovilCont.",tel_oficina = ".$telOficinaCont.",
+									tel_emergencia = ".$telEmergenciaCont.",correo_p = '".$correoPersonalCont."',correo_instu = '".$correoInstituCont."',facebook = '".$facebookCont."',twitter = '".$twitterCont."',
+									skype = '".$skypeCont."',direccion_web = '".$dirWebCont."',activo = '".$activoCont."'
 									WHERE id_contacto = ".$idCont;
-				// INSERT INTO contactos (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,
-									// correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,activo,fecha_alta)
-				// VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",".$telOficinaCont.",".$telEmergenciaCont.",'".$correoPersonalCont."',
-										// '".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."','".$dirWebCont."',".$idDireccion.",'Si',NOW());";
-				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar contacto ".mysql_error());	
+				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en actualizar contacto ".mysql_error());	
 				
 				return $ejecutar1 & $ejecutar2;	
 			}
