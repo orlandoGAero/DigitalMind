@@ -56,21 +56,4 @@
 	cursor: default;
 }
 
-img.palomita:hover {
-	background: url("../images/palomita.png") no-repeat;
-}
-
-#miTabla input[type=checkbox] {display: none;cursor: pointer;}
-#miTabla input[type=checkbox] + label
-{
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-	background: url('../images/choose_sprite.png') left top no-repeat;
-	cursor: pointer;
-}
-
-#miTabla input[type=checkbox]:checked + label
-{
-	background: url('../images/choose_sprite.png') -16px top no-repeat;
-}
+#miTabla input[type=checkbox] {cursor: pointer;}

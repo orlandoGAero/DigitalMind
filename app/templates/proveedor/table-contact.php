@@ -42,7 +42,7 @@
 					<td><?php echo $contacto['correo_instu'] ?></td>
 					<td>
 						<input type="checkbox" id="c1" name="c1" unchecked value="<?php echo $idContact ?>" />
-						<label for="c1"></label>
+						
 					</td>
 				</tr>
 			<?php endforeach; ?>
