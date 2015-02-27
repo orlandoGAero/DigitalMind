@@ -31,6 +31,7 @@
 	     'TablaContactos' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
 	     'DetalleProveedor' => array('controller' =>'Controller', 'action' =>'verProveedor'),
 	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'mostrarContactos'),
+
 	 );
  
  	// Parseo de la ruta

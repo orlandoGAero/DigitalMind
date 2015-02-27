@@ -35,7 +35,7 @@
 				<section id="principal">
 					<h1>Nuevo Proveedor</h1>
 					<div class="menu-pro">
-						<form action="" name="formprov" id="formprov" method="" class="cmxform">
+						<form action="index.php?url=NuevoProveedor" method="POST" name="formprov" id="formprov">
 							<fieldset>
 								<ul>
 									<li><a href="#">Datos Proveedor</a>

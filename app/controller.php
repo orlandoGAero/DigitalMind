@@ -196,6 +196,24 @@
 				'tipo_cta' => $model->obtieneTipoC(),
 			);
 
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				
+				if($model->registrarProveedores($_POST['razon_s'],
+												$_POST['rfc'],
+												$_POST['tipo_rs'])){
+				} else {
+
+					$parametrosProveedores = array(
+					
+						// datos fiscales
+						'razon_s' => $_POST['razon_s'],
+						'rfc' => $_POST['rfc'],
+						'tipo_razon' => $_POST['tipo_rs'],
+					);
+				}
+
+			}
+
 			require '/templates/proveedor/nuevoPro.php';
 		}
 

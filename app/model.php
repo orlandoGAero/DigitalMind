@@ -184,7 +184,7 @@
 			
 		}
 
-		//proveedores
+		//---------------------------------------PROVEEDORES-----------------------------------------------------
 
 		public function obtenerProveedores()
 		{
@@ -364,6 +364,17 @@
 			}
 			
 			return $tipo_c;
+		}
+
+		// Función para registrar proveedores
+		public function registrarProveedores($razon_s,$rfc,$tipo_rs) {
+			
+			$sqlinsertdf = " INSERT INTO datos_fiscales (razon_social,rfc,id_tipo_ra)
+							 VALUES ('".$razon_s."','".$rfc."',".$tipo_rs.") ";
+
+			$ejecutar_sqlinsertdf = mysql_query($sqlinsertdf,$this->conexion) or die ("Error en insertar datos fiscales ".mysql_error());
+			
+			return $sqlinsertdf;
 		}
 
     }
