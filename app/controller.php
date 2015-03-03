@@ -180,13 +180,23 @@
 				// datos proveedor
 				'idprov' => $model->obtenerIdProveedor(),
 				'proveedor' => '',
-				'categoriaprov' => $model->obtenerCategoria(),
+				'categoriaprov' => $model->obtenerCategoria(),	
 				'phone' => '',
 				'direweb' => '',
+				
 				// datos fiscales
+				'idDatFis' => $model->incrementoDatFis(),	
 				'razon_s' => '',
 				'rfc' => '',
 				'tipo_razon' => $model->obtieneTrazon(),
+				// datos direccion fisica
+				'idDire' => $model->incrementoDir(),
+				'street' => '',
+				'n_ext' => '',
+				'n_int' => '',
+				'colo' => '',
+				'ref' => '',
+				
 				// datos bancarios
 				'banco' => $model->obtieneBanco(),
 				'sucursal' => '',
@@ -198,17 +208,45 @@
 
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				
-				if($model->registrarProveedores($_POST['razon_s'],
-												$_POST['rfc'],
-												$_POST['tipo_rs'])){
+				if($model->registrarProveedores($_POST['txt_iddf'],
+												$_POST['txt_razon_s'],
+												$_POST['txt_rfc'],
+												$_POST['slt_tipo_rs'],
+												$_POST['txt_iddir'],
+												$_POST['txt_calle'],
+												$_POST['txt_noext'],
+												$_POST['txt_noint'],
+												$_POST['txt_col'],
+												$_POST['txt_ref'],
+												$_POST['txt_idProv'],
+												$_POST['txt_nombrepro'],
+												$_POST['slt_catprov'],
+												$_POST['txt_tel_pro'],
+												$_POST['txt_url_web'])){
+					print_r($_POST);
 				} else {
 
 					$parametrosProveedores = array(
 					
+						// datos proveedor
+						'idprov' => $_POST['txt_idProv'],
+						'proveedor' => $_POST['txt_nombrepro'],
+						'categoriaprov' => $_POST['slt_catprov'],
+						'phone' => $_POST['txt_tel_pro'],
+						'direweb' => $_POST['txt_url_web'],
+						
 						// datos fiscales
-						'razon_s' => $_POST['razon_s'],
-						'rfc' => $_POST['rfc'],
-						'tipo_razon' => $_POST['tipo_rs'],
+						'idDatFis' => $_POST['txt_iddf'],
+						'razon_s' => $_POST['txt_razon_s'],
+						'rfc' => $_POST['txt_rfc'],
+						'tipo_razon' => $_POST['slt_tipo_rs'],
+						// datos direccion fisica
+						'idDire' => $_POST['txt_iddir'],
+						'street' => $_POST['txt_calle'],
+						'n_ext' => $_POST['txt_noext'],
+						'n_int' => $_POST['txt_noint'],
+						'colo' => $_POST['txt_col'],
+						'ref' => $_POST['txt_ref'],
 					);
 				}
 

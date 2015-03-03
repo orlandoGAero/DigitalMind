@@ -43,37 +43,37 @@
 											<li>	
 												<div class="dform">
 													<div>
-														<input type="hidden" name="idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
+														<input type="text" name="txt_idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
+													</div>
+
+													<!--<div>
+														<label for="lbl_fecha">Fecha Alta:</label>
+														<input type="date" name="txt_fecha" value="<?php echo date("Y-m-d"); ?>" readonly class="date"/>
+													</div>-->
+
+													<div>
+														<label for="lbl_proveedor">Proveedor:</label>
+														<input type="text" name="txt_nombrepro"/>
 													</div>
 
 													<div>
-														<label for="fecha">Fecha Alta:</label>
-														<input type="date" name="f_alta" value="<?php echo date("Y-m-d"); ?>" readonly class="date"/>
-													</div>
-
-													<div>
-														<label for="proveedor">Proveedor:</label>
-														<input type="text" name="nombrepro"/>
-													</div>
-
-													<div>
-														<label for="categoria">Categor&iacute;a:</label>
-														<select id="catprov" name="catprov">
+														<label for="lbl_categoria">Categor&iacute;a:</label>
+														<select id="catprov" name="slt_catprov">
 															<option value selected>Ingresa una categor&iacute;a...</option>
 															<?php foreach ($parametrosProveedores['categoriaprov'] as $catpro) : ?>
-															<option value="<?php echo $catpro['categoria'] ?>"><?php echo $catpro['categoria']?></option>
+															<option value="<?php echo $catpro['id_categoria'] ?>"><?php echo $catpro['categoria']?></option>
 															<?php endforeach; ?>
 														</select>
 													</div>
 
 													<div>
-														<label for="tele">Tel&eacute;fono:</label>
-														<input type="tel" name="tel_pro" maxlength="10" />
+														<label for="lbl_tele">Tel&eacute;fono:</label>
+														<input type="tel" name="txt_tel_pro" maxlength="10" />
 													</div>
 
 													<div>
-														<label for="dir">Direcci&oacute;n Web:</label>
-														<input type="url" name="url_web" placeholder="http://dominio.com.mx" />
+														<label for="lbl_dir">Direcci&oacute;n Web:</label>
+														<input type="text" name="txt_url_web" placeholder="http://dominio.com.mx" />
 													</div>
 												</div>
 											</li>
@@ -84,22 +84,24 @@
 										<ul>
 											<li>	
 												<div class="dform">
+													<!-- clave razon social -->
+													<input type="text"  name="txt_iddf" value="<?php echo $parametrosProveedores['idDatFis'] ?>" readonly />
 													<div>
-														<label for="razon">Raz&oacute;n Social:</label>
-														<input type="text" name="razon_s" />
+														<label for="lbl_razon">Raz&oacute;n Social:</label>
+														<input type="text" name="txt_razon_s" />
 													</div>
 
 													<div>
-														<label for="rfc">RFC:</label>
-														<input type="text" name="rfc"/>
+														<label for="lbl_rfc">RFC:</label>
+														<input type="text" name="txt_rfc"/>
 													</div>
 
 													<div>
-														<label for="tipo">Tipo Raz&oacute;n:</label></td>
-														<select id="tipo_rs" name="tipo_rs">
-																<option value selected>Ingresa un tipo de raz&oacute;n...</option>
+														<label for="lbl_tipo">Tipo Raz&oacute;n:</label></td>
+														<select id="tipo_rs" name="slt_tipo_rs">
+																<option selected>Ingresa un tipo de raz&oacute;n...</option>
 																<?php foreach($parametrosProveedores ['tipo_razon'] as $tipors) : ?>
-																<option value="<?php echo $tipors['tipo'] ?>"><?php echo $tipors['tipo'] ?></option>
+																<option value="<?php echo $tipors['id_tipo_ra'] ?>"><?php echo $tipors['tipo'] ?></option>
 																<?php endforeach; ?>
 														</select>
 													</div>
@@ -112,8 +114,27 @@
 										<ul>
 											<li>	
 												<div class="dform">
+													<!-- clave razon social -->
+													<input type="text"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
 													<div>
-														
+														<label for="lbl_calle">Calle:</label>
+														<input type="text" name="txt_calle" />	
+													</div>
+													<div>
+														<label for="lbl_noext">No. Ext:</label>
+														<input type="text" name="txt_noext" />	
+													</div>
+													<div>
+														<label for="lbl_noint">No. Int:</label>
+														<input type="text" name="txt_noint" />	
+													</div>
+													<div>
+														<label for="lbl_col">Colonia:</label>
+														<input type="text" name="txt_col" />	
+													</div>
+													<div>
+														<label for="lbl_ref">Referencia:</label>
+														<input type="text" name="txt_ref" />	
 													</div>
 												</div>
 											</li>
@@ -161,7 +182,7 @@
 													<select id="banco" name="banco">
 														<option value selected>Selecciona un banco...</option>
 														<?php foreach($parametrosProveedores ['banco'] as $bank) : ?>
-														<option value="<?php echo $bank['nombre_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
+														<option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
 														<?php endforeach; ?>
 													</select>
 												</div>
@@ -191,7 +212,7 @@
 													<select id="tipo_c" name="tipo_c">
 														<option value selected>Selecciona un tipo de cuenta...</option>
 														<?php foreach ($parametrosProveedores ['tipo_cta'] as $tipo_c) : ?>
-														<option value="<?php echo $tipo_c['tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
+														<option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
 														<?php endforeach; ?>
 													</select>
 												</div>
