@@ -68,18 +68,6 @@
 				<table id="miTabla" >
 					<caption>Dirección</caption>
 					<tr>
-						<th>Estado</th>
-						<td><?php  echo $detalleContacto['estado'] ?></td>
-					</tr>
-					<tr>
-						<th>Municipio</th>
-						<td><?php  echo $detalleContacto['municipio'] ?></td>
-					</tr>
-					<tr>
-						<th>Localidad</th>
-						<td><?php  echo $detalleContacto['localidad'] ?></td>
-					</tr>
-					<tr>
 						<th>Calle</th>
 						<td><?php echo $detalleContacto['calle'] ?></td>
 					</tr>
@@ -98,12 +86,25 @@
 							</td>
 					</tr>
 					<tr>
+						<th>Colonia</th>
+						<td><?php echo $detalleContacto['colonia'] ?></td>
+					</tr>
+					<tr>
 						<th>Código Postal</th>
 						<td><?php  echo $detalleContacto['codigoP'] ?></td>
 					</tr>
 					<tr>
-						<th>Colonia</th>
-						<td><?php echo $detalleContacto['colonia'] ?></td>
+						<th>Localidad</th>
+						<td><?php $detalleContacto['localidad'] = mb_strtoupper($detalleContacto['localidad']); echo $detalleContacto['localidad'] ?></td>
+					</tr>
+					<tr>
+						<th>Municipio</th>
+						<td><?php $detalleContacto['municipio'] = mb_strtoupper($detalleContacto['municipio']);  echo $detalleContacto['municipio'] ?></td>
+					</tr>
+					
+					<tr>
+						<th>Estado</th>
+						<td><?php $detalleContacto['estado'] = mb_strtoupper($detalleContacto['estado']); echo $detalleContacto['estado'] ?></td>
 					</tr>
 					<tr>
 						<th>Referencia</th>

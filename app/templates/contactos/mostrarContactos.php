@@ -4,14 +4,25 @@
 	 */
 ?>
 <?php ob_start() ?>
-	<!--Script para el paginado-->
-	<script type="text/javascript" src="<?php echo 'js/'.config::$paging_js ?>"></script>
+	
+	<script type="text/javascript" src="js/tinyTableSorter.js"></script>
 	
 	<table class="buscar">
 		<tr>
 			<td width="100%">
 				<form name="formBusqueda">
-				<b class="azul">Buscar</b> <input type="search" name="busqueda" id="buscador" autocomplete="off" maxlength="50" required="required" class="filtrosBusqueda" placeholder="Agrega lo que deseas buscar" />
+				<ul>
+					<li><b class="azul">Buscar por:</b></li>
+					<li>
+						<label>Nombre Completo</label>
+						<input type="search" name="busqueda" autocomplete="off" maxlength="50" required="required" class="filtrosBusqueda" placeholder="Ingresa el nombre" />
+						<label>Área</label>
+						<select name="filtroArea">
+							<option value="0" >Selecciona el área</option>
+							<option></option>
+						</select>
+					</li>
+				</ul>
 				</form>
 				<td>
 				<a href='index.php?url=insertContact'><img src="images/add.png" title="Nuevo Contacto" align='right' width="25px" height="25px"/></a>
@@ -20,28 +31,44 @@
 		</tr>
 	</table>
 	
-	<br />
-	
-	<div id="NavPosicion"></div> 	<!--Div donde se mostrara las opciones del paginado 1|2|3...-->
+	<div id="controls">
+		<div id="perpage">
+			<select onchange="sorter.size(this.value)">
+			<option value="5">5</option>
+				<option value="10" selected="selected">10</option>
+				<option value="20">20</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+			</select>
+			<span>Registros por página</span>
+		</div>
+		<div id="text">Página <b><span id="currentpage"></span></b> de <b><span id="pagelimit"></span></b></div>
+		<div id="navpage">
+			<img src="images/first.gif" width="16" height="16" alt="First Page" title="Primer Página" onclick="sorter.move(-1,true)" />
+			<img src="images/previous.gif" width="16" height="16" alt="First Page" title="Anterior Página" onclick="sorter.move(-1)" />
+			<img src="images/next.gif" width="16" height="16" alt="First Page" title="Siguiente Página" onclick="sorter.move(1)" />
+			<img src="images/last.gif" width="16" height="16" alt="Last Page" title="Última Página" onclick="sorter.move(1,true)" />
+		</div>
+	</div>
 	
 	<!--  Para hacer la tabla responsiva utilizamos la clase "table-responsive" de bootstrap incluida en un div -->
 	<div class="table-responsive">
 		
 		<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
 			"id" para incluir los estilos a la tabla -->
-    	<table class="table" id="miTabla">
+    	<table class="table sortable" id="miTabla">
     		<caption>Contactos</caption>
 			<thead>
 				<tr>
-					<th>Nombre</th>
-					<th>Apellido Paterno</th>
-					<th>Apellido Materno</th>
-					<th>Área</th>
-					<th>Móvill</th>
-					<th>Télefono Oficina</th>
-					<th>Correo Personal</th>
-					<th>Activo</th>
-					<th>Operaciones</th>
+					<th><h5>Nombre</h5></th>
+					<th><h5>Apellido Paterno</h5></th>
+					<th><h5>Apellido Materno</h5></th>
+					<th><h5>Área</h5></th>
+					<th><h5>Móvill</h5></th>
+					<th><h5>Télefono Oficina</h5></th>
+					<th><h5>Correo Personal</h5></th>
+					<th><h5>Activo</h5></th>
+					<th class="nosort" ><h5>Operaciones</h5></th>
 				</tr>
 			</thead>			
 			
@@ -70,16 +97,23 @@
 		</table>
 	</div>
 	
-	<!-- Script para paginar la tabla de contactos en 5 filas -->
+	<!-- Script para ordenar columnas, paginado y mostrar cierta cantidad de registros TINY Table Sorter -->
 	<script type="text/javascript">
-		var pager = new Pager('miTabla', 5);
-		pager.init();
-		pager.showPageNav('pager', 'NavPosicion');
-		pager.showPage(1);
-	</script>
-	
+	  var sorter = new TINY.table.sorter("sorter");
+		sorter.head = "head";
+		sorter.asc = "asc";
+		sorter.desc = "desc";
+		// sorter.evensel = "evenselected";
+		// sorter.oddsel = "oddselected";
+		sorter.pagesize = 10;
+		sorter.paginate = true;
+		sorter.currentid = "currentpage";
+		sorter.limitid = "pagelimit";
+		sorter.init("miTabla",1);
+  	</script>
+		
 	<!-- Función JQuery para filtrar los datos de la tabla de contactos -->
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	
 		jQuery("#buscador").keyup(function(){
 		    if( jQuery(this).val() != ""){
@@ -104,7 +138,7 @@
 		    }
 		});
 		
-	</script>
+	</script> -->
 	
 <?php $contenido = ob_get_clean() ?>
 
