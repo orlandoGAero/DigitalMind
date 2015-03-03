@@ -11,19 +11,10 @@ section#principal{
   max-width: 960px;
 }
 
-.span{
-	color: red;
-	font: bold 13px "Comic Sans MS";
-	float : right;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-right: 4px;
-}
-
 /*ESTILOS PARA LA CAJA DE TEXTO*/
 .panel{background: #16555B;margin: 0 auto;text-transform: uppercase;width: 960px;}
 
-.buscar{border-bottom: 1px dashed #CCC;text-align: left;width: 100%; top:15em;}
+/*.buscar{border-bottom: 1px dashed #CCC;text-align: left;width: 100%; top:15em;}*/
 .dos{text-align: right;}
 .azul{color: #28C7E0;}
 /*hasta aqi*/
@@ -130,19 +121,6 @@ input[type="radio"] {
   cursor:pointer;
 }
 
-.filtrosBusqueda {
-	border: 1px solid #ccc;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  /*color: #808080;*/ 
-  display: inline-block;
-  line-height: 18px;
-  margin: .3em 0 0 0;
-  padding: 4px;
-  width: 200px;
-}
-
 /*input[type=button], input[type=reset], input[type=submit] {
   width: auto;
   height: auto;
@@ -202,7 +180,17 @@ input[type=file]:focus, input[type=checkbox]:focus,input[type=radio], select:foc
   outline: 0px dotted #FF8C00;
 }
 
-/*div en columnas */
+/* Span de información requeridad */
+.span{
+	color: red;
+	font: bold 13px "Comic Sans MS";
+	float : right;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-right: 4px;
+}
+
+/*div de columnas en vista contacto*/
 
 .columns_left{
 float: left;
@@ -244,3 +232,43 @@ input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, te
 #text {float:left; width:345px; text-align:center; margin:5px 0 0 5px; }
 #navpage{float:left; width:342px; text-align:right; margin:5px 0 0 5px; }
 #navpage img {cursor:pointer}
+
+#busquedad {
+	background:red;
+	border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/*#busquedad label, input, select  {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: normal;
+}*/
+
+#busquedad label {
+  float: left;
+  padding-top: 7px;
+  padding-right: 5px;
+  margin-top: .5em;
+  margin-bottom: .5em;
+  font-weight: bold;
+  text-align: left;
+  line-height: 15px;
+  width: auto;
+  color: #404040;
+  background:#00E3CD;
+}
+#busquedad input, select {
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  /*display: inline-block;*/
+  /*line-height: 10px;*/
+ width:auto;
+ height:auto;
+  margin: .3em 0 0 0;
+  /*padding: 4px;*/
+  background:#72BF48;
+}

@@ -7,29 +7,26 @@
 	
 	<script type="text/javascript" src="js/tinyTableSorter.js"></script>
 	
-	<table class="buscar">
-		<tr>
-			<td width="100%">
-				<form name="formBusqueda">
-				<ul>
-					<li><b class="azul">Buscar por:</b></li>
-					<li>
-						<label>Nombre Completo</label>
-						<input type="search" name="busqueda" autocomplete="off" maxlength="50" required="required" class="filtrosBusqueda" placeholder="Ingresa el nombre" />
-						<label>Área</label>
-						<select name="filtroArea">
-							<option value="0" >Selecciona el área</option>
-							<option></option>
-						</select>
-					</li>
-				</ul>
-				</form>
-				<td>
-				<a href='index.php?url=insertContact'><img src="images/add.png" title="Nuevo Contacto" align='right' width="25px" height="25px"/></a>
-				<!--<div id="resultado"></div>-->
-			</td>	
-		</tr>
-	</table>
+	<div>
+		<a href='index.php?url=insertContact'><img src="images/add.png" title="Nuevo Contacto" align='right' width="25px" height="25px"/></a>
+	</div>
+	
+	<div id="busquedad" >
+		<form name="formBusqueda">
+			<ul>
+				<li><b class="azul">Buscar por:</b></li>
+				<li>
+					<label>Nombre Completo</label>
+					<input type="search" name="busqueda" autocomplete="off" maxlength="50" required="required"  placeholder="Ingresa el nombre" />
+					<label>Área</label>
+					<select name="filtroArea">
+						<option value="0" >Selecciona el área</option>
+						<option></option>
+					</select>
+				</li>
+			</ul>
+		</form>			
+	</div>
 	
 	<div id="controls">
 		<div id="perpage">
