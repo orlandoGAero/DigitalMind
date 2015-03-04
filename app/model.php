@@ -97,6 +97,18 @@
 		}
 		
 		//------------------------------------------------------------------CONTACTOS------------------------------------------------------------------------//
+		public function obtenerNombreArea(){
+			$consulta = "SELECT nombre_area FROM contactos GROUP BY nombre_area;";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			
+			$areaCont = array();
+			while($rows = mysql_fetch_assoc($ejecutar)){
+				$areaCont[] = $rows;
+			}
+			
+			return $areaCont;
+		}
+		
 		public function obtenerContactos(){
 			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,correo_p,activo FROM contactos ORDER BY nombreCon;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());

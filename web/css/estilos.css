@@ -14,7 +14,7 @@ section#principal{
 /*ESTILOS PARA LA CAJA DE TEXTO*/
 .panel{background: #16555B;margin: 0 auto;text-transform: uppercase;width: 960px;}
 
-/*.buscar{border-bottom: 1px dashed #CCC;text-align: left;width: 100%; top:15em;}*/
+.buscar{border-bottom: 1px dashed #CCC;text-align: left;width: 100%; top:15em;}
 .dos{text-align: right;}
 .azul{color: #28C7E0;}
 /*hasta aqi*/
@@ -180,7 +180,7 @@ input[type=file]:focus, input[type=checkbox]:focus,input[type=radio], select:foc
   outline: 0px dotted #FF8C00;
 }
 
-/* Span de información requeridad */
+/* Span de información requerida */
 .span{
 	color: red;
 	font: bold 13px "Comic Sans MS";
@@ -198,6 +198,7 @@ margin: 5px;
 padding: 15px;
 width: 350px;
 height: auto;
+background: red;
 }
 
 .columns_right{
@@ -217,6 +218,8 @@ input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, te
 	background: #F6CECE;
 }
 
+/*#nuevoRegistro {margin: auto 0 50px 0;}*/
+
 /*TINYtableSorter*/
 .sortable .head h5 {background:url(../images/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:15px}
 .sortable .desc h5 {background:url(../images/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:15px}
@@ -233,42 +236,26 @@ input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, te
 #navpage{float:left; width:342px; text-align:right; margin:5px 0 0 5px; }
 #navpage img {cursor:pointer}
 
-#busquedad {
-	background:red;
+/*#busquedad {
 	border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-/*#busquedad label, input, select  {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  font-weight: normal;
-  line-height: normal;
 }*/
 
 #busquedad label {
-  float: left;
-  padding-top: 7px;
-  padding-right: 5px;
-  margin-top: .5em;
-  margin-bottom: .5em;
-  font-weight: bold;
-  text-align: left;
-  line-height: 15px;
-  width: auto;
-  color: #404040;
-  background:#00E3CD;
+	/*float: left;*/
+	padding-left: 10px;
+	padding-right: 5px;
+	/*font-weight: bold;*/
+	text-align: left;
+	width: auto;
+	color: #404040;
 }
+
 #busquedad input, select {
-  border: 1px solid #ccc;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  /*display: inline-block;*/
-  /*line-height: 10px;*/
- width:auto;
- height:auto;
-  margin: .3em 0 0 0;
-  /*padding: 4px;*/
-  background:#72BF48;
+	/*float: left;*/
+	border: 1px solid #ccc;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+  	border-radius: 5px;
+  	width:250px;
+  	height:auto;
 }

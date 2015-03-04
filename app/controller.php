@@ -18,6 +18,9 @@
 				'contactos' => $m->obtenerContactos(),
 			); 
 			
+			$nombreAreaCont = $m->obtenerNombreArea();
+			$areaContacto = $nombreAreaCont;
+			
 			require __DIR__ . '/templates/contactos/mostrarContactos.php';
 		}
 		
