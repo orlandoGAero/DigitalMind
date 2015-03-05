@@ -110,7 +110,11 @@
 		}
 		
 		public function obtenerContactos(){
-			$consulta = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,correo_p,activo FROM contactos ORDER BY nombreCon;";
+			$consulta = "SELECT cp.municipio,d.colonia,c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,c.nombre_area,c.movil,c.correo_p,c.activo
+								FROM codigos_postales cp, direcciones d, contactos c
+								WHERE cp.id_cp=d.id_cp
+									AND d.id_direccion=c.id_direccion
+								ORDER BY nombreCon;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			
 			$Contactos = array();

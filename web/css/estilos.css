@@ -121,6 +121,15 @@ input[type="radio"] {
   cursor:pointer;
 }
 
+input[type="checkbox"] {
+  display:inline-block;
+  width:19px;
+  height:19px;
+  margin:-3px 4px 0 30px;
+  vertical-align:middle;
+  cursor:pointer;
+}
+
 /*input[type=button], input[type=reset], input[type=submit] {
   width: auto;
   height: auto;
@@ -198,7 +207,6 @@ margin: 5px;
 padding: 15px;
 width: 350px;
 height: auto;
-background: red;
 }
 
 .columns_right{
@@ -218,8 +226,6 @@ input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, te
 	background: #F6CECE;
 }
 
-/*#nuevoRegistro {margin: auto 0 50px 0;}*/
-
 /*TINYtableSorter*/
 .sortable .head h5 {background:url(../images/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:15px}
 .sortable .desc h5 {background:url(../images/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:15px}
@@ -235,10 +241,6 @@ input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, te
 #text {float:left; width:345px; text-align:center; margin:5px 0 0 5px; }
 #navpage{float:left; width:342px; text-align:right; margin:5px 0 0 5px; }
 #navpage img {cursor:pointer}
-
-/*#busquedad {
-	border: 1px solid #ccc;
-}*/
 
 #busquedad label {
 	/*float: left;*/

@@ -71,6 +71,7 @@
 				'apm' => '',
 				'area' => '',
 				'movil' => '',
+				'ext' => '',
 				'tel_ofi' => '',
 				'tel_emer' => '',
 				'correoPers' => '',
