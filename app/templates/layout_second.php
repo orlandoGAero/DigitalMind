@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,19 +50,10 @@
 			                }
 			            }
 			</script>
-		
-		 <!-- DataTables CSS -->
-        <link rel="stylesheet" type="text/css" href="css/dataTables.css">
-        
-        <!-- DataTables jquery -->
-        <script type="text/javascript" charset="UTF-8" src="js/jquery.js"></script>
-        
-        <!-- DataTables -->
-		<script type="text/javascript" charset="UTF-8" src="js/jquery.dataTables.js"></script>
     </head>
 
     <body>
-  
+ 
         <header>
             <div class="banner"><img src="images/banerletras.png"></div>
             <div class="principal">
@@ -75,7 +65,7 @@
             <nav class="nav">
                 <ul>
                     <li class="active"> <a href="./" alt="Inicio" title="Inicio"><img src="images/home.png"/></a> </li>
-                    <li class=""> <a href="./" alt="Clientes" title="Clientes"><img src="images/icon-cliente-menu.png" />Clientes</a> </li>
+                    <li class=""> <a href="index.php?url=listaCliente" alt="Clientes" title="Clientes"><img src="images/icon-cliente-menu.png" />Clientes</a> </li>
                     <li class=""> <a href="index.php?url=listContact" alt="Contactos" title="Contacto"><img src="images/icon-contacto-menu.png" />Contactos</a> </li>
                     <li class=""> <a href="index.php?url=Proveedores" alt="Proveedores" title="Proveedor"><img src="images/icon-proveedor-menu.png" />Proveedores</a> </li>
                     <li class=""> <a href="./" alt="Productos" title="Producto"><img src="images/icon-producto-menu.png" />Productos</a> </li>
@@ -95,9 +85,7 @@
         <!-- Start Main Body Section-->
         <div class="mainbody-section text-center" id="menu-index">
             <div class="container">          
-				<div>
 					<?php echo $contenido ?>
-				</div>
             </div>
         </div>
         <!-- End Main Body Section --> 

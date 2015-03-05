@@ -3,20 +3,22 @@
     require_once __DIR__ . '/../app/config.php';
 	require_once __DIR__ . '/../app/model.php';
 	require_once __DIR__ . '/../app/controller.php';
-	require_once __DIR__ . '/../app/Encrypter.php';
-	
-	// enrutamiento
 
+	// enrutamiento
 	 $map = array(
 	     'inicio' => array('controller' =>'Controller', 'action' =>'inicio'),
 	     'listarCodPos' => array('controller' =>'Controller', 'action' =>'listarCodPost'),
 	     'insertarCP' => array('controller' =>'Controller', 'action' =>'insertarCP'),
 	     'buscarCP' => array('controller' =>'Controller', 'action' =>'buscarCP'),
 	     'verCodPost' => array('controller' =>'Controller', 'action' =>'verCodPost'),
-	     //CONTACTOS
+	     
+	     //-------------------------CONTACTOS-------------------------------------------
 	     'listContact' => array('controller' =>'Controller', 'action' =>'listarContacto'),
-	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
 	     'insertContact' => array('controller' =>'Controller', 'action' =>'insertarContacto'),
+	     'obtenerDir' => array('controller' =>'Controller', 'action' =>'obtenerDireccion'),
+	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
+	     'updateContact' => array('controller' =>'Controller', 'action' =>'modificarContacto'),
+	     'deletedContact' => array('controller' =>'Controller', 'action' =>'eliminarContacto'),
 
 	     //-------------------------CLIENTES-------------------------------------------
 	     'listaCliente' => array('controller' =>'Controller', 'action' =>'listaCliente'), 
@@ -25,15 +27,15 @@
      	 'buscarXC' => array('controller' =>'Controller', 'action' =>'buscarXC'),
      	 'agregarCl' => array('controller' =>'Controller', 'action' =>'agregarCl'),     	 
      	 'modCl' => array('controller' =>'Controller', 'action' =>'modCl'),
+     	 
      	 /*------------------------------PROVEEDOR----------------------------------------------*/
 	     'Proveedores' => array('controller' =>'Controller', 'action' =>'Proveedor'),
 	     'NuevoProveedor' => array('controller' =>'Controller', 'action' =>'InsertarProveedor'),
 	     'TablaContactos' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
 	     'DetalleProveedor' => array('controller' =>'Controller', 'action' =>'verProveedor'),
 	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'mostrarContactos'),
-
 	 );
- 
+	 
  	// Parseo de la ruta
 	 if (isset($_GET['url'])) {
 	     if (isset($map[$_GET['url']])) {

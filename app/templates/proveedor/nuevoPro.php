@@ -3,8 +3,7 @@
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<link rel="stylesheet" type="text/css" href="css/estilos.css">
-			<link rel="stylesheet" type="text/css" href="css/style-stepscontact.css">
+			<!-- <link rel="stylesheet" type="text/css" href="css/style-stepscontact.css"> -->
 
 			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
     		<script type="text/javascript" src="js/formToWizard.js"></script>
@@ -28,209 +27,274 @@
 					$('#tablaCont').load('index.php?url=TablaContactos');
 				});
 			</script>
+			<script>
+				function cpview(form)
+				{
+			       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formprov').serialize())    
+				}
+			</script>
 		</head>
 		<body>
-			<section id="contenido">
+			<div class="col-lg-14">
+				<!-- div de imagen -->
 				<div align="left"><a href="index.php?url=Proveedores"><img src="images/leftarrow.png"></a></div>
-				<section id="principal">
+
+				<div class="panel panel-default">	
 					<h1>Nuevo Proveedor</h1>
-					<div class="menu-pro">
-						<form action="index.php?url=NuevoProveedor" method="POST" name="formprov" id="formprov">
-							<fieldset>
+					<div class="panel-heading" style="height:40px;">
+						<span class="span">&nbsp;* Información requerida</span>
+    				</div>
+					<div class="panel-body">
+						<section id="principal">
+							<div class="menu-pro">
 								<ul>
-									<li><a href="#">Datos Proveedor</a>
-										<ul>
-											<li>	
-												<div class="dform">
-													<div>
+									<form action="index.php?url=NuevoProveedor" method="POST" name="formprov" id="formprov" target="_self">
+										<li><a href="#"><b>Datos Proveedor</b></a>
+											<ul>
+												<li>	
+													<li>
 														<input type="text" name="txt_idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
-													</div>
+													</li>
 
-													<!--<div>
-														<label for="lbl_fecha">Fecha Alta:</label>
-														<input type="date" name="txt_fecha" value="<?php echo date("Y-m-d"); ?>" readonly class="date"/>
-													</div>-->
-
-													<div>
-														<label for="lbl_proveedor">Proveedor:</label>
-														<input type="text" name="txt_nombrepro"/>
-													</div>
-
-													<div>
-														<label for="lbl_categoria">Categor&iacute;a:</label>
-														<select id="catprov" name="slt_catprov">
-															<option value selected>Ingresa una categor&iacute;a...</option>
-															<?php foreach ($parametrosProveedores['categoriaprov'] as $catpro) : ?>
-															<option value="<?php echo $catpro['id_categoria'] ?>"><?php echo $catpro['categoria']?></option>
-															<?php endforeach; ?>
-														</select>
-													</div>
-
-													<div>
-														<label for="lbl_tele">Tel&eacute;fono:</label>
-														<input type="tel" name="txt_tel_pro" maxlength="10" />
-													</div>
-
-													<div>
-														<label for="lbl_dir">Direcci&oacute;n Web:</label>
-														<input type="text" name="txt_url_web" placeholder="http://dominio.com.mx" />
-													</div>
-												</div>
-											</li>
-										</ul>
-									</li>
-
-									<li><a href="#">Datos Fiscales</a>
-										<ul>
-											<li>	
-												<div class="dform">
-													<!-- clave razon social -->
-													<input type="text"  name="txt_iddf" value="<?php echo $parametrosProveedores['idDatFis'] ?>" readonly />
-													<div>
-														<label for="lbl_razon">Raz&oacute;n Social:</label>
-														<input type="text" name="txt_razon_s" />
-													</div>
-
-													<div>
-														<label for="lbl_rfc">RFC:</label>
-														<input type="text" name="txt_rfc"/>
-													</div>
-
-													<div>
-														<label for="lbl_tipo">Tipo Raz&oacute;n:</label></td>
-														<select id="tipo_rs" name="slt_tipo_rs">
-																<option selected>Ingresa un tipo de raz&oacute;n...</option>
-																<?php foreach($parametrosProveedores ['tipo_razon'] as $tipors) : ?>
-																<option value="<?php echo $tipors['id_tipo_ra'] ?>"><?php echo $tipors['tipo'] ?></option>
-																<?php endforeach; ?>
-														</select>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</li>
-
-									<li><a href="#">Datos Direcci&oacute;n F&iacute;sica</a>
-										<ul>
-											<li>	
-												<div class="dform">
-													<!-- clave razon social -->
-													<input type="text"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
-													<div>
-														<label for="lbl_calle">Calle:</label>
-														<input type="text" name="txt_calle" />	
-													</div>
-													<div>
-														<label for="lbl_noext">No. Ext:</label>
-														<input type="text" name="txt_noext" />	
-													</div>
-													<div>
-														<label for="lbl_noint">No. Int:</label>
-														<input type="text" name="txt_noint" />	
-													</div>
-													<div>
-														<label for="lbl_col">Colonia:</label>
-														<input type="text" name="txt_col" />	
-													</div>
-													<div>
-														<label for="lbl_ref">Referencia:</label>
-														<input type="text" name="txt_ref" />	
-													</div>
-												</div>
-											</li>
-										</ul>
-									</li>
-
-									<li><a href="#">Datos Contacto</a>
-										<ul>
-											<li>	
-												<div class="dform">
-													<div align="left">
-														<table><tr>
-																	<td><a href=""><img alt="Nuevo Contacto" title="Nuevo Contacto" src="images/new-contacto.png"></a></td>
-															   </tr>
-														</table>
-														<div> <!-- div para seleccionar contacto-->
-																														
-															<div id="SignupForm"> <!-- div SignupForm -->
-																<!-- paso numero 1 -->
-																<fieldset>
-																	<legend>Seleccionar Contacto</legend>
-																		<div id="tablaCont"></div>
-																</fieldset>
-																<!-- paso numero 2 -->
-																<fieldset>
-																	<legend>Contacto Seleccionado</legend>
-																		<div id='accion'>
-																			
-																		</div>
-																</fieldset>
-															</div>	<!-- </div> fin div SignupForm -->
-														</div> <!--fin de div para seleccionar contactos-->
-													</div>
-												</div>
-											</li>
-										</ul>
-									</li>
-
-									<li><a href="#">Datos Bancarios</a>
-										<ul>
-											<li>
-											<div class="dform">
-												<div>
-													<label for="banco">Banco:</label>
-													<select id="banco" name="banco">
-														<option value selected>Selecciona un banco...</option>
-														<?php foreach($parametrosProveedores ['banco'] as $bank) : ?>
-														<option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
-														<?php endforeach; ?>
-													</select>
-												</div>
+													<ul>
+														<li>
+															<label for="lbl_proveedor">Proveedor:</label>
+															<input type="text" name="txt_nombrepro" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
 													
-												<div>
-													<label for="sucursal">Sucursal:</label>
-													<input type="text" name="suc" id=""/>
-												</div>
+														<li>
+															<label for="lbl_categoria">Categor&iacute;a:</label>
+															<select id="catprov" name="slt_catprov" required>
+																<option value selected>Ingresa una categor&iacute;a...</option>
+																<?php foreach ($parametrosProveedores['categoriaprov'] as $catpro) : ?>
+																<option value="<?php echo $catpro['id_categoria'] ?>"><?php echo $catpro['categoria']?></option>
+																<?php endforeach; ?>
+															</select>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
 
-												<div>
-													<label for="titular">Titular:</label>
-													<input type="text" name="titul" />
-												</div>
+														<li>
+															<label for="lbl_tele">Tel&eacute;fono:</label>
+															<input type="tel" name="txt_tel_pro" maxlength="10" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
 
-												<div>
-													<label for="cuenta">No. Cuenta:</label>
-													<input type="text" name="cuenta"/>
-												</div>
+														<li>
+															<label for="lbl_dir">Direcci&oacute;n Web:</label>
+															<input type="url" name="txt_url_web" placeholder="http://dominio.com.mx" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
 
-												<div>
-													<label for="clabe">Clabe Interbancaria:</label>
-													<input type="text" name="clabe" maxlength="18"/>
-												</div>
+										<li><a href="#"><b>Datos Fiscales</b></a>
+											<ul>
+												<li>	
+													<ul>
+														<!-- clave razon social -->
+														<input type="text"  name="txt_iddf" value="<?php echo $parametrosProveedores['idDatFis'] ?>" readonly />
+														<li>
+															<label for="lbl_razon">Raz&oacute;n Social:</label>
+															<input type="text" name="txt_razon_s" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
 
-												<div>
-													<label for="tipo_cuenta">Tipo de cuenta:</label>
-													<select id="tipo_c" name="tipo_c">
-														<option value selected>Selecciona un tipo de cuenta...</option>
-														<?php foreach ($parametrosProveedores ['tipo_cta'] as $tipo_c) : ?>
-														<option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
-														<?php endforeach; ?>
-													</select>
-												</div>
-											</div>
-											</li>
-										</ul>
-									</li>
+														<li>
+															<label for="lbl_rfc">RFC:</label>
+															<input type="text" name="txt_rfc" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+
+														<li>
+															<label for="lbl_tipo">Tipo Raz&oacute;n:</label></td>
+															<select id="tipo_rs" name="slt_tipo_rs" required>
+																	<option selected>Ingresa un tipo de raz&oacute;n...</option>
+																	<?php foreach($parametrosProveedores ['tipo_razon'] as $tipors) : ?>
+																	<option value="<?php echo $tipors['id_tipo_ra'] ?>"><?php echo $tipors['tipo'] ?></option>
+																	<?php endforeach; ?>
+															</select>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<li><a href="#"><b>Datos Direcci&oacute;n F&iacute;sica</b></a>
+											<ul>
+												<li>	
+													<ul>
+														<!-- clave razon social -->
+														<input type="text"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
+														<li>
+															<label for="lbl_">C&oacute;digo Postal:</label>
+															<input type="text" class="keysNumbers" name="postcode" autocomplete="off" required  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $parametrosProveedores['cp'] ?>" onKeyUp="cpview(this.form)" />
+															<span style="color: red;"><b>&nbsp;*</b></span>
+															<?php if($parametrosProveedores['cp'] == "") :?>
+															<li><div id="resultado"> </div></li>
+															<?php else :?>
+															<li>
+																<div id="resultado"> 
+																	<table class="table" id="miTabla">
+																		<tr>
+																			<th>Estado</th>
+																			<th>Municipio</th>
+																			<th>Localidad</th>
+																		</tr>
+																		<tr>
+																			<td><?php echo $obtenerDatosDir['estado'] ?> <input type="hidden" name="state" readonly="readonly" value="<?php echo $obtenerDatosDir['estado'] ?>" </td>
+																			<td><?php echo $obtenerDatosDir['municipio'] ?>  <input type="hidden" name="municipality" readonly="readonly" value="<?php echo $obtenerDatosDir['municipio'] ?>" </td>
+																			<td>
+																				<select name="idcp-locality" >
+																					<?php if($obtenerDatosDir['localidadC'] != "") :?>
+																						<option value="<?php echo $obtenerDatosDir['idCP'] ?>"><?php echo $obtenerDatosDir['localidadC'] ?></option>
+																					<?php else :?>
+																						<option value='0'>Seleccione una Opción</option>
+																					<?php endif; ?>
+																					<?php foreach ($obtenerDatosDir['codigoP'] as $locality) : ?>
+																							<option required='required' value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option> ?>
+																					<?php endforeach; ?>
+																				</select>
+																			</td>
+																		</tr> 
+																	</table>
+																</div>
+															</li>
+															<?php endif; ?>
+														</li>
+
+														<li>
+															<label for="lbl_calle">Calle:</label>
+															<input type="text" name="txt_calle" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>	
+														</li>
+
+														<li>
+															<label for="lbl_noext">No. Ext:</label>
+															<input type="text" name="txt_noext" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>	
+														</li>
+
+														<li>
+															<label for="lbl_noint">No. Int:</label>
+															<input type="text" name="txt_noint" />
+														</li>
+
+														<li>
+															<label for="lbl_col">Colonia:</label>
+															<input type="text" name="txt_col" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>	
+														</li>
+
+														<li>
+															<label for="lbl_ref">Referencia:</label>
+															<input type="text" name="txt_ref" />	
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<li><a href="#">Datos Contacto</a>
+											<ul>
+												<li>	
+													<div class="dform">
+														<div align="left">
+															<table><tr>
+																		<td><a href=""><img alt="Nuevo Contacto" title="Nuevo Contacto" src="images/new-contacto.png"></a></td>
+																		<td><a href=""><img alt="Selecionar Contacto" title="Seleccionar Contacto" src="images/select-contacto.png"></a></td>
+																   </tr>
+															</table>
+															<div> <!-- div para seleccionar contacto-->
+																															
+																<div id="SignupForm"> <!-- div SignupForm -->
+																	<!-- paso numero 1 -->
+																	<fieldset>
+																		<legend>Seleccionar Contacto</legend>
+																			<div id="tablaCont"></div>
+																	</fieldset>
+																	<!-- paso numero 2 -->
+																	<fieldset>
+																		<legend>Contacto Seleccionado</legend>
+																			<div id='accion'>
+																				
+																			</div>
+																	</fieldset>
+																</div>	<!-- </div> fin div SignupForm -->
+															</div> <!--fin de div para seleccionar contactos-->
+														</div>
+													</div>
+												</li>
+											</ul>
+										</li>
+
+										<li><a href="#"><b>Datos Bancarios</b></a>
+											<ul>
+												<li>
+													<ul>
+														<!-- clave datos bancarios -->
+															<input type="text"  name="txt_iddb" value="<?php echo $parametrosProveedores['idBank'] ?>" readonly />
+														<li>
+															<label for="lbl_banco">Banco:</label>
+															<select id="banco" name="slt_banco" required>
+																<option value selected>Selecciona un banco...</option>
+																<?php foreach($parametrosProveedores ['banco'] as $bank) : ?>
+																<option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
+																<?php endforeach; ?>
+															</select>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+															
+														<li>
+															<label for="lbl_sucursal">Sucursal:</label>
+															<input type="text" name="txt_suc" id="" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+
+														<li>
+															<label for="lbl_titular">Titular:</label>
+															<input type="text" name="txt_titul" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+
+														<li>
+															<label for="lbl_cuenta">No. Cuenta:</label>
+															<input type="text" name="txt_cuenta" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+
+														<li>
+															<label for="lbl_clabe">Clabe Interbancaria:</label>
+															<input type="text" name="txt_clabe" maxlength="18" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+
+														<li>
+															<label for="lbl_tipo_cuenta">Tipo de cuenta:</label>
+															<select id="tipo_c" name="slt_tipo_c" required>
+																<option value selected>Selecciona un tipo de cuenta...</option>
+																<?php foreach ($parametrosProveedores ['tipo_cta'] as $tipo_c) : ?>
+																<option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
+																<?php endforeach; ?>
+															</select>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+											<!-- boton -->
+											<input type="submit" class="boton2" id="" value="Guardar" name="btnGuardar" />
+									</form>
 								</ul>
-
-								<div>
-									<input type="submit" class="" id="" value="Guardar" name="btnGuardar" />
-								</div>
-
-							</fieldset>
-						</form>
-					</div>
-				</section>
-			</section>
+							</div> <!-- fin de div menu-pro -->
+						</section> <!-- fin de seccion principal -->
+					</div> <!-- fin de div panel-body -->
+				</div> <!-- fin de div panel-default -->
+			</div> <!-- fin de div col-lg-14 -->
 		</body>
 	</html>
 <?php $contenido = ob_get_clean() ?>
