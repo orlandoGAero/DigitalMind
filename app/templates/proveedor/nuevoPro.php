@@ -3,7 +3,7 @@
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<!-- <link rel="stylesheet" type="text/css" href="css/style-stepscontact.css"> -->
+			<!-- <link rel="stylesheet" type="text/css" href="css/style-stepscontact.css">
 
 			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
     		<script type="text/javascript" src="js/formToWizard.js"></script>
@@ -11,7 +11,7 @@
 		        $(document).ready(function(){
 		            $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
 		        });
-		    </script>
+		    </script>-->
 
 		    <!-- JS Formulario Listas Desplegables -->
 			<!-- modificar linea de abajo-->
