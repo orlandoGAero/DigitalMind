@@ -4,25 +4,64 @@
 	<html>
 		<head>
 			<!-- Style CSS tabla--> 
-		    <link rel="stylesheet" type="text/css" href="css/style-table.css">
+		    <!-- <link rel="stylesheet" type="text/css" href="css/style-table.css"> -->
+			<!-- script para paginado del tabla -->
+			<script type="text/javascript" src="js/tinyTableSorter.js"></script>
 		</head>
 		<body>
-			<div align="right"><a href="index.php?url=NuevoProveedor"><img src="images/add-provider.png" alt="Nuevo Proveedor" title="Nuevo Proveedor"></a></div>
-		
+			<table class="buscar">
+				<tr>
+					<td width="100%">
+						<form name="formBusq">
+							<ul>
+								<li><b class="azul">Buscar por:</b></li>
+								<li>
+									
+								</li>
+							</ul>
+						</form>
+						<td>
+						<a href="index.php?url=NuevoProveedor"><img src="images/add-provider.png" alt="Nuevo Proveedor" title="Nuevo Proveedor"></a>
+						<!--<div id="resultado"></div>-->
+					</td>	
+				</tr>
+			</table>
+			
+			<!-- div control de páginado -->
+			<div id="controls">
+				<div id="perpage">
+					<select onchange="sorter.size(this.value)">
+					<option value="5">5</option>
+						<option value="10" selected="selected">10</option>
+						<option value="20">20</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+					<span>Registros por página</span>
+				</div>
+				<div id="text">Página <b><span id="currentpage"></span></b> de <b><span id="pagelimit"></span></b></div>
+				<div id="navpage">
+					<img src="images/first.gif" width="16" height="16" alt="First Page" title="Primer Página" onclick="sorter.move(-1,true)" />
+					<img src="images/previous.gif" width="16" height="16" alt="First Page" title="Anterior Página" onclick="sorter.move(-1)" />
+					<img src="images/next.gif" width="16" height="16" alt="First Page" title="Siguiente Página" onclick="sorter.move(1)" />
+					<img src="images/last.gif" width="16" height="16" alt="Last Page" title="Última Página" onclick="sorter.move(1,true)" />
+				</div>
+			</div> <!-- fin de div control de paginado -->
+			<br>
 			<div class="table-responsive">
-				<table class="table" id="miTabla">
+				<table class="table sortable" id="miTabla">
 					<caption>Proveedores</caption>
 					<thead> 
 						<tr>
-							<th>ID</th>
-							<th>Proveedor</th>
-							<th>Raz&oacute;n Social</th>
-							<th>RFC</th>
-							<th>Categor&iacute;a</th>
-							<th>Tel&eacute;fono</th>
-							<th>Direcci&oacute;n Web</th>
-							<th>Municipio</th>
-							<th colspan="3">Operaciones</th>
+							<th><h5>ID</h5></th>
+							<th><h5>Proveedor</h5></th>
+							<th><h5>Raz&oacute;n Social</h5></th>
+							<th><h5>RFC</h5></th>
+							<th><h5>Categor&iacute;a</h5></th>
+							<th><h5>Tel&eacute;fono</h5></th>
+							<th><h5>Direcci&oacute;n Web</h5></th>
+							<th><h5>Municipio</h5></th>
+							<th colspan="3" class="nosort">Operaciones</th>
 						</tr>
 					</thead>
 					<?php 
@@ -45,6 +84,21 @@
 				<?php endforeach; ?>
 				</table>
 			</div>
+
+			<!-- Script para ordenar columnas, paginado y mostrar cierta cantidad de registros TINY Table Sorter -->
+			<script type="text/javascript">
+			  var sorter = new TINY.table.sorter("sorter");
+				sorter.head = "head";
+				sorter.asc = "asc";
+				sorter.desc = "desc";
+				// sorter.evensel = "evenselected";
+				// sorter.oddsel = "oddselected";
+				sorter.pagesize = 10;
+				sorter.paginate = true;
+				sorter.currentid = "currentpage";
+				sorter.limitid = "pagelimit";
+				sorter.init("miTabla",1);
+		  	</script>
 		</body>
 	</html>
 

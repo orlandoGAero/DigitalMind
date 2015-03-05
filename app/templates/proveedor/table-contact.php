@@ -32,7 +32,6 @@
 						<th>Apellido Materno</th>
 						<th>Área</th>
 						<th>Móvil</th>
-						<th>Correo Institucional</th>
 						<th>Elegir</th>
 					</tr>
 				</thead>
@@ -48,10 +47,8 @@
 						<td><?php echo $contacto['ap_materno'] ?></td>
 						<td><?php echo $contacto['nombre_area'] ?></td>
 						<td><?php echo $contacto['movil'] ?></td>
-						<td><?php echo $contacto['correo_instu'] ?></td>
 						<td>
-							<input type="checkbox" id="c1" name="c1"  value="<?php echo $idContact ?>" />
-							
+							<!-- <input type="checkbox" id="c1" name="c1"  value="<?php echo $idContact ?>" /> -->
 						</td>
 					</tr>
 				<?php endforeach; ?>
