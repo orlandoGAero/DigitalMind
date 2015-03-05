@@ -469,7 +469,7 @@ public function mostrarContactos(){
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				print_r($_POST);
 				if($_POST['txt_noint'] == ""){
-					$_POST['txt_noint'] = 0;
+					$_POST['txt_noint'] = s/n;
 				}
 				
 				if($model->registrarProveedores($_POST['txt_iddf'],

@@ -5,7 +5,7 @@
 	<h1>Detalle del Proveedor</h1>
 		<br />
 
-	<div class="columns_left">
+	<div >
 		<table class="miTabla" >
 			<caption>Datos Proveedor</caption>
 			<tr>
@@ -27,7 +27,7 @@
 		</table>
 	</div>
 
-	<div class="columns_right">
+	<div >
 		<table class="miTabla" >
 			<caption>Datos Fiscales</caption>
 			<tr>
@@ -45,7 +45,7 @@
 		</table>
 	</div>
 
-	<div class="columns_left">
+	<div >
 		<table class="miTabla" >
 			<caption>Direcci&oacute;n</caption>
 			<tr>
@@ -87,7 +87,7 @@
 		</table>
 	</div>
 
-	<div class="columns_right">
+	<div >
 		<table class="miTabla" >
 			<caption>Datos Bancarios</caption>
 			<tr>

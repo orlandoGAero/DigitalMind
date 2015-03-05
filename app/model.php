@@ -609,11 +609,12 @@
 
 		public function obtenerProveedores()
 		{
-			$sqlPro = " SELECT pro.id_prov, pro.proveedor, datf.razon_social, datf.rfc, cp.municipio, cp.estado
-						FROM proveedores pro, datos_fiscales datf, codigos_postales cp, direcciones dir
+			$sqlPro = " SELECT pro.id_prov, pro.proveedor, datf.razon_social, datf.rfc, catprov.categoria, pro.tel, pro.dirweb,cp.municipio
+						FROM proveedores pro, datos_fiscales datf, codigos_postales cp, direcciones dir, categoria_prov catprov
 						WHERE datf.id_datFiscal=pro.id_datFiscaL
 						AND cp.id_cp=dir.id_cp
 						AND dir.id_direccion=pro.id_direccion
+						AND catprov.id_categoria=pro.id_categoria
 						ORDER BY id_prov";
 			$ejecutarPro = mysql_query($sqlPro, $this->conexion);
 			$proveedores = array();
@@ -662,7 +663,7 @@
 							     datos_bancarios datbank,
 							     tipo_cuenta tcuenta,
 							     det_bank_prov dtbapro,
-							     contacto cont,
+							     contactos cont,
 							     proveedores_contacto procont
 							WHERE pro.id_prov = ".$idProv."
 							AND ctepro.id_categoria=pro.id_categoria

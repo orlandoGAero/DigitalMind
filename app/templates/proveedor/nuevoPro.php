@@ -53,7 +53,7 @@
 											<ul>
 												<li>	
 													<li>
-														<input type="text" name="txt_idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
+														<input type="hidden" name="txt_idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
 													</li>
 
 													<ul>
@@ -95,7 +95,7 @@
 												<li>	
 													<ul>
 														<!-- clave razon social -->
-														<input type="text"  name="txt_iddf" value="<?php echo $parametrosProveedores['idDatFis'] ?>" readonly />
+														<input type="hidden"  name="txt_iddf" value="<?php echo $parametrosProveedores['idDatFis'] ?>" readonly />
 														<li>
 															<label for="lbl_razon">Raz&oacute;n Social:</label>
 															<input type="text" name="txt_razon_s" required/>
@@ -128,7 +128,7 @@
 												<li>	
 													<ul>
 														<!-- clave razon social -->
-														<input type="text"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
+														<input type="hidden"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
 														<li>
 															<label for="lbl_">C&oacute;digo Postal:</label>
 															<input type="text" class="keysNumbers" name="postcode" autocomplete="off" required  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $parametrosProveedores['cp'] ?>" onKeyUp="cpview(this.form)" />
@@ -236,7 +236,7 @@
 												<li>
 													<ul>
 														<!-- clave datos bancarios -->
-															<input type="text"  name="txt_iddb" value="<?php echo $parametrosProveedores['idBank'] ?>" readonly />
+															<input type="hidden"  name="txt_iddb" value="<?php echo $parametrosProveedores['idBank'] ?>" readonly />
 														<li>
 															<label for="lbl_banco">Banco:</label>
 															<select id="banco" name="slt_banco" required>

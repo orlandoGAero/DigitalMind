@@ -16,10 +16,12 @@
 						<tr>
 							<th>ID</th>
 							<th>Proveedor</th>
-							<th>Razón Social</th>
+							<th>Raz&oacute;n Social</th>
 							<th>RFC</th>
+							<th>Categor&iacute;a</th>
+							<th>Tel&eacute;fono</th>
+							<th>Direcci&oacute;n Web</th>
 							<th>Municipio</th>
-							<th>Estado</th>
 							<th colspan="3">Operaciones</th>
 						</tr>
 					</thead>
@@ -32,8 +34,10 @@
 						<td><?php echo $prov['proveedor'] ?></td>
 						<td><?php echo $prov['razon_social'] ?></td>
 						<td><?php echo $prov['rfc'] ?></td>
+						<td><?php echo $prov['categoria'] ?></td>
+						<td><?php echo $prov['tel'] ?></td>
+						<td><?php echo $prov['dirweb'] ?></td>
 						<td><?php echo $prov['municipio'] ?></td>
-						<td><?php echo $prov['estado'] ?></td>
 						<td><?php echo "<a href='index.php?url=DetalleProveedor&id_Proveedor=$idpro'>" ?> <img src='images/detalle.png' title="Detalle"></a></td>
 						<td><?php echo "<a href=''><img src='images/editar.png'></a>"; ?></td>
 						<td><?php echo "<a href=''><img src='images/eliminar.png'></a>";?></td>			
