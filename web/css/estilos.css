@@ -93,7 +93,7 @@ label {
 }
 input,
 textarea,
-select, .uneditable-input {
+select{
   border: 1px solid #ccc;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -103,7 +103,7 @@ select, .uneditable-input {
   margin: .3em 0 0 0;
   padding: 4px;
   width: 400px;
-  height: 40px;'
+  height: 40px;
 }
 
  /*Alinear el elemento de la lista donde se encuentra el radio buttom*/
@@ -113,15 +113,6 @@ select, .uneditable-input {
 }
 
 input[type="radio"] {
-  display:inline-block;
-  width:19px;
-  height:19px;
-  margin:-3px 4px 0 30px;
-  vertical-align:middle;
-  cursor:pointer;
-}
-
-input[type="checkbox"] {
   display:inline-block;
   width:19px;
   height:19px;
@@ -218,11 +209,11 @@ height: auto;
 }
 
 /*Elementos validos y no validos*/
-input[type=text]:valid, input[type=email]:valid, input[type=url]:valid, textarea:valid{
+#form input[type=text]:valid, input[type=email]:valid, input[type=url]:valid, textarea:valid, select:valid{
 	background: #A9F5A9;
 }
 
-input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, textarea:invalid {
+#form input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, textarea:invalid,select:invalid{
 	background: #F6CECE;
 }
 
@@ -252,7 +243,7 @@ input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, te
 	color: #404040;
 }
 
-#busquedad input, select {
+#busquedad .elementosBusquedad {
 	/*float: left;*/
 	border: 1px solid #ccc;
 	-webkit-border-radius: 5px;

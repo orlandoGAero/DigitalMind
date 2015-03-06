@@ -160,7 +160,7 @@
 		}
 		
 		public function registrarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,
-		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$whatsappCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
+		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$whatsappCont,$extCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
 		$correoInstituCont,$facebookCont,$twitterCont,$skypeCont,$dirWebCont)
 		{
 			$band = 0;
@@ -190,7 +190,7 @@
 				echo" <script> alert('Complete toda la información requerida antes de continuar') </script> ";
 			}
 			
-			if($idCP == 0){
+			if($idCP == ""){
 				$band = 1;
 				echo" <script> alert('Seleccione una localidad') </script> ";
 			}
@@ -218,9 +218,9 @@
 									VALUES(".$idDireccion.",'".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."',".$idCP.");";
 				$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
 				
-				$consulta2 = "INSERT INTO contactos (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,whatsapp,tel_oficina,tel_emergencia,
-										correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,activo,fecha_alta)
-										VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",'".$whatsappCont."',".$telOficinaCont.",
+				$consulta2 = "INSERT INTO contactos (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,whatsapp,extension,tel_oficina,
+									tel_emergencia,correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,activo,fecha_alta)
+										VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",'".$whatsappCont."',".$extCont.",".$telOficinaCont.",
 										".$telEmergenciaCont.",'".$correoPersonalCont."','".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."',
 										'".$dirWebCont."',".$idDireccion.",'Si',NOW());";
 				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar contacto ".mysql_error());	

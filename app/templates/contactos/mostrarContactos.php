@@ -18,10 +18,10 @@
 					<li><b class="azul">Buscar por:</b> <a href='index.php?url=insertContact'><img src="images/new_contact.png" title="Nuevo Contacto" align='right' width="54px" height="54px"/></a></li>
 					<li>
 						<label>Nombre y/o Apellidos</label>
-						<input type="search" name="busqueda" autocomplete="off" maxlength="50" required="required"  placeholder="Ingresa el nombre" />
+						<input type="search" name="busqueda" class="elementosBusquedad" autocomplete="off" maxlength="50" required="required"  placeholder="Ingresa el nombre" />
 						
 						<label>Área</label>
-						<select name="filtroArea">
+						<select name="filtroArea" class="elementosBusquedad">
 							<option value="0" >Selecciona el área</option>
 							<?php foreach ($areaContacto as $area) :?>
 								<option value="<?php echo $area['nombre_area'] ?>" ><?php echo $area['nombre_area'] ?></option>
@@ -130,7 +130,7 @@
 		sorter.paginate = true;
 		sorter.currentid = "currentpage";
 		sorter.limitid = "pagelimit";
-		sorter.init("miTabla");
+		sorter.init("miTabla",0);
   	</script>
 		
 	<!-- Función JQuery para filtrar los datos de la tabla de contactos -->

@@ -15,7 +15,7 @@
 					<section id="principal">
 						<div class="menu-pro">
 							<ul>
-								<form action="index.php?url=insertContact" method="POST" id="formContact" target="_self" >
+								<form action="index.php?url=insertContact" method="POST" id="formContact" target="_self"  id="form">
 									<li><a href="#">Datos Contacto</a>
 										<ul>
 											<li>
@@ -29,7 +29,21 @@
 													<li><label>Apellido Materno</label><input type="text" name="ApMContact" autocomplete="off" required="required" maxlength="50" pattern="|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|" value="<?php echo $parametrosContactos['apm'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Área</label><input type="text" name="nameArea" autocomplete="off" required="required" maxlength="50" pattern="|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|" value="<?php echo $parametrosContactos['area'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp*</b></span></li>
 													<li><label>Teléfono Móvil</label><input type="text" id="tel" class="keysNumbers" name="telMovil" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $parametrosContactos['movil'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><input type="checkbox" name="whatsappMovil" value="Si"/> Utilizas <img src="images/whatsapp.png" title="WhatsApp"/></li>
+													<?php if($parametrosContactos['whatsAppC'] == "No") :?>
+														<li>
+															<?php $valorTrue = "Si" ?>
+															<strong>¿Utilizas <img src="images/whatsapp.png" title="WhatsApp"/>?</strong>
+															<input type="radio" name="whatsappMovil" value="<?php echo $valorTrue ?>"/>Si
+															<input type="radio" name="whatsappMovil" value="<?php echo $parametrosContactos['whatsAppC'] ?>" checked="checked"/>No
+														</li>
+													<?php else :?>
+														<li>
+															<?php $valorFalse = "No" ?>
+															<strong>¿Utilizas <img src="images/whatsapp.png" title="WhatsApp"/>?</strong>
+															<input type="radio" name="whatsappMovil" value="<?php echo $parametrosContactos['whatsAppC'] ?>" checked="checked"/>Si
+															<input type="radio" name="whatsappMovil" value="<?php echo $valorFalse ?>"/>No
+														</li>
+													<?php endif; ?>
 													<li><label>Extensión</label><input type="text" id="tel" class="keysNumbers" name="extC" autocomplete="off" required="required" maxlength="3" pattern="[0-9]{3}" value="<?php echo $parametrosContactos['ext'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Teléfono Oficina</label><input type="text" id="tel" class="keysNumbers" name="telOficina" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $parametrosContactos['tel_ofi'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Teléfono Emergencia</label><input type="text" id="tel" class="keysNumbers" name="telEmergencia" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $parametrosContactos['tel_emer'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
@@ -51,6 +65,9 @@
 												
 												<ul>
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></li>
+													<li><label>Estado</label><select name="estado" required='required'></select><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Municipio</label><select name="municipio" required='required'></select><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Localidad</label><select name="localidad" required='required'></select><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Código Postal</label><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $parametrosContactos['cp'] ?>" onKeyUp="cpview(this.form)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<?php if($parametrosContactos['cp'] == "") :?>
 														<li><div id="resultado"> </div></li>
@@ -67,14 +84,14 @@
 																		<td><?php echo $obtenerDatosDir['estado'] ?> <input type="hidden" name="state" readonly="readonly" value="<?php echo $obtenerDatosDir['estado'] ?>" </td>
 																		<td><?php echo $obtenerDatosDir['municipio'] ?>  <input type="hidden" name="municipality" readonly="readonly" value="<?php echo $obtenerDatosDir['municipio'] ?>" </td>
 																		<td>
-																			<select name="idcp-locality" >
+																			<select name="idcp-locality" required='required'>
 																				<?php if($obtenerDatosDir['localidadC'] != "") :?>
 																					<option value="<?php echo $obtenerDatosDir['idCP'] ?>"><?php echo $obtenerDatosDir['localidadC'] ?></option>
 																				<?php else :?>
-																					<option value='0'>Seleccione una Opción</option>
+																					<option value="">Seleccione una Opción</option>
 																				<?php endif; ?>
 																				<?php foreach ($obtenerDatosDir['codigoP'] as $locality) : ?>
-																						<option required='required' value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option> ?>
+																						<option value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option> ?>
 																				<?php endforeach; ?>
 																			</select>
 																		</td>
