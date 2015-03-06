@@ -96,11 +96,15 @@
 				if($_POST['numInt'] == ""){
 					$_POST['numInt'] = 0;
 				}
+				
+				if($_POST['whatsappMovil'] <> "Si"){
+					$_POST['whatsappMovil'] = "No";
+				}
 
 				if($m->registrarContacto($_POST['idAddress'],$_POST['idcp-locality'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
-					$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['telOficina'],
-					$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],$_POST['redSocialS'],
-					$_POST['webPage'])){
+					$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['whatsappMovil'],
+					$_POST['telOficina'],$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],
+					$_POST['redSocialS'],$_POST['webPage'])){
 						header('Location: index.php?url=listContact');
 				}else{
 					$parametrosContactos = array(

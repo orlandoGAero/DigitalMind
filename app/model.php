@@ -110,11 +110,12 @@
 		}
 		
 		public function obtenerContactos(){
-			$consulta = "SELECT cp.municipio,d.colonia,c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,c.nombre_area,c.movil,c.correo_p,c.activo
-								FROM codigos_postales cp, direcciones d, contactos c
-								WHERE cp.id_cp=d.id_cp
-									AND d.id_direccion=c.id_direccion
-								ORDER BY nombreCon;";
+			$consulta = "SELECT cp.municipio,d.colonia,c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,
+							c.nombre_area,c.movil,c.whatsapp,c.correo_p,c.activo
+						FROM codigos_postales cp, direcciones d, contactos c
+						WHERE cp.id_cp=d.id_cp
+							AND d.id_direccion=c.id_direccion
+						ORDER BY nombreCon;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			
 			$Contactos = array();
@@ -159,7 +160,7 @@
 		}
 		
 		public function registrarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,
-		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
+		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$whatsappCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
 		$correoInstituCont,$facebookCont,$twitterCont,$skypeCont,$dirWebCont)
 		{
 			$band = 0;
@@ -217,10 +218,11 @@
 									VALUES(".$idDireccion.",'".$calleCont."',".$numExtCont.",".$numIntCont.",'".$coloniaCont."','".$referenciaCont."',".$idCP.");";
 				$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en insertar dirección ".mysql_error());
 				
-				$consulta2 = "INSERT INTO contactos (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,tel_oficina,tel_emergencia,
+				$consulta2 = "INSERT INTO contactos (id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil,whatsapp,tel_oficina,tel_emergencia,
 										correo_p,correo_instu,facebook,twitter,skype,direccion_web,id_direccion,activo,fecha_alta)
-										VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",".$telOficinaCont.",".$telEmergenciaCont.",'".$correoPersonalCont."',
-										'".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."','".$dirWebCont."',".$idDireccion.",'Si',NOW());";
+										VALUES (".$idCont.",'".$nomCont."','".$apCont."','".$amCont."','".$areaCont."',".$telMovilCont.",'".$whatsappCont."',".$telOficinaCont.",
+										".$telEmergenciaCont.",'".$correoPersonalCont."','".$correoInstituCont."','".$facebookCont."','".$twitterCont."','".$skypeCont."',
+										'".$dirWebCont."',".$idDireccion.",'Si',NOW());";
 				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en insertar contacto ".mysql_error());	
 				
 				return $ejecutar1 & $ejecutar2;	

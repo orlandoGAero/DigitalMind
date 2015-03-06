@@ -68,9 +68,10 @@
 						<th><h5>Colonia</h5></th>
 						<th><h5>Área</h5></th>
 						<th><h5>Télefono Móvill</h5></th>
+						<th class="nosort"><h5><img src="images/whatsapp.png" title="WhatsApp"/></h5></th>
 						<th><h5>Correo Personal</h5></th>
 						<th><h5>Activo</h5></th>
-						<th class="nosort" ><h5>Operaciones</h5></th>
+						<th class="nosort"><h5>Operaciones</h5></th>
 					</tr>
 				</thead>			
 				
@@ -91,6 +92,11 @@
 						<td><?php echo $contact['colonia'] ?></td>
 						<td><?php echo $contact['nombre_area'] ?></td>
 						<td><?php echo $contact['movil'] ?></td>
+						<?php if($contact['whatsapp'] == "Si") :?>
+							<td><img src="images/ok.png" width="25px" height="25px"/></td>
+						<?php else :?>
+							<td></td>
+						<?php endif ?>
 						<td><?php echo $contact['correo_p'] ?></td>
 						<td><?php echo $contact['activo'] ?></td>
 						<td>
@@ -124,7 +130,7 @@
 		sorter.paginate = true;
 		sorter.currentid = "currentpage";
 		sorter.limitid = "pagelimit";
-		sorter.init("miTabla",1);
+		sorter.init("miTabla");
   	</script>
 		
 	<!-- Función JQuery para filtrar los datos de la tabla de contactos -->
