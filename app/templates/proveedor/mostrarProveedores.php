@@ -78,7 +78,7 @@
 						<td><?php echo $prov['dirweb'] ?></td>
 						<td><?php echo $prov['municipio'] ?></td>
 						<td><?php echo "<a href='index.php?url=DetalleProveedor&id_Proveedor=$idpro'>" ?> <img src='images/detalle.png' title="Detalle"></a></td>
-						<td><?php echo "<a href=''><img src='images/editar.png'></a>"; ?></td>
+						<td><?php echo "<a href='index.php?url=EditarProveedores&id_Proveedor=$idpro'><img src='images/editar.png'></a>"; ?></td>
 						<td><?php echo "<a href=''><img src='images/eliminar.png'></a>";?></td>			
 					</tr>
 				<?php endforeach; ?>

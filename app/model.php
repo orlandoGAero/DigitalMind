@@ -743,11 +743,41 @@
 			return $categoriaPro;
 		}
 
+		/*Funcion para cargar div de los datos del formulario Dirección según el CP ingresado y con el  parametro de clave de proveedor */
+		public function obtenerDatosDireccionUpdateProv($idProv)
+		{
+			$sqldirProv = "SELECT cp.id_cp,cp.codigoP
+						  FROM codigos_postales cp, direcciones d, proveedores prov
+						  WHERE cp.id_cp = d.id_cp
+						  AND d.id_direccion = prov.id_direccion
+						  AND prov.id_prov = ".$idProv;
+			$ejecutar_sqldirProv = mysql_query($sqldirProv, $this->conexion) or die (mysql_error());
+			$filas1 = mysql_num_rows($ejecutar_sqldirProv);
+			if ($filas1 != 0) {
+				$CodigoPostal = mysql_result($ejecutar_sqldirProv, 0, 'codigoP');
+				$idCp = mysql_result($ejecutar_sqldirProv, 0, 'id_cp');
+			}
+				
+			$sqlcp = "SELECT * FROM codigos_postales WHERE codigoP = ".$CodigoPostal." AND id_cp != ".$idCp." ORDER BY localidad";
+			$ejecutar_sqlcp = mysql_query($sqlcp, $this->conexion) or die (mysql_error());
+			$filas2 = mysql_num_rows($ejecutar_sqlcp);
+		
+            if($filas2 != 0){
+            	$codigoPostal= array();
+            	while ($rows = mysql_fetch_assoc($ejecutar_sqlcp)) {
+					$codigosPostales[] = $rows;
+				}
+            
+		    	return $codigosPostales;
+            }
+		}
+
 		// Función para registrar proveedores
 		public function registrarProveedores($id_datf,$razon_s,$rfc,$tipo_rs,
 											 $id_dire,$street,$noext,$noint,$col,$referen,$cp,
 											 $id_prov,$prov,$cat,$phone,$dweb,
-											 $id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta) {
+											 $id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta) 
+		{
 			
 			// consulta para insertar en la tabla de datos fiscales
 			$sqlinsertdf = "INSERT INTO datos_fiscales (id_datFiscal,razon_social,rfc,id_tipo_ra)
@@ -780,6 +810,14 @@
 			$ejecutar_sqlinsertdb_prov = mysql_query($sqlinsertdb_prov,$this->conexion) or die("Error en insertar datos bancarios proveedor ".mysql_error());
 			
 			return $sqlinsertdf && $sqlinsertdir && $sqlinsertprov && $sqlinsertdb && $sqlinsertdb_prov && $sqlinsertprov_contact;
+		}
+
+		public function actualizarProveedores($id_datf,$razon_s,$rfc,$tipo_rs,
+											 $id_dire,$street,$noext,$noint,$col,$referen,$cp,
+											 $id_prov,$prov,$cat,$phone,$dweb,
+											 $id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta)
+		{
+
 		}
     }
 ?>
