@@ -1,4 +1,10 @@
 <?php
+	/**
+	 * Esta clase implementa una serie de métodos públicos, que hemos denominado acciones para indicar que son métodos asociados a URL’s. 
+	 * En cada una de las acciones se declara un array asociativo con los datos que serán pintados en la plantilla. Pero en ningún caso hay información 
+	 * acerca de como se pintarán dichos datos. Por otro lado, casi todas las acciones utilizan un objeto de la clase Models para realizar operaciones relativas
+	 * a la lógica de negocio.
+	 */
     class controller{
     	public function inicio(){
     		$obtenerDatos = array(
@@ -18,8 +24,9 @@
 				'contactos' => $m->obtenerContactos(),
 			); 
 			
-			$nombreAreaCont = $m->obtenerNombreArea();
-			$areaContacto = $nombreAreaCont;
+			$nombreContacto = $m->obtenerNombreContacto();
+			$areaContacto = $m->obtenerNombreArea();
+			$municipioContacto = $m->obtenerMunicipio();
 			
 			require __DIR__ . '/templates/contactos/mostrarContactos.php';
 		}
@@ -83,6 +90,7 @@
 				'pagWeb' => '',
 				//Datos dirección física
 				'idDir' => $m->incrementoDir(),
+				'estadoC' => $m->obtenerEstado(),
 				'cp' => '',
 				'calleD' => '',
 				'numExterior' => '',

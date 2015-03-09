@@ -97,6 +97,20 @@
 		}
 		
 		//------------------------------------------------------------------CONTACTOS------------------------------------------------------------------------//
+		public function obtenerNombreContacto(){
+			$consulta = "SELECT CONCAT(nombreCon,' ',ap_paterno,' ',ap_materno) AS nomContacto
+								FROM contactos
+								ORDER BY nomContacto;";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			
+			$nameContact = array();
+			while($rows = mysql_fetch_assoc($ejecutar)){
+				$nameContact[] = $rows;
+			}
+			
+			return $nameContact;
+		}
+		
 		public function obtenerNombreArea(){
 			$consulta = "SELECT nombre_area FROM contactos GROUP BY nombre_area;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
@@ -107,6 +121,22 @@
 			}
 			
 			return $areaCont;
+		}
+		
+		public function obtenerMunicipio(){
+			$consulta = "SELECT cp.municipio
+								FROM codigos_postales cp,direcciones d,contactos c
+								WHERE cp.id_cp=d.id_cp
+									AND d.id_direccion=c.id_direccion
+								GROUP BY cp.municipio";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			
+			$nomMunicipio = array();
+			while($rows = mysql_fetch_assoc($ejecutar)){
+				$nomMunicipio[] = $rows;
+			}
+			
+			return $nomMunicipio;
 		}
 		
 		public function obtenerContactos(){
@@ -157,6 +187,18 @@
 			}
 			
 			return $idCo;
+		}
+		
+		public function obtenerEstado(){
+			$consulta = "SELECT estado FROM codigos_postales GROUP BY estado;";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			
+			$state = array();
+			while($rows = mysql_fetch_assoc($ejecutar)){
+				$state[] = $rows;
+			}
+			
+			return $state;
 		}
 		
 		public function registrarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,

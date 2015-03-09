@@ -208,15 +208,6 @@ width: 350px;
 height: auto;
 }
 
-/*Elementos validos y no validos*/
-#form input[type=text]:valid, input[type=email]:valid, input[type=url]:valid, textarea:valid, select:valid{
-	background: #A9F5A9;
-}
-
-#form input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, textarea:invalid,select:invalid{
-	background: #F6CECE;
-}
-
 /*TINYtableSorter*/
 .sortable .head h5 {background:url(../images/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:15px}
 .sortable .desc h5 {background:url(../images/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:15px}
@@ -234,21 +225,18 @@ height: auto;
 #navpage img {cursor:pointer}
 
 #busquedad label {
-	/*float: left;*/
 	padding-left: 10px;
 	padding-right: 5px;
-	/*font-weight: bold;*/
 	text-align: left;
 	width: auto;
 	color: #404040;
 }
 
 #busquedad .elementosBusquedad {
-	/*float: left;*/
 	border: 1px solid #ccc;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
   	border-radius: 5px;
-  	width:250px;
+  	width:230px;
   	height:auto;
 }

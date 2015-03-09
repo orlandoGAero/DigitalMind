@@ -5,7 +5,7 @@
 ?>
 <?php ob_start() ?>
 	<!-- Script de Tiny Table Sorter -->
-	<script type="text/javascript" src="js/tinyTableSorter.js"></script>
+	<script type="text/javascript" src="<?php echo 'js/'.config::$tinyTableSorter_js ?>"></script>
 	
 	<!-- <div id="nuevoRegistro">
 		
@@ -17,16 +17,30 @@
 				<ul>
 					<li><b class="azul">Buscar por:</b> <a href='index.php?url=insertContact'><img src="images/new_contact.png" title="Nuevo Contacto" align='right' width="54px" height="54px"/></a></li>
 					<li>
-						<label>Nombre y/o Apellidos</label>
-						<input type="search" name="busqueda" class="elementosBusquedad" autocomplete="off" maxlength="50" required="required"  placeholder="Ingresa el nombre" />
+						<label>Nombre contacto</label>
+						<input type="search" list="nomCont" class="elementosBusquedad" maxlength="50" required="required"  placeholder="Ingresa el nombre" />
+						<datalist name="nomCont" id="nomCont" style="display: hidden;">
+							<?php foreach ($nombreContacto as $contacto) :?>
+								<option value="<?php echo $contacto['nomContacto'] ?>" ><?php echo $contacto['nomContacto'] ?></option>
+							<?php endforeach; ?>
+						</datalist>
+						
+						<label>Municipio</label>
+						<input type="text" list="filtroMuni" class="elementosBusquedad" placeholder="Buscar municipio"/>
+						<datalist name="filtroMuni" id="filtroMuni">
+							<?php foreach ($municipioContacto as $municipioC) :?>
+								<?php $municipioC['municipio']  = mb_strtoupper($municipioC['municipio'] ); ?>
+								<option value="<?php echo $municipioC['municipio'] ?>" ><?php echo $municipioC['municipio'] ?></option>
+							<?php endforeach ?>
+						</datalist>
 						
 						<label>Área</label>
-						<select name="filtroArea" class="elementosBusquedad">
-							<option value="0" >Selecciona el área</option>
+						<input type="text" list="filtroArea" class="elementosBusquedad" placeholder="Buscar área"/>
+						<datalist name="filtroArea" id="filtroArea">
 							<?php foreach ($areaContacto as $area) :?>
 								<option value="<?php echo $area['nombre_area'] ?>" ><?php echo $area['nombre_area'] ?></option>
 							<?php endforeach ?>
-						</select>
+						</datalist>
 					</li>
 				</ul>
 			</form>			

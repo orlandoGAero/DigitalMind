@@ -4,6 +4,9 @@
 		<b><span style="color: red;"><?php echo $parametrosContactos['mensaje'] ?></span></b>
 	<?php endif; ?>
 	 <br/>
+	 <!-- Style CSS valid & invalid-->
+        <link href="<?php echo 'css/'.config::$style_valid_invalid_css ?>" rel="stylesheet" />
+        
 	 <!-- JS Formulario Listas Desplegables -->
 	 <script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
 	 	
@@ -15,7 +18,7 @@
 					<section id="principal">
 						<div class="menu-pro">
 							<ul>
-								<form action="index.php?url=insertContact" method="POST" id="formContact" target="_self"  id="form">
+								<form action="index.php?url=insertContact" method="POST" id="formContact" target="_self">
 									<li><a href="#">Datos Contacto</a>
 										<ul>
 											<li>
@@ -65,8 +68,23 @@
 												
 												<ul>
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></li>
-													<li><label>Estado</label><select name="estado" required='required'></select><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Municipio</label><select name="municipio" required='required'></select><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li>
+														<label>Estado</label>
+														<select name="state" required='required'>
+															<option value="">Seleccione estado</option>
+															<?php foreach ($parametrosContactos['estadoC'] as $estado) :?>
+															<option value="<?php echo $estado['estado'] ?>"><?php echo $estado['estado'] ?></option>	
+															<?php endforeach; ?>
+														</select>
+														<span style="color: red;"><b>&nbsp;*</b></span>
+													</li>
+													<li>
+														<label>Municipio</label>
+														<input type="text" list="municipio"/>
+														<datalist name="municipio" id="municipio" required='required'>
+															<option value=""></option>	
+														</datalist>
+														<span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Localidad</label><select name="localidad" required='required'></select><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Código Postal</label><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $parametrosContactos['cp'] ?>" onKeyUp="cpview(this.form)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<?php if($parametrosContactos['cp'] == "") :?>
