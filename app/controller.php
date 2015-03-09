@@ -564,6 +564,11 @@ public function mostrarContactos(){
 			
 			$obtenerDatosProv = $detalleProv;
 
+			// obtener categoria del proveedor
+			$obtenerCatPro = array(
+				'categoriaprov' => $model ->  obtenerCategoria(),
+			);
+
 			// obtener direccion
 			$obtenerDatosDir = array(
 				'codigoP' => $model -> obtenerDatosDireccionUpdateProv($IdProv),
@@ -624,7 +629,7 @@ public function mostrarContactos(){
 						'n_int' => $_POST['txt_noint'],
 						'colo' => $_POST['txt_col'],
 						'ref' => $_POST['txt_ref'],
-
+						
 						// datos bancarios
 						'idBank' => $_POST['txt_iddb'],
 						'banco' => $_POST['slt_banco'],
@@ -644,6 +649,20 @@ public function mostrarContactos(){
 			}
 
 			require '/templates/proveedor/editarPro.php';
+		}
+
+		public function EliminarProveedor(){
+				
+			if(!isset($_GET['id_Proveedor'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$IdPro = $_GET['id_Proveedor'];
+			
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$eliminarProv = $model-> borrarProveedores($IdPro);
 		}
 
 		public function cargarContactosPro()

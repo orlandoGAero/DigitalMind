@@ -45,7 +45,7 @@
 											<ul>
 												<li>	
 													<li>
-														<input type="hidden" name="txt_idProv" value="<?php echo $obtenerDatosProv['idprov'] ?>" readonly/>
+														<input type="text" name="txt_idProv" value="<?php echo $obtenerDatosProv['id_prov'] ?>" readonly/>
 													</li>
 
 													<ul>
@@ -57,14 +57,14 @@
 													
 														<li>
 															<label for="lbl_categoria">Categor&iacute;a:</label>
-															<select id="catprov" name="slt_catprov" required>
+															<select id="catprov" name="slt_catprov">
 																<?php if($obtenerDatosProv['categoria'] != "") :?>
 																	<option value="<?php echo $obtenerDatosProv['id_categoria'] ?>"><?php echo $obtenerDatosProv['categoria'] ?></option>
 																<?php else :?>
-																<option value value="0">Ingresa una categor&iacute;a...</option>
+																<option value="0">Ingresa una categor&iacute;a...</option>
 																<?php endif; ?>
-																<?php foreach ($obtenerDatosProv['categoria'] as $catpro) : ?>
-																<option value="<?php echo $catpro['id_categoria'] ?>"><?php echo $catpro['categoria']?></option>
+																<?php foreach ($obtenerCatPro['categoriaprov'] as $catpro) : ?>
+																<option required value="<?php echo $catpro['id_categoria'] ?>"><?php echo $catpro['categoria']?></option>
 																<?php endforeach; ?>
 															</select>
 															<span style="color: red;"><b>&nbsp;*</b></span>
@@ -91,7 +91,7 @@
 												<li>	
 													<ul>
 														<!-- clave razon social -->
-														<input type="hidden"  name="txt_iddf" value="<?php echo $obtenerDatosProv['id_datFiscal'] ?>" readonly />
+														<input type="text"  name="txt_iddf" value="<?php echo $obtenerDatosProv['id_datFiscal'] ?>" readonly />
 														<li>
 															<label for="lbl_razon">Raz&oacute;n Social:</label>
 															<input type="text" name="txt_razon_s" value="<?php echo $obtenerDatosProv['razon_social'] ?>" required/>
@@ -107,7 +107,11 @@
 														<li>
 															<label for="lbl_tipo">Tipo Raz&oacute;n:</label></td>
 															<select id="tipo_rs" name="slt_tipo_rs" required>
+																	<?php if($obtenerDatosProv['tipo'] != "") :?>
+																	<option value="<?php echo $obtenerDatosProv['id_tipo_ra'] ?>"><?php echo $obtenerDatosProv['tipo'] ?></option>
+																	<?php else :?>
 																	<option value="0">Ingresa un tipo de raz&oacute;n...</option>
+																	<?php endif; ?>
 																	<?php foreach($obtenerDatosProv ['tipo'] as $tipors) : ?>
 																	<option value="<?php echo $tipors['id_tipo_ra'] ?>"><?php echo $tipors['tipo'] ?></option>
 																	<?php endforeach; ?>
@@ -124,7 +128,7 @@
 												<li>	
 													<ul>
 														<!-- clave razon social -->
-														<input type="hidden"  name="txt_iddir" value="<?php echo $obtenerDatosProv['id_direccion'] ?>" readonly />
+														<input type="text"  name="txt_iddir" value="<?php echo $obtenerDatosProv['id_direccion'] ?>" readonly />
 														<li>
 															<label for="lbl_">C&oacute;digo Postal:</label>
 															<input type="text" class="keysNumbers" name="postcode" autocomplete="off" required  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $obtenerDatosProv['codigoP'] ?>" onKeyUp="cpview(this.form)" />
@@ -232,11 +236,15 @@
 												<li>
 													<ul>
 														<!-- clave datos bancarios -->
-															<input type="hidden"  name="txt_iddb" value="<?php echo $obtenerDatosProv['id_datBank'] ?>" readonly />
+															<input type="text"  name="txt_iddb" value="<?php echo $obtenerDatosProv['id_datBank'] ?>" readonly />
 														<li>
 															<label for="lbl_banco">Banco:</label>
 															<select id="banco" name="slt_banco" required>
-																<option value selected>Selecciona un banco...</option>
+																<?php if($obtenerDatosProv['nombre_banco'] != "") :?>
+																	<option value="<?php echo $obtenerDatosProv['id_banco'] ?>"><?php echo $obtenerDatosProv['nombre_banco'] ?></option>
+																<?php else :?>
+																<option value="0">Selecciona un banco...</option>
+																<?php endif; ?>
 																<?php foreach($obtenerDatosProv ['nombre_banco'] as $bank) : ?>
 																<option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
 																<?php endforeach; ?>
@@ -271,7 +279,11 @@
 														<li>
 															<label for="lbl_tipo_cuenta">Tipo de cuenta:</label>
 															<select id="tipo_c" name="slt_tipo_c" required>
-																<option value selected>Selecciona un tipo de cuenta...</option>
+																<?php if($obtenerDatosProv['tipo_cuenta'] != "") :?>
+																<option value="<?php echo $obtenerDatosProv['id_tipo_cuenta'] ?>"><?php echo $obtenerDatosProv['tipo_cuenta'] ?></option>
+																<?php else :?>
+																<option value="0">Selecciona un tipo de cuenta...</option>
+																<?php endif; ?>
 																<?php foreach ($obtenerDatosProv ['tipo_cuenta'] as $tipo_c) : ?>
 																<option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
 																<?php endforeach; ?>

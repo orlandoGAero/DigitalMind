@@ -629,30 +629,17 @@
 			$idProv = htmlspecialchars($idProv);
 
 			$sqldetPro = "SELECT pro.id_prov, pro.proveedor, pro.tel, pro.dirweb, 
-							       ctepro.categoria,
-							       datf.razon_social, datf.rfc,
-							       tdatfis.tipo,
+							       ctepro.id_categoria,ctepro.categoria,
+							       datf.id_datFiscal,datf.razon_social, datf.rfc,
+							       tdatfis.id_tipo_ra,tdatfis.tipo,
 							       cp.codigoP, cp.localidad, cp.municipio, cp.estado,
-							       dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,
-							       bank.nombre_banco,
-							       datbank.sucursal,
-							       datbank.titular,
-							       datbank.no_cuenta,
-							       datbank.no_cuenta_interbancario,
-							       tcuenta.tipo_cuenta,
-							       cont.nombreCon,
-							       cont.ap_paterno,
-							       cont.ap_materno,
-							       cont.nombre_area,
-							       cont.movil,
-							       cont.tel_oficina,
-							       cont.tel_emergencia,
-							       cont.correo_p,
-							       cont.correo_instu,
-							       cont.facebook,
-							       cont.twitter,
-							       cont.skype,
-							       cont.direccion_web
+							       dir.id_direccion,dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,dir.id_cp,
+							       bank.id_banco,bank.nombre_banco,
+							       datbank.id_datBank,datbank.sucursal,datbank.titular,datbank.no_cuenta,datbank.no_cuenta_interbancario,
+							       tcuenta.id_tipo_cuenta,tcuenta.tipo_cuenta,
+							       cont.nombreCon,cont.ap_paterno,cont.ap_materno,cont.nombre_area,cont.movil,
+							       cont.tel_oficina,cont.tel_emergencia,cont.correo_p,cont.correo_instu,
+							       cont.facebook,cont.twitter,cont.skype,cont.direccion_web
 							FROM proveedores pro, 
 							     categoria_prov ctepro,
 							     datos_fiscales datf, 
@@ -816,6 +803,44 @@
 											 $id_dire,$street,$noext,$noint,$col,$referen,$cp,
 											 $id_prov,$prov,$cat,$phone,$dweb,
 											 $id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta)
+		{
+
+			// consulta para actualizar los datos de la tabla datos fiscales
+			$sqlUpdatedf = "UPDATE datos_fiscales
+							SET razon_social='Microsoft S.A de C.V',rfc='Microsoft2454',id_tipo_ra=2
+							WHERE id_datFiscal=7;";
+			$ejecutar_sqlUpdatedf = mysql_query($sqlUpdatedf) or die("Error al actualizar datos fiscales".mysql_error());
+
+			// consulta para actualizar los datos de la tabla direcciones
+			$sqlUpdatedir = "UPDATE direcciones
+							 SET calle='gomez farias',num_ext=12,num_int='s/n',colonia='san bernandino',referencia='cu',id_cp=66232
+							 WHERE id_direccion=10;";
+			$ejecutar_sqlUpdatedir mysql_query($sqlUpdatedir) or die("Error al actualizar direccion".mysql_error());
+
+			$sqlUpdateprov = "UPDATE proveedores
+							  SET proveedor='apple',tel='7222222222',dirweb='http://www.apple.com',id_categoria=2,id_datFiscal=7,id_direccion=10
+							  WHERE id_prov=8;";
+			$ejecutar_sqlUpdateprov = mysql_query($sqlUpdateprov) or die("Error al actualizar proveedores".mysql_error());
+
+			$sqlUpdateprov_contact = "UPDATE proveedores_contacto
+									  SET id_prov=,id_contacto=
+									  WHERE id_prov= AND id_contacto=;";
+			$ejecutar_sqlUpdateprov_contact = mysql_query($sqlUpdateprov_contact) or die ("Error al actualizar proveedores-contactos".mysql_error());
+
+			$sqlUpdatedb = "UPDATE datos_bancarios
+							SET id_banco=7,sucursal='centro',titular='titular',no_cuenta='12345678765432345678',no_cuenta_interbancario=286826482648171910,id_tipo_cuenta=2
+							WHERE id_datBank=9;";
+			$ejecutar_sqlUpdatedb = mysql_query($sqlUpdatedb) or die("Error al actualizar datos bancarios".mysql_error());
+
+			$sqlUpdatedb_prov = "UPDATE det_bank_prov
+									SET id_prov=,id_datBank=
+									WHERE id_prov= AND id_datBank=;";
+			$ejecutar_sqlUpdatedb_prov = mysql_query($sqlUpdatedb_prov) or die("Error al actulizar detalle datos bancarios".mysql_error());
+			
+			return ;
+		}
+
+		public function borrarProveedores($id_prov)
 		{
 
 		}
