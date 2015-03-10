@@ -104,20 +104,20 @@
 															<span style="color: red;"><b>&nbsp;*</b></span>
 														</li>
 
-														<li>
+														<!-- <li>
 															<label for="lbl_tipo">Tipo Raz&oacute;n:</label></td>
 															<select id="tipo_rs" name="slt_tipo_rs" required>
-																	<?php if($obtenerDatosProv['tipo'] != "") :?>
-																	<option value="<?php echo $obtenerDatosProv['id_tipo_ra'] ?>"><?php echo $obtenerDatosProv['tipo'] ?></option>
-																	<?php else :?>
+																	<?php //if($obtenerDatosProv['tipo'] != "") :?>
+																	<option value="<?php //echo $obtenerDatosProv['id_tipo_ra'] ?>"><?php echo $obtenerDatosProv['tipo'] ?></option>
+																	<?php //else :?>
 																	<option value="0">Ingresa un tipo de raz&oacute;n...</option>
-																	<?php endif; ?>
-																	<?php foreach($obtenerDatosProv ['tipo'] as $tipors) : ?>
+																	<?php //endif; ?>
+																	<?php //foreach($obtenerDatosProv ['tipo'] as $tipors) : ?>
 																	<option value="<?php echo $tipors['id_tipo_ra'] ?>"><?php echo $tipors['tipo'] ?></option>
-																	<?php endforeach; ?>
+																	<?php //endforeach; ?>
 															</select>
 															<span style="color: red;"><b>&nbsp;*</b></span>
-														</li>
+														</li> -->
 													</ul>
 												</li>
 											</ul>
@@ -245,7 +245,7 @@
 																<?php else :?>
 																<option value="0">Selecciona un banco...</option>
 																<?php endif; ?>
-																<?php foreach($obtenerDatosProv ['nombre_banco'] as $bank) : ?>
+																<?php foreach($obtenerBank['banco'] as $bank) : ?>
 																<option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
 																<?php endforeach; ?>
 															</select>
@@ -284,7 +284,7 @@
 																<?php else :?>
 																<option value="0">Selecciona un tipo de cuenta...</option>
 																<?php endif; ?>
-																<?php foreach ($obtenerDatosProv ['tipo_cuenta'] as $tipo_c) : ?>
+																<?php foreach ($obtenerTaccount ['tipo_cta'] as $tipo_c) : ?>
 																<option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
 																<?php endforeach; ?>
 															</select>

@@ -482,7 +482,7 @@ public function mostrarContactos(){
 												$_POST['txt_noint'],
 												$_POST['txt_col'],
 												$_POST['txt_ref'],
-												$_POST['postcode'],
+												$_POST['idcp-locality'],
 												$_POST['txt_idProv'],
 												$_POST['txt_nombrepro'],
 												$_POST['slt_catprov'],
@@ -574,6 +574,17 @@ public function mostrarContactos(){
 				'codigoP' => $model -> obtenerDatosDireccionUpdateProv($IdProv),
 			);
 
+			//obtener banco
+			$obtenerBank = array(
+				'banco' => $model -> obtBankUpdateProv($IdProv),
+			);
+
+			//obtener tipo de cuenta
+			$obtenerTaccount = array(
+				'tipo_cta' => $model -> obtTctaUpdateProv($IdProv),
+			);
+
+
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				print_r($_POST);
 				if($_POST['txt_noint'] == ""){
@@ -583,14 +594,13 @@ public function mostrarContactos(){
 				if($model->actualizarProveedores($_POST['txt_iddf'],
 												$_POST['txt_razon_s'],
 												$_POST['txt_rfc'],
-												$_POST['slt_tipo_rs'],
 												$_POST['txt_iddir'],
 												$_POST['txt_calle'],
 												$_POST['txt_noext'],
 												$_POST['txt_noint'],
 												$_POST['txt_col'],
 												$_POST['txt_ref'],
-												$_POST['postcode'],
+												$_POST['idcp-locality'],
 												$_POST['txt_idProv'],
 												$_POST['txt_nombrepro'],
 												$_POST['slt_catprov'],
@@ -618,10 +628,8 @@ public function mostrarContactos(){
 						'idDatFis' => $_POST['txt_iddf'],
 						'razon_s' => $_POST['txt_razon_s'],
 						'rfc' => $_POST['txt_rfc'],
-						'tipo_razon' => $_POST['slt_tipo_rs'],
 
 						// datos direccion fisica
-						'cp' => $_POST['postcode'],
 						'idDire' => $_POST['txt_iddir'],
 						'street' => $_POST['txt_calle'],
 						'n_ext' => $_POST['txt_noext'],
@@ -631,22 +639,29 @@ public function mostrarContactos(){
 						
 						// datos bancarios
 						'idBank' => $_POST['txt_iddb'],
-						'banco' => $_POST['slt_banco'],
 						'sucursal' => $_POST['txt_suc'],
 						'titular' => $_POST['txt_titul'],
 						'num_cuenta' => $_POST['txt_cuenta'],
 						'clabe' => $_POST['txt_clabe'],
-						'tipo_cta' => $_POST['slt_tipo_c'],
 					);
 						
 					$obtenerCatPro = array(
-						'categoriaprov' => $model -> $_POST['slt_catprov'],
+						'categoriaprov' => $_POST['slt_catprov'],
 					);
 						
 					$obtenerDatosDir = array(
 						'codigoP' => $model -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
 						'id_cp' => $_POST['idcp-locality'], 
 						'localidad' => $model -> obtieneNombreLocalidad($_POST['idcp-locality']), 
+						
+					);
+
+					$obtenerBank = array(
+						'banco' => $_POST['slt_banco'],
+					);
+
+					$obtenerTaccount = array(
+						'tipo_cta' => $_POST['slt_tipo_c'],
 					);
 				}
 			}

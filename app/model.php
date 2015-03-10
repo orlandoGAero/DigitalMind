@@ -792,6 +792,76 @@
             }
 		}
 
+		public function obtBankUpdateProv($IDprov)
+		{
+			$sqlBankProv = "SELECT bank.id_banco,bank.nombre_banco
+							FROM bancos bank,datos_bancarios db,proveedores prov,det_bank_prov dbprov
+							WHERE  bank.id_banco = db.id_banco
+							AND db.id_datBank = dbprov.id_datBank
+							AND prov.id_prov = dbprov.id_prov
+							AND prov.id_prov =".$IDprov;
+			$ejecutar_sqlBankProv = mysql_query($sqlBankProv, $this->conexion) or die("Error de consulta banco-proveedores".mysql_error());
+			
+			$rows1 = mysql_num_rows($ejecutar_sqlBankProv);
+			
+			if ($rows1 != 0) {
+
+				$idbank = mysql_result($ejecutar_sqlBankProv, 0, 'id_banco');
+			}
+
+			$sqlBanco = "SELECT id_banco,nombre_banco
+						 FROM bancos
+						 WHERE id_banco != ".$idbank."
+						 ORDER BY nombre_banco;";
+			$ejecutar_sqlBanco = mysql_query($sqlBanco, $this->conexion) or die("Error de consulta de nombre de banco".mysql_error());
+			
+			$rows2 = mysql_num_rows($ejecutar_sqlBanco);
+
+			if($rows2 != 0){
+            	$bank = array();
+            	while ($rows = mysql_fetch_assoc($ejecutar_sqlBanco)) {
+					$banco[] = $rows;
+				}
+            
+		    	return $banco;
+            }
+		}
+
+		public function obtTctaUpdateProv($idP)
+		{
+			$sqlTctaProv = "SELECT tcta.id_tipo_cuenta,tcta.tipo_cuenta
+							FROM tipo_cuenta tcta,datos_bancarios db,proveedores prov,det_bank_prov dbprov
+							WHERE tcta.id_tipo_cuenta = db.id_tipo_cuenta
+							AND db.id_datBank = dbprov.id_datBank
+							AND prov.id_prov = dbprov.id_prov
+							AND prov.id_prov =".$idP;
+			$ejecutar_sqlTctaProv = mysql_query($sqlTctaProv, $this->conexion) or die("Error de consulta tipo cuenta-proveedores".mysql_error());
+			
+			$rows1 = mysql_num_rows($ejecutar_sqlTctaProv);
+			
+			if ($rows1 != 0) {
+
+				$id_tcuenta = mysql_result($ejecutar_sqlTctaProv, 0, 'id_tipo_cuenta');
+			}
+
+			$sqlTcta = "SELECT id_tipo_cuenta,tipo_cuenta
+						FROM tipo_cuenta
+						WHERE id_tipo_cuenta != ".$id_tcuenta."
+						ORDER BY tipo_cuenta";
+			$ejecutar_sqlTcta = mysql_query($sqlTcta, $this->conexion) or die("Error de consulta de tipo de cuenta".mysql_error());
+			
+			$rows2 = mysql_num_rows($ejecutar_sqlTcta);
+
+			if($rows2 != 0){
+            	$tcta = array();
+            	while ($rows = mysql_fetch_assoc($ejecutar_sqlTcta)) {
+					$tipo_cta[] = $rows;
+				}
+            
+		    	return $tipo_cta;
+            }
+		}
+
 		// Función para registrar proveedores
 		public function registrarProveedores($id_datf,$razon_s,$rfc,$tipo_rs,
 											 $id_dire,$street,$noext,$noint,$col,$referen,$cp,
@@ -832,45 +902,49 @@
 			return $sqlinsertdf && $sqlinsertdir && $sqlinsertprov && $sqlinsertdb && $sqlinsertdb_prov && $sqlinsertprov_contact;
 		}
 
-		public function actualizarProveedores($id_datf,$razon_s,$rfc,$tipo_rs,
-											 $id_dire,$street,$noext,$noint,$col,$referen,$cp,
+		public function actualizarProveedores($id_datf,$razon_s,$rfc,
+											 $id_dire,$street,$noext,$noint,$col,$referen,$idcp,
 											 $id_prov,$prov,$cat,$phone,$dweb,
 											 $id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta)
 		{
 
 			// consulta para actualizar los datos de la tabla datos fiscales
 			$sqlUpdatedf = "UPDATE datos_fiscales
-							SET razon_social='Microsoft S.A de C.V',rfc='Microsoft2454',id_tipo_ra=2
-							WHERE id_datFiscal=7;";
+							SET razon_social='".$razon_s."', rfc='".$rfc."'
+							WHERE id_datFiscal=".$id_datf.";";
 			$ejecutar_sqlUpdatedf = mysql_query($sqlUpdatedf) or die("Error al actualizar datos fiscales".mysql_error());
 
 			// consulta para actualizar los datos de la tabla direcciones
 			$sqlUpdatedir = "UPDATE direcciones
-							 SET calle='gomez farias',num_ext=12,num_int='s/n',colonia='san bernandino',referencia='cu',id_cp=66232
-							 WHERE id_direccion=10;";
+							 SET calle='".$street."', num_ext=".$noext.", num_int='".$noint."', colonia='".$col."', referencia='".$referen."', id_cp=".$idcp."
+							 WHERE id_direccion=".$id_dire.";";
 			$ejecutar_sqlUpdatedir = mysql_query($sqlUpdatedir) or die("Error al actualizar direccion".mysql_error());
 
+			// consulta para actualizar los datos de la tabla proveedores
 			$sqlUpdateprov = "UPDATE proveedores
-							  SET proveedor='apple',tel='7222222222',dirweb='http://www.apple.com',id_categoria=2,id_datFiscal=7,id_direccion=10
-							  WHERE id_prov=8;";
+							  SET proveedor='".$prov."', tel='".$phone."', dirweb='".$dweb."', id_categoria=".$cat.",id_datFiscal=".$id_datf.", id_direccion=".$id_dire."
+							  WHERE id_prov=".$id_prov.";";
 			$ejecutar_sqlUpdateprov = mysql_query($sqlUpdateprov) or die("Error al actualizar proveedores".mysql_error());
 
+			// consulta para actualizar los datos de la tabla proveedores_contacto
 			$sqlUpdateprov_contact = "UPDATE proveedores_contacto
-									  SET id_prov=,id_contacto=
-									  WHERE id_prov= AND id_contacto=;";
+									  SET id_prov=".$id_prov.",id_contacto=4
+									  WHERE id_prov=".$id_prov." AND id_contacto=5;";
 			$ejecutar_sqlUpdateprov_contact = mysql_query($sqlUpdateprov_contact) or die ("Error al actualizar proveedores-contactos".mysql_error());
 
+			// consulta para actualizar los datos de la tabla datos bancarios
 			$sqlUpdatedb = "UPDATE datos_bancarios
-							SET id_banco=7,sucursal='centro',titular='titular',no_cuenta='12345678765432345678',no_cuenta_interbancario=286826482648171910,id_tipo_cuenta=2
-							WHERE id_datBank=9;";
+							SET id_banco=".$id_bank.", sucursal='".$sucu."', titular='".$titular."', no_cuenta='".$nocuent."', no_cuenta_interbancario=".$clabe.", id_tipo_cuenta=".$id_tcuenta."
+							WHERE id_datBank=".$id_dtb.";";
 			$ejecutar_sqlUpdatedb = mysql_query($sqlUpdatedb) or die("Error al actualizar datos bancarios".mysql_error());
 
+			// consulta para actualizar los datos de la tabla datos bancarios-proveedores
 			$sqlUpdatedb_prov = "UPDATE det_bank_prov
-									SET id_prov=,id_datBank=
-									WHERE id_prov= AND id_datBank=;";
-			$ejecutar_sqlUpdatedb_prov = mysql_query($sqlUpdatedb_prov) or die("Error al actulizar detalle datos bancarios".mysql_error());
+									SET id_prov=".$id_prov.",id_datBank=".$id_dtb."
+									WHERE id_prov=".$id_prov." AND id_datBank=".$id_dtb.";";
+			$ejecutar_sqlUpdatedb_prov = mysql_query($sqlUpdatedb_prov) or die("Error al actualizar detalle datos bancarios".mysql_error());
 			
-			return ;
+			return $sqlUpdatedf && $sqlUpdatedir && $sqlUpdateprov && $sqlUpdateprov_contact && $sqlUpdatedb && $sqlUpdatedb_prov;
 		}
 
 		public function borrarProveedores($id_prov)
