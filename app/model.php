@@ -189,16 +189,28 @@
 			return $idCo;
 		}
 		
-		public function obtenerEstado(){
-			$consulta = "SELECT estado FROM codigos_postales GROUP BY estado;";
+		// public function obtenerEstado(){
+			// $consulta = "SELECT estado FROM codigos_postales GROUP BY estado;";
+			// $ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+// 			
+			// $state = array();
+			// while($rows = mysql_fetch_assoc($ejecutar)){
+				// $state[] = $rows;
+			// }
+// 			
+			// return $state;
+		// }
+		
+		public function obtenerDireccion($localidad){
+			$consulta = "SELECT estado,municipio,localidad,codigoP FROM codigos_postales WHERE localidad = '".$localidad."' ORDER BY estado,municipio;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			
-			$state = array();
+			$direccion = array();
 			while($rows = mysql_fetch_assoc($ejecutar)){
-				$state[] = $rows;
+				$direccion[] = $rows;
 			}
 			
-			return $state;
+			return $direccion;
 		}
 		
 		public function registrarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,

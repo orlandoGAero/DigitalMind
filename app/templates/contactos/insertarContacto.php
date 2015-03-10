@@ -68,23 +68,8 @@
 												
 												<ul>
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></li>
-													<li>
-														<label>Estado</label>
-														<select name="state" required='required'>
-															<option value="">Seleccione estado</option>
-															<?php foreach ($parametrosContactos['estadoC'] as $estado) :?>
-															<option value="<?php echo $estado['estado'] ?>"><?php echo $estado['estado'] ?></option>	
-															<?php endforeach; ?>
-														</select>
-														<span style="color: red;"><b>&nbsp;*</b></span>
-													</li>
-													<li>
-														<label>Municipio</label>
-														<select name="municipio" disabled="disabled">
-															<option></option>	
-														</select>
-														<span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Localidad</label><input type="text" name="localidad" required='required' /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Localidad</label><input type="text" name="localidad" required='required' onkeyup="dirview(this.form)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><div id="result"></div></li>
 													<li><label>Código Postal</label><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $parametrosContactos['cp'] ?>" onKeyUp="cpview(this.form)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<?php if($parametrosContactos['cp'] == "") :?>
 														<li><div id="resultado"> </div></li>
@@ -147,6 +132,12 @@
 			$('.menu-pro').lksMenu();
 		});
 		
+		function dirview(form)
+		{
+	       $('#result').load('index.php?url=viewMunicipality&loc=' + $('#formContact').serialize())    
+		}
+		
+				
 		function cpview(form)
 		{
 	       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    

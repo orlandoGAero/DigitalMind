@@ -65,6 +65,22 @@
 			require __DIR__ . '/templates/contactos/verDireccion.php';
 		}
 		
+		function obtenerMunicipio()
+		{
+			if ($_REQUEST['loc']!="") {
+				
+				$nameLocal = $_REQUEST['loc'];
+				
+				$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+							config::$mvc_db_pass, config::$mvc_db_hostname);
+							
+				$municipio = $m->obtenerDireccion($nameLocal);			
+				$obtenerDatosMun = $municipio;
+			}
+
+			require __DIR__ . '/templates/contactos/verMunicipio.php';
+		}
+		
 		public function insertarContacto(){
 				
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
@@ -90,7 +106,6 @@
 				'pagWeb' => '',
 				//Datos dirección física
 				'idDir' => $m->incrementoDir(),
-				'estadoC' => $m->obtenerEstado(),
 				'cp' => '',
 				'calleD' => '',
 				'numExterior' => '',
