@@ -730,6 +730,39 @@
 			return $categoriaPro;
 		}
 
+		public function obtCategoriaUpdate($idPro)
+		{
+			$sqlCatPro = "SELECT catpro.id_categoria, catpro.categoria
+						  FROM categoria_prov catpro, proveedores prov
+						  WHERE  catpro.id_categoria = prov.id_categoria
+						  AND prov.id_prov = ".$idPro;
+			$ejecutar_sqlCatPro = mysql_query($sqlCatPro, $this->conexion) or die("Error de consulta categoria-proveedores".mysql_error());
+			
+			$rows1 = mysql_num_rows($ejecutar_sqlCatPro);
+			
+			if ($rows1 != 0) {
+
+				$idcat = mysql_result($ejecutar_sqlCatPro, 0, 'id_categoria');
+			}
+
+			$sqlCateg = "SELECT categoria,id_categoria
+						 FROM categoria_prov
+						 WHERE id_categoria != ".$idcat."
+						 ORDER BY categoria";
+			$ejecutar_sqlCateg = mysql_query($sqlCateg, $this->conexion) or die("Error de consulta de categoria".mysql_error());
+			
+			$rows2 = mysql_num_rows($ejecutar_sqlCateg);
+
+			if($rows2 != 0){
+            	$cat = array();
+            	while ($rows = mysql_fetch_assoc($ejecutar_sqlCateg)) {
+					$categoria[] = $rows;
+				}
+            
+		    	return $categoria;
+            }
+		}
+
 		/*Funcion para cargar div de los datos del formulario Dirección según el CP ingresado y con el  parametro de clave de proveedor */
 		public function obtenerDatosDireccionUpdateProv($idProv)
 		{
@@ -815,7 +848,7 @@
 			$sqlUpdatedir = "UPDATE direcciones
 							 SET calle='gomez farias',num_ext=12,num_int='s/n',colonia='san bernandino',referencia='cu',id_cp=66232
 							 WHERE id_direccion=10;";
-			$ejecutar_sqlUpdatedir mysql_query($sqlUpdatedir) or die("Error al actualizar direccion".mysql_error());
+			$ejecutar_sqlUpdatedir = mysql_query($sqlUpdatedir) or die("Error al actualizar direccion".mysql_error());
 
 			$sqlUpdateprov = "UPDATE proveedores
 							  SET proveedor='apple',tel='7222222222',dirweb='http://www.apple.com',id_categoria=2,id_datFiscal=7,id_direccion=10

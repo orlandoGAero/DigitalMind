@@ -566,7 +566,7 @@ public function mostrarContactos(){
 
 			// obtener categoria del proveedor
 			$obtenerCatPro = array(
-				'categoriaprov' => $model ->  obtenerCategoria(),
+				'categoriaprov' => $model ->  obtCategoriaUpdate($IdProv),
 			);
 
 			// obtener direccion
@@ -611,7 +611,6 @@ public function mostrarContactos(){
 						// datos proveedor
 						'idprov' => $_POST['txt_idProv'],
 						'proveedor' => $_POST['txt_nombrepro'],
-						'categoriaprov' => $_POST['slt_catprov'],
 						'phone' => $_POST['txt_tel_pro'],
 						'direweb' => $_POST['txt_url_web'],
 						
@@ -639,7 +638,11 @@ public function mostrarContactos(){
 						'clabe' => $_POST['txt_clabe'],
 						'tipo_cta' => $_POST['slt_tipo_c'],
 					);
-
+						
+					$obtenerCatPro = array(
+						'categoriaprov' => $model -> $_POST['slt_catprov'],
+					);
+						
 					$obtenerDatosDir = array(
 						'codigoP' => $model -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
 						'id_cp' => $_POST['idcp-locality'], 
