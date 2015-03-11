@@ -615,6 +615,7 @@
 						AND cp.id_cp=dir.id_cp
 						AND dir.id_direccion=pro.id_direccion
 						AND catprov.id_categoria=pro.id_categoria
+						AND pro.activo = 'si'
 						ORDER BY id_prov";
 			$ejecutarPro = mysql_query($sqlPro, $this->conexion);
 			$proveedores = array();
@@ -880,8 +881,8 @@
 			$ejecutar_sqlinsertdir = mysql_query($sqlinsertdir,$this->conexion) or die("Error en insertar direcciones ".mysql_error());
 
 			// consulta para insertar en la tabla de proveedores
-			$sqlinsertprov = "INSERT INTO proveedores (id_prov,fecha_alta,proveedor,tel,dirweb,id_categoria,id_datFiscal,id_direccion)
-							  VALUES (".$id_prov.",NOW(),'".$prov."','".$phone."','".$dweb."',".$cat.",".$id_datf.",".$id_dire.");";
+			$sqlinsertprov = "INSERT INTO proveedores (id_prov,fecha_alta,proveedor,tel,dirweb,id_categoria,id_datFiscal,id_direccion,activo)
+							  VALUES (".$id_prov.",NOW(),'".$prov."','".$phone."','".$dweb."',".$cat.",".$id_datf.",".$id_dire.",'si');";
 			$ejecutar_sqlinsertprov = mysql_query($sqlinsertprov,$this->conexion) or die("Error en insertar proveedores ".mysql_error());
 
 			// consulta para insertar en la tabla de proveedores_contacto
