@@ -950,7 +950,40 @@
 
 		public function borrarProveedores($id_prov)
 		{
+			
+			$sql_select = "SELECT db.id_datBank,df.id_datFiscal,dir.id_direccion,cont.id_contacto
+							FROM datos_bancarios db,proveedores prov,det_bank_prov dbp,datos_fiscales df,direcciones dir,proveedores_contacto provcont,contactos cont
+							WHERE db.id_datBank=dbp.id_datBank
+							AND prov.id_prov=dbp.id_prov
+							AND df.id_datFiscal=prov.id_datFiscal
+							AND dir.id_direccion=prov.id_direccion
+							AND cont.id_contacto=provcont.id_contacto
+							AND prov.id_prov=provcont.id_prov
+							AND prov.id_prov=".$id_prov;
+			$ejecutar_sql_select = mysql_query($sql_select) or die("error de consulta".mysql_error());
 
+			$id_bancarios = mysql_result($ejecutar_sql_select, 0, 'id_datBank');
+			$id_fiscales = mysql_result($ejecutar_sql_select, 0,'id_datFiscal');
+			$id_dir = mysql_result($ejecutar_sql_select, 0,'id_direccion');
+			$id_contact = mysql_result($ejecutar_sql_select, 0,'id_contacto');
+
+			$sql_deleteprov = "DELETE dbp,db,proc,prov,dir,df 
+								FROM det_bank_prov dbp, datos_bancarios db, proveedores_contacto proc, proveedores prov, direcciones dir, datos_fiscales df
+								WHERE df.id_datFiscal=prov.id_datFiscal 
+								AND dir.id_direccion=prov.id_direccion 
+								AND prov.id_prov=proc.id_prov
+								AND db.id_datBank=dbp.id_datBank
+								AND prov.id_prov=dbp.id_prov
+								AND prov.id_prov=".$id_prov."
+								AND db.id_datBank=".$id_bancarios."
+								AND proc.id_contacto=".$id_contact." 
+								AND dir.id_direccion=".$id_dir."
+								AND df.id_datFiscal=".$id_fiscales;
+			$ejecutar_sql_deleteprov = mysql_query($sql_deleteprov,$this->conexion) or die("Error de consulta delete proveedores".mysql_error());
+		
+			echo" <script> alert('El registro ha sido eliminado correctamente') 
+							window.location='index.php?url=Proveedores';
+					 	</script> ";
 		}
     }
 ?>

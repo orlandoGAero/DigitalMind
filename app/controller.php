@@ -576,7 +576,7 @@ public function mostrarContactos(){
 
 			//obtener banco
 			$obtenerBank = array(
-				'banco' => $model -> obtBankUpdateProv($IdProv),
+				'bancarios' => $model -> obtBankUpdateProv($IdProv),
 			);
 
 			//obtener tipo de cuenta
