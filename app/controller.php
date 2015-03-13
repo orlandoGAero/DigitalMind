@@ -468,6 +468,12 @@ public function mostrarContactos(){
 
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				print_r($_POST);
+				if ($_POST['rfc'] == substr(string, start)) {
+					$_POST[''] = 'Moral';
+				}elseif ($_POST) {
+					$_POST[''] = 'Física';
+				}
+
 				if($_POST['txt_noint'] == ""){
 					$_POST['txt_noint'] = "s/n";
 				}

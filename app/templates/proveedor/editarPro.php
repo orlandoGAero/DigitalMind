@@ -4,8 +4,8 @@
 		$obtenerDatosProv['id_prov'];
 
 		if (isset($parametrosProveedores['mensaje'])) :?>
-		<b><span style="color: red;"><?php echo $parametrosProveedores['mensaje'] ?></span></b>
-	<?php endif; ?>
+			<b><span style="color: red;"><?php echo $parametrosProveedores['mensaje'] ?></span></b>
+		<?php endif; ?>
 	 <br/>
 	<!DOCTYPE html>
 	<html>
@@ -60,8 +60,8 @@
 															<select id="catprov" name="slt_catprov">
 																<?php if($obtenerDatosProv['categoria'] != "") :?>
 																	<option value="<?php echo $obtenerDatosProv['id_categoria'] ?>"><?php echo $obtenerDatosProv['categoria'] ?></option>
-																<?php else :?>
-																<option value="0">Ingresa una categor&iacute;a...</option>
+																	<?php else :?>
+																	<option value="0">Ingresa una categor&iacute;a...</option>
 																<?php endif; ?>
 																<?php foreach ($obtenerCatPro['categoriaprov'] as $catpro) : ?>
 																<option required value="<?php echo $catpro['id_categoria'] ?>"><?php echo $catpro['categoria']?></option>
@@ -151,9 +151,9 @@
 																				<select name="idcp-locality" >
 																					<?php if($obtenerDatosProv['localidad'] != "") :?>
 																						<option value="<?php echo $obtenerDatosProv['id_cp'] ?>"><?php echo $obtenerDatosProv['localidad'] ?></option>
-																					<?php else :?>
-																						<option value='0'>Seleccione una Opción</option>
-																					<?php endif; ?>
+																						<?php else :?>
+																							<option value='0'>Seleccione una Opción</option>
+																						<?php endif; ?>
 																					<?php foreach ($obtenerDatosDir['codigoP'] as $locality) : ?>
 																							<option required='required' value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option> ?>
 																					<?php endforeach; ?>

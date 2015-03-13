@@ -126,7 +126,7 @@
 											</ul>
 										</li>
 
-										<li><a href="#"><b>Datos Direcci&oacute;n F&iacute;sica</b></a>
+										<li><a href="#"><b>Direcci&oacute;n F&iacute;sica</b></a>
 											<ul>
 												<li>	
 													<ul>
@@ -199,6 +199,9 @@
 													</ul>
 												</li>
 											</ul>
+										</li>
+
+										<li><a href="#"><b>Direcci&oacute;n Fiscal</b></a>
 										</li>
 
 										<li><a href="#">Datos Contacto</a>

@@ -869,6 +869,12 @@
 											 $id_prov,$prov,$cat,$phone,$dweb,
 											 $id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta) 
 		{
+			$prov = mb_strtoupper($prov);
+			$razon_s = mb_strtoupper($razon_s);
+			$street = mb_strtoupper($street);
+			$col = mb_strtoupper($col);
+			$sucu = mb_strtoupper($sucu);
+			$titular = mb_strtoupper($titular);
 			
 			// consulta para insertar en la tabla de datos fiscales
 			$sqlinsertdf = "INSERT INTO datos_fiscales (id_datFiscal,razon_social,rfc,id_tipo_ra)
@@ -887,7 +893,7 @@
 
 			// consulta para insertar en la tabla de proveedores_contacto
 			$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_prov,id_contacto)
-									  VALUES (".$id_prov.",5);";
+									  VALUES (".$id_prov.",1);";
 			$ejecutar_sqlinsertprov_contact = mysql_query($sqlinsertprov_contact,$this->conexion) or die("Error en insertar proveedores-contactos".mysql_error());
 
 			// consulta para insertar en la tabla datos bancarios
