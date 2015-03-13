@@ -25,9 +25,20 @@
 						<th>Área</th>
 						<td><?php echo $detalleContacto['nombre_area'] ?></td>
 					</tr>
+					<?php if($detalleContacto['whatsapp'] == "Si") :?>
+						<tr>
+							<th>Móvill</th>
+							<td><?php echo $detalleContacto['movil'] ?> <img src="images/whatsapp-icono.png" title="WhatsApp"/></td>
+						</tr>
+					<?php else :?>
+						<tr>
+							<th>Móvill</th>
+							<td><?php echo $detalleContacto['movil'] ?></td>
+						</tr>
+					<?php endif; ?>
 					<tr>
-						<th>Móvill</th>
-						<td><?php echo $detalleContacto['movil'] ?></td>
+						<th>Ext.</th>
+						<td><?php echo $detalleContacto['extension'] ?></td>
 					</tr>
 					<tr>
 						<th>Télefono Oficina</th>

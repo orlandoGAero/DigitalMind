@@ -160,10 +160,11 @@
 		{
 			$idCon = htmlspecialchars($idCon);
 			
-			$consulta = "SELECT c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,c.nombre_area,c.movil,c.tel_oficina,c.tel_emergencia,c.correo_p,c.correo_instu,
-								c.facebook,c.twitter,c.skype,c.direccion_web,c.activo,cp.estado,cp.municipio,cp.localidad,cp.codigoP,d.id_direccion,d.calle,d.num_ext,d.num_int,d.colonia,d.referencia,d.id_cp
-								FROM codigos_postales cp, direcciones d, contactos c
-								WHERE cp.id_cp = d.id_cp
+			$consulta = "SELECT c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,c.nombre_area,c.movil,c.whatsapp,c.extension,c.tel_oficina,c.tel_emergencia,c.correo_p,c.correo_instu,
+									c.facebook,c.twitter,c.skype,c.direccion_web,c.activo,e.estado,cp.municipio,cp.localidad,cp.codigoP,d.id_direccion,d.calle,d.num_ext,d.num_int,d.colonia,d.referencia,d.id_cp
+								FROM estados e,codigos_postales cp, direcciones d, contactos c
+								WHERE e.id_estado = cp.id_estado
+									AND cp.id_cp = d.id_cp
 									AND d.id_direccion=c.id_direccion
 									AND c.id_contacto =  ".$idCon;
 			$ejecutar = mysql_query($consulta, $this->conexion) or die (mysql_error());
@@ -189,20 +190,36 @@
 			return $idCo;
 		}
 		
-		// public function obtenerEstado(){
-			// $consulta = "SELECT estado FROM codigos_postales GROUP BY estado;";
-			// $ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
-// 			
-			// $state = array();
-			// while($rows = mysql_fetch_assoc($ejecutar)){
-				// $state[] = $rows;
-			// }
-// 			
-			// return $state;
-		// }
+		public function obtenerEstado(){
+			$consulta = "SELECT id_estado,estado FROM estados ORDER BY estado;";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			
+			$state = array();
+			while($rows = mysql_fetch_assoc($ejecutar)){
+				$state[] = $rows;
+			}
+			
+			return $state;
+		}
 		
-		public function obtenerDireccion($localidad){
-			$consulta = "SELECT estado,municipio,localidad,codigoP FROM codigos_postales WHERE localidad = '".$localidad."' ORDER BY estado,municipio;";
+		public function municipioObtener($estado){
+			$consulta = "SELECT municipio FROM codigos_postales WHERE id_estado = ".$estado." GROUP BY municipio;";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			
+			$municipality = array();
+			while($rows = mysql_fetch_assoc($ejecutar)){
+				$municipality[] = $rows;
+			}
+			
+			return $municipality;
+		}
+		
+		public function obtener_direccion($estado,$municipio,$localidad){
+			$consulta = "SELECT e.estado,cp.id_cp,cp.municipio,cp.localidad,cp.codigoP
+								FROM estados e,codigos_postales cp
+								WHERE e.id_estado=cp.id_estado
+									AND cp.id_estado = '".$estado."' AND cp.municipio = '".$municipio."' AND cp.localidad LIKE '".$localidad."%'
+									ORDER BY cp.localidad;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			
 			$direccion = array();
@@ -285,7 +302,7 @@
 		}
 		
 		public function actualizarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,
-		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
+		$idCont,$nomCont,$apCont,$amCont,$areaCont,$telMovilCont,$whatsAppCont,$extCont,$telOficinaCont,$telEmergenciaCont,$correoPersonalCont,
 		$correoInstituCont,$facebookCont,$twitterCont,$skypeCont,$dirWebCont,$activoCont)
 		{
 			$band = 0;
@@ -307,8 +324,8 @@
 			$skypeCont = mb_strtolower($skypeCont);
 			$dirWebCont = mb_strtolower($dirWebCont);
 			
-			if($nomCont != "" && $apCont != "" && $amCont != "" && $areaCont != "" && $telMovilCont != "" && $telOficinaCont != "" && $telEmergenciaCont != "" && $correoPersonalCont!= ""
-					&& $calleCont != "" && $numExtCont != "" && $coloniaCont != ""){
+			if($nomCont != "" && $apCont != "" && $amCont != "" && $areaCont != "" && $telMovilCont != "" && $extCont != "" && $telOficinaCont != "" && $telEmergenciaCont != ""
+					&& $correoPersonalCont!= "" && $calleCont != "" && $numExtCont != "" && $coloniaCont != ""){
 				//Valdaciones de las cadenas
 			}else{
 				$band = 1;
@@ -345,9 +362,9 @@
 				$ejecutar1 = mysql_query($consulta1,$this->conexion) or die ("Error en actualizar dirección ".mysql_error());
 				
 				$consulta2 = "UPDATE contactos
-									SET nombreCon = '".$nomCont."',ap_paterno = '".$apCont."',ap_materno = '".$amCont."',nombre_area = '".$areaCont."',movil = ".$telMovilCont.",tel_oficina = ".$telOficinaCont.",
-									tel_emergencia = ".$telEmergenciaCont.",correo_p = '".$correoPersonalCont."',correo_instu = '".$correoInstituCont."',facebook = '".$facebookCont."',twitter = '".$twitterCont."',
-									skype = '".$skypeCont."',direccion_web = '".$dirWebCont."',activo = '".$activoCont."'
+									SET nombreCon = '".$nomCont."',ap_paterno = '".$apCont."',ap_materno = '".$amCont."',nombre_area = '".$areaCont."',movil = ".$telMovilCont.",whatsapp = '".$whatsAppCont."',
+									extension = ".$extCont.",tel_oficina = ".$telOficinaCont.",tel_emergencia = ".$telEmergenciaCont.",correo_p = '".$correoPersonalCont."',correo_instu = '".$correoInstituCont."',
+									facebook = '".$facebookCont."',twitter = '".$twitterCont."',skype = '".$skypeCont."',direccion_web = '".$dirWebCont."',activo = '".$activoCont."'
 									WHERE id_contacto = ".$idCont;
 				$ejecutar2 = mysql_query($consulta2,$this->conexion) or die ("Error en actualizar contacto ".mysql_error());	
 				
@@ -408,7 +425,7 @@
 		public function obtenerCodigoP($idCp)
 		{
 			$idCp = htmlspecialchars($idCp);				
-			$consulta = "SELECT * FROM codigos_postales WHERE codigoP = ".$idCp." order by localidad";
+			$consulta = "SELECT e.estado,cp.* FROM estados e,codigos_postales cp WHERE e.id_estado = cp.id_estado AND cp.codigoP = ".$idCp." ORDER BY cp.localidad";
 			$ejecutar = mysql_query($consulta, $this->conexion);
 			$filas = mysql_num_rows($ejecutar);
 		

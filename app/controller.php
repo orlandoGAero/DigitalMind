@@ -67,18 +67,41 @@
 		
 		function obtenerMunicipio()
 		{
-			if ($_REQUEST['loc']!="") {
+			if ($_REQUEST['state']!="") {
 				
-				$nameLocal = $_REQUEST['loc'];
+				$nameState = $_REQUEST['state'];
 				
 				$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 							config::$mvc_db_pass, config::$mvc_db_hostname);
 							
-				$municipio = $m->obtenerDireccion($nameLocal);			
+				$municipio = $m->municipioObtener($nameState);			
 				$obtenerDatosMun = $municipio;
 			}
 
 			require __DIR__ . '/templates/contactos/verMunicipio.php';
+		}
+		
+		function txtLocalidad()
+		{
+			require __DIR__ . '/templates/contactos/verTxtLocalidad.php';
+		}
+		
+		function obtenerDireccionLocalidad()
+		{
+			if ($_REQUEST['stateCont'] !="" && $_REQUEST['municipio'] && $_REQUEST['localidad'] !="") {
+					
+				$nameState = $_REQUEST['stateCont']; 
+				$nameMunicipality = $_REQUEST['municipio'];
+				$nameLocality = $_REQUEST['localidad'];
+				
+				$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+							config::$mvc_db_pass, config::$mvc_db_hostname);
+							
+				$dirL = $m->obtener_direccion($nameState,$nameMunicipality,$nameLocality);			
+				$obtenerDatosDireccion = $dirL;
+			}
+
+			require __DIR__ . '/templates/contactos/verDireccionLocalidad.php';
 		}
 		
 		public function insertarContacto(){
@@ -106,6 +129,7 @@
 				'pagWeb' => '',
 				//Datos dirección física
 				'idDir' => $m->incrementoDir(),
+				'estadoC' => $m->obtenerEstado(),
 				'cp' => '',
 				'calleD' => '',
 				'numExterior' => '',
@@ -196,9 +220,9 @@
 				}
 
 				if($m->actualizarContacto($_POST['idAddress'],$_POST['idcp-locality'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
-					$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['telOficina'],
-					$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],$_POST['redSocialS'],
-					$_POST['webPage'],$_POST['activoC'])){
+					$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['whatsappMovil'],
+					$_POST['extC'],$_POST['telOficina'],$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],
+					$_POST['redSocialS'],$_POST['webPage'],$_POST['activoC'])){
 						header('Location: index.php?url=listContact');
 				}else{
 					$obtenerDatosContacto = array(
@@ -208,6 +232,8 @@
 						'ap_materno' => $_POST['ApMContact'],
 						'nombre_area' => $_POST['nameArea'],
 						'movil' => $_POST['telMovil'],
+						'whatsapp' => $_POST['whatsappMovil'],
+						'extension' => $_POST['extC'],
 						'tel_oficina' => $_POST['telOficina'],
 						'tel_emergencia' => $_POST['telEmergencia'],
 						'correo_p' => $_POST['emailPersonal'],

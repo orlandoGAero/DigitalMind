@@ -123,7 +123,10 @@
 			</table>
 		</div>
 	<?php else :?>
-		<pre><h3 class="azul">No se encuentra registrado ningún contacto</h3></pre>
+		<pre>
+			<a href='index.php?url=insertContact'><img src="images/new_contact.png" title="Nuevo Contacto" align='right' width="54px" height="54px"/></a>
+			<h3 class="azul">No se encuentra registrado ningún contacto</h3>
+		</pre>
 	<?php endif ?>
 	
 	<script>
