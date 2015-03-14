@@ -5,6 +5,9 @@
 		<b><span style="color: red;"><?php echo $parametrosContactos['mensaje'] ?></span></b>
 	<?php endif; ?>
 	 <br/>
+	 <!-- Style CSS valid & invalid-->
+        <link href="<?php echo 'css/'.config::$style_valid_invalid_css ?>" rel="stylesheet" />
+        
 	 <!-- JS Formulario Listas Desplegables -->
 	 <script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
 	 	
@@ -30,6 +33,22 @@
 													<li><label>Apellido Materno</label><input type="text" name="ApMContact" autocomplete="off" required="required" maxlength="50" pattern="|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|" value="<?php echo $obtenerDatosContacto['ap_materno'] ?>" onChange="conMayusculas(this)"/><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Área</label><input type="text" name="nameArea" autocomplete="off" required="required" maxlength="50" pattern="|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|" value="<?php echo $obtenerDatosContacto['nombre_area'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp*</b></span></li>
 													<li><label>Teléfono Móvil</label><input type="text" id="tel" class="keysNumbers" name="telMovil" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $obtenerDatosContacto['movil'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<?php if($obtenerDatosContacto['whatsapp'] == "No") :?>
+														<li>
+															<?php $valorTrue = "Si" ?>
+															<strong>¿Utilizas <img src="images/whatsapp.png" title="WhatsApp"/>?</strong>
+															<input type="radio" name="whatsappMovil" value="<?php echo $valorTrue ?>"/>Si
+															<input type="radio" name="whatsappMovil" value="<?php echo $obtenerDatosContacto['whatsapp'] ?>" checked="checked"/>No
+														</li>
+													<?php else :?>
+														<li>
+															<?php $valorFalse = "No" ?>
+															<strong>¿Utilizas <img src="images/whatsapp.png" title="WhatsApp"/>?</strong>
+															<input type="radio" name="whatsappMovil" value="<?php echo $obtenerDatosContacto['whatsapp'] ?>" checked="checked"/>Si
+															<input type="radio" name="whatsappMovil" value="<?php echo $valorFalse ?>"/>No
+														</li>
+													<?php endif; ?>
+													<li><label>Extensión</label><input type="text" id="tel" class="keysNumbers" name="extC" autocomplete="off" required="required" maxlength="3" pattern="[0-9]{3}" value="<?php echo $obtenerDatosContacto['extension'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Teléfono Oficina</label><input type="text" id="tel" class="keysNumbers" name="telOficina" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $obtenerDatosContacto['tel_oficina'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Teléfono Emergencia</label><input type="text" id="tel" class="keysNumbers" name="telEmergencia" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $obtenerDatosContacto['tel_emergencia'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Correo Personal</label><input type="email" name="emailPersonal" autocomplete="off" required="required" maxlength="50" placeholder="nombre@ejemplo.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value="<?php echo $obtenerDatosContacto['correo_p'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>

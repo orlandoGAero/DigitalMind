@@ -68,9 +68,44 @@
 												
 												<ul>
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></li>
-													<li><label>Localidad</label><input type="text" name="localidad" required='required' onkeyup="dirview(this.form)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><div id="result"></div></li>
-													<li><label>Código Postal</label><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $parametrosContactos['cp'] ?>" onKeyUp="cpview(this.form)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li>
+														<label>Estado</label>
+														<select name="stateCont" id="state" required='required' onchange="habilitar(this.value);">
+															<?php if($parametrosContactos['estadoC'] != "") :?>
+																<option value="">Seleccione estado</option>
+															<?php else :?>
+																<option value="<?php $parametrosContactos['estadoC'] ?>"><?php $parametrosContactos['estadoC'] ?></option>
+															<?php endif; ?>
+															<?php foreach ($parametrosContactos['estadoC'] as $estado) :?>
+															<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+															<?php endforeach; ?>
+														</select>
+														<span style="color: red;"><b>*</b></span>
+													</li>
+													<li>
+														<!-- <div id="result_municipio">  -->
+															<label>Municipio</label>
+															
+															<select name="municipio" id="municipio" required='required' disabled="disabled">
+																
+															</select>
+															
+															<span style="color: red;"><b>*</b></span>
+														<!-- </div> -->
+													</li>
+													<li>
+														<!-- <div id="result_localidad"> -->
+															<label>Localidad</label>
+															<input type="text" name="localidad" id="localidad" onkeyup="dirtxtView(this.form)" />
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														<!-- </div> -->
+													</li>
+													<li>
+														<div id="result"></div>
+													</li>
+													
+													<!-- ========================================================================================================================= -->
+													<!-- <li><label>Código Postal</label><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $parametrosContactos['cp'] ?>" onKeyUp="cpview(this.form)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<?php if($parametrosContactos['cp'] == "") :?>
 														<li><div id="resultado"> </div></li>
 													<?php else :?>
@@ -83,16 +118,16 @@
 																		<th>Localidad</th>
 																	</tr>
 																	<tr>
-																		<td><?php echo $obtenerDatosDir['estado'] ?> <input type="hidden" name="state" readonly="readonly" value="<?php echo $obtenerDatosDir['estado'] ?>" </td>
-																		<td><?php echo $obtenerDatosDir['municipio'] ?>  <input type="hidden" name="municipality" readonly="readonly" value="<?php echo $obtenerDatosDir['municipio'] ?>" </td>
+																		<td><?php echo $parametrosContactos['estado'] ?> <input type="text" name="state" readonly="readonly" value="<?php echo $parametrosContactos['estado'] ?>" </td>
+																		<td><?php echo $parametrosContactos['municipio'] ?>  <input type="text" name="municipality" readonly="readonly" value="<?php echo $parametrosContactos['municipio'] ?>" </td>
 																		<td>
 																			<select name="idcp-locality" required='required'>
-																				<?php if($obtenerDatosDir['localidadC'] != "") :?>
-																					<option value="<?php echo $obtenerDatosDir['idCP'] ?>"><?php echo $obtenerDatosDir['localidadC'] ?></option>
+																				<?php if($parametrosContactos['localidadC'] != "") :?>
+																					<option value="<?php echo $parametrosContactos['idCP'] ?>"><?php echo $parametrosContactos['localidadC'] ?></option>
 																				<?php else :?>
 																					<option value="">Seleccione una Opción</option>
 																				<?php endif; ?>
-																				<?php foreach ($obtenerDatosDir['codigoP'] as $locality) : ?>
+																				<?php foreach ($parametrosContactos['codigoP'] as $locality) : ?>
 																						<option value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option> ?>
 																				<?php endforeach; ?>
 																			</select>
@@ -101,7 +136,8 @@
 																</table>
 															</div>
 														</li>
-													<?php endif; ?>
+													<?php endif; ?> -->
+													<!-- ============================================================================================================================= -->
 													<li><label>Calle</label><input type="text" name="street" autocomplete="off" required="required" maxlength="50" value="<?php echo $parametrosContactos['calleD'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Número Exterior</label><input type="text" class="keysNumbers" name="numExt" autocomplete="off" required="required" maxlength="5" value="<?php echo $parametrosContactos['numExterior'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Número Interior</label><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $parametrosContactos['numInterior'] ?>" />&nbsp;&nbsp;&nbsp;</li>
@@ -132,12 +168,51 @@
 			$('.menu-pro').lksMenu();
 		});
 		
-		function dirview(form)
+		function habilitar(value)
 		{
-	       $('#result').load('index.php?url=viewMunicipality&loc=' + $('#formContact').serialize())    
+			
+			if(value >= 1 || value==true)
+			{
+				// habilitamos
+				document.getElementById("municipio").disabled=false;
+			}else if(value != "" || value==true)	{
+				// habilitamos
+				document.getElementById("localidad").disabled=false;
+			}else{
+				// deshabilitamos
+				document.getElementById("municipio").disabled=true;
+				document.getElementById("localidad").disabled=true;
+			}
 		}
 		
-				
+		// function habilitar2(value)
+		// {
+			// if(value != "" || value==true)
+			// {
+				// // habilitamos
+				// document.getElementById("localidad").disabled=false;
+			// }else{
+				// // deshabilitamos
+				// document.getElementById("localidad").disabled=true;
+			// }
+		// }
+		
+		$(function () {
+			$('#state').change(function(){
+				$('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
+			});
+		})
+		
+		// function txtView(form)
+		// {
+	       // $('#result_localidad').load('index.php?url=activarTxtLocality&' + $('#formContact').serialize());   
+		// }
+		
+		function dirtxtView(form)
+		{
+	       $('#result').load('index.php?url=viewDirLocality&stateCont=&municipio=&localidad=' + $('#formContact').serialize())    
+		}
+		
 		function cpview(form)
 		{
 	       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    
