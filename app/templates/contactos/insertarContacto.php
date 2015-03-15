@@ -1,3 +1,4 @@
+<!-- Insertar Contacto -->
 <?php ob_start() ?>
 
 	<?php if (isset($parametrosContactos['mensaje'])) :?>

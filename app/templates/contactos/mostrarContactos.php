@@ -1,3 +1,4 @@
+<!-- Listar Contactos -->
  <?php 
  	/**
 	 * ob_start() envia todos los resultados del script desde la invocación de la función a un buffer interno. Dichos resultados se recojen a través de la función ob_get_clean().

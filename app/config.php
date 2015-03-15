@@ -1,6 +1,7 @@
 <?php
     /**
-     *  
+     *  El archivo config es utilizado para mandar a llarmar todas las librerias que se ocupan en el sistema como son la conexión a la Base de Datos,
+	 * los estilos CSS y jquery.
      */
     class config {
         

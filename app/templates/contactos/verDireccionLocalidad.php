@@ -1,3 +1,4 @@
+<!-- Ver dirección según la localidad -->
 <?php if (isset($obtenerDatosDireccion[0]['localidad'])) :?>
 	<table class="table" id="miTabla">
 			<tr>

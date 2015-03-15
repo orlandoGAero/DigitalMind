@@ -1,4 +1,4 @@
-
+<!-- Eliminar archivo -->
 	<table class="table" id="miTabla">
 			<tr>
 				<th>Estado</th>

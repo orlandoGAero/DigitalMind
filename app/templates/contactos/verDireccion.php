@@ -1,3 +1,4 @@
+<!-- Ver dirección de acuerdo al código postal -->
 <?php if (isset($obtenerDatosDir[0]['codigoP'])) :?>
 	<table class="table" id="miTabla">
 			<tr>

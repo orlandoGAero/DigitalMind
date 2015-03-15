@@ -1,4 +1,5 @@
-﻿h1{color: #28C7E0;-webkit-text-shadow: 0 0 3px #666;-moz-text-shadow: 0 0 3px #666;text-shadow: 0 0 3px #666; font-size:1.3em;}
+﻿/*Estilos CSS*/
+h1{color: #28C7E0;-webkit-text-shadow: 0 0 3px #666;-moz-text-shadow: 0 0 3px #666;text-shadow: 0 0 3px #666; font-size:1.3em;}
 h2{color: red;-webkit-text-shadow: 0 0 3px #666;-moz-text-shadow: 0 0 3px #666;text-shadow: 0 0 3px #666; font-size:2.0em;}
 
 section#contenido, footer{

@@ -23,7 +23,7 @@
 			
 		}
 		
-		//Función que obtiene el ultimo id de direccion registrado en la base de datos.
+		//Función que obtiene el último id de direccion registrado en la base de datos.
 		public function incrementoDir()
 		{			
 			$sql="SELECT id_direccion FROM direcciones ORDER BY id_direccion DESC LIMIT 1";
