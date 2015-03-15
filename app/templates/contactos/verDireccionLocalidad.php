@@ -15,7 +15,11 @@
 					<td><?php echo $Dir['municipio'] ?> <input type="hidden" name="municipality" readonly="readonly" value="<?php echo $Dir['municipio'] ?>" /></td>
 					<td><?php echo $Dir['localidad'] ?> <input type="hidden" name="locality" readonly="readonly" value="<?php echo $Dir['localidad'] ?>" /></td>
 					<td><?php echo $Dir['codigoP'] ?> <input type="hidden" name="codpo" readonly="readonly" value="<?php echo $Dir['codigoP'] ?>" /></td>
+<<<<<<< HEAD
 					<td><input type="radio" name="idcp-locality" value="<?php echo $Dir['id_cp'] ?>"/></td>
+=======
+					<td><input type="radio" name="idcp-loc" value="<?php echo $Dir['id_cp'] ?>"/></td>
+>>>>>>> 968f7288a06a0b0be3ee5a5f9cba985e53e1a037
 				</tr>
 			<?php endforeach; ?>
 	</table>

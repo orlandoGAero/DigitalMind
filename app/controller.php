@@ -81,7 +81,8 @@
 			require __DIR__ . '/templates/contactos/verMunicipio.php';
 		}
 		
-		// function txtLocalidad(){
+		// function txtLocalidad()
+		// {
 			// require __DIR__ . '/templates/contactos/verTxtLocalidad.php';
 		// }
 		
