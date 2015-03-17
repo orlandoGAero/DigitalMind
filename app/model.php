@@ -169,7 +169,6 @@
 									AND c.id_contacto =  ".$idCon;
 			$ejecutar = mysql_query($consulta, $this->conexion) or die (mysql_error());
 			
-			$contactl= array();
 			$rows = mysql_fetch_assoc($ejecutar);
 			
 			return $rows;
@@ -299,6 +298,38 @@
 				return $ejecutar1 & $ejecutar2;	
 			}
 			
+		}
+		
+		public function busquedaContactos($nomCont,$nomMunicipio,$nomArea){
+			$consulta = "SELECT c.nombreCon,c.ap_paterno,c.ap_materno,cp.municipio,d.colonia,c.nombre_area,c.movil,c.whatsapp,c.correo_p,c.activo
+								FROM codigos_postales cp INNER JOIN direcciones d INNER JOIN contactos c
+								ON cp.id_cp = d.id_cp AND d.id_direccion = c.id_direccion
+								WHERE";
+			// Si ningun criterio esta vacío
+			if (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomArea)) {
+				$consulta .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND cp.municipio LIKE '".$nomMunicipio."%' AND c.nombre_area LIKE '".$nomArea."%'";
+			}elseif (!empty($nomCont) && !empty($nomMunicipio) && empty($nomArea)) {
+				$consulta .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND cp.municipio LIKE '".$nomMunicipio."%'";
+			}elseif (!empty($nomCont) && empty($nomMunicipio) && !empty($nomArea)) {
+				$consulta .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND c.nombre_area LIKE '".$nomArea."%'";
+			}elseif (empty($nomCont) && !empty($nomMunicipio) && !empty($nomArea)) {
+				$consulta .= "cp.municipio LIKE '".$nomMunicipio."%' AND c.nombre_area LIKE '".$nomArea."%'";
+			}elseif (!empty($nomCont) && empty($nomMunicipio) && empty($nomArea)) {
+				$consulta .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."')";
+			}elseif (empty($nomCont) && !empty($nomMunicipio) && empty($nomArea)) {
+				$consulta .= "cp.municipio LIKE '".$nomMunicipio."%'";
+			}elseif (empty($nomCont) && empty($nomMunicipio) && !empty($nomArea)) {
+				$consulta .= "c.nombre_area LIKE '".$nomArea."%'";	
+			}
+			
+			$ejecutar = mysql_query($consulta,$this->conexion) or die ("Error en insertar contacto ".mysql_error());
+			
+			$contactos = array();
+			while($rows = mysql_fetch_assoc($ejecutar)){
+				$contactos[] = $rows;
+			}
+			
+			return $contactos;
 		}
 		
 		public function actualizarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,

@@ -81,11 +81,6 @@
 			require __DIR__ . '/templates/contactos/verMunicipio.php';
 		}
 		
-		// function txtLocalidad()
-		// {
-			// require __DIR__ . '/templates/contactos/verTxtLocalidad.php';
-		// }
-		
 		function obtenerDireccionLocalidad()
 		{
 			if ($_REQUEST['stateCont'] !="" && $_REQUEST['municipio'] && $_REQUEST['localidad'] !="") {
@@ -197,6 +192,11 @@
 			}
 			
 			require __DIR__.'/templates/contactos/insertarContacto.php';
+		}
+
+		public function buscarContacto(){
+			
+			require __DIR__.'/templates/contactos/mostrarContactosFiltros.php';
 		}
 
 		public function modificarContacto(){

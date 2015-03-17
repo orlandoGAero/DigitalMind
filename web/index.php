@@ -24,12 +24,12 @@
 	     
 	     //-------------------------CONTACTOS-------------------------------------------
 	     'listContact' => array('controller' =>'Controller', 'action' =>'listarContacto'),
+	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
 	     'insertContact' => array('controller' =>'Controller', 'action' =>'insertarContacto'),
 	     'viewMunicipality' => array('controller' =>'Controller', 'action' =>'obtenerMunicipio'),
-	     'activarTxtLocality' => array('controller' =>'Controller', 'action' =>'txtLocalidad'),
 	     'viewDirLocality' => array('controller' =>'Controller', 'action' =>'obtenerDireccionLocalidad'),
 	     'obtenerDir' => array('controller' =>'Controller', 'action' =>'obtenerDireccion'),
-	     'viewContact' => array('controller' =>'Controller', 'action' =>'verContacto'),
+	     'searchContact' => array('controller' =>'Controller', 'action' =>'buscarContacto'),
 	     'updateContact' => array('controller' =>'Controller', 'action' =>'modificarContacto'),
 	     'deletedContact' => array('controller' =>'Controller', 'action' =>'eliminarContacto'),
 
