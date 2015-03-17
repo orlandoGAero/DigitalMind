@@ -40,7 +40,7 @@
 			</tr>
 			<tr>
 				<th>Tipo de Raz&oacute;n</th>
-				<td><?php echo $detProveedor['tipo'] ?></td>
+				<td><?php echo $detProveedor['tipo_ra'] ?></td>
 			</tr>
 		</table>
 	</div>

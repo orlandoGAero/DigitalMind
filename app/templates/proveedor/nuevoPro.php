@@ -110,17 +110,6 @@
 															<input type="text" name="txt_rfc" required/>
 															<span style="color: red;"><b>&nbsp;*</b></span>
 														</li>
-
-														<li>
-															<label for="lbl_tipo">Tipo Raz&oacute;n:</label></td>
-															<select id="tipo_rs" name="slt_tipo_rs" required>
-																	<option selected>Ingresa un tipo de raz&oacute;n...</option>
-																	<?php foreach($parametrosProveedores ['tipo_razon'] as $tipors) : ?>
-																	<option value="<?php echo $tipors['id_tipo_ra'] ?>"><?php echo $tipors['tipo'] ?></option>
-																	<?php endforeach; ?>
-															</select>
-															<span style="color: red;"><b>&nbsp;*</b></span>
-														</li>
 													</ul>
 												</li>
 											</ul>

@@ -445,7 +445,6 @@ public function mostrarContactos(){
 				'idDatFis' => $model->incrementodFiscal(),	
 				'razon_s' => '',
 				'rfc' => '',
-				'tipo_razon' => $model->obtieneTrazon(),
 
 				// datos direccion fisica
 				'cp' => '',
@@ -467,12 +466,7 @@ public function mostrarContactos(){
 			);
 
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				print_r($_POST);
-				if ($_POST['rfc'] == substr(string, start)) {
-					$_POST[''] = 'Moral';
-				}elseif ($_POST) {
-					$_POST[''] = 'Física';
-				}
+				// print_r($_POST);
 
 				if($_POST['txt_noint'] == ""){
 					$_POST['txt_noint'] = "s/n";
@@ -481,7 +475,6 @@ public function mostrarContactos(){
 				if($model->registrarProveedores($_POST['txt_iddf'],
 												$_POST['txt_razon_s'],
 												$_POST['txt_rfc'],
-												$_POST['slt_tipo_rs'],
 												$_POST['txt_iddir'],
 												$_POST['txt_calle'],
 												$_POST['txt_noext'],
@@ -517,7 +510,6 @@ public function mostrarContactos(){
 						'idDatFis' => $_POST['txt_iddf'],
 						'razon_s' => $_POST['txt_razon_s'],
 						'rfc' => $_POST['txt_rfc'],
-						'tipo_razon' => $_POST['slt_tipo_rs'],
 
 						// datos direccion fisica
 						'cp' => $_POST['postcode'],
