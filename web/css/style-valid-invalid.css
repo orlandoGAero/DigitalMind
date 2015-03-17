@@ -1,0 +1,8 @@
+/*Elementos validos y no validos*/
+input[type=text]:valid, input[type=email]:valid, input[type=url]:valid, textarea:valid, select:valid{
+	background: #A9F5A9;
+}
+
+input[type=text]:invalid, input[type=email]:invalid, input[type=url]:invalid, textarea:invalid,select:invalid{
+	background: #F6CECE;
+}
