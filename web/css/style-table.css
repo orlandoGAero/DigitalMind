@@ -29,10 +29,11 @@
 #miTabla td {
 	/*estilo a los elementos (td)*/
 	border: 2px solid #fff;
-		-Moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
-		padding-left: 5px;
-		padding-right: 5px;
+	-Moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-align: center;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 #miTabla tr:nth-child(odd) {
@@ -40,7 +41,7 @@
 	background-color: #00d29a;
 	color: #000;
 	font-weight: 500;
-
+	text-align: center;
 }
 
 #miTabla tr:nth-child(even) {
@@ -48,10 +49,13 @@
 	background-color: #00e3cd;
 	color: #000;
 	font-weight: 500;
+	text-align: center;
 }
 
 #miTabla tr:hover {
 	background: #aae3cd;
 	color: #000;
-	cursor: pointer;
+	cursor: default;
 }
+
+#miTabla input[type=checkbox] {cursor: pointer;}

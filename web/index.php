@@ -46,6 +46,9 @@
 	     'NuevoProveedor' => array('controller' =>'Controller', 'action' =>'InsertarProveedor'),
 	     'TablaContactos' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
 	     'DetalleProveedor' => array('controller' =>'Controller', 'action' =>'verProveedor'),
+	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'mostrarContactos'),
+	     'EditarProveedores' => array('controller' =>'Controller', 'action' =>'ModificarProveedor'),
+	     'BorrarProveedores' => array('controller' =>'Controller', 'action' =>'EliminarProveedor'),
 	 );
 	 
  	// PARSEO DE LA RUTA

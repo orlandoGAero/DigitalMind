@@ -417,58 +417,23 @@
 			require __DIR__ . '/templates/clientes/modificar_cl.php';
     	}
 
-		// FUNCIONES PROVEEDORES
-	
-		public function Proveedor()
-		{
-			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-			$obtenerDat = array(
-			'proveedores' => $model->obtenerProveedores(),
-			);
-
-			require '/templates/proveedor/mostrarProveedores.php';
-		}
-
-		public function InsertarProveedor()
-		{
-			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-			require '/templates/proveedor/nuevoPro.php';
-		}
-
-		public function cargarContactosPro()
-		{
-			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-				$obtContactos = array(
-					'listcontacto' => $model->obtenerContactos(),
-				); 
-				
-			require __DIR__ . '/templates/proveedor/table-contact.php';
-		}
-
-		public function verProveedor()
-		{
-			if (!isset($_GET['id_Proveedor'])) {
+public function mostrarContactos(){
+			if(!isset($_GET['idCont'])){
 				throw new Exception("Página no encontrada", 1);
 			}
-
-			$idProveedor = $_GET['id_Proveedor'];
-
+			
+			$IdCo = $_GET['idCont'];
+			
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-			$detProveedor = $model->obtenerDetalleProveedor($idProveedor);
-
-			$obtenerDatosProveedor = $detProveedor;
-
-			require __DIR__ . '/templates/proveedor/verProveedor.php';
+			
+			$detContacto = $model->obtenerContacto($IdCo);
+			
+			$MostrarDatosContacto = $detContacto;
+			
+			require __DIR__ . '/templates/proveedor/datosContProv.php';
 		}
-		
+
 		/* CODIGOS POSTALES */
 		public function listarCodPost()
 		{
@@ -510,6 +475,303 @@
 			$obtenerDatos = $codPost;
 			
 			require __DIR__ . '/templates/verCodigoPostal.php';
+		}
+
+		// -----------------------FUNCIONES PROVEEDORES---------------------------------
+	
+		public function Proveedor()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			$obtenerDat = array(
+			'proveedores' => $model->obtenerProveedores(),
+			);
+
+			require '/templates/proveedor/mostrarProveedores.php';
+		}
+
+		public function InsertarProveedor()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			$parametrosProveedores = array(
+				// datos proveedor
+				'idprov' => $model->obtenerIdProveedor(),
+				'proveedor' => '',
+				'categoriaprov' => $model->obtenerCategoria(),	
+				'phone' => '',
+				'direweb' => '',
+				
+				// datos fiscales
+				'idDatFis' => $model->incrementodFiscal(),	
+				'razon_s' => '',
+				'rfc' => '',
+
+				// datos direccion fisica
+				'cp' => '',
+				'idDire' => $model->incrementoDir(),
+				'street' => '',
+				'n_ext' => '',
+				'n_int' => '',
+				'colo' => '',
+				'ref' => '',
+				
+				// datos bancarios
+				'idBank' => $model->incrementoDB(),
+				'banco' => $model->obtieneBanco(),
+				'sucursal' => '',
+				'titular' => '',
+				'num_cuenta' => '',
+				'clabe' => '',
+				'tipo_cta' => $model->obtieneTipoC(),
+			);
+
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				// print_r($_POST);
+
+				if($_POST['txt_noint'] == ""){
+					$_POST['txt_noint'] = "s/n";
+				}
+				
+				if($model->registrarProveedores($_POST['txt_iddf'],
+												$_POST['txt_razon_s'],
+												$_POST['txt_rfc'],
+												$_POST['txt_iddir'],
+												$_POST['txt_calle'],
+												$_POST['txt_noext'],
+												$_POST['txt_noint'],
+												$_POST['txt_col'],
+												$_POST['txt_ref'],
+												$_POST['idcp-locality'],
+												$_POST['txt_idProv'],
+												$_POST['txt_nombrepro'],
+												$_POST['slt_catprov'],
+												$_POST['txt_tel_pro'],
+												$_POST['txt_url_web'],
+												$_POST['txt_iddb'],
+												$_POST['slt_banco'],
+												$_POST['txt_suc'],
+												$_POST['txt_titul'],
+												$_POST['txt_cuenta'],
+												$_POST['txt_clabe'],
+												$_POST['slt_tipo_c'])){
+					header('Location: index.php?url=Proveedores');
+				} else {
+
+					$parametrosProveedores = array(
+					
+						// datos proveedor
+						'idprov' => $_POST['txt_idProv'],
+						'proveedor' => $_POST['txt_nombrepro'],
+						'categoriaprov' => $_POST['slt_catprov'],
+						'phone' => $_POST['txt_tel_pro'],
+						'direweb' => $_POST['txt_url_web'],
+						
+						// datos fiscales
+						'idDatFis' => $_POST['txt_iddf'],
+						'razon_s' => $_POST['txt_razon_s'],
+						'rfc' => $_POST['txt_rfc'],
+
+						// datos direccion fisica
+						'cp' => $_POST['postcode'],
+						'idDire' => $_POST['txt_iddir'],
+						'street' => $_POST['txt_calle'],
+						'n_ext' => $_POST['txt_noext'],
+						'n_int' => $_POST['txt_noint'],
+						'colo' => $_POST['txt_col'],
+						'ref' => $_POST['txt_ref'],
+
+						// datos bancarios
+						'idBank' => $_POST['txt_iddb'],
+						'banco' => $_POST['slt_banco'],
+						'sucursal' => $_POST['txt_suc'],
+						'titular' => $_POST['txt_titul'],
+						'num_cuenta' => $_POST['txt_cuenta'],
+						'clabe' => $_POST['txt_clabe'],
+						'tipo_cta' => $_POST['slt_tipo_c'],
+					);
+					
+					$obtenerDatosDir = array(
+						'codigoP' => $model -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
+						'idCP' => $_POST['idcp-locality'], 
+						'localidadC' => $model -> obtieneNombreLocalidad($_POST['idcp-locality']), 
+						'municipio' => $_POST['state'],
+						'estado' => $_POST['municipality'], 
+					);
+
+					$parametrosProveedores['mensaje'] = 'Error al registrar Proveedores . Revise el formulario';
+				}
+
+			}
+
+			require '/templates/proveedor/nuevoPro.php';
+		}
+
+		public function ModificarProveedor()
+		{
+			if(!isset($_GET['id_Proveedor'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+
+			$IdProv = $_GET['id_Proveedor'];
+
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			// obtener datos de proveedor
+			$detalleProv = $model->obtenerDetalleProveedor($IdProv);
+			
+			$obtenerDatosProv = $detalleProv;
+
+			// obtener categoria del proveedor
+			$obtenerCatPro = array(
+				'categoriaprov' => $model ->  obtCategoriaUpdate($IdProv),
+			);
+
+			// obtener direccion
+			$obtenerDatosDir = array(
+				'codigoP' => $model -> obtenerDatosDireccionUpdateProv($IdProv),
+			);
+
+			//obtener banco
+			$obtenerBank = array(
+				'bancarios' => $model -> obtBankUpdateProv($IdProv),
+			);
+
+			//obtener tipo de cuenta
+			$obtenerTaccount = array(
+				'tipo_cta' => $model -> obtTctaUpdateProv($IdProv),
+			);
+
+
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				print_r($_POST);
+				if($_POST['txt_noint'] == ""){
+					$_POST['txt_noint'] = "s/n";
+				}
+				
+				if($model->actualizarProveedores($_POST['txt_iddf'],
+												$_POST['txt_razon_s'],
+												$_POST['txt_rfc'],
+												$_POST['txt_iddir'],
+												$_POST['txt_calle'],
+												$_POST['txt_noext'],
+												$_POST['txt_noint'],
+												$_POST['txt_col'],
+												$_POST['txt_ref'],
+												$_POST['idcp-locality'],
+												$_POST['txt_idProv'],
+												$_POST['txt_nombrepro'],
+												$_POST['slt_catprov'],
+												$_POST['txt_tel_pro'],
+												$_POST['txt_url_web'],
+												$_POST['txt_iddb'],
+												$_POST['slt_banco'],
+												$_POST['txt_suc'],
+												$_POST['txt_titul'],
+												$_POST['txt_cuenta'],
+												$_POST['txt_clabe'],
+												$_POST['slt_tipo_c'])){
+					header('Location: index.php?url=Proveedores');
+				} else {
+
+					$obtenerDatosProv = array(
+					
+						// datos proveedor
+						'idprov' => $_POST['txt_idProv'],
+						'proveedor' => $_POST['txt_nombrepro'],
+						'phone' => $_POST['txt_tel_pro'],
+						'direweb' => $_POST['txt_url_web'],
+						
+						// datos fiscales
+						'idDatFis' => $_POST['txt_iddf'],
+						'razon_s' => $_POST['txt_razon_s'],
+						'rfc' => $_POST['txt_rfc'],
+
+						// datos direccion fisica
+						'idDire' => $_POST['txt_iddir'],
+						'street' => $_POST['txt_calle'],
+						'n_ext' => $_POST['txt_noext'],
+						'n_int' => $_POST['txt_noint'],
+						'colo' => $_POST['txt_col'],
+						'ref' => $_POST['txt_ref'],
+						
+						// datos bancarios
+						'idBank' => $_POST['txt_iddb'],
+						'sucursal' => $_POST['txt_suc'],
+						'titular' => $_POST['txt_titul'],
+						'num_cuenta' => $_POST['txt_cuenta'],
+						'clabe' => $_POST['txt_clabe'],
+					);
+						
+					$obtenerCatPro = array(
+						'categoriaprov' => $_POST['slt_catprov'],
+					);
+						
+					$obtenerDatosDir = array(
+						'codigoP' => $model -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
+						'id_cp' => $_POST['idcp-locality'], 
+						'localidad' => $model -> obtieneNombreLocalidad($_POST['idcp-locality']), 
+						
+					);
+
+					$obtenerBank = array(
+						'banco' => $_POST['slt_banco'],
+					);
+
+					$obtenerTaccount = array(
+						'tipo_cta' => $_POST['slt_tipo_c'],
+					);
+				}
+			}
+
+			require '/templates/proveedor/editarPro.php';
+		}
+
+		public function EliminarProveedor(){
+				
+			if(!isset($_GET['id_Proveedor'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$IdPro = $_GET['id_Proveedor'];
+			
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$eliminarProv = $model-> borrarProveedores($IdPro);
+		}
+
+		public function cargarContactosPro()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+				$obtContactos = array(
+					'listcontacto' => $model->obtenerContactos(),
+				); 
+				
+			require __DIR__ . '/templates/proveedor/table-contact.php';
+		}
+
+		public function verProveedor()
+		{
+			if (!isset($_GET['id_Proveedor'])) {
+				throw new Exception("Página no encontrada", 1);
+			} 
+
+			$idProveedor = $_GET['id_Proveedor'];
+
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			$detProveedor = $model->obtenerDetalleProveedor($idProveedor);
+
+			$obtenerDatosProveedor = $detProveedor;
+
+			require __DIR__ . '/templates/proveedor/verProveedor.php';
 		}
     }
 ?>
