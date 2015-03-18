@@ -225,7 +225,7 @@ height: auto;
 #navpage{float:left; width:342px; text-align:right; margin:5px 0 0 5px; }
 #navpage img {cursor:pointer}
 
-#busquedad label {
+#busqueda label {
 	padding-left: 10px;
 	padding-right: 5px;
 	text-align: left;
@@ -233,7 +233,7 @@ height: auto;
 	color: #404040;
 }
 
-#busquedad .elementosBusquedad {
+#busqueda .elementosBusqueda {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;

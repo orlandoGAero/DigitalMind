@@ -147,7 +147,7 @@
 										</ul>
 									</li>
 										<!-- Botones -->
-										<input type="submit" class="boton2" value="Guardar" name="btnGuardar" id="btnGuardar"/>
+										<input type="submit" class="boton2" value="Guardar" name="btnGuardar" />
 										&nbsp;&nbsp;
 										<a href="index.php?url=listContact" title="Regresar" onclick="return confirm('¿Desea salir antes de guardar?');">
 											<input type="button" class="boton2" value="Cancelar" />
