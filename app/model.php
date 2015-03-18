@@ -301,35 +301,42 @@
 		}
 		
 		public function busquedaContactos($nomCont,$nomMunicipio,$nomArea){
-			$consulta = "SELECT c.nombreCon,c.ap_paterno,c.ap_materno,cp.municipio,d.colonia,c.nombre_area,c.movil,c.whatsapp,c.correo_p,c.activo
-								FROM codigos_postales cp INNER JOIN direcciones d INNER JOIN contactos c
-								ON cp.id_cp = d.id_cp AND d.id_direccion = c.id_direccion
-								WHERE";
-			// Si ningun criterio esta vacío
+				
+			$filtro = "";
+			
+			// Si ningún criterio esta vacío
 			if (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomArea)) {
-				$consulta .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND cp.municipio LIKE '".$nomMunicipio."%' AND c.nombre_area LIKE '".$nomArea."%'";
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND cp.municipio LIKE '".$nomMunicipio."%' AND c.nombre_area LIKE '".$nomArea."%'";
 			}elseif (!empty($nomCont) && !empty($nomMunicipio) && empty($nomArea)) {
-				$consulta .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND cp.municipio LIKE '".$nomMunicipio."%'";
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND cp.municipio LIKE '".$nomMunicipio."%'";
 			}elseif (!empty($nomCont) && empty($nomMunicipio) && !empty($nomArea)) {
-				$consulta .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND c.nombre_area LIKE '".$nomArea."%'";
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND c.nombre_area LIKE '".$nomArea."%'";
 			}elseif (empty($nomCont) && !empty($nomMunicipio) && !empty($nomArea)) {
-				$consulta .= "cp.municipio LIKE '".$nomMunicipio."%' AND c.nombre_area LIKE '".$nomArea."%'";
+				$filtro .= "cp.municipio LIKE '".$nomMunicipio."%' AND c.nombre_area LIKE '".$nomArea."%'";
 			}elseif (!empty($nomCont) && empty($nomMunicipio) && empty($nomArea)) {
-				$consulta .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."')";
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."')";
 			}elseif (empty($nomCont) && !empty($nomMunicipio) && empty($nomArea)) {
-				$consulta .= "cp.municipio LIKE '".$nomMunicipio."%'";
+				$filtro .= "cp.municipio LIKE '".$nomMunicipio."%'";
 			}elseif (empty($nomCont) && empty($nomMunicipio) && !empty($nomArea)) {
-				$consulta .= "c.nombre_area LIKE '".$nomArea."%'";	
+				$filtro .= "c.nombre_area LIKE '".$nomArea."%'";	
 			}
 			
-			$ejecutar = mysql_query($consulta,$this->conexion) or die ("Error en insertar contacto ".mysql_error());
+			if($filtro != ""){
+				$consulta = "SELECT c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,cp.municipio,d.colonia,c.nombre_area,c.movil,c.whatsapp,c.correo_p,c.activo
+						FROM codigos_postales cp INNER JOIN direcciones d INNER JOIN contactos c
+						ON cp.id_cp = d.id_cp AND d.id_direccion = c.id_direccion
+						WHERE ".$filtro;
+				$ejecutar = mysql_query($consulta,$this->conexion) or die ("Error en busqueda ".mysql_error());
 			
-			$contactos = array();
-			while($rows = mysql_fetch_assoc($ejecutar)){
-				$contactos[] = $rows;
+				$contactos = array();
+				while($rows = mysql_fetch_assoc($ejecutar)){
+					$contactos[] = $rows;
+				}
+				
+				return $contactos;
 			}
 			
-			return $contactos;
+			
 		}
 		
 		public function actualizarContacto($idDireccion,$idCP,$calleCont,$numExtCont,$numIntCont,$coloniaCont,$referenciaCont,

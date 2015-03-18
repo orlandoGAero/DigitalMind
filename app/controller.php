@@ -196,6 +196,15 @@
 
 		public function buscarContacto(){
 			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			$obtenerDatosContactos = array(
+				'contactos' => $m->busquedaContactos($_REQUEST['nombreContacto'],$_REQUEST['municipioContacto'],$_REQUEST['areaContacto']),
+			); 
+			
+			// var_dump($obtenerDatosContactos);
+			
 			require __DIR__.'/templates/contactos/mostrarContactosFiltros.php';
 		}
 
