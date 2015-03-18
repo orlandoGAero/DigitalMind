@@ -6,16 +6,6 @@
 	<!DOCTYPE html>
 	<html>
 		<head>
-			<!-- <link rel="stylesheet" type="text/css" href="css/style-stepscontact.css">
-
-			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
-    		<script type="text/javascript" src="js/formToWizard.js"></script>
-		    <script type="text/javascript">
-		        $(document).ready(function(){
-		            $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
-		        });
-		    </script>-->
-
 		    <!-- JS Formulario Listas Desplegables -->
 			<!-- modificar linea de abajo-->
 			<script type="text/javascript" src="js/jquery.lksMenu.js"></script>
@@ -24,11 +14,16 @@
 					$('.menu-pro').lksMenu();
 				});
 			</script>
-			<script type="text/javascript">
+			<!--<script type="text/javascript">
 				$('document').ready(function()
 				{
 					$('#tablaCont').load('index.php?url=TablaContactos');
 				});
+			</script>-->
+			<script type="text/javascript">
+				function abrir (url) {
+					window.open('index.php?url=insertContact','contacto','width=800,height=400,top=90,left=100,toolbar=no,location=no,status=no,menubar=no')
+				}
 			</script>
 			<script>
 				function cpview(form)
@@ -115,6 +110,42 @@
 											</ul>
 										</li>
 
+										<li><a href="#"><b>Direcci&oacute;n Fiscal</b></a>
+											<ul>
+												<li>
+													<ul>
+														<li>
+															<label for="lbl_calle_f">Calle:</label>
+															<input type="text" name="txt_calle_f"/>
+															<span style="color: red;"><b>&nbsp;*</b></span>	
+														</li>
+
+														<li>
+															<label for="lbl_noext_f">No. Ext:</label>
+															<input type="text" name="txt_noext_f"/>
+															<span style="color: red;"><b>&nbsp;*</b></span>	
+														</li>
+
+														<li>
+															<label for="lbl_noint_f">No. Int:</label>
+															<input type="text" name="txt_noint_f" />
+														</li>
+
+														<li>
+															<label for="lbl_col_f">Colonia:</label>
+															<input type="text" name="txt_col_f"/>
+															<span style="color: red;"><b>&nbsp;*</b></span>	
+														</li>
+
+														<li>
+															<label for="lbl_ref_f">Referencia:</label>
+															<input type="text" name="txt_ref_f"/>	
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
 										<li><a href="#"><b>Direcci&oacute;n F&iacute;sica</b></a>
 											<ul>
 												<li>	
@@ -190,38 +221,17 @@
 											</ul>
 										</li>
 
-										<li><a href="#"><b>Direcci&oacute;n Fiscal</b></a>
-										</li>
-
-										<li><a href="#">Datos Contacto</a>
+										<li><a href="#"><b>Datos Contacto</b></a>
 											<ul>
 												<li>	
-													<div class="dform">
-														<div align="left">
-															<table><tr>
-																		<td><a href=""><img alt="Nuevo Contacto" title="Nuevo Contacto" src="images/new-contacto.png"></a></td>
-																		<td><a href=""><img alt="Selecionar Contacto" title="Seleccionar Contacto" src="images/select-contacto.png"></a></td>
-																   </tr>
-															</table>
-															<div> <!-- div para seleccionar contacto-->
-																															
-																<div id="SignupForm"> <!-- div SignupForm -->
-																	<!-- paso numero 1 -->
-																	<fieldset>
-																		<legend>Seleccionar Contacto</legend>
-																			<div id="tablaCont"></div>
-																	</fieldset>
-																	<!-- paso numero 2 -->
-																	<fieldset>
-																		<legend>Contacto Seleccionado</legend>
-																			<div id='accion'>
-																				
-																			</div>
-																	</fieldset>
-																</div>	<!-- </div> fin div SignupForm -->
-															</div> <!--fin de div para seleccionar contactos-->
-														</div>
-													</div>
+													<ul>
+														
+															<a href="javascript:abrir()">
+																<img alt="Nuevo Contacto" title="Nuevo Contacto" src="images/new-contacto.png">
+															</a>
+															<!-- <a href=""><img alt="Selecionar Contacto" title="Seleccionar Contacto" src="images/select-contacto.png"></a> -->
+															
+													</ul>
 												</li>
 											</ul>
 										</li>
@@ -257,7 +267,7 @@
 
 														<li>
 															<label for="lbl_cuenta">No. Cuenta:</label>
-															<input type="text" name="txt_cuenta" required/>
+															<input type="text" name="txt_cuenta" maxlength="20" required/>
 															<span style="color: red;"><b>&nbsp;*</b></span>
 														</li>
 
