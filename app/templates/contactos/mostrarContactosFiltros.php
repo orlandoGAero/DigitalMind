@@ -21,7 +21,7 @@
 	<br />
 	<!--  Para hacer la tabla responsiva utilizamos la clase "table-responsive" de bootstrap incluida en un div -->
 	<div class="table-responsive">
-		
+		<a href="index.php?url=listContact"><img src="images/table_refresh.png" title="Tabla principal" align='left' width="25px" height="25px" /></a>
 		<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
 			"id" para incluir los estilos a la tabla -->
 		<table class="table sortable" id="miTabla">
@@ -58,9 +58,9 @@
 					<td><?php echo $contact['nombre_area'] ?></td>
 					<td><?php echo $contact['movil'] ?></td>
 					<?php if($contact['whatsapp'] == "Si") :?>
-						<td><img src="images/ok.png" width="25px" height="25px"/></td>
+						<td><img src="images/ok.png" width="25px" height="25px" title="Si" /></td>
 					<?php else :?>
-						<td></td>
+						<td><img src="images/not.png" width="23px" height="23px" title="No" /></td>
 					<?php endif ?>
 					<td><?php echo $contact['correo_p'] ?></td>
 					<td><?php echo $contact['activo'] ?></td>
@@ -76,6 +76,7 @@
 <?php else :?>
 	<br />
 	<pre>
+		<a href="index.php?url=listContact"><img src="images/leftarrow.png" title="Regresar" align='left' width="30px" height="30px" /></a>
 		<h3 class="azul">Sin resultados</h3>
 	</pre>
 <?php endif ?>

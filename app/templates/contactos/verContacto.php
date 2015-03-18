@@ -3,8 +3,7 @@
 	<?php $obtenerDatosContacto['id_contacto'] ?>
 	
 	<section id="principal">
-		<h1>Detalle de Contacto</h1>
-		<br />
+		<h3 class="azul">Detalle de Contacto</h3>
 		
 		<div class="table-responsive">
 			<div class="columns_left">

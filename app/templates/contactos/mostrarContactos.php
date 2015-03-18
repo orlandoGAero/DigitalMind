@@ -5,6 +5,16 @@
 	 */
 ?>
 <?php ob_start() ?>
+	<!-- CSS -->
+        <link rel="stylesheet" href="css/fancybox/jquery.fancybox-buttons.css">        
+        <link rel="stylesheet" href="css/fancybox/jquery.fancybox.css">
+
+	<!-- Grab Google CDN's jQuery, fall back to local if offline -->
+ 		<script>window.jQuery || document.write('<script src="js/fancybox/libs/jquery-1.7.1.min.js"><\/script>')</script>
+        
+	<!-- FancyBox -->
+		<script src="js/fancybox/jquery.fancybox.js"></script>
+		
 	<!-- Script de Tiny Table Sorter -->
 	<script type="text/javascript" src="<?php echo 'js/'.config::$tinyTableSorter_js ?>"></script>
 	
@@ -14,15 +24,9 @@
 				<ul>
 					<li><b class="azul">Buscar por:</b> <a href='index.php?url=insertContact'><img src="images/new_contact.png" title="Nuevo Contacto" align='right' width="54px" height="54px"/></a></li>
 					<li>
-						<label>Nombre contacto</label>
-						<input type="search" class="elementosBusqueda" name="nombreContacto" maxlength="50" placeholder="Ingresa el nombre" />
-						
-						<label>Municipio</label>
-						<input type="search" class="elementosBusqueda" name="municipioContacto" maxlength="30" placeholder="Buscar municipio"/>
-						
-						<label>Área</label>
-						<input type="search" class="elementosBusqueda" name="areaContacto" maxlength="30" placeholder="Buscar área"/>
-						
+						<input type="search" class="elementosBusqueda" name="nombreContacto" maxlength="50" placeholder="Nombre contacto" title="Nombre Contacto" />
+						<input type="search" class="elementosBusqueda" name="municipioContacto" maxlength="30" placeholder="Municipio" title="Municipio"/>
+						<input type="search" class="elementosBusqueda" name="areaContacto" maxlength="30" placeholder="Área" title="Área"/>
 						<input type="submit" class="boton2" value="Filtrar" name="btnFiltrar"/>
 					</li>
 				</ul>
@@ -52,7 +56,7 @@
 			<br />
 			<!--  Para hacer la tabla responsiva utilizamos la clase "table-responsive" de bootstrap incluida en un div -->
 			<div class="table-responsive">
-				
+				<a href="index.php?url=listContact"><img src="images/table_refresh.png" title="Tabla principal" align='left' width="25px" height="25px" /></a>
 				<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
 					"id" para incluir los estilos a la tabla -->
 		    	<table class="table sortable" id="miTabla">
@@ -91,9 +95,9 @@
 							<td><?php echo $contact['nombre_area'] ?></td>
 							<td><?php echo $contact['movil'] ?></td>
 							<?php if($contact['whatsapp'] == "Si") :?>
-								<td><img src="images/ok.png" width="25px" height="25px"/></td>
+								<td><img src="images/ok.png" width="25px" height="25px" title="Si" /></td>
 							<?php else :?>
-								<td></td>
+								<td><img src="images/not.png" width="23px" height="23px" title="No" /></td>
 							<?php endif ?>
 							<td><?php echo $contact['correo_p'] ?></td>
 							<td><?php echo $contact['activo'] ?></td>
@@ -121,17 +125,13 @@
 				$('#resultadoBusqueda').load('index.php?url=searchContact&' + $('#filtros').serialize())
 			})
 		})
-	</script>
-	
-	<script>
+		
 		function asegurar () {
 		  rc = confirm('¿Desea Eliminar o Desactivar?');
 		  return rc;
 	  	}
-	</script>
-	
-	<!-- Script para ordenar columnas, paginado y mostrar cierta cantidad de registros TINY Table Sorter -->
-	<script type="text/javascript">
+		
+	// Script para ordenar columnas, paginado y mostrar cierta cantidad de registros TINY Table Sorter
 	  var sorter = new TINY.table.sorter("sorter");
 		sorter.head = "head";
 		sorter.asc = "asc";
