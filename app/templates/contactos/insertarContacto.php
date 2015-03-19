@@ -65,7 +65,7 @@
 										<ul>
 											<li>
 												
-												<span class="span"''>&nbsp;* Información requerida</span>
+												<span class="span">&nbsp;* Información requerida</span>
 												
 												<ul>
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></li>
@@ -73,13 +73,13 @@
 														<label>Estado</label>
 														<select name="stateCont" id="state" required='required' onchange="habilitar(this.value);">
 															<?php if($parametrosContactos['estadoC'] != "") :?>
-																<option value="">Seleccione estado</option>
+																<option value="<?php echo $parametrosContactos['estadoC'] ?>"><?php echo $parametrosContactos['estado'] ?></option>
 															<?php else :?>
-																<option value="<?php $parametrosContactos['estadoC'] ?>"><?php $parametrosContactos['estadoC'] ?></option>
+																<option value="">Seleccione estado</option>
+																<?php foreach ($parametrosContactos['estadoC'] as $estado) :?>
+																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																<?php endforeach; ?>
 															<?php endif; ?>
-															<?php foreach ($parametrosContactos['estadoC'] as $estado) :?>
-															<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
-															<?php endforeach; ?>
 														</select>
 														<span style="color: red;"><b>*</b></span>
 													</li>
@@ -95,7 +95,7 @@
 													<li>
 														<!-- <div id="result_localidad"> -->
 															<label>Localidad</label>
-															<input type="text" name="localidad" id="localidad" onkeyup="dirtxtView(this.form)" />
+															<input type="text" name="localidad" id="localidad" required="required" maxlength="50" value="<?php echo $parametrosContactos['locality'] ?>" onkeyup="dirtxtView(this.form)" />
 															<span style="color: red;"><b>&nbsp;*</b></span>
 														<!-- </div> -->
 													</li>

@@ -97,32 +97,6 @@
 		}
 		
 		//------------------------------------------------------------------CONTACTOS------------------------------------------------------------------------//
-		// public function obtenerNombreContacto(){
-			// $consulta = "SELECT CONCAT(nombreCon,' ',ap_paterno,' ',ap_materno) AS nomContacto
-								// FROM contactos
-								// ORDER BY nomContacto;";
-			// $ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
-// 			
-			// $nameContact = array();
-			// while($rows = mysql_fetch_assoc($ejecutar)){
-				// $nameContact[] = $rows;
-			// }
-// 			
-			// return $nameContact;
-		// }
-		
-		// public function obtenerNombreArea(){
-			// $consulta = "SELECT nombre_area FROM contactos GROUP BY nombre_area;";
-			// $ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
-// 			
-			// $areaCont = array();
-			// while($rows = mysql_fetch_assoc($ejecutar)){
-				// $areaCont[] = $rows;
-			// }
-// 			
-			// return $areaCont;
-		// }
-		
 		// public function obtenerMunicipio(){
 			// $consulta = "SELECT cp.municipio
 								// FROM codigos_postales cp,direcciones d,contactos c
@@ -189,7 +163,7 @@
 			return $idCo;
 		}
 		
-		public function obtenerEstado(){
+		public function obtenerEstados(){
 			$consulta = "SELECT id_estado,estado FROM estados ORDER BY estado;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			
@@ -199,6 +173,16 @@
 			}
 			
 			return $state;
+		}
+		
+		public function obtenerNombreEstado($nameState){
+			$consulta = "SELECT estado FROM estados WHERE id_estado = ".$nameState;
+			$ejecutar = mysql_query($consulta)or die ("Error de Consulta obtener nombre estado".mysql_error());
+			$filas = mysql_num_rows($ejecutar);
+			if ($filas != 0) {
+				$estado = mysql_result($ejecutar, 0, 'estado');
+				return $estado;
+			}
 		}
 		
 		public function municipioObtener($estado){

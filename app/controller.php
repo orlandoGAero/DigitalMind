@@ -124,7 +124,8 @@
 				'pagWeb' => '',
 				//Datos dirección física
 				'idDir' => $m->incrementoDir(),
-				'estadoC' => $m->obtenerEstado(),
+				'estadoC' => $m->obtenerEstados(),
+				'locality' => '',
 				'cp' => '',
 				'calleD' => '',
 				'numExterior' => '',
@@ -165,7 +166,9 @@
 						'pagWeb' => $_POST['webPage'],
 						'idDir' => $_POST['idAddress'],
 						'estadoC' => $_POST['stateCont'],
-						// 'cp' => $_POST['postcode'],
+						'estado' => $m -> obtenerNombreEstado($_POST['stateCont']),
+						'locality' => $_POST['localidad'],
+						//'cp' => $_POST['postcode'],
 						'calleD' => $_POST['street'],
 						'numExterior' => $_POST['numExt'],
 						'numInterior' => $_POST['numInt'],
@@ -175,16 +178,16 @@
 						// 'codigoP' => $m -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
 						// 'idCP' => $_POST['idcp-locality'], 
 						// 'localidadC' => $m -> obtieneNombreLocalidad($_POST['idcp-locality']), 
-						// 'municipio' => $_POST['state'],
-						// 'estado' => $_POST['municipality'],
+						// 'municipio' => $_POST['municipality'],
+						// 'estado' => $_POST['state'],
 					);
 					
 					// $obtenerDatosDir = array(
 						// 'codigoP' => $m -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
 						// 'idCP' => $_POST['idcp-locality'], 
 						// 'localidadC' => $m -> obtieneNombreLocalidad($_POST['idcp-locality']), 
-						// 'municipio' => $_POST['state'],
-						// 'estado' => $_POST['municipality'], 
+						// 'municipio' => $_POST['municipality'],
+						// 'estado' => $_POST['state'],
 					// );
 					
 					$parametrosContactos['mensaje'] = 'Error al registrar contacto. Revise el formulario';
