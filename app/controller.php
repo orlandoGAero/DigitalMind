@@ -773,5 +773,27 @@ public function mostrarContactos(){
 
 			require __DIR__ . '/templates/proveedor/verProveedor.php';
 		}
+
+		// ----------------------- FUNCIONES INVENTARIO ----------------------------------------
+
+		public function Inventarios()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			$obtenerInv = array(
+			// 'inventario' => $model->obtenerInventario(),
+			);
+
+			require '/templates/inventario/mostrarInventario.php';
+		}
+
+		public function AgregarInventario()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			require '/templates/inventario/nuevoInventario.php';
+		}
     }
 ?>

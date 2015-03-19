@@ -69,6 +69,11 @@
                     <li class=""> <a href="index.php?url=listContact" alt="Contactos" title="Contacto"><img src="images/icon-contacto-menu.png" />Contactos</a> </li>
                     <li class=""> <a href="index.php?url=Proveedores" alt="Proveedores" title="Proveedor"><img src="images/icon-proveedor-menu.png" />Proveedores</a> </li>
                     <li class=""> <a href="./" alt="Productos" title="Producto"><img src="images/icon-producto-menu.png" />Productos</a> </li>
+                    <li class=""> <a href="#" alt="Más" title="Más"><img src="images/submenu.png"></a>
+                        <ul>
+                            <li><a href="index.php?url=Inventario" alt="Inventario" title="Inventario"><b>Inventario</b><img src="images/checkInv.png"></a></li>
+                        </ul>
+                    </li>
                     <li class="has-sub"> <a href="#"><img src="images/avatar.png" />Usuario</a>
                         <ul>
                             <li> <a href="logout.php" alt="Cerrar Sesion" title="Cerrar Sesion">Salir<img src="images/lock.png" /></a> </li>

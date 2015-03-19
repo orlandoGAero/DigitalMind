@@ -107,6 +107,10 @@
                     
                     <div class="col-md-3">
                         
+                        <div class="menu-item blue">
+                            <a href="index.php?url=Inventario"><img src="images/inventory.png"><br><b>INVENTARIO</b></a> 
+                        </div>
+
                         <div class="menu-item light-red">
                             <a href="./linea"><img src="images/icono-lineas2.png"/><br><b>LÍNEAS</b></a> 
                         </div>
@@ -117,10 +121,6 @@
                         
                         <div class="menu-item blue">
                             <a href="./configuracion"><img src="images/icono-configuraciones.png"/><br><b>CONFIGURACIÓN</b></a> 
-                        </div>
-						
-						<div class="menu-item blue">
-                            <a href="index.php?url=listarCodPos"><br><br><br><b>CÓDIGOS POSTALES</b></a> 
                         </div>
                        
                     </div>

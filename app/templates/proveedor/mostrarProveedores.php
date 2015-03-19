@@ -7,23 +7,26 @@
 
 			if ($obtenerDat['proveedores'] !=NULL) :?>
 				
-				<table class="buscar">
-					<tr>
-						<td width="100%">
-							<form name="formBusq">
-								<ul>
-									<li><b class="azul">Buscar por:</b></li>
-									<li>
-										
-									</li>
-								</ul>
-							</form>
-							<td>
-							<a href="index.php?url=NuevoProveedor"><img src="images/add-provider.png" alt="Nuevo Proveedor" title="Nuevo Proveedor"></a>
-							<!--<div id="resultado"></div>-->
-							</td>	
-					</tr>
-				</table>
+				<div id="busquedad" class="buscar">
+					<form name="formBusqInv">
+						<ul>
+							<li><b class="azul">Buscar por:</b>
+								<a href="index.php?url=NuevoProveedor"><img src="images/add-provider.png" alt="Nuevo Proveedor" title="Nuevo Proveedor" align="right"></a>
+							</li>
+							</br>
+							<li>
+								<label>campo</label>
+								<input type="text"/>
+							
+								<label>campo2</label>
+								<input type="text"/>
+
+								<label>campo3</label>
+								<input type="text"/>
+							</li>
+						</ul>
+					</form>
+				</div>
 				
 				<!-- div control de páginado -->
 				<div id="controls">
@@ -90,7 +93,7 @@
 					<?php endforeach; ?>
 					</table>
 				</div>
-			<?php else :?>
+				<?php else :?>
 				<pre class='azul'>
 					<h3>No exiten proveedores registrados</h3></br><a href='index.php?url=NuevoProveedor'><img src='images/add-provider.png' alt='Nuevo Proveedor' title='Nuevo Proveedor'></a>
  				</pre>

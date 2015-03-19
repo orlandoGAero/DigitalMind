@@ -49,7 +49,12 @@
 	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'mostrarContactos'),
 	     'EditarProveedores' => array('controller' =>'Controller', 'action' =>'ModificarProveedor'),
 	     'BorrarProveedores' => array('controller' =>'Controller', 'action' =>'EliminarProveedor'),
+	 
+	     // ------------------------------INVENTARIO------------------------------------------
+	     'Inventario' => array('controller' =>'Controller', 'action' =>'Inventarios'),
+	     'NuevoRegistro' => array('controller' =>'Controller', 'action' =>'AgregarInventario'),
 	 );
+		
 	 
  	// PARSEO DE LA RUTA
  	/**
