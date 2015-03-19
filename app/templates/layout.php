@@ -120,7 +120,7 @@
                         </div>
 						
 						<div class="menu-item blue">
-                            <a href="index.php?url=listarCodPos"><br><br><br><b>CÓDIGOS POSTALES</b></a> 
+                            <a href=""><b></b></a> 
                         </div>
                        
                     </div>

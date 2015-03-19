@@ -13,43 +13,9 @@
 			
 			require __DIR__ . '/templates/inicio.php';
     	}
-
-		//---------------------------------------------CONTACTOS-------------------------------------------
-		public function listarContacto()
-		{
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-						
-			$obtenerDatosContactos = array(
-				'contactos' => $m->obtenerContactos(),
-			); 
-			
-			// $nombreContacto = $m->obtenerNombreContacto();
-			// $areaContacto = $m->obtenerNombreArea();
-			// $municipioContacto = $m->obtenerMunicipio();
-			
-			require __DIR__ . '/templates/contactos/mostrarContactos.php';
-		}
 		
-		public function verContacto(){
-			if(!isset($_GET['idContact'])){
-				throw new Exception("Página no encontrada", 1);
-			}
-			
-			$IdContacto = $_GET['idContact'];
-			
-			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-			
-			$detalleContacto = $m->obtenerContacto($IdContacto);
-			
-			$obtenerDatosContacto = $detalleContacto;
-			
-			require __DIR__ . '/templates/contactos/verContacto.php';
-			
-		}
-		
-		function obtenerDireccion()
+		//---------------------------------------------DIRECCIÓN-------------------------------------------
+		/*function obtenerDireccion()
 		{
 			if ($_REQUEST['postcode']!="") {
 				
@@ -63,7 +29,7 @@
 			}
 
 			require __DIR__ . '/templates/contactos/verDireccion.php';
-		}
+		}*/
 		
 		function obtenerMunicipio()
 		{
@@ -83,20 +49,51 @@
 		
 		function obtenerDireccionLocalidad()
 		{
-			if ($_REQUEST['stateCont'] !="" && $_REQUEST['municipio'] && $_REQUEST['localidad'] !="") {
+			if ($_REQUEST['idEstado'] !="" && $_REQUEST['municipio'] && $_REQUEST['localidad'] !="") {
 					
-				$nameState = $_REQUEST['stateCont']; 
+				$idState = $_REQUEST['idEstado']; 
 				$nameMunicipality = $_REQUEST['municipio'];
 				$nameLocality = $_REQUEST['localidad'];
 				
 				$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 							config::$mvc_db_pass, config::$mvc_db_hostname);
 							
-				$dirL = $m->obtener_direccion($nameState,$nameMunicipality,$nameLocality);			
+				$dirL = $m->obtener_direccion($idState,$nameMunicipality,$nameLocality);			
 				$obtenerDatosDireccion = $dirL;
 			}
 
 			require __DIR__ . '/templates/contactos/verDireccionLocalidad.php';
+		}
+		
+		//---------------------------------------------CONTACTOS-------------------------------------------
+		public function listarContacto()
+		{
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			$obtenerDatosContactos = array(
+				'contactos' => $m->obtenerContactos(),
+			); 
+						
+			require __DIR__ . '/templates/contactos/mostrarContactos.php';
+		}
+		
+		public function verContacto(){
+			if(!isset($_GET['idContact'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$IdContacto = $_GET['idContact'];
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$detalleContacto = $m->obtenerContacto($IdContacto);
+			
+			$obtenerDatosContacto = $detalleContacto;
+			
+			require __DIR__ . '/templates/contactos/verContacto.php';
+			
 		}
 		
 		public function insertarContacto(){
@@ -124,8 +121,10 @@
 				'pagWeb' => '',
 				//Datos dirección física
 				'idDir' => $m->incrementoDir(),
-				'estadoC' => $m->obtenerEstados(),
-				'locality' => '',
+				'stateID' => $m->obtenerEstados(),
+				'nomEstado' => '',
+				'nomMunicipio' => '',
+				'nameLocality' => '',
 				'cp' => '',
 				'calleD' => '',
 				'numExterior' => '',
@@ -135,10 +134,14 @@
 			);
 			
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				print_r($_POST);
+				// print_r($_POST);
 				
 				if($_POST['numInt'] == ""){
 					$_POST['numInt'] = 0;
+				}
+				
+				if(!isset($_POST['idcp-locality'])){
+					$_POST['idcp-locality'] = 0;
 				}
 
 				if($m->registrarContacto($_POST['idAddress'],$_POST['idcp-locality'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
@@ -165,30 +168,31 @@
 						'RSSkype' => $_POST['redSocialS'],
 						'pagWeb' => $_POST['webPage'],
 						'idDir' => $_POST['idAddress'],
-						'estadoC' => $_POST['stateCont'],
-						'estado' => $m -> obtenerNombreEstado($_POST['stateCont']),
-						'locality' => $_POST['localidad'],
-						//'cp' => $_POST['postcode'],
+						'stateID' => $_POST['idEstado'],
+						'nomEstado' => $m -> obtenerNombreEstado($_POST['idEstado']),
+						// Combobox Estados
+						'estados' => $m -> obtenerDatosEstadoInsert($_POST['idEstado']),
+						'nomMunicipio' => $_POST['municipio'],
+						// Combobox Municipios
+						'municipios' => $m -> obtenerDatosMunicipioInsert($_POST['idEstado'], $_POST['municipio']),
+						'nameLocality' => $_POST['localidad'],
+						//Table Localidades
+						'localidades' => $m -> obtener_direccion($_POST['idEstado'], $_POST['municipio'], $_POST['localidad']),
+						//
+						'idCP' => $_POST['idcp-locality'],
 						'calleD' => $_POST['street'],
 						'numExterior' => $_POST['numExt'],
 						'numInterior' => $_POST['numInt'],
 						'coloniaD' => $_POST['colonia'],
 						'referenciaD' => $_POST['reference'],
 						//Obtener direción según cp
+						//'cp' => $_POST['postcode'],
 						// 'codigoP' => $m -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
 						// 'idCP' => $_POST['idcp-locality'], 
 						// 'localidadC' => $m -> obtieneNombreLocalidad($_POST['idcp-locality']), 
 						// 'municipio' => $_POST['municipality'],
 						// 'estado' => $_POST['state'],
 					);
-					
-					// $obtenerDatosDir = array(
-						// 'codigoP' => $m -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
-						// 'idCP' => $_POST['idcp-locality'], 
-						// 'localidadC' => $m -> obtieneNombreLocalidad($_POST['idcp-locality']), 
-						// 'municipio' => $_POST['municipality'],
-						// 'estado' => $_POST['state'],
-					// );
 					
 					$parametrosContactos['mensaje'] = 'Error al registrar contacto. Revise el formulario';
 				}
@@ -205,8 +209,6 @@
 			$obtenerDatosContactos = array(
 				'contactos' => $m->busquedaContactos($_REQUEST['nombreContacto'],$_REQUEST['municipioContacto'],$_REQUEST['areaContacto']),
 			); 
-			
-			// var_dump($obtenerDatosContactos);
 			
 			require __DIR__.'/templates/contactos/mostrarContactosFiltros.php';
 		}

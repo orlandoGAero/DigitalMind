@@ -71,12 +71,15 @@
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></li>
 													<li>
 														<label>Estado</label>
-														<select name="stateCont" id="state" required='required' onchange="habilitar(this.value);">
-															<?php if($parametrosContactos['estadoC'] != "") :?>
-																<option value="<?php echo $parametrosContactos['estadoC'] ?>"><?php echo $parametrosContactos['estado'] ?></option>
-															<?php else :?>
+														<select name="idEstado" id="state" required='required' onchange="habilitar(this.value);">
+															<?php if($parametrosContactos['nomEstado'] == "") :?>
 																<option value="">Seleccione estado</option>
-																<?php foreach ($parametrosContactos['estadoC'] as $estado) :?>
+																<?php foreach ($parametrosContactos['stateID'] as $estado) :?>
+																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																<?php endforeach; ?>
+															<?php else :?>
+																<option value="<?php echo $parametrosContactos['stateID'] ?>"><?php echo $parametrosContactos['nomEstado'] ?></option>
+																<?php foreach ($parametrosContactos['estados'] as $estado) :?>
 																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
 																<?php endforeach; ?>
 															<?php endif; ?>
@@ -84,23 +87,60 @@
 														<span style="color: red;"><b>*</b></span>
 													</li>
 													<li>
-														<!-- <div id="result_municipio">  -->
 															<label>Municipio</label>
-															<select name="municipio" id="municipio" required='required' disabled="disabled">
-																
-															</select>
+															<?php if($parametrosContactos['nomMunicipio'] == "") :?>
+																<select name="municipio" id="municipio" required='required' disabled="disabled">
+																	
+																</select>
+															<?php else :?>
+																<select name="municipio" id="municipio" required='required'>
+																	<option value="<?php echo $parametrosContactos['nomMunicipio'] ?>"><?php echo $parametrosContactos['nomMunicipio'] ?></option>
+																	<?php foreach ($parametrosContactos['municipios'] as $nameMunicipality) : ?>
+																			<option value="<?php echo $nameMunicipality['municipio'] ?>"> <?php echo $nameMunicipality['municipio'] ?> </option> ?>
+																	<?php endforeach; ?>
+																</select>
+															<?php endif; ?>
 															<span style="color: red;"><b>*</b></span>
-														<!-- </div> -->
 													</li>
 													<li>
-														<!-- <div id="result_localidad"> -->
 															<label>Localidad</label>
-															<input type="text" name="localidad" id="localidad" required="required" maxlength="50" value="<?php echo $parametrosContactos['locality'] ?>" onkeyup="dirtxtView(this.form)" />
+															<input type="text" name="localidad" id="localidad" required="required" maxlength="50" value="<?php echo $parametrosContactos['nameLocality'] ?>" onkeyup="dirtxtView(this.form)" />
 															<span style="color: red;"><b>&nbsp;*</b></span>
-														<!-- </div> -->
 													</li>
 													<li>
-														<div id="result"></div>
+														<?php if($parametrosContactos['nameLocality'] == "") :?>
+															<div id="result"></div>
+														<?php else :?>
+															<div id="result">
+																<?php if($parametrosContactos['localidades'] == NULL) :?>
+																	<pre><center><table><tr><td><span class="span">Ingresa una localidad valida</span></td></tr></table></center></pre>
+																<?php else :?>
+																	<table class="table" id="miTabla">
+																		<tr>
+																			<th>Estado</th>
+																			<th>Municipio</th>
+																			<th>Localidad</th>
+																			<th>CP</th>
+																			<th>Elegir</th>
+																		</tr>
+																		
+																		<?php foreach ($parametrosContactos['localidades'] as $Dir) : ?>
+																			<tr>
+																				<td><?php echo $Dir['estado'] ?></td>
+																				<td><?php echo $Dir['municipio'] ?></td>
+																				<td><?php echo $Dir['localidad'] ?></td>
+																				<td><?php echo $Dir['codigoP'] ?></td>
+																				<?php if($Dir['id_cp'] == $parametrosContactos['idCP']) :?>
+																					<td><input type="radio" name="idcp-locality" checked="checked" value="<?php echo $Dir['id_cp'] ?>"/></td>
+																				<?php else :?>
+																					<td><input type="radio" name="idcp-locality" value="<?php echo $Dir['id_cp'] ?>"/></td>
+																				<?php endif; ?>
+																			</tr>
+																		<?php endforeach; ?>
+																	</table>
+																<?php endif; ?>
+															</div>
+														<?php endif; ?>
 													</li>
 													
 													<!-- ========================================================================================================================= -->
@@ -216,7 +256,7 @@
 		
 		function dirtxtView(form)
 		{
-	       $('#result').load('index.php?url=viewDirLocality&stateCont=&municipio=&localidad=' + $('#formContact').serialize())    
+	       $('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())    
 		}
 		
 		function cpview(form)
