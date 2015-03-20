@@ -3,7 +3,16 @@
 		<b><span style="color: red;"><?php echo $parametrosProveedores['mensaje'] ?></span></b>
 	<?php endif; ?>
 	 <br/>
-    <!-- JS Formulario Listas Desplegables -->
+ //    <script type="text/javascript" src="js/jquery-1.4.2.min.js">
+	// 	$(function (agregar) {
+	// 		$('#frm_dbank').submit(function (agregar) {
+	// 			agregar.preventDefault()
+	// 			$('#datos_bancarios').load('index.php?url=DatosBancarios ?' + $('#frm_dbank').serialize())
+	// 		})
+	// 	})
+	// </script>
+	
+	<!-- JS Formulario Listas Desplegables -->
 	<!-- modificar linea de abajo-->
 	<script type="text/javascript" src="js/jquery.lksMenu.js"></script>
 	<script>
@@ -236,53 +245,60 @@
 									<ul>
 										<li>
 											<ul>
-												<!-- clave datos bancarios -->
-													<input type="hidden"  name="txt_iddb" value="<?php echo $parametrosProveedores['idBank'] ?>" readonly />
-												<li>
-													<label for="lbl_banco">Banco:</label>
-													<select id="banco" name="slt_banco" required>
-														<option value selected>Selecciona un banco...</option>
-														<?php foreach($parametrosProveedores ['banco'] as $bank) : ?>
-														<option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
-														<?php endforeach; ?>
-													</select>
-													<span style="color: red;"><b>&nbsp;*</b></span>
-												</li>
-													
-												<li>
-													<label for="lbl_sucursal">Sucursal:</label>
-													<input type="text" name="txt_suc" id="" required/>
-													<span style="color: red;"><b>&nbsp;*</b></span>
-												</li>
+												<!-- <form action="" name="frm_dbank" id="frm_dbank" method="POST" target="_self"> -->
+													<!-- clave datos bancarios -->
+														<input type="hidden"  name="txt_iddb" value="<?php echo $parametrosProveedores['idBank'] ?>" readonly />
+													<li>
+														<label for="lbl_banco">Banco:</label>
+														<select id="banco" name="slt_banco" required>
+															<option value selected>Selecciona un banco...</option>
+															<?php foreach($parametrosProveedores ['banco'] as $bank) : ?>
+															<option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
+															<?php endforeach; ?>
+														</select>
+														<span style="color: red;"><b>&nbsp;*</b></span>
+													</li>
+														
+													<li>
+														<label for="lbl_sucursal">Sucursal:</label>
+														<input type="text" name="txt_suc" id="" required/>
+														<span style="color: red;"><b>&nbsp;*</b></span>
+													</li>
 
-												<li>
-													<label for="lbl_titular">Titular:</label>
-													<input type="text" name="txt_titul" required/>
-													<span style="color: red;"><b>&nbsp;*</b></span>
-												</li>
+													<li>
+														<label for="lbl_titular">Titular:</label>
+														<input type="text" name="txt_titul" required/>
+														<span style="color: red;"><b>&nbsp;*</b></span>
+													</li>
 
-												<li>
-													<label for="lbl_cuenta">No. Cuenta:</label>
-													<input type="text" name="txt_cuenta" maxlength="20" required/>
-													<span style="color: red;"><b>&nbsp;*</b></span>
-												</li>
+													<li>
+														<label for="lbl_cuenta">No. Cuenta:</label>
+														<input type="text" name="txt_cuenta" maxlength="20" required/>
+														<span style="color: red;"><b>&nbsp;*</b></span>
+													</li>
 
-												<li>
-													<label for="lbl_clabe">Clabe Interbancaria:</label>
-													<input type="text" name="txt_clabe" maxlength="18" required/>
-													<span style="color: red;"><b>&nbsp;*</b></span>
-												</li>
+													<li>
+														<label for="lbl_clabe">Clabe Interbancaria:</label>
+														<input type="text" name="txt_clabe" maxlength="18" required/>
+														<span style="color: red;"><b>&nbsp;*</b></span>
+													</li>
 
-												<li>
-													<label for="lbl_tipo_cuenta">Tipo de cuenta:</label>
-													<select id="tipo_c" name="slt_tipo_c" required>
-														<option value selected>Selecciona un tipo de cuenta...</option>
-														<?php foreach ($parametrosProveedores ['tipo_cta'] as $tipo_c) : ?>
-														<option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
-														<?php endforeach; ?>
-													</select>
-													<span style="color: red;"><b>&nbsp;*</b></span>
-												</li>
+													<li>
+														<label for="lbl_tipo_cuenta">Tipo de cuenta:</label>
+														<select id="tipo_c" name="slt_tipo_c" required>
+															<option value selected>Selecciona un tipo de cuenta...</option>
+															<?php foreach ($parametrosProveedores ['tipo_cta'] as $tipo_c) : ?>
+															<option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
+															<?php endforeach; ?>
+														</select>
+														<span style="color: red;"><b>&nbsp;*</b></span>
+													</li>
+
+													<li>
+														<input type="submit" name="btnAddBank" id="btnAddBank" value="Agregar"/>
+													</li>
+												<!-- </form> -->
+												<!-- <div id="datos_bancarios"></div> -->
 											</ul>
 										</li>
 									</ul>

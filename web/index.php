@@ -49,6 +49,7 @@
 	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'mostrarContactos'),
 	     'EditarProveedores' => array('controller' =>'Controller', 'action' =>'ModificarProveedor'),
 	     'BorrarProveedores' => array('controller' =>'Controller', 'action' =>'EliminarProveedor'),
+	     'DatosBancarios' => array('controller' =>'Controller', 'action' =>'cargarDatosBancarios'),
 	 
 	     // ------------------------------INVENTARIO------------------------------------------
 	     'Inventario' => array('controller' =>'Controller', 'action' =>'Inventarios'),

@@ -44,7 +44,39 @@
 											</li>
 
 											<li>
-												<label>Estado:</label>
+												<label for="lbl_desc">Descuento:</label>
+												<input type="text" name="txt_desc" />
+											</li>
+
+											<li>
+												<label for="lbl_tcambio">Tipo de cambio USD:</label>
+												<input type="text" name="txt_tcambio" />
+											</li>
+
+											<li>
+												<label for="lbl_estado">Estado:</label>
+												<input type="radio" name="rad_estado" value="nuevo"> Nuevo
+												<input type="radio" name="rad_estado" value="usado"> Usado
+											</li>
+
+											<li>
+												<label for="lbl_status">Status:</label>
+												<input type="radio" name="rad_status" value="bueno"> Bueno
+												<input type="radio" name="rad_status" value="regular"> Regular
+												<input type="radio" name="rad_status" value="malo"> Malo
+											</li>
+
+											<li>
+												<label for="lbl_ubic">Ubicaci&oacute;n:</label>
+												<input type="radio" name="rad_ubic" value="bodega"> Bodega
+												<input type="radio" name="rad_ubic" value="mostrador"> Mostrador
+												<input type="radio" name="rad_ubic" value="oficina"> Oficina
+												<input type="radio" name="rad_ubic" value="casa"> Casa
+											</li>
+
+											<li>
+												<label for="lbl_color">Color:</label>
+												<input type="color" name="col_color"/>
 											</li>
 
 											<li>

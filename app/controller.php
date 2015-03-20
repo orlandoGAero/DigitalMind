@@ -774,6 +774,37 @@ public function mostrarContactos(){
 			require __DIR__ . '/templates/proveedor/verProveedor.php';
 		}
 
+		public function cargarDatosBancarios(){
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			// $id_bank = $_REQUEST['']
+
+			$datosbank_Prov = array(
+				// datos bancarios
+				'idBank' => '',
+				'banco' => '',
+				'sucursal' => '',
+				'titular' => '',
+				'num_cuenta' => '',
+				'clabe' => '',
+				'tipo_cta' => '', 
+			);
+			print_r($_REQUEST);
+			// datos bancarios
+			$datosbank_Prov = array(
+				'idBank' => $_REQUEST['txt_iddb'],
+				'banco' => $_REQUEST['slt_banco'],
+				'sucursal' => $_REQUEST['txt_suc'],
+				'titular' => $_REQUEST['txt_titul'],
+				'num_cuenta' => $_REQUEST['txt_cuenta'],
+				'clabe' => $_REQUEST['txt_clabe'],
+				'tipo_cta' => $_REQUEST['slt_tipo_c'],
+			);
+				
+			require __DIR__ . '/templates/proveedor/datos-bancariosProv.php';
+		}
+
 		// ----------------------- FUNCIONES INVENTARIO ----------------------------------------
 
 		public function Inventarios()
