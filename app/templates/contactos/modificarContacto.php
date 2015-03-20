@@ -116,19 +116,15 @@
 															<?php endif; ?>
 															<span style="color: red;"><b>*</b></span>
 													</li>
-													<li>
+													<?php if(!isset($obtenerDatosContacto['localidadAfter'])) :?>
+														<li>
 															<label>Localidad</label>
-															<input type="text" name="localidad" id="localidad" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['localidad'] ?>" onkeyup="dirtxtView(this.form)" />
+															<input type="text" name="localidad" id="localidad" required="required" autocomplete="off"  maxlength="50" value="<?php echo $obtenerDatosContacto['localidad'] ?>" onkeyup="dirtxtView(this.form)" />
 															<span style="color: red;"><b>&nbsp;*</b></span>
-													</li>
-													<li>
-														<?php if($obtenerDatosContacto['localidad'] == "") :?>
-															<div id="result"></div>
-														<?php else :?>
-															<div id="result">
-																<!-- <?php if($obtenerDatosDir['localidades'] == NULL) :?> -->
-																	<!-- <pre><center><table><tr><td><span class="span">Ingresa una localidad valida</span></td></tr></table></center></pre> -->
-																<!-- <?php else :?> -->
+														</li>
+														<li>
+															<?php if($obtenerDatosContacto['localidad'] != "") :?>
+																<div id="result">
 																	<table class="table" id="miTabla">
 																		<tr>
 																			<th>Estado</th>
@@ -144,18 +140,51 @@
 																				<td><?php echo $Dir['municipio'] ?></td>
 																				<td><?php echo $Dir['localidad'] ?></td>
 																				<td><?php echo $Dir['codigoP'] ?></td>
-																				<?php if($Dir['id_cp'] == $obtenerDatosContacto['id_cp']) :?>
-																					<td><input type="radio" name="idcp-locality" checked="checked" value="<?php echo $Dir['id_cp'] ?>"/></td>
-																				<?php else :?>
-																					<td><input type="radio" name="idcp-locality" value="<?php echo $Dir['id_cp'] ?>"/></td>
-																				<?php endif; ?>
+																				<td><input type="radio" name="idcp-locality" checked="checked" value="<?php echo $Dir['id_cp'] ?>"/></td>
 																			</tr>
 																		<?php endforeach; ?>
 																	</table>
-																<!-- <?php endif; ?> -->
-															</div>
-														<?php endif; ?>
-													</li>
+																</div>
+															<?php endif; ?>
+														</li>
+													<?php else :?>
+															<li>
+																<label>Localidad</label>
+																<input type="text" name="localidad" id="localidad" required="required" autocomplete="off"  maxlength="50" value="<?php echo $obtenerDatosContacto['localidadAfter'] ?>" onkeyup="dirtxtView(this.form)" />
+																<span style="color: red;"><b>&nbsp;*</b></span>
+															</li>
+															<li>
+																<div id="result">
+																	<?php if($obtenerDatosContacto['localidades'] == NULL) :?>
+																		<pre><center><table><tr><td><span class="span">Ingresa una localidad valida</span></td></tr></table></center></pre>
+																	<?php else :?>
+																		<table class="table" id="miTabla">
+																			<tr>
+																				<th>Estado</th>
+																				<th>Municipio</th>
+																				<th>Localidad</th>
+																				<th>CP</th>
+																				<th>Elegir</th>
+																			</tr>
+																			
+																			<?php foreach ($obtenerDatosContacto['localidades'] as $Dir) : ?>
+																				<tr>
+																					<td><?php echo $Dir['estado'] ?></td>
+																					<td><?php echo $Dir['municipio'] ?></td>
+																					<td><?php echo $Dir['localidad'] ?></td>
+																					<td><?php echo $Dir['codigoP'] ?></td>
+																					<?php if($Dir['id_cp'] == $obtenerDatosContacto['id_cp']) :?>
+																						<td><input type="radio" name="idcp-locality" checked="checked" value="<?php echo $Dir['id_cp'] ?>"/></td>
+																					<?php else :?>
+																						<td><input type="radio" name="idcp-locality" value="<?php echo $Dir['id_cp'] ?>"/></td>
+																					<?php endif; ?>
+																				</tr>
+																			<?php endforeach; ?>
+																		</table>
+																	<?php endif; ?>
+																</div>
+															</li>
+													<?php endif ?>
 													<!-- ======================================================================================================================================================================================================================================================================================================
 													<li><label>Código Postal</label><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $obtenerDatosContacto['codigoP'] ?>" onKeyUp="cpview(this.form)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<?php if($obtenerDatosContacto['codigoP'] == "") :?>

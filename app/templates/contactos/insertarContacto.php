@@ -71,7 +71,7 @@
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></li>
 													<li>
 														<label>Estado</label>
-														<select name="idEstado" id="state" required='required' onchange="habilitar(this.value);">
+														<select name="idEstado" id="state" required="required" >
 															<?php if($parametrosContactos['nomEstado'] == "") :?>
 																<option value="">Seleccione estado</option>
 																<?php foreach ($parametrosContactos['stateID'] as $estado) :?>
@@ -89,11 +89,11 @@
 													<li>
 															<label>Municipio</label>
 															<?php if($parametrosContactos['nomMunicipio'] == "") :?>
-																<select name="municipio" id="municipio" required='required' disabled="disabled">
+																<select name="municipio" id="municipio" required="required" disabled="disabled" onchange="ValidarMunicipio();">
 																	
 																</select>
 															<?php else :?>
-																<select name="municipio" id="municipio" required='required'>
+																<select name="municipio" id="municipio" required="required" disabled="disabled">
 																	<option value="<?php echo $parametrosContactos['nomMunicipio'] ?>"><?php echo $parametrosContactos['nomMunicipio'] ?></option>
 																	<?php foreach ($parametrosContactos['municipios'] as $nameMunicipality) : ?>
 																			<option value="<?php echo $nameMunicipality['municipio'] ?>"> <?php echo $nameMunicipality['municipio'] ?> </option> ?>
@@ -104,12 +104,12 @@
 													</li>
 													<li>
 															<label>Localidad</label>
-															<input type="text" name="localidad" id="localidad" required="required" maxlength="50" value="<?php echo $parametrosContactos['nameLocality'] ?>" onkeyup="dirtxtView(this.form)" />
+															<input type="text" name="localidad" id="localidad" required="required" disabled="disabled" autocomplete="off"  maxlength="50" value="<?php echo $parametrosContactos['nameLocality'] ?>" onkeyup="dirtxtView(this.form)" />
 															<span style="color: red;"><b>&nbsp;*</b></span>
 													</li>
 													<li>
 														<?php if($parametrosContactos['nameLocality'] == "") :?>
-															<div id="result"></div>
+															<div id="result" ></div>
 														<?php else :?>
 															<div id="result">
 																<?php if($parametrosContactos['localidades'] == NULL) :?>
@@ -207,52 +207,37 @@
 			$('.menu-pro').lksMenu();
 		});
 		
-		function habilitar(value){
-			
-			if(value >= 1 || value==true){
-				// habilitamos
-				document.getElementById("municipio").disabled=false;
-			}else if(value != "" || value==true){
-				// habilitamos
-				document.getElementById("localidad").disabled=false;
-			}else{
-				// deshabilitamos
-				document.getElementById("municipio").disabled=true;
-				document.getElementById("localidad").disabled=true;
-			}
-		}
-		
-		/*function dirtxtView(form){
-			if(value >= 1 || value==true)
-			{
-				// habilitamos
-				document.getElementById("municipio").disabled=false;
-			}else{
-				// deshabilitamos
-				document.getElementById("municipio").disabled=true;
-			}
-		}
-		
-		function habilitar2(value)
-		{
-			if(value != "" || value==true)
-			{
-				// habilitamos
-				document.getElementById("localidad").disabled=false;
-			}else{
-				// deshabilitamos
-				document.getElementById("localidad").disabled=true;
-			}
-		}*/
 		
 		$(function () {
-			$('#state').change(function(a){
-				$('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
-			});
-		})
+		    $('#state').change(function (a) {
+		        if ($(this).val() != "") {
+		            $('#municipio').removeAttr('disabled');
+		            $('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
+		        }
+		        else {
+		            $('#municipio').attr('disabled','disabled').val("");
+		            $('#localidad').attr('disabled','disabled').val("");
+		        }
+		    });
+		
+		    if ($('#state option:selected').val() != "") {
+		        $('#municipio').removeAttr('disabled');
+		    }
+		});
+		
+		function ValidarMunicipio() {
+		    if ($('#municipio').val() != "") {
+		        $('#localidad').removeAttr('disabled');
+		    }
+		    else {
+		        $('#municipio').removeAttr('disabled');
+		        $('#localidad').attr('disabled','disabled').val("");
+		        $('#result').children().attr('disabled','disabled');
+		    }
+		}
 		
 		function dirtxtView(form){
-	       $('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())    
+			$('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())	
 		}
 		
 		/*function cpview(form)

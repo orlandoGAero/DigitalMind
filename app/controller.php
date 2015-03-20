@@ -278,9 +278,9 @@
 						'municipio' => $_POST['municipio'],
 						// Combobox Municipios
 						'municipios' => $m -> obtenerDatosMunicipioInsert($_POST['idEstado'], $_POST['municipio']),
-						'localidad' => $_POST['localidad'],
+						'localidadAfter' => $_POST['localidad'],
 						//Table Localidades
-						'localidadCont' => $m -> obtener_direccion($_POST['idEstado'], $_POST['municipio'], $_POST['localidad']),
+						'localidades' => $m -> obtener_direccion($_POST['idEstado'], $_POST['municipio'], $_POST['localidad']),
 						//
 						'id_cp' => $_POST['idcp-locality'],
 						'calle' => $_POST['street'],
