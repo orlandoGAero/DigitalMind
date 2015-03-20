@@ -14,7 +14,7 @@
 	 	
 	<div class="col-lg-14">
         <div class="panel panel-default">
-			<h1><!--<img src="images/salir.png" width="30px" height="30px" />-->Editar Contacto</h1>
+			<h1>Editar Contacto</h1>
 				<div class="panel-heading">    </div>
 			    <div class="panel-body">	
 					<section id="principal">
@@ -83,6 +83,80 @@
 												
 												<ul>
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $obtenerDatosContacto['id_direccion'] ?>" readonly /></li>
+													<li>
+														<label>Estado</label>
+														<select name="idEstado" id="state" required='required' onchange="habilitar(this.value);">
+															<?php if($obtenerDatosContacto['estado'] == "") :?>
+																<option value="">Seleccione estado</option>
+																<?php foreach ($obtenerDatosContacto['id_estado'] as $estado) :?>
+																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																<?php endforeach; ?>
+															<?php else :?>
+																<option value="<?php echo $obtenerDatosContacto['id_estado'] ?>"><?php echo $obtenerDatosContacto['estado'] ?></option>
+																<?php foreach ($obtenerDatosDir['estados'] as $estado) :?>
+																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																<?php endforeach; ?>
+															<?php endif; ?>
+														</select>
+														<span style="color: red;"><b>*</b></span>
+													</li>
+													<li>
+															<label>Municipio</label>
+															<?php if($obtenerDatosContacto['municipio'] == "") :?>
+																<select name="municipio" id="municipio" required='required' disabled="disabled">
+																	
+																</select>
+															<?php else :?>
+																<select name="municipio" id="municipio" required='required'>
+																	<option value="<?php echo $obtenerDatosContacto['municipio'] ?>"><?php echo $obtenerDatosContacto['municipio'] ?></option>
+																	<?php foreach ($obtenerDatosDir['municipios'] as $nameMunicipality) : ?>
+																			<option value="<?php echo $nameMunicipality['municipio'] ?>"> <?php echo $nameMunicipality['municipio'] ?> </option> ?>
+																	<?php endforeach; ?>
+																</select>
+															<?php endif; ?>
+															<span style="color: red;"><b>*</b></span>
+													</li>
+													<li>
+															<label>Localidad</label>
+															<input type="text" name="localidad" id="localidad" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['localidad'] ?>" onkeyup="dirtxtView(this.form)" />
+															<span style="color: red;"><b>&nbsp;*</b></span>
+													</li>
+													<li>
+														<?php if($obtenerDatosContacto['localidad'] == "") :?>
+															<div id="result"></div>
+														<?php else :?>
+															<div id="result">
+																<!-- <?php if($obtenerDatosDir['localidades'] == NULL) :?> -->
+																	<!-- <pre><center><table><tr><td><span class="span">Ingresa una localidad valida</span></td></tr></table></center></pre> -->
+																<!-- <?php else :?> -->
+																	<table class="table" id="miTabla">
+																		<tr>
+																			<th>Estado</th>
+																			<th>Municipio</th>
+																			<th>Localidad</th>
+																			<th>CP</th>
+																			<th>Elegir</th>
+																		</tr>
+																		
+																		<?php foreach ($obtenerDatosDir['localidades'] as $Dir) : ?>
+																			<tr>
+																				<td><?php echo $Dir['estado'] ?></td>
+																				<td><?php echo $Dir['municipio'] ?></td>
+																				<td><?php echo $Dir['localidad'] ?></td>
+																				<td><?php echo $Dir['codigoP'] ?></td>
+																				<?php if($Dir['id_cp'] == $obtenerDatosContacto['id_cp']) :?>
+																					<td><input type="radio" name="idcp-locality" checked="checked" value="<?php echo $Dir['id_cp'] ?>"/></td>
+																				<?php else :?>
+																					<td><input type="radio" name="idcp-locality" value="<?php echo $Dir['id_cp'] ?>"/></td>
+																				<?php endif; ?>
+																			</tr>
+																		<?php endforeach; ?>
+																	</table>
+																<!-- <?php endif; ?> -->
+															</div>
+														<?php endif; ?>
+													</li>
+													<!-- ======================================================================================================================================================================================================================================================================================================
 													<li><label>Código Postal</label><input type="text" class="keysNumbers" name="postcode" autocomplete="off" required="required"  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $obtenerDatosContacto['codigoP'] ?>" onKeyUp="cpview(this.form)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<?php if($obtenerDatosContacto['codigoP'] == "") :?>
 														<li><div id="resultado"> </div></li>
@@ -115,6 +189,7 @@
 															</div>
 														</li>
 													<?php endif; ?>
+													================================================================================================================================================-->
 													<li><label>Calle</label><input type="text" name="street" autocomplete="off" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['calle'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Número Exterior</label><input type="text" class="keysNumbers" name="numExt" autocomplete="off" required="required" maxlength="5" value="<?php echo $obtenerDatosContacto['num_ext'] ?>"  /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Número Interior</label><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $obtenerDatosContacto['num_int'] ?>" />&nbsp;&nbsp;&nbsp;</li>
@@ -145,10 +220,35 @@
 			$('.menu-pro').lksMenu();
 		});
 		
-		function cpview(form)
-		{
-	       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    
+		function habilitar(value){
+			
+			if(value >= 1 || value==true){
+				// habilitamos
+				document.getElementById("municipio").disabled=false;
+			}else if(value != "" || value==true){
+				// habilitamos
+				document.getElementById("localidad").disabled=false;
+			}else{
+				// deshabilitamos
+				document.getElementById("municipio").disabled=true;
+				document.getElementById("localidad").disabled=true;
+			}
 		}
+		
+		$(function () {
+			$('#state').change(function(a){
+				$('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
+			});
+		})
+		
+		function dirtxtView(form){
+	       $('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())    
+		}
+		
+		// function cpview(form)
+		// {
+	       // $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    
+		// }
 		
 		jQuery(document).ready(function() {
 		    jQuery('.keysNumbers').keypress(function(tecla) {

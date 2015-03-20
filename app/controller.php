@@ -230,14 +230,20 @@
 			$obtenerDatosContacto = $detalleContacto;
 			
 			$obtenerDatosDir = array(
-				'codigoP' => $m -> obtenerDatosDireccionUpdate($IdContacto),
+				'estados' => $m -> obtenerDatosEstadoUpdate($IdContacto),
+				'municipios' => $m -> obtenerDatosMunicipioUpdate($IdContacto),
+				'localidades' => $m -> obtener_direccion_update($IdContacto),
 			);
 			
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				//print_r($_POST);
+				print_r($_POST);
 				
 				if($_POST['numInt'] == ""){
 					$_POST['numInt'] = 0;
+				}
+
+				if(!isset($_POST['idcp-locality'])){
+					$_POST['idcp-locality'] = 0;
 				}
 
 				if($m->actualizarContacto($_POST['idAddress'],$_POST['idcp-locality'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
@@ -265,23 +271,34 @@
 						'direccion_web' => $_POST['webPage'],
 						'activo' => $_POST['activoC'],
 						'id_direccion' => $_POST['idAddress'],
-						'codigoP' => $_POST['postcode'],
+						'id_estado' => $_POST['idEstado'],
+						'estado' => $m -> obtenerNombreEstado($_POST['idEstado']),
+						// Combobox Estados
+						'estados' => $m -> obtenerDatosEstadoInsert($_POST['idEstado']),
+						'municipio' => $_POST['municipio'],
+						// Combobox Municipios
+						'municipios' => $m -> obtenerDatosMunicipioInsert($_POST['idEstado'], $_POST['municipio']),
+						'localidad' => $_POST['localidad'],
+						//Table Localidades
+						'localidadCont' => $m -> obtener_direccion($_POST['idEstado'], $_POST['municipio'], $_POST['localidad']),
+						//
+						'id_cp' => $_POST['idcp-locality'],
 						'calle' => $_POST['street'],
 						'num_ext' => $_POST['numExt'],
 						'num_int' => $_POST['numInt'],
 						'colonia' => $_POST['colonia'],
 						'referencia' => $_POST['reference'],
-						'id_cp' => $_POST['idcp-locality'], 
-						'localidad' =>$m -> obtieneNombreLocalidad($_POST['idcp-locality']),
-						'municipio' => $_POST['state'],
-						'estado' => $_POST['municipality'], 
+						// 'localidad' =>$m -> obtieneNombreLocalidad($_POST['idcp-locality']),
+						// 'municipio' => $_POST['state'],
+						// 'estado' => $_POST['municipality'], 
 					);
 					
-					$obtenerDatosDir = array(
-						'codigoP' => $m -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
-						'id_cp' => $_POST['idcp-locality'], 
-						'localidad' => $m -> obtieneNombreLocalidad($_POST['idcp-locality']), 
-					);
+					// $obtenerDatosDir = array(
+						// 'codigoP' => $_POST['postcode'],
+						// 'codigoP' => $m -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
+						// 'id_cp' => $_POST['idcp-locality'], 
+						// 'localidad' => $m -> obtieneNombreLocalidad($_POST['idcp-locality']), 
+					// );
 					
 					$parametrosContactos['mensaje'] = 'Error al actualizar contacto. Revise el formulario';
 				}

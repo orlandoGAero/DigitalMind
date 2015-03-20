@@ -13,7 +13,7 @@
 	 	
 	<div class="col-lg-14">
         <div class="panel panel-default">
-			<h1><!--<img src="images/salir.png" width="30px" height="30px" />-->Nuevo Contacto</h1>
+			<h1>Nuevo Contacto</h1>
 				<div class="panel-heading">    </div>
 			    <div class="panel-body">	
 					<section id="principal">
@@ -207,14 +207,12 @@
 			$('.menu-pro').lksMenu();
 		});
 		
-		function habilitar(value)
-		{
+		function habilitar(value){
 			
-			if(value >= 1 || value==true)
-			{
+			if(value >= 1 || value==true){
 				// habilitamos
 				document.getElementById("municipio").disabled=false;
-			}else if(value != "" || value==true)	{
+			}else if(value != "" || value==true){
 				// habilitamos
 				document.getElementById("localidad").disabled=false;
 			}else{
@@ -223,30 +221,29 @@
 				document.getElementById("localidad").disabled=true;
 			}
 		}
-			// function dirtxtView(form)
-		// {
-		// {
-			// if(value >= 1 || value==true)
-			// {
-				// // habilitamos
-				// document.getElementById("municipio").disabled=false;
-			// }else{
-				// // deshabilitamos
-				// document.getElementById("municipio").disabled=true;
-			// }
-		// }
-// 		
-		// function habilitar2(value)
-		// {
-			// if(value != "" || value==true)
-			// {
-				// // habilitamos
-				// document.getElementById("localidad").disabled=false;
-			// }else{
-				// // deshabilitamos
-				// document.getElementById("localidad").disabled=true;
-			// }
-		// }
+		
+		/*function dirtxtView(form){
+			if(value >= 1 || value==true)
+			{
+				// habilitamos
+				document.getElementById("municipio").disabled=false;
+			}else{
+				// deshabilitamos
+				document.getElementById("municipio").disabled=true;
+			}
+		}
+		
+		function habilitar2(value)
+		{
+			if(value != "" || value==true)
+			{
+				// habilitamos
+				document.getElementById("localidad").disabled=false;
+			}else{
+				// deshabilitamos
+				document.getElementById("localidad").disabled=true;
+			}
+		}*/
 		
 		$(function () {
 			$('#state').change(function(a){
@@ -254,15 +251,14 @@
 			});
 		})
 		
-		function dirtxtView(form)
-		{
+		function dirtxtView(form){
 	       $('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())    
 		}
 		
-		function cpview(form)
+		/*function cpview(form)
 		{
 	       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    
-		}
+		}*/
 		
 		jQuery(document).ready(function() {
 		    jQuery('.keysNumbers').keypress(function(tecla) {
