@@ -236,7 +236,7 @@
 			);
 			
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				print_r($_POST);
+				// print_r($_POST);
 				
 				if($_POST['numInt'] == ""){
 					$_POST['numInt'] = 0;
@@ -272,10 +272,10 @@
 						'activo' => $_POST['activoC'],
 						'id_direccion' => $_POST['idAddress'],
 						'id_estado' => $_POST['idEstado'],
-						'estado' => $m -> obtenerNombreEstado($_POST['idEstado']),
+						'estadoAfter' => $m -> obtenerNombreEstado($_POST['idEstado']),
 						// Combobox Estados
 						'estados' => $m -> obtenerDatosEstadoInsert($_POST['idEstado']),
-						'municipio' => $_POST['municipio'],
+						'municipioAfter' => $_POST['municipio'],
 						// Combobox Municipios
 						'municipios' => $m -> obtenerDatosMunicipioInsert($_POST['idEstado'], $_POST['municipio']),
 						'localidadAfter' => $_POST['localidad'],

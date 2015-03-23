@@ -116,13 +116,12 @@
                         </div>
                         
                         <div class="menu-item blue">
+                            <a href=""><img src="images/money.png"/><br><b>TRANSACCIONES</b></a> 
+                        </div>
+                        
+                        <div class="menu-item blue">
                             <a href="./configuracion"><img src="images/icono-configuraciones.png"/><br><b>CONFIGURACIÓN</b></a> 
                         </div>
-						
-						<div class="menu-item blue">
-                            <a href=""><b></b></a> 
-                        </div>
-                       
                     </div>
                 </div>
             </div>

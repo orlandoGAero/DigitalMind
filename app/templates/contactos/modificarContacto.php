@@ -11,8 +11,7 @@
         
 	 <!-- JS Formulario Listas Desplegables -->
 	 <script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
-	 	<?php var_dump($obtenerDatosContacto) ?>
-		
+	 		
 	<div class="col-lg-14">
         <div class="panel panel-default">
 			<h1>Editar Contacto</h1>
@@ -83,30 +82,44 @@
 												
 												<ul>
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $obtenerDatosContacto['id_direccion'] ?>" readonly /></li>
-													<li>
-														<label>Estado</label>
-														<select name="idEstado" id="state" required='required'>
-															<?php if($obtenerDatosContacto['estado'] == "") :?>
-																<option value="">Seleccione estado</option>
-																<?php foreach ($obtenerDatosContacto['id_estado'] as $estado) :?>
-																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
-																<?php endforeach; ?>
-															<?php else :?>
-																<option value="<?php echo $obtenerDatosContacto['id_estado'] ?>"><?php echo $obtenerDatosContacto['estado'] ?></option>
-																<?php foreach ($obtenerDatosDir['estados'] as $estado) :?>
-																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
-																<?php endforeach; ?>
-															<?php endif; ?>
-														</select>
-														<span style="color: red;"><b>*</b></span>
-													</li>
-													<li>
+													<!--===================== Estado =====================-->
+													<?php if(!isset($obtenerDatosContacto['estadoAfter'])) :?>
+														<li>
+															<label>Estado</label>
+															<select name="idEstado" id="state" required='required'>
+																<?php if($obtenerDatosContacto['estado'] != "") :?>
+																	<option value="<?php echo $obtenerDatosContacto['id_estado'] ?>"><?php echo $obtenerDatosContacto['estado'] ?></option>
+																	<?php foreach ($obtenerDatosDir['estados'] as $estado) :?>
+																		<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																	<?php endforeach; ?>
+																<?php endif; ?>
+															</select>
+															<span style="color: red;"><b>*</b></span>
+														</li>
+													<?php else :?>
+														<li>
+															<label>Estado</label>
+															<select name="idEstado" id="state" required='required'>
+																<?php if($obtenerDatosContacto['estadoAfter'] == "") :?>
+																	<option value="">Seleccione estado</option>
+																	<?php foreach ($obtenerDatosContacto['id_estado'] as $estado) :?>
+																		<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estadoAfter'] ?></option>
+																	<?php endforeach; ?>
+																<?php else :?>
+																	<option value="<?php echo $obtenerDatosContacto['id_estado'] ?>"><?php echo $obtenerDatosContacto['estadoAfter'] ?></option>
+																	<?php foreach ($obtenerDatosContacto['estados'] as $estado) :?>
+																		<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																	<?php endforeach; ?>
+																<?php endif; ?>
+															</select>
+															<span style="color: red;"><b>*</b></span>
+														</li>
+													<?php endif; ?>
+													<!--===================== Municipio =====================-->
+													<?php if(!isset($obtenerDatosContacto['municipioAfter'])) :?>
+														<li>
 															<label>Municipio</label>
-															<?php if($obtenerDatosContacto['municipio'] == "") :?>
-																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
-																	
-																</select>
-															<?php else :?>
+															<?php if($obtenerDatosContacto['municipio'] != "") :?>
 																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
 																	<option value="<?php echo $obtenerDatosContacto['municipio'] ?>"><?php echo $obtenerDatosContacto['municipio'] ?></option>
 																	<?php foreach ($obtenerDatosDir['municipios'] as $nameMunicipality) : ?>
@@ -115,7 +128,26 @@
 																</select>
 															<?php endif; ?>
 															<span style="color: red;"><b>*</b></span>
-													</li>
+														</li>
+													<?php else :?>
+														<li>
+															<label>Municipio</label>
+															<?php if($obtenerDatosContacto['municipioAfter'] == "") :?>
+																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
+																	
+																</select>
+															<?php else :?>
+																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
+																	<option value="<?php echo $obtenerDatosContacto['municipioAfter'] ?>"><?php echo $obtenerDatosContacto['municipioAfter'] ?></option>
+																	<?php foreach ($obtenerDatosContacto['municipios'] as $nameMunicipality) : ?>
+																			<option value="<?php echo $nameMunicipality['municipio'] ?>"> <?php echo $nameMunicipality['municipio'] ?> </option> ?>
+																	<?php endforeach; ?>
+																</select>
+															<?php endif; ?>
+															<span style="color: red;"><b>*</b></span>
+														</li>
+													<?php endif; ?>
+													<!--===================== Localidad =====================-->
 													<?php if(!isset($obtenerDatosContacto['localidadAfter'])) :?>
 														<li>
 															<label>Localidad</label>
