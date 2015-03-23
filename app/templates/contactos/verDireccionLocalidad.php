@@ -11,10 +11,10 @@
 			
 			<?php foreach ($obtenerDatosDireccion as $Dir) : ?>
 				<tr>
-					<td><?php echo $Dir['estado'] ?> <input type="hidden" name="state" readonly="readonly" value="<?php echo $Dir['estado'] ?>" /></td>
-					<td><?php echo $Dir['municipio'] ?> <input type="hidden" name="municipality" readonly="readonly" value="<?php echo $Dir['municipio'] ?>" /></td>
-					<td><?php echo $Dir['localidad'] ?> <input type="hidden" name="locality" readonly="readonly" value="<?php echo $Dir['localidad'] ?>" /></td>
-					<td><?php echo $Dir['codigoP'] ?> <input type="hidden" name="codpo" readonly="readonly" value="<?php echo $Dir['codigoP'] ?>" /></td>
+					<td><?php echo $Dir['estado'] ?> <!-- <input type="hidden" name="state" readonly="readonly" value="<?php echo $Dir['estado'] ?>" /> --> </td>
+					<td><?php echo $Dir['municipio'] ?> <!-- <input type="hidden" name="municipality" readonly="readonly" value="<?php echo $Dir['municipio'] ?>" /> --></td>
+					<td><?php echo $Dir['localidad'] ?> <!-- <input type="hidden" name="locality" readonly="readonly" value="<?php echo $Dir['localidad'] ?>" /> --></td>
+					<td><?php echo $Dir['codigoP'] ?> <!-- <input type="hidden" name="codpo" readonly="readonly" value="<?php echo $Dir['codigoP'] ?>" /> --></td>
 					<td><input type="radio" name="idcp-locality" value="<?php echo $Dir['id_cp'] ?>"/></td>
 				</tr>
 			<?php endforeach; ?>

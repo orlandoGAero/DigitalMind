@@ -13,7 +13,7 @@
 	 	
 	<div class="col-lg-14">
         <div class="panel panel-default">
-			<h1><!--<img src="images/salir.png" width="30px" height="30px" />-->Nuevo Contacto</h1>
+			<h1>Nuevo Contacto</h1>
 				<div class="panel-heading">    </div>
 			    <div class="panel-body">	
 					<section id="principal">
@@ -65,42 +65,82 @@
 										<ul>
 											<li>
 												
-												<span class="span"''>&nbsp;* Información requerida</span>
+												<span class="span">&nbsp;* Información requerida</span>
 												
 												<ul>
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $parametrosContactos['idDir'] ?>" readonly /></li>
 													<li>
 														<label>Estado</label>
-														<select name="stateCont" id="state" required='required' onchange="habilitar(this.value);">
-															<?php if($parametrosContactos['estadoC'] != "") :?>
+														<select name="idEstado" id="state" required="required" >
+															<?php if($parametrosContactos['nomEstado'] == "") :?>
 																<option value="">Seleccione estado</option>
+																<?php foreach ($parametrosContactos['stateID'] as $estado) :?>
+																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																<?php endforeach; ?>
 															<?php else :?>
-																<option value="<?php $parametrosContactos['estadoC'] ?>"><?php $parametrosContactos['estadoC'] ?></option>
+																<option value="<?php echo $parametrosContactos['stateID'] ?>"><?php echo $parametrosContactos['nomEstado'] ?></option>
+																<?php foreach ($parametrosContactos['estados'] as $estado) :?>
+																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																<?php endforeach; ?>
 															<?php endif; ?>
-															<?php foreach ($parametrosContactos['estadoC'] as $estado) :?>
-															<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
-															<?php endforeach; ?>
 														</select>
 														<span style="color: red;"><b>*</b></span>
 													</li>
 													<li>
-														<!-- <div id="result_municipio">  -->
 															<label>Municipio</label>
-															<select name="municipio" id="municipio" required='required' disabled="disabled">
-																
-															</select>
+															<?php if($parametrosContactos['nomMunicipio'] == "") :?>
+																<select name="municipio" id="municipio" required="required" disabled="disabled" onchange="ValidarMunicipio();">
+																	
+																</select>
+															<?php else :?>
+																<select name="municipio" id="municipio" required="required" disabled="disabled" onchange="ValidarMunicipio();">
+																	<option value="<?php echo $parametrosContactos['nomMunicipio'] ?>"><?php echo $parametrosContactos['nomMunicipio'] ?></option>
+																	<?php foreach ($parametrosContactos['municipios'] as $nameMunicipality) : ?>
+																			<option value="<?php echo $nameMunicipality['municipio'] ?>"> <?php echo $nameMunicipality['municipio'] ?> </option> ?>
+																	<?php endforeach; ?>
+																</select>
+															<?php endif; ?>
 															<span style="color: red;"><b>*</b></span>
-														<!-- </div> -->
 													</li>
 													<li>
-														<!-- <div id="result_localidad"> -->
 															<label>Localidad</label>
-															<input type="text" name="localidad" id="localidad" onkeyup="dirtxtView(this.form)" />
+															<input type="text" name="localidad" id="localidad" required="required" disabled="disabled" autocomplete="off"  maxlength="50" value="<?php echo $parametrosContactos['nameLocality'] ?>" onkeyup="dirtxtView(this.form)" />
 															<span style="color: red;"><b>&nbsp;*</b></span>
-														<!-- </div> -->
 													</li>
 													<li>
-														<div id="result"></div>
+														<?php if($parametrosContactos['nameLocality'] == "") :?>
+															<div id="result" ></div>
+														<?php else :?>
+															<div id="result">
+																<?php if($parametrosContactos['localidades'] == NULL) :?>
+																	<pre><center><table><tr><td><span class="span">Ingresa una localidad valida</span></td></tr></table></center></pre>
+																<?php else :?>
+																	<table class="table" id="miTabla">
+																		<tr>
+																			<th>Estado</th>
+																			<th>Municipio</th>
+																			<th>Localidad</th>
+																			<th>CP</th>
+																			<th>Elegir</th>
+																		</tr>
+																		
+																		<?php foreach ($parametrosContactos['localidades'] as $Dir) : ?>
+																			<tr>
+																				<td><?php echo $Dir['estado'] ?></td>
+																				<td><?php echo $Dir['municipio'] ?></td>
+																				<td><?php echo $Dir['localidad'] ?></td>
+																				<td><?php echo $Dir['codigoP'] ?></td>
+																				<?php if($Dir['id_cp'] == $parametrosContactos['idCP']) :?>
+																					<td><input type="radio" name="idcp-locality" checked="checked" value="<?php echo $Dir['id_cp'] ?>"/></td>
+																				<?php else :?>
+																					<td><input type="radio" name="idcp-locality" value="<?php echo $Dir['id_cp'] ?>"/></td>
+																				<?php endif; ?>
+																			</tr>
+																		<?php endforeach; ?>
+																	</table>
+																<?php endif; ?>
+															</div>
+														<?php endif; ?>
 													</li>
 													
 													<!-- ========================================================================================================================= -->
@@ -147,7 +187,7 @@
 										</ul>
 									</li>
 										<!-- Botones -->
-										<input type="submit" class="boton2" value="Guardar" name="btnGuardar" id="btnGuardar"/>
+										<input type="submit" class="boton2" value="Guardar" name="btnGuardar" />
 										&nbsp;&nbsp;
 										<a href="index.php?url=listContact" title="Regresar" onclick="return confirm('¿Desea salir antes de guardar?');">
 											<input type="button" class="boton2" value="Cancelar" />
@@ -167,62 +207,57 @@
 			$('.menu-pro').lksMenu();
 		});
 		
-		function habilitar(value)
-		{
-			
-			if(value >= 1 || value==true)
-			{
-				// habilitamos
-				document.getElementById("municipio").disabled=false;
-			}else if(value != "" || value==true)	{
-				// habilitamos
-				document.getElementById("localidad").disabled=false;
+		$(function () {
+		    $('#state').change(function (a) {
+		        if ($(this).val() != "") {
+		            $('#municipio').removeAttr('disabled');
+		            $('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
+		            if($('#municipio').val("")){
+		            	$('#localidad').attr('disabled','disabled').val("");
+		        		$("#result").css("display", "none");
+		       		}
+		        }
+		        else {
+		            $('#municipio').attr('disabled','disabled').val("");
+		            $('#localidad').attr('disabled','disabled').val("");
+		            $("#result").css("display", "none");
+		        }
+		    });
+		
+		    if ($('#state option:selected').val() != "") {
+		        $('#municipio').removeAttr('disabled');
+		        $('#localidad').removeAttr('disabled');
+		    }
+		});
+		
+		function ValidarMunicipio() {
+		    if ($('#municipio').val() != "") {
+		    	$('#localidad').removeAttr('disabled');
+		        if($('#localidad').val("")){
+		        	$('#localidad').focus();
+		        	$("#result").css("display", "none");
+		        }
+		    }
+		    else {
+		        $('#municipio').removeAttr('disabled');
+		        $('#localidad').attr('disabled','disabled').val("");
+		        $("#result").css("display", "none");
+		    }
+		}
+		
+		function dirtxtView(form){
+			if($('#localidad').val() != ""){
+				$("#result").css("display", "block");
+				$('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())	
 			}else{
-				// deshabilitamos
-				document.getElementById("municipio").disabled=true;
-				document.getElementById("localidad").disabled=true;
+				$("#result").css("display", "none");
 			}
 		}
-			// function dirtxtView(form)
-		// {
-		// {
-			// if(value >= 1 || value==true)
-			// {
-				// // habilitamos
-				// document.getElementById("municipio").disabled=false;
-			// }else{
-				// // deshabilitamos
-				// document.getElementById("municipio").disabled=true;
-			// }
-		// }
-// 		
-		// function habilitar2(value)
-		// {
-			// if(value != "" || value==true)
-			// {
-				// // habilitamos
-				// document.getElementById("localidad").disabled=false;
-			// }else{
-				// // deshabilitamos
-				// document.getElementById("localidad").disabled=true;
-			// }
-		// }
 		
-		$(function () {
-			$('#state').change(function(a){
-				$('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
-			});
-		})
-		
-		function dirtxtView(form)
-		{
-	       $('#result').load('index.php?url=viewDirLocality&stateCont=&municipio=&localidad=' + $('#formContact').serialize())    
-		}
-		
-		function cpview(form)
+		/*function cpview(form)
 		{
 	       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    
-		}
+		}*/
 		
 		jQuery(document).ready(function() {
 		    jQuery('.keysNumbers').keypress(function(tecla) {

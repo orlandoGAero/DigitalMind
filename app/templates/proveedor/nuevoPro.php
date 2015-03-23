@@ -3,14 +3,14 @@
 		<b><span style="color: red;"><?php echo $parametrosProveedores['mensaje'] ?></span></b>
 	<?php endif; ?>
 	 <br/>
- //    <script type="text/javascript" src="js/jquery-1.4.2.min.js">
-	// 	$(function (agregar) {
-	// 		$('#frm_dbank').submit(function (agregar) {
-	// 			agregar.preventDefault()
-	// 			$('#datos_bancarios').load('index.php?url=DatosBancarios ?' + $('#frm_dbank').serialize())
-	// 		})
-	// 	})
-	// </script>
+ 	 <!--<script type="text/javascript" src="js/jquery-1.4.2.min.js">
+		$(function (agregar) {
+			$('#frm_dbank').submit(function (agregar) {
+				agregar.preventDefault()
+				$('#datos_bancarios').load('index.php?url=DatosBancarios ?' + $('#frm_dbank').serialize())
+			})
+		})
+	</script>-->
 	
 	<!-- JS Formulario Listas Desplegables -->
 	<!-- modificar linea de abajo-->
@@ -19,6 +19,53 @@
 		$('document').ready(function(){
 			$('.menu-pro').lksMenu();
 		});
+
+		$(function () {
+		    $('#state').change(function (a) {
+		        if ($(this).val() != "") {
+		            $('#municipio').removeAttr('disabled');
+		            $('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
+		            if($('#municipio').val("")){
+		            	$('#localidad').attr('disabled','disabled').val("");
+		        		$("#result").css("display", "none");
+		       		}
+		        }
+		        else {
+		            $('#municipio').attr('disabled','disabled').val("");
+		            $('#localidad').attr('disabled','disabled').val("");
+		            $("#result").css("display", "none");
+		        }
+		    });
+		
+		    if ($('#state option:selected').val() != "") {
+		        $('#municipio').removeAttr('disabled');
+		        $('#localidad').removeAttr('disabled');
+		    }
+		});
+
+		function ValidarMunicipio() {
+		    if ($('#municipio').val() != "") {
+		    	$('#localidad').removeAttr('disabled');
+		        if($('#localidad').val("")){
+		        	$('#localidad').focus();
+		        	$("#result").css("display", "none");
+		        }
+		    }
+		    else {
+		        $('#municipio').removeAttr('disabled');
+		        $('#localidad').attr('disabled','disabled').val("");
+		        $("#result").css("display", "none");
+		    }
+		}
+
+		function dirtxtView(form){
+			if($('#localidad').val() != ""){
+				$("#result").css("display", "block");
+				$('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formprov').serialize())	
+			}else{
+				$("#result").css("display", "none");
+			}
+		}
 	</script>
 	<!--<script type="text/javascript">
 		$('document').ready(function()
@@ -29,12 +76,6 @@
 	<script type="text/javascript">
 		function abrir (url) {
 			window.open('index.php?url=insertContact','contacto','width=800,height=400,top=90,left=100,toolbar=no,location=no,status=no,menubar=no')
-		}
-	</script>
-	<script>
-		function cpview(form)
-		{
-	       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formprov').serialize())    
 		}
 	</script>
 		
@@ -158,39 +199,78 @@
 												<!-- clave razon social -->
 												<input type="hidden"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
 												<li>
-													<label for="lbl_">C&oacute;digo Postal:</label>
-													<input type="text" class="keysNumbers" name="postcode" autocomplete="off" required  maxlength="5"  pattern="[0-9]{4,5}" value="<?php echo $parametrosProveedores['cp'] ?>" onKeyUp="cpview(this.form)" />
+													<label for="lbl_estado">Estado:</label>
+													<select name="slt_estado" id="state" required>
+														<?php if ($parametrosProveedores['nameEstado'] == "") :?>
+															<option value="">Seleccione estado ...</option>
+															<?php foreach ($parametrosProveedores['idState'] as $estado) :?>
+																<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+															<?php endforeach;?>
+														<?php else :?>
+															<option value="<?php echo $parametrosProveedores['idState'] ?>"><?php echo $parametrosProveedores['nameEstado'] ?></option>
+															<?php foreach ($parametrosContactos['estados'] as $estado) :?>
+																<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+															<?php endforeach; ?>
+														<?php endif; ?>
+													</select>
 													<span style="color: red;"><b>&nbsp;*</b></span>
-													<?php if($parametrosProveedores['cp'] == "") :?>
-													<li><div id="resultado"> </div></li>
+												</li>
+												
+												<li>
+													<label for="lbl_municipio">Municipio:</label>
+													<?php if($parametrosProveedores['nameMunicipio'] == "") :?>	
+														<select name="slt_municipio" id="municipio" required disabled="disabled" onchange="ValidarMunicipio();">
+														
+														</select>
 													<?php else :?>
-													<li>
-														<div id="resultado"> 
-															<table class="table" id="miTabla">
-																<tr>
-																	<th>Estado</th>
-																	<th>Municipio</th>
-																	<th>Localidad</th>
-																</tr>
-																<tr>
-																	<td><?php echo $obtenerDatosDir['estado'] ?> <input type="hidden" name="state" readonly="readonly" value="<?php echo $obtenerDatosDir['estado'] ?>" </td>
-																	<td><?php echo $obtenerDatosDir['municipio'] ?>  <input type="hidden" name="municipality" readonly="readonly" value="<?php echo $obtenerDatosDir['municipio'] ?>" </td>
-																	<td>
-																		<select name="idcp-locality" >
-																			<?php if($obtenerDatosDir['localidadC'] != "") :?>
-																				<option value="<?php echo $obtenerDatosDir['idCP'] ?>"><?php echo $obtenerDatosDir['localidadC'] ?></option>
-																			<?php else :?>
-																				<option value='0'>Seleccione una Opción</option>
-																			<?php endif; ?>
-																			<?php foreach ($obtenerDatosDir['codigoP'] as $locality) : ?>
-																					<option required='required' value="<?php echo $locality['id_cp'] ?>"> <?php echo $locality['localidad'] ?> </option> ?>
-																			<?php endforeach; ?>
-																		</select>
-																	</td>
-																</tr> 
-															</table>
+														<select name="slt_municipio" id="municipio" required disabled="disabled" onchange="ValidarMunicipio();">
+															<option value="<?php echo $parametrosProveedores['nameMunicipio'] ?>">
+																<?php echo $parametrosProveedores['nameMunicipio'] ?>
+															</option>
+															<?php foreach($parametrosProveedores['municipios'] as $nameMuni) :?>
+																<option value="<?php echo $nameMuni['municipio'] ?>">
+																	<?php echo $nameMuni['municipio'] ?>
+																</option>
+															<?php endforeach; ?> 	
+														</select>
+													<?php endif; ?>
+													<span style="color: red;"><b>&nbsp;*</b></span>
+												</li>
+
+												<li>
+													<label for="lbl_localidad">Localidad:</label>
+													<input type="text" name="txt_localidad" id="localidad" required disabled="disabled" autocomplete="off" value="<?php echo $parametrosProveedores['nameLocality'] ?>" onkeyup="dirtxtView(this.form)"/>
+													<span style="color: red;"><b>&nbsp;*</b></span>
+												</li>
+
+												<li>
+													<?php if($parametrosProveedores['nameLocality'] == "") :?>
+														<div id="result"></div>
+														<?php else :?>
+														<div id="result">
+															<?php if($parametrosProveedores['localidades'] == NULL) :?>
+																<pre><center><table><tr><td><span class="span">Ingresa una localidad valida</span></td></tr></table></center></pre>
+																<?php else :?>
+																<table class="table" id="miTabla">
+																	<tr>
+																		<th>Estado</th>
+																		<th>Municipio</th>
+																		<th>Localidad</th>
+																		<th>CP</th>
+																		<th>Elegir</th>
+																	</tr>
+
+																	<?php foreach($parametrosProveedores['localidades'] as $dir) :?>
+																		<tr>
+																			<td><?php echo $dir['estado'] ?></td>
+																			<td><?php echo $dir['municipio'] ?></td>
+																			<td><?php echo $dir['localidad'] ?></td>
+																			<td><?php echo $dir['codigoP'] ?></td>
+																		</tr>
+																	<?php endforeach; ?>
+																</table>
+															<?php endif; ?>
 														</div>
-													</li>
 													<?php endif; ?>
 												</li>
 
@@ -198,6 +278,10 @@
 													<label for="lbl_calle">Calle:</label>
 													<input type="text" name="txt_calle" required/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
+												</li>
+
+												<li>
+													<div id="result"></div>
 												</li>
 
 												<li>

@@ -3,8 +3,8 @@
 	<?php $obtenerDatosContacto['id_contacto'] ?>
 	
 	<section id="principal">
-		<h1>Detalle de Contacto</h1>
-		<br />
+		<a href="index.php?url=listContact"><img src="images/leftarrow.png" title="Regresar" align='left' width="40px" height="40px" /></a>
+		<h3 class="azul">Detalle de Contacto</h3>
 		
 		<div class="table-responsive">
 			<div class="columns_left">

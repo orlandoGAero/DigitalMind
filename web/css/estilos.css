@@ -23,17 +23,12 @@ section#principal{
 
 .menu-pro{width:800px;}
 .menu-pro ul{list-style: none;margin:0;padding:0;}
-.menu-pro ul li{margin:0;padding-bottom: 3px;}
+.menu-pro ul li{margin:0;padding-bottom: 2px;}
 .menu-pro ul li a{background: #C0C0C0 url(../images/arrow.png) no-repeat center right;color: #FFF;display:block;font-size: 14px;padding:5px 0 5px 1em;text-align: left;text-decoration: none;}
-/*.menu-pro ul li a:hover{background: #5DB1E0 url(../images/arrow2.png) no-repeat center right;}*/
-/*.menu-pro ul.vinculos{list-style: none;font-family: Tahoma, Geneva, sans-serif;font-size: 16px;} */
 .menu-pro ul li ul{display:none; width:100%;}
 /*cambio de color #fff antes: F5F5F5*/
 .menu-pro ul li ul a{background: #fff; color:#28C7E0; cursor: pointer; display:block;font-weight: normal;margin-top:2px;padding-left: 10px;text-decoration: none;}
-/*.menu-pro ul li ul a:hover{color: #111;}*/
 .menu-pro ul li a{background: #99CCFF url(../images/arrow.png) no-repeat center right;color: #FFF;display:block;font-size: 14px;padding:5px 0 5px 1em;text-align: left;text-decoration: none;}
-/*.menu-pro ul li a:hover{background: #5DB1E0 url(../images/arrow2.png) no-repeat center right;}
-.menu-pro ul.vinculos{list-style: none;font-family: Tahoma, Geneva, sans-serif;font-size: 16px;} */
 .menu-pro ul li ul{display:none; width:100%; background-color:#E0FFFF;}    /*COLOR DEL CNTENIDO LISTADO*/
 .menu-pro ul li ul a{background: #F5F5F5; color:#28C7E0; cursor: pointer; display:block;font-weight: normal;margin-top:2px;padding-left: 10px;text-decoration: none;}
 .menu-pro ul li ul a:hover{color: #111;}
@@ -91,7 +86,6 @@ textarea {
   line-height: normal;
 }
 
-input[type=text],
 label {
   padding-top: 7px;
   padding-right: 5px;
@@ -132,12 +126,6 @@ input[type="radio"] {
   vertical-align:middle;
   cursor:pointer;
 }
-
-/*input[type=button], input[type=reset], input[type=submit] {
-  width: auto;
-  height: auto;
-  margin-bottom: .5em;
-}*/
 
 select, input[type=file] {
   height: 27px;
@@ -236,19 +224,12 @@ height: auto;
 #navpage{float:left; width:342px; text-align:right; margin:5px 0 0 5px; }
 #navpage img {cursor:pointer}
 
-#busquedad label {
-	padding-left: 10px;
-	padding-right: 5px;
-	text-align: left;
-	width: auto;
-	color: #404040;
-}
-
-#busquedad .elementosBusquedad {
+#busqueda .elementosBusqueda {
 	border: 1px solid #ccc;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
   	border-radius: 5px;
+  	margin-right: 3px;
   	width:230px;
   	height:auto;
 }
