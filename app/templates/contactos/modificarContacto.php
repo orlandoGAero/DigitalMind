@@ -11,7 +11,8 @@
         
 	 <!-- JS Formulario Listas Desplegables -->
 	 <script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
-	 	
+	 	<?php var_dump($obtenerDatosContacto) ?>
+		
 	<div class="col-lg-14">
         <div class="panel panel-default">
 			<h1>Editar Contacto</h1>
@@ -24,7 +25,6 @@
 									<li><a href="#">Datos Contacto</a>
 										<ul>
 											<li>
-												
 												<span class="span">&nbsp;* Información requerida</span>
 												
 												<ul>
@@ -85,7 +85,7 @@
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $obtenerDatosContacto['id_direccion'] ?>" readonly /></li>
 													<li>
 														<label>Estado</label>
-														<select name="idEstado" id="state" required='required' onchange="habilitar(this.value);">
+														<select name="idEstado" id="state" required='required'>
 															<?php if($obtenerDatosContacto['estado'] == "") :?>
 																<option value="">Seleccione estado</option>
 																<?php foreach ($obtenerDatosContacto['id_estado'] as $estado) :?>
@@ -103,11 +103,11 @@
 													<li>
 															<label>Municipio</label>
 															<?php if($obtenerDatosContacto['municipio'] == "") :?>
-																<select name="municipio" id="municipio" required='required' disabled="disabled">
+																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
 																	
 																</select>
 															<?php else :?>
-																<select name="municipio" id="municipio" required='required'>
+																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
 																	<option value="<?php echo $obtenerDatosContacto['municipio'] ?>"><?php echo $obtenerDatosContacto['municipio'] ?></option>
 																	<?php foreach ($obtenerDatosDir['municipios'] as $nameMunicipality) : ?>
 																			<option value="<?php echo $nameMunicipality['municipio'] ?>"> <?php echo $nameMunicipality['municipio'] ?> </option> ?>
@@ -119,7 +119,7 @@
 													<?php if(!isset($obtenerDatosContacto['localidadAfter'])) :?>
 														<li>
 															<label>Localidad</label>
-															<input type="text" name="localidad" id="localidad" required="required" autocomplete="off"  maxlength="50" value="<?php echo $obtenerDatosContacto['localidad'] ?>" onkeyup="dirtxtView(this.form)" />
+															<input type="text" name="localidad" id="localidad" required="required" disabled="disabled" autocomplete="off"  maxlength="50" value="<?php echo $obtenerDatosContacto['localidad'] ?>" onkeyup="dirtxtView(this.form)" />
 															<span style="color: red;"><b>&nbsp;*</b></span>
 														</li>
 														<li>
@@ -150,7 +150,7 @@
 													<?php else :?>
 															<li>
 																<label>Localidad</label>
-																<input type="text" name="localidad" id="localidad" required="required" autocomplete="off"  maxlength="50" value="<?php echo $obtenerDatosContacto['localidadAfter'] ?>" onkeyup="dirtxtView(this.form)" />
+																<input type="text" name="localidad" id="localidad" required="required" disabled="disabled" autocomplete="off"  maxlength="50" value="<?php echo $obtenerDatosContacto['localidadAfter'] ?>" onkeyup="dirtxtView(this.form)" />
 																<span style="color: red;"><b>&nbsp;*</b></span>
 															</li>
 															<li>
@@ -249,35 +249,57 @@
 			$('.menu-pro').lksMenu();
 		});
 		
-		function habilitar(value){
-			
-			if(value >= 1 || value==true){
-				// habilitamos
-				document.getElementById("municipio").disabled=false;
-			}else if(value != "" || value==true){
-				// habilitamos
-				document.getElementById("localidad").disabled=false;
+		$(function () {
+		    $('#state').change(function (a) {
+		        if ($(this).val() != "") {
+		            $('#municipio').removeAttr('disabled');
+		            $('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
+		            if($('#municipio').val("")){
+		            	$('#localidad').attr('disabled','disabled').val("");
+		        		$("#result").css("display", "none");
+		       		}
+		        }
+		        else {
+		            $('#municipio').attr('disabled','disabled').val("");
+		            $('#localidad').attr('disabled','disabled').val("");
+		            $("#result").css("display", "none");
+		        }
+		    });
+		
+		    if ($('#state option:selected').val() != "") {
+		        $('#municipio').removeAttr('disabled');
+		        $('#localidad').removeAttr('disabled');
+		    }
+		});
+		
+		function ValidarMunicipio() {
+		    if ($('#municipio').val() != "") {
+		    	$('#localidad').removeAttr('disabled');
+		        if($('#localidad').val("")){
+		        	$('#localidad').focus();
+		        	$("#result").css("display", "none");
+		        }
+		    }
+		    else {
+		        $('#municipio').removeAttr('disabled');
+		        $('#localidad').attr('disabled','disabled').val("");
+		        $("#result").css("display", "none");
+		    }
+		}
+		
+		function dirtxtView(form){
+			if($('#localidad').val() != ""){
+				$("#result").css("display", "block");
+				$('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())	
 			}else{
-				// deshabilitamos
-				document.getElementById("municipio").disabled=true;
-				document.getElementById("localidad").disabled=true;
+				$("#result").css("display", "none");
 			}
 		}
 		
-		$(function () {
-			$('#state').change(function(a){
-				$('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
-			});
-		})
-		
-		function dirtxtView(form){
-	       $('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())    
-		}
-		
-		// function cpview(form)
-		// {
-	       // $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    
-		// }
+		/*function cpview(form)
+		{
+	       $('#resultado').load('index.php?url=obtenerDir&postcode=' + $('#formContact').serialize())    
+		}*/
 		
 		jQuery(document).ready(function() {
 		    jQuery('.keysNumbers').keypress(function(tecla) {

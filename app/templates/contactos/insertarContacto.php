@@ -93,7 +93,7 @@
 																	
 																</select>
 															<?php else :?>
-																<select name="municipio" id="municipio" required="required" disabled="disabled">
+																<select name="municipio" id="municipio" required="required" disabled="disabled" onchange="ValidarMunicipio();">
 																	<option value="<?php echo $parametrosContactos['nomMunicipio'] ?>"><?php echo $parametrosContactos['nomMunicipio'] ?></option>
 																	<?php foreach ($parametrosContactos['municipios'] as $nameMunicipality) : ?>
 																			<option value="<?php echo $nameMunicipality['municipio'] ?>"> <?php echo $nameMunicipality['municipio'] ?> </option> ?>
@@ -207,37 +207,51 @@
 			$('.menu-pro').lksMenu();
 		});
 		
-		
 		$(function () {
 		    $('#state').change(function (a) {
 		        if ($(this).val() != "") {
 		            $('#municipio').removeAttr('disabled');
 		            $('#municipio').load('index.php?url=viewMunicipality&state=' + this.options[this.selectedIndex].value );
+		            if($('#municipio').val("")){
+		            	$('#localidad').attr('disabled','disabled').val("");
+		        		$("#result").css("display", "none");
+		       		}
 		        }
 		        else {
 		            $('#municipio').attr('disabled','disabled').val("");
 		            $('#localidad').attr('disabled','disabled').val("");
+		            $("#result").css("display", "none");
 		        }
 		    });
 		
 		    if ($('#state option:selected').val() != "") {
 		        $('#municipio').removeAttr('disabled');
+		        $('#localidad').removeAttr('disabled');
 		    }
 		});
 		
 		function ValidarMunicipio() {
 		    if ($('#municipio').val() != "") {
-		        $('#localidad').removeAttr('disabled');
+		    	$('#localidad').removeAttr('disabled');
+		        if($('#localidad').val("")){
+		        	$('#localidad').focus();
+		        	$("#result").css("display", "none");
+		        }
 		    }
 		    else {
 		        $('#municipio').removeAttr('disabled');
 		        $('#localidad').attr('disabled','disabled').val("");
-		        $('#result').children().attr('disabled','disabled');
+		        $("#result").css("display", "none");
 		    }
 		}
 		
 		function dirtxtView(form){
-			$('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())	
+			if($('#localidad').val() != ""){
+				$("#result").css("display", "block");
+				$('#result').load('index.php?url=viewDirLocality&idEstado=&municipio=&localidad=' + $('#formContact').serialize())	
+			}else{
+				$("#result").css("display", "none");
+			}
 		}
 		
 		/*function cpview(form)
