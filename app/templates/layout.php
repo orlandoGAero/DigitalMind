@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,7 +50,7 @@
                         </div>
                      							
                         <div class="menu-item light-red">
-                            <a href="./productos"><img src="images/icono-videos.png"/><br><b>PRODUCTOS</b></a> 
+                             <a href="index.php?url=listaProducto"><img src="images/icono-videos.png"/><br><b>PRODUCTOS</b></a> 
                         </div>
                         
                     </div>
@@ -91,13 +90,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="menu-item color responsive">
-                                    <a href="./familia"><img src="images/icono-lineas.png"/><br><b>FAMILIAS</b></a>                    
+                                    <a href="index.php?url=listaFam"><img src="images/icono-lineas.png"/><br><b>FAMILIAS</b></a>                    
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
                                 <div class="menu-item light-orange responsive-2">
-									<a href="./marca"><img src="images/icono-cursos.png"/><br><b>MARCAS</b></a> 
+									<a href="index.php?url=listaMarca"><img src="images/icono-cursos.png"/><br><b>MARCAS</b></a> 
                                 </div>
                             </div>
                             
@@ -108,7 +107,7 @@
                     <div class="col-md-3">
                         
                         <div class="menu-item light-red">
-                            <a href="./linea"><img src="images/icono-lineas2.png"/><br><b>LÍNEAS</b></a> 
+                            <a href="index.php?url=listaLinea"><img src="images/icono-lineas2.png"/><br><b>LÍNEAS</b></a> 
                         </div>
                         
                         <div class="menu-item color">
@@ -116,7 +115,7 @@
                         </div>
                         
                         <div class="menu-item blue">
-                            <a href=""><img src="images/icono-money.png"/><br><b>TRANSACCIONES</b></a> 
+                            <a href=""><img src="images/money2.png"/><br><b>TRANSACCIONES</b></a> 
                         </div>
                         
                         <div class="menu-item blue">
@@ -127,7 +126,5 @@
             </div>
         </div>
         <!-- End Main Body Section -->
-        
     </body>
-    
 </html>
