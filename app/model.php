@@ -1058,8 +1058,8 @@
 		}
 
 		// Función para registrar proveedores
-		public function registrarProveedores($id_datf,$razon_s,$rfc,
-											 $id_dire,$street,$noext,$noint,$col,$referen,$cp,
+		public function registrarProveedores($id_dire,$street,$noext,$noint,$col,$referen,$cp,
+											 $id_datf,$razon_s,$rfc,
 											 $id_prov,$prov,$cat,$phone,$dweb,
 											 $id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta) 
 		{
@@ -1110,16 +1110,16 @@
 
 			if ($band == 0) {
 				
-				// consulta para insertar en la tabla de datos fiscales
-				$sqlinsertdf = "INSERT INTO datos_fiscales (id_datFiscal,razon_social,rfc,tipo_ra)
-								 VALUES (".$id_datf.",'".$razon_s."','".$rfc."','".$tipo_rs."');";
-				$ejecutar_sqlinsertdf = mysql_query($sqlinsertdf,$this->conexion) or die ("Error en insertar datos fiscales ".mysql_error());
-				
 				// consulta para insertar en la tabla de direcciones
 				$sqlinsertdir = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia,id_cp)
 								 VALUES (".$id_dire.",'".$street."',".$noext.",'".$noint."','".$col."','".$referen."',".$cp.");";
 				$ejecutar_sqlinsertdir = mysql_query($sqlinsertdir,$this->conexion) or die("Error en insertar direcciones ".mysql_error());
 
+				// consulta para insertar en la tabla de datos fiscales
+				$sqlinsertdf = "INSERT INTO datos_fiscales (id_datFiscal,razon_social,rfc,tipo_ra)
+								 VALUES (".$id_datf.",'".$razon_s."','".$rfc."','".$tipo_rs."');";
+				$ejecutar_sqlinsertdf = mysql_query($sqlinsertdf,$this->conexion) or die ("Error en insertar datos fiscales ".mysql_error());
+				
 				// consulta para insertar en la tabla de proveedores
 				$sqlinsertprov = "INSERT INTO proveedores (id_prov,fecha_alta,proveedor,tel,dirweb,id_categoria,id_datFiscal,id_direccion,activo)
 								  VALUES (".$id_prov.",NOW(),'".$prov."','".$phone."','".$dweb."',".$cat.",".$id_datf.",".$id_dire.",'si');";
@@ -1140,7 +1140,7 @@
 									 VALUES (".$id_prov.",".$id_dtb.");";
 				$ejecutar_sqlinsertdb_prov = mysql_query($sqlinsertdb_prov,$this->conexion) or die("Error en insertar datos bancarios proveedor ".mysql_error());
 				
-				return $sqlinsertdf && $sqlinsertdir && $sqlinsertprov && $sqlinsertdb && $sqlinsertdb_prov && $sqlinsertprov_contact;
+				return $sqlinsertdir && $sqlinsertdf && $sqlinsertprov && $sqlinsertdb && $sqlinsertdb_prov && $sqlinsertprov_contact;
 			}		
 		}
 

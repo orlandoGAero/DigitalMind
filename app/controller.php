@@ -46,6 +46,23 @@
 
 			require __DIR__ . '/templates/contactos/verMunicipio.php';
 		}
+
+		// funcion para municipios de la dirección fiscal de proveedores
+		function obtenerMunicipioDirFiscal()
+		{
+			if ($_REQUEST['statef']!="") {
+				
+				$nameState = $_REQUEST['statef'];
+				
+				$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+							config::$mvc_db_pass, config::$mvc_db_hostname);
+							
+				$municipio = $m->municipioObtener($nameState);			
+				$obtenerDatosMun = $municipio;
+			}
+
+			require __DIR__ . '/templates/contactos/verMunicipio.php';
+		}
 		
 		function obtenerDireccionLocalidad()
 		{
@@ -63,6 +80,25 @@
 			}
 
 			require __DIR__ . '/templates/contactos/verDireccionLocalidad.php';
+		}
+
+		// funcion para localidad de la dirección fiscal de proveedores
+		function obtenerDireccionLocalidadDirFiscal()
+		{
+			if ($_REQUEST['idEstadof'] !="" && $_REQUEST['idMunicipiof'] && $_REQUEST['txt_localidad_f'] !="") {
+					
+				$idState = $_REQUEST['idEstadof']; 
+				$nameMunicipality = $_REQUEST['idMunicipiof'];
+				$nameLocality = $_REQUEST['txt_localidad_f'];
+				
+				$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+							config::$mvc_db_pass, config::$mvc_db_hostname);
+							
+				$dirL = $m->obtener_direccion($idState,$nameMunicipality,$nameLocality);			
+				$obtenerDatosDireccion = $dirL;
+			}
+
+			require __DIR__ . '/templates/proveedor/verDirLocalidad-DireccionFiscal.php';
 		}
 		
 		//---------------------------------------------CONTACTOS-------------------------------------------
@@ -539,9 +575,22 @@ public function mostrarContactos(){
 				'idDatFis' => $model->incrementodFiscal(),	
 				'razon_s' => '',
 				'rfc' => '',
+				
+				//datos direccion fiscal
+				'idDireFiscal' => $model->incrementoDir(),
+				'idStateFiscal' => $model->obtenerEstados(),
+				'nameEstadoFiscal' => '',
+				'nameMunicipioFiscal' => '',
+				'nameLocalityFiscal' => '',
+				'cpFiscal' => '',
+				'streetFiscal' => '',
+				'n_extFiscal' => '',
+				'n_intFiscal' => '',
+				'coloFiscal' => '',
+				'refFiscal' => '',
 
 				// datos direccion fisica
-				'idDire' => $model->incrementoDir(),
+				'idDire' => $model->incrementoDir()+1,
 				'idState' => $model->obtenerEstados(),
 				'nameEstado' => '',
 				'nameMunicipio' => '',
@@ -570,16 +619,16 @@ public function mostrarContactos(){
 					$_POST['txt_noint'] = "s/n";
 				}
 				
-				if($model->registrarProveedores($_POST['txt_iddf'],
-												$_POST['txt_razon_s'],
-												$_POST['txt_rfc'],
-												$_POST['txt_iddir'],
+				if($model->registrarProveedores($_POST['txt_iddir'],
 												$_POST['txt_calle'],
 												$_POST['txt_noext'],
 												$_POST['txt_noint'],
 												$_POST['txt_col'],
 												$_POST['txt_ref'],
 												$_POST['idcp-locality'],
+												$_POST['txt_iddf'],
+												$_POST['txt_razon_s'],
+												$_POST['txt_rfc'],
 												$_POST['txt_idProv'],
 												$_POST['txt_nombrepro'],
 												$_POST['slt_catprov'],
@@ -609,19 +658,38 @@ public function mostrarContactos(){
 						'razon_s' => $_POST['txt_razon_s'],
 						'rfc' => $_POST['txt_rfc'],
 
+						//datos direccion fiscal
+						'idDireFiscal' => $_POST['txt_iddir_fis'],
+
+							// Combobox Estados
+						'estadosF' => $model -> obtenerDatosEstadoInsert($_POST['idEstadof']),
+						'nameMunicipioFiscal' => $_POST[''],
+							// Combobox Municipios
+						'municipiosF' => $_POST[''],
+						'nameLocalityFiscal' => $_POST[''],
+							// Table localidades
+						'localidadesF' => $_POST[''],
+
+						'cpFiscal' => $_POST[''],
+						'streetFiscal' => $_POST['txt_calle_f'],
+						'n_extFiscal' => $_POST['txt_noext_f'],
+						'n_intFiscal' => $_POST['txt_noint_f'],
+						'coloFiscal' => $_POST['txt_col_f'],
+						'refFiscal' => $_POST['txt_ref_f'],
+
 						// datos direccion fisica
 						'idDire' => $_POST['txt_iddir'],
-						// Combobox Estados
-						'estados' => $model -> obtenerDatosEstadoInsert($_POST['slt_estado']),
-						'nameMunicipio' => $_POST['slt_municipio'],
-						// Combobox Municipios
-						'municipios' => $model -> obtenerDatosMunicipioInsert($_POST['slt_estado'], $_POST['slt_municipio']),
-						'nameLocality' => $_POST['txt_localidad'],
-						//Table Localidades
-						'localidades' => $model -> obtener_direccion($_POST['slt_estado'], $_POST['slt_municipio'], $_POST['txt_localidad']),
-						//
 
-						'cp' => $_POST['postcode'],
+							// Combobox Estados
+						'estados' => $model -> obtenerDatosEstadoInsert($_POST['idEstado']),
+						'nameMunicipio' => $_POST['municipio'],
+							// Combobox Municipios
+						'municipios' => $model -> obtenerDatosMunicipioInsert($_POST['idEstado'], $_POST['municipio']),
+						'nameLocality' => $_POST['localidad'],
+							//Table Localidades
+						'localidades' => $model -> obtener_direccion($_POST['idEstado'], $_POST['municipio'], $_POST['localidad']),
+						
+						'cp' => $_POST['idcp-locality'],
 						'street' => $_POST['txt_calle'],
 						'n_ext' => $_POST['txt_noext'],
 						'n_int' => $_POST['txt_noint'],
@@ -638,13 +706,14 @@ public function mostrarContactos(){
 						'tipo_cta' => $_POST['slt_tipo_c'],
 					);
 					
-					$obtenerDatosDir = array(
-						'codigoP' => $model -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
-						'idCP' => $_POST['idcp-locality'], 
-						'localidadC' => $model -> obtieneNombreLocalidad($_POST['idcp-locality']), 
-						'municipio' => $_POST['state'],
-						'estado' => $_POST['municipality'], 
-					);
+					// QUITAR
+					// $obtenerDatosDir = array(
+					// 	'codigoP' => $model -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
+					// 	'idCP' => $_POST['idcp-locality'], 
+					// 	'localidadC' => $model -> obtieneNombreLocalidad($_POST['idcp-locality']), 
+					// 	'municipio' => $_POST['state'],
+					// 	'estado' => $_POST['municipality'], 
+					// );
 
 					$parametrosProveedores['mensaje'] = 'Error al registrar Proveedores . Revise el formulario';
 				}

@@ -122,14 +122,6 @@
                         <div class="menu-item blue">
                             <a href="./configuracion"><img src="images/icono-configuraciones.png"/><br><b>CONFIGURACIÓN</b></a> 
                         </div>
-<<<<<<< HEAD
-=======
-						
-						<div class="menu-item blue">
-                            <a href=""><b></b></a> 
-                        </div>
->>>>>>> bf05622eb7c2fc91e93f72ce1db6fc4743cc512a
-                       
                     </div>
                 </div>
             </div>
