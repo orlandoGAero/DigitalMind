@@ -1,286 +1,392 @@
 <?php ob_start() ?>
-
+	<!-- css Formulario Listas Desplegables-->
 	<link rel="stylesheet" href="css/estilos.css" />
 
- <!-- JS Formulario Listas Desplegables -->
+	<!-- JS Formulario Listas Desplegables -->
 	 <script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
+
+	<!--Script listas desplegables-->
 	<script>
-		$('document').ready(function(){
-			$('.menu-pro').lksMenu();
+        var a = jQuery.noConflict();
+		a('document').ready(function(){
+			a('.menu-pro').lksMenu();
 		});
 	</script>
-
-<!--Scripts para el funcionamiento de la ventana: Ventana emergente para agregar la direccion de clientes-->
 	<script>
-		!window.jQuery && document.write('<script src="js/fancybox/jquery-1.4.3.min.js"><\/script>');
+	<!--Script para la validación numerica en input="cp"-->
+		function justNumbers(e)
+		{
+		var keynum = window.event ? window.event.keyCode : e.which;
+		if ((keynum <= 8) || (keynum == 46))
+		return true;
+		 
+		return /\d/.test(String.fromCharCode(keynum));
+		}
+
+	<!--Validar solo letras-->
+		function sololetras(){
+		if (event.keyCode >45 && event.keyCode  <57) event.returnValue = false;
+		}
+		
+		function aMayusculas(field) {
+	            field.value = field.value.toUpperCase()
+		}
+		
 	</script>
-
-
-	<script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/fancybox/fancybox.css" media="screen" />
-<!--  Script para las ventanas emergentes -->
-
-<script type="text/javascript">
-		$('document').ready(function() {
-
-
-			$('#various2').fancybox();
-	});
-		$('document').ready(function() {
-
-
-			$('#various1').fancybox();
-	});
-	</script>
-<!--Fin-->
-
-<!--Script para el CP en direccion_cliente: en la ventana emeregente en tiempo real-->
-			<script >
-			$(function (e) {
-				$('#frmdocp').submit(function (e) {
-					e.preventDefault()
-					$('#tablacp').load('../app/templates/cp_view.php?' + $('#frmdocp').serialize())
-				})
-			})
-            
-			function cpview(form)
-			{
-		       $('#tablacp').load('../app/templates/clientes/cp_view.php?' + $('#frmdocp').serialize())    
-			}
-                
-                
-            $(function (e) {
-				$('#frmdodir').submit(function (e) {
-					e.preventDefault()
-					$('#tablacp').load('../app/templates/clientes/cp_view2.php?' + $('#frmdodir').serialize())
-				})
-			})
-            
-                
-			</script>
-
-<!--FORM_contacto-->
-			<script type="text/javascript">		
-				$('document').ready(function() {
-					$('#newC').fancybox();
-				});
-			</script>
+	<!--COMBOS MÁGICOS-->
+		<!--<link rel="stylesheet" href="js/chosen/css/stylesheet.css">-->
+		<!--[if IE 8]><script src="js/es5.js"></script><![endif]-->
+		<script src="js/chosen/js/jquery.js"></script>
+        <script src="js/chosen/js/selectize.js"></script>
+		<script src="js/chosen/js/index.js"></script>
 	
-			<script >
-			$(function (e) {
-				$('#frmdoC').submit(function (e) {
-					e.preventDefault()
-					$('#nContacto').load('../app/templates/clientes/new_contacto.php?' + $('#frmdoC').serialize())
-				})
-			})
-	</script> 	<!--Fin-->
-
-
+	
+	
 </head>
 
 <body>
 
 <div class="col-lg-14">
-        <div class="panel panel-default">
-	<h1><a href="index.php?url=listaCliente" title="regresar" onclick="return confirm('Desea salir antes de guardar?');"><img src="images/salir.png" height="20px" /></a>Nuevo Cliente</h1>
-        <div class="panel-heading">    </div>
-    <div class="panel-body">	
-		<section id="principal">
-	<div class="menu-pro">
-		<ul>
-		<form action="index.php?url=agregarCl" method="POST" name="formCliente">
-			<li><a href="#"><b>Datos Cliente</b></a>
-				<ul>
-					<li>
-					<form action="index.php?url=agregarCl" method="post">
-						<table class="nuevo-pro">
-							<tr><th><label>Clave</label></th><td><input type="text" name="idCliente" value="<?php echo $Clientes['idCli']?>" readonly class="form-control"/></td></tr>
-							<tr><th><label><b>Nombre</b></label></th><td><input type="text" name="nomb"  value="<?php echo $Clientes['nombre']?>" class="form-control" required placeholder="KRISMAR" /></td></tr>
-							<tr><th><label><b>Fecha Alta</b></label></th><td><input type="date" name="f_alta" value="<?php echo date("Y-m-d"); ?>" required class="form-control" /></td></tr>
-							<tr><th><label><b>Activo<b></label></th><td>
-								Si <input type = 'radio' name = 'activo' value = 'Si' required="required" />
-								No <input type = 'radio' name = 'activo' value = 'No'  required="required" /></td></tr>                                         
-									
-						</table>
+	<div class="panel panel-default">
+		<h1><a href="index.php?url=listaCliente" title="regresar" onclick="return confirm('Desea salir antes de guardar?');"><img src="images/salir.png" height="20px" /></a>Nuevo Cliente</h1>
+			<div class="panel-heading"> <span class="span">* Información requerida</span><br> </div>
+			<div class="panel-body">	
+				<section id="principal">
+		<div class="menu-pro">
+			<ul>
+					<li><a href="#"><b>Datos Cliente</b></a>
+						<ul>
+							<li>
+							<form action="index.php?url=addCliente" method="POST"  name="formCliente" id="formCliente" target="_self">
+								<table class="nuevo-pro" width="70%">
+									<tr><th><!--<label>Clave</label>--></th><td><input type="hidden" name="idCliente" value="<?php echo $Clientes['idCli']?>" readonly class="form-control"/></td></tr>
+									<tr><th><label><b>Nombre</b></label></th><td><input type="text" name="nomb"  value="" class="form-control" required placeholder="KRISMAR" pattern="|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|"  onChange="aMayusculas(this)" /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+									<tr><th><label><b>Teléfono Móvil</b></label></th> <td> <input type="text" onkeypress='return justNumbers(event);' name="telMovil" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}"class="form-control" onChange="aMayusculas(this)" /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+									<tr><th><label><b>Teléfono Oficina</b></label></th> <td> <input type="text" onkeypress='return justNumbers(event);' name="telOficina" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" class="form-control" onChange="aMayusculas(this)" /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+									<tr><th><label><b>Teléfono Emergencia</b></label></th> <td> <input type="text" onkeypress='return justNumbers(event);' name="telEmergencia" autocomplete="off" maxlength="10" pattern="[0-9]{10}" class="form-control"onChange="aMayusculas(this)" /></td></tr>
+									<tr><th><label><b>Ext.</b></label></th> <td> <input type="text" name="extension"  onkeypress='return justNumbers(event);' autocomplete="off" maxlength="3" pattern="[0-9]{3}" class="form-control"></td></tr>
+									<tr><th><label><b>Página web<label><b></th> <td> <input type="url" name="dirWeb"  autocomplete="off" maxlength="30" placeholder="http://www.ejemplo.com" class="form-control"/> </td> </tr>
+									<tr><th><label><b>Categoría</b></label></th><td><?php echo"<select name='categoria' class='form-control' required>
+								 	<option value='0'>Seleccione una Opción</option>";
+											foreach($CargaCombo7 as $comboCat): 										 
+										echo "<option value=".$comboCat['id_categoria'].">". $comboCat['categoria']."</option>";
+											endforeach; 
+										echo "</select>";?>
+									</td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+                               </table>
+							</li>
+						</ul>
 					</li>
-				</ul>
-			</li>
-			<li><a href="#"><b>Datos Fiscales</b></a>
-				<ul>
-					<li>
-						<table class="nuevo-pro">
-							<tr><th><label>Clave</label></th><td><input type="text" name="idDatF" value="<?php echo $Clientes['idDatF']?>"readonly class="form-control"/></td></tr>
-							<tr><th><label><b>Razón Social</b></label></th><td><input type="text" name="razonS" value="<?php echo $Clientes['razonS']?>" placeholder="GRUPO RSA S.A. DE C.V." class="form-control" required/></td><td></td></tr>
-							<tr><th><label><b>RFC</b></label></th><td><input type="text" name="rfc" maxlength="15" placeholder="VECJ880326 XXXX" value="<?php echo $Clientes['rfc']?>" class="form-control" required pattern="[a-zA-Z0-9]+"/></td><td></td></tr>
-							<tr><th><label><b>Tipo Razón</b></label></th><td><select name="tipoRason_Social" class="form-control">
-							<?php  
-									$obtenerTipo = array(
-										'tRazSocial' => model::obtieneTrazon(),
-									);
-									echo"<option selected>";
-									foreach ($obtenerTipo['tRazSocial'] as $tipoR) {
-										echo"<option value = ".$tipoR['id_tipo_ra']." >".$tipoR['tipo']."</option>";
-									}
-							?>
-								</select></td><td></td></tr>
-						</table>
-					</li>
-				</ul>
-			</li>
-
-			<li><a href="#"><b>Datos Dirección Física</b></a>
-				<ul>
-					<li>
-						<table class="nuevo-pro">
-							<tr class="direccion"><th></th><td>
-								<table>
-									<tr>
-										<tr><td><input type="hidden"  name="idAddress" value="<?php echo $Clientes['idDir'] ?>" readonly /></td></tr>
-										<td width="220px"></td>
-										<td width="210px"></td>
-										<td width="210px">
-										<td width="225px">
-                                            <a id='various1' href="#dir" title="Nueva Dirección" ><img src="images/new_dir.png"/>Nueva </a></td>
-										</tr>
-								</table>
-							</td></tr></table>               
-					</li>
-				</ul>
-			</li>
-
-			<li><a href="#"><b>Datos Contacto</b></a>
-				<ul>
-					<li>
-						<table class="nuevo-pro">
-							<tr class="direccion"><th></th><td>
-								<table>
-										<td width="253px"></td>
-										<td width="253px"></td>
-										<td width="220px"><a id='newC' href="#nContacto" title="Nueva Contacto"><img src="images/new_cont.png" alt="Nuevo Contacto" title="Nuevo Contacto" /> Nuevo Contacto</a></td>
-										<td width="235px"><a href=""><img src="images/buscar.png" alt="Agregar Contacto" title="Agregar Contacto" /> Agregar</a></td>
-									</tr>
-								</table>
-							
-						</table>
-					</li>
-				</ul>
-			</li>
-			<li><a href="#"><b>Datos Bancarios</b></a>
-				<ul>
-					<li>
-						<table class="nuevo-pro ">
-							<tr><th></th><td><input type="hidden" name="idDBank" value="<?php echo $Clientes['idDBank']?>"required class="form-control"/></td></tr>
-							<tr><th><label><b>Banco</b></label></th><td><select name="nombreB" class="form-control">
-							<?php  
-									$Nombre_Banco = array(
-										'nomBanco' => model::obtieneBanco(),
-									);
-									echo"<option selected>";
-									foreach ($Nombre_Banco['nomBanco'] as $banco) {
-										echo"<option value = ".$banco['id_banco']." >".$banco['nombre_banco']."</option>";
-									}
-							?>
-								</select></td><td></td></tr>
-							<tr><th><label><b>Sucursal</b></label></th><td><input type="text" name="sucursal" class="form-control"/></td></tr>
-							<tr><th><label><b>Titular</b></label></th><td><input type="text" name="titular" class="form-control"/></td></tr>
-							<tr><th><label><b>No. Cuenta</b></label></th><td><input type="text" name="n_cuenta" class="form-control"/></td></tr>
-							<tr><th><label><b>Cv.Interbancaria</b></label></th><td><input type="text" name="n_claveInterbancaria" maxlength="18" class="form-control"/></td></tr>
-							<tr><th><label><b>Tipo Cuenta</b></label></th><td><select id="tipo_c" name="tipo_c" class="form-control">
-							<?php  
-									$Tipo_cuenta = array(
-										'tipoC' => model::obtieneTipoC(),
-									);
-									echo"<option selected>";
-									foreach ($Tipo_cuenta['tipoC'] as $tipoC) {
-										echo"<option value = ".$tipoC['id_tipo_cuenta']." >".$tipoC['tipo_cuenta']."</option>";
-
-									}
-							?>
-								</select></td><td></td></tr>
-						</table><br>
-					</li>
-				</ul>
-			</li>
+					
 		
-						<input type="submit" class="boton2" value="Guardar" name="Guardar" />
-					</form>
-		</div>
-	</section>
-	</div>
-	</div>
-	</div>
-<!--  ventana emergente-->
-<div style="display: none;">
-	<div id="dir" style="width:600px;height:350px;overflow:auto;">
-<!-- Aqui va el contenido de la ventana-->
+					<!--caja de texto oculta para la tabla det_bak_cli-->
+					<input type="hidden" name="idDetBank" value="<?php echo $Clientes['idDetBank']?>"/></td></tr>
+				
+						<li><a href="#"><b>Datos Dirección Física</b></a>
+							<ul>
+								<li>
+									<table class="nuevo-pro" width="70%">											
+                                       <tr>
+										<th><!--Clave--></th><td width="264px"></td><td><input type="hidden" class="form-control" name="idDir" value="<?php echo $Clientes['idDir'] ?>" readonly /></td></tr>										
+ 										<tr>
+										<th>Estado:</th><td width="264px"></td>
+									<td>   
+									<select id="idEdo" name="idEdo" required='required' class="form-control" placeholder="Selecciona un Estado">
+									<option value="">Selecciona un Estado</option>
+									 <?php                 
+										foreach($comboEstados as $codPost): 
+										 
+										echo "<option value=".$codPost['id_estado'].">". $codPost['estado']."</option>";
 
-<center>
+										endforeach; ?>
+										</select></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+									<tr>    
+									<th>Municipio:</th><td width="300px"></td>
+									<td>   										    
+									<select id="municipios" name="municipios" required='required' class="form-control" placeholder="Selecciona tú municipio...">
+									<option value="">Selecciona tú municipio...</option>
+	    
+									</select> </td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+								<tr>  
+								<th>Localidad:</th><td width="300px"></td>
+								<td>   										    
+								<select id="localidades" name="localidades" required='required' class="form-control" placeholder="Selecciona tú Localidad...">
+							<option value="">Selecciona tú Localidad...</option>
+							</select></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
 
-    	<form action="#" method="POST" name="frmdocp" id="frmdocp" target="_self">
-            <table  class="nuevo-pro ">
+						<tr><th>Código Postal:</th><td width="300px"></td>
+						 <td><input type="text" readonly name="id_cp" value="" id="id_cp" class="form-control">
+						</td></tr>    
+                        </table>
+						<!--div con el resto del formulario de direccion-->			
+						 <div id="visto" style="display:none;" style="visibility:hidden;">
+						 <table border="0">						 
+						       <tr>
+								<th colspan='5'><MARQUEE Behavior ='slide' BGCOLOR='#92C9DC' WIDTH='100%'>Completar Datos de Dirección</MARQUEE></th></tr>
+								<tr>
+										<th>Colonia</th><td width="285px"></td>
+										<td><input type='text'  name='colonia' class='form-control' required='required' placeholder='centro' maxlength='50' onChange="aMayusculas(this)" /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+									</tr>
+									<tr>
+										<th>Calle</th><td width="285px"></td>
+										<td><input type='text'  name='calle'required='required' class='form-control' pattern='|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|' placeholder='Nicolas Bravo' maxlength='50' onChange="aMayusculas(this)" /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+									</tr>
+									<tr>
+										<th>Número Ext.</th><td width="285px"></td>
+										<td><input type='text'  name='numExt' required='required' class='form-control' onkeypress='return justNumbers(event);' placeholder='158' /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+									</tr>
+									<tr>
+										<th>Numero Int.</th><td width="285px"></td>
+										<td><input type='text'  name='numInt' class='form-control' onkeypress='return justNumbers(event);' placeholder='2'/></td>
+									</tr>
+									<tr>
+										<th>Referencia</th><td width="285x"></td>
+										<td><input type='text'  name='ref'  class='form-control' pattern='|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|' maxlength='40'onChange="aMayusculas(this)" /></td></tr>
+									</tr>														
+								</table>                                            
+                                </div>      
+                             </td></td></td></tr></tr></table>    
+						</li>
+					</ul>
+				</li>	
 
-    		<?php
-                 $id_dir = model::idDir(['id_direccion']);
-			?>
-            
-			<tr><th>Clave</th><td><input type="number"  name="id_dir" value="<?php echo $id_dir ?>" readonly /></td></tr>
-            
-            <tr><td>CP:</td><td><input name="cp" type="text" minlength="4" maxlength="5" onKeyUp="cpview(this.form)" required /></td></tr>
+					<li><a href="#"><b> Datos Fiscales</b></a>
+						<ul>
+							<li>
+    						<div id="tFiscal">
+							<!--Este es el formulario para agregar datos fiscales-->
+        					<table class="nuevo-pro" border="0" width="70%">
+							<tr><th><!--<label>Clave</label>--></th><td><input type="hidden" name="idDatF" value="<?php echo $idFisc;?>"readonly class="form-control"  /></td></tr>
+							<tr><th><label><b>Razón Social</b></label></th><td><input type="text" name="razonS" placeholder="GRUPO RSA" class="form-control" required onChange="aMayusculas(this)" maxlength="30" /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+							<tr><th><label><b>RFC</b></label></th><td><input type="text" name="rfc" maxlength="13" placeholder="VECJ880326 XXXX"  class="form-control" required onChange="aMayusculas(this)" /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+                            <tr>
+							<td colspan="2"  BGCOLOR='#92C9DC'><b>Datos de Dirección Fiscal</b></td></tr>
+            			<tr>
+						<th><!--Clave--></th><td><input type="hidden" class="form-control" name="idDir2" value="<?php echo     $idDir2 ; ?>" readonly /></td></tr>										
+						<tr>
+						<th>Estado:</th>
+						<td> 
           
-</table>	
+						<select id="idEdo2" name="idEdo2" required class="form-control" placeholder="Selecciona un Estado">
+							<option value="">Selecciona un Estado</option>
+           				<?php                 
+						foreach($comboEstados as $codPost): 
+						 
+						echo "<option value=".$codPost['id_estado'].">". $codPost['estado']."</option>";
 
-    </form>
+						endforeach; ?>
+						</select>
+						</td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+						<tr> 
+						<th>Municipio:</th>
+						<td>   										    
+						<select id="municipios2" name="municipios2" required class="form-control" placeholder="Selecciona tú municipio...">
+						<option value="">Selecciona tú municipio...</option>
+						 </select>
+						 </td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+                        
+                    	<tr>    
+						<th>Localidad:</th>
+						<td>   										    
+						<select id="localidades2" name="localidades2" required class="form-control" placeholder="Selecciona tú Localidad...">
+							<option value="">Selecciona tú Localidad...</option>
+						    </select></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+						<tr>    
+							<th>Código Postal:</th>
+						<td>  										    
+						<input type="text" readonly name="id_cp2" value="" id="id_cp2" class="form-control">
+						 </td></tr>             
+            		</table>
 
-			<div id='tablacp'>
-        
 
-        </div>
-        </center>
-        
+            		
+						<!--div con el resto del formulario de direccion-->			
+						 <div id="visto2" style="display:none;" style="visibility:hidden;">
+						 <table width="70%">	                  
+						   <tr>
+						  	<th colspan='5'><MARQUEE Behavior ='slide' BGCOLOR='#92C9DC'>Completar Datosrrr de Dirección</MARQUEE></th></tr>
+							<tr>
+									<th>Colonia</th>
+									<td><input type='text'  name='colonia2' class='form-control' required='required'  placeholder='centro' maxlength='30' onChange="aMayusculas(this)" /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+								</tr>
+								<tr>
+									<th>Calle</th>
+									<td><input type='text'  name='calle2' required='required' class='form-control' placeholder='Nicolas Bravo' maxlength='30' onChange="aMayusculas(this)" /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+								</tr>
+								<tr>
+									<th>Número Ext.</th>
+									<td><input type='text'  name='numExt2' required='required' class='form-control' maxlength="4" onkeypress='return justNumbers(event);' placeholder='158' /></td><td><span class="span"><b>&nbsp;*</b></span></td></tr>
+								</tr>
+								<tr>
+									<th>Numero Int.</th>
+									<td><input type='text'  name='numInt2' class='form-control' onkeypress='return justNumbers(event);' maxlength="3" placeholder='2'/></td>
+								</tr>
+								<tr>
+							<th>Referencia</th>
+							<td><input type='text'  name='ref2'  class='form-control' pattern='|^[a-zA-Z ñÑáéíóúÁÉÍÓÚüÜ]*$|' maxlength='40'onChange="aMayusculas(this)" /></td></tr>
+
+								</table>    
+   	
+   							<!--Aqui termina la sección-->                            
+                 	  	 </div>
+
+
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+						<input type="submit" class="boton2" value="Continuar" name="Guardar" />
+					</form>
+		       <div id="addcl"></div>         
+       		</div>
+			</section>
+		</div>
 	</div>
 </div>
 
-<!--  ventana emergente-->
+</div>
 
-							<div style="display: none;">
-								<div id="nContacto" style="width:720px;height:450px;overflow:auto;">
-							<!-- Aqui va el contenido de la ventana-->
-
-							<form action="guardar.php" method="post" id="frmdoC" name="frmdoC"><br>
-				<table>
-					<tr>
-						<td>
-							<table class="nuevo">
-								<tr><th></th><td><input type="hidden" name="id_contacto" required disabled /></td></tr>
-								<tr><th width="140px">Nombre</th><td><input type="text" name="nombre" autofocus required /></td><th>Twitter</th><td><input type="text" name="twitter" /></td></tr>
-								<tr><th>A. Paterno</th><td><input type="text" name="a_paterno" required /></td><th>Skype</th><td><input type="text" name="skype" placeholder="skype" /></td></tr>
-								<tr><th>A. Materno</th><td><input type="text" name="a_materno" required /></td><th>Web</th><td><input type="url" name="direccion_web" placeholder="http://dominio.com.mx" /></td></tr>
-								<tr><th>Area Contacto</th><td><input type="text" name="areaC"/></td></th>
-								<?php
-                					 $id_dir = model::incrementoDir(['id_direccion']);
-								?>
-
-								<th>Clave</th><td><input type="text"  name="idd" value="<?php echo $id_dir ?>" readonly /></td></tr>
-								<tr><th>Fecha Alta</th><td><input type="date" name="Fecha_Alta"value="<?php echo date("Y-m-d"); ?>" class="form-control" readonly /></td><th>CP:</td><td><input name="cp" type="number"  required maxlength="6" onKeyUp="cpview(this.form)" /></td></tr>
-								<tr><th>Móvil</th><td><input type="tel" name="movil" maxlength="12" /></td></th></td><th>Facebook</th><td><input type="text" name="facebook" /></td></tr>
-								<tr><th>Tel. Oficina</th><td><input type="tel" name="Tel_Oficina" maxlength="12" /></td><th></th><td></td></tr>									
-								<tr><th>Tel. Emergencia</th><td><input type="tel" name="Tel_Emergencia" maxlength="12" /></td><th></th><td></td></tr>	
-								<tr><th>Email Personal</th><td><input type="email" name="correo" placeholder="ejemplo@dominio.com" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" /></td><th></th><td></td></tr>	
-								<tr><th>Email Institucional</th><td><input type="email" name="correo_inst" placeholder="ejemplo@dominio.com" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" /></td><th></th><td></td></tr>	
-								<tr><th>Facebook</th><td><input type="text" name="facebook" /></td><th></th><td></td></tr>	
-						
-							</table>
-						</td>
-					</tr><br>
-					<tr><td colspan="2"><input type="submit" class="btn primary" value="Guardar" name="Guardar" /></td></tr>
-				</table>
-			</form>	
-					</center>
-							        
-								</div>
-							</div>
-
-
+					
 
 <?php $contenido = ob_get_clean() ?>
 <?php include '../app/templates/layout_second.php' ?>
+
+<!--SCRIPTS DE COMOBOS MÁGICOS(SAM ñ_ñ)-->
+
+<script>
+	$('#idEdo').selectize({
+    onChange: function(value){
+
+         select_city.clearOptions();
+   
+        
+ $('#divmunicipios').load('index.php?url=verMunicipio&select=1&idEdo=' + value );
+    }});
+  
+    
+           $select_city = $('#municipios').selectize({
+    valueField: 'municipio',
+    labelField: 'municipio',
+    searchField: 'municipio',
+    create: false,
+        onChange: function(value){
+
+  
+         select_locale.clearOptions();
+       
+   
+
+        
+ $('#divlocalidades').load('index.php?url=verLocalidad&select=1&idEdo=' + $('#formCliente').serialize());
+    }   
+           });
+
+    select_city  = $select_city[0].selectize;        
+            
+	select_city.disable();
+
+            
+$select_locale = $('#localidades').selectize({
+    valueField: 'id_cp',
+    labelField: 'localidad',
+    searchField: 'localidad',
+    create: false,
+        onChange: function(value){
+
+              
+        $('#id_cp').val(value);
+            
+      $("#visto").show();
+
+    }   
+           
+           });
+            
+select_locale  = $select_locale[0].selectize;        
+            
+select_locale.disable();
+            
+				</script>
+
+
+<!--Aqui carga los scripts para llenar los select-->
+<div id="divmunicipios">
+<!--Aqui carga los scripts para llenar los select-->
+</div>
+<div id="divlocalidades">
+    <!--Aqui carga los scripts para llenar los select-->
+</div>
+
+<!---------------------------------------------------------------------------------------------------------->
+
+<script>
+				$('#idEdo2').selectize({
+    onChange: function(value){
+
+  
+         select_city2.clearOptions();
+   
+
+        
+ $('#divmunicipios2').load('index.php?url=verMunicipio&select=2&idEdo=' + value );
+    }});
+  
+    
+           $select_city2 = $('#municipios2').selectize({
+    valueField: 'municipio',
+    labelField: 'municipio',
+    searchField: 'municipio',
+    create: false,
+        onChange: function(value){
+
+  
+         select_locale2.clearOptions();
+       
+   
+
+        
+ $('#divlocalidades2').load('index.php?url=verLocalidad&select=2&idEdo=' + $('#formCliente').serialize());
+    }   
+           });
+
+    select_city2  = $select_city2[0].selectize;        
+            
+select_city2.disable();
+
+            
+$select_locale2 = $('#localidades2').selectize({
+    valueField: 'id_cp',
+    labelField: 'localidad',
+    searchField: 'localidad',
+    create: false,
+        onChange: function(value){
+
+              
+        $('#id_cp2').val(value);
+            
+      $("#visto2").show();
+
+    }   
+           
+           });
+            
+select_locale2  = $select_locale2[0].selectize;        
+            
+select_locale2.disable();
+            
+</script>
+
+
+<!--Aqui carga los scripts para llenar los select-->
+<div id="divmunicipios2">
+<!--Aqui carga los scripts para llenar los select-->
+</div>
+<div id="divlocalidades2">
+    <!--Aqui carga los scripts para llenar los select-->
+</div>
+
+
+
+

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="es">
 
     <head>
         <meta charset="utf-8">
@@ -22,7 +22,7 @@
         <link href="<?php echo 'css/'.config::$animate_css ?>" rel="stylesheet" />
 
         <!-- Custom CSS -->
-        <link href="<?php echo 'css/'.config::$style_css ?>" rel="stylesheet" /''>
+        <link href="<?php echo 'css/'.config::$style_css ?>" rel="stylesheet" />
 
         <!-- Custom Fonts 
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'> -->        
@@ -51,7 +51,7 @@
                         </div>
                      							
                         <div class="menu-item light-red">
-                            <a href="./productos"><img src="images/icono-videos.png"/><br><b>PRODUCTOS</b></a> 
+                             <a href="index.php?url=listaProducto"><img src="images/icono-videos.png"/><br><b>PRODUCTOS</b></a> 
                         </div>
                         
                     </div>
@@ -91,13 +91,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="menu-item color responsive">
-                                    <a href="./familia"><img src="images/icono-lineas.png"/><br><b>FAMILIAS</b></a>                    
+                                    <a href="index.php?url=listaFam"><img src="images/icono-lineas.png"/><br><b>FAMILIAS</b></a>                    
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
                                 <div class="menu-item light-orange responsive-2">
-									<a href="./marca"><img src="images/icono-cursos.png"/><br><b>MARCAS</b></a> 
+									<a href="index.php?url=listaMarca"><img src="images/icono-cursos.png"/><br><b>MARCAS</b></a> 
                                 </div>
                             </div>
                             
@@ -108,7 +108,7 @@
                     <div class="col-md-3">
                         
                         <div class="menu-item light-red">
-                            <a href="./linea"><img src="images/icono-lineas2.png"/><br><b>LÍNEAS</b></a> 
+                            <a href="index.php?url=listaLinea"><img src="images/icono-lineas2.png"/><br><b>LÍNEAS</b></a> 
                         </div>
                         
                         <div class="menu-item color">
@@ -124,7 +124,6 @@
                         </div>
                        
                     </div>
-                     <div><?php echo $contenido ?></div>
                 </div>
             </div>
         </div>
