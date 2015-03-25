@@ -47,6 +47,7 @@
 			require __DIR__ . '/templates/contactos/verMunicipio.php';
 		}
 
+		/*----------------------------------cambiar ruta -------------------*/
 		// funcion para municipios de la dirección fiscal de proveedores
 		function obtenerMunicipioDirFiscal()
 		{
@@ -663,14 +664,14 @@ public function mostrarContactos(){
 
 							// Combobox Estados
 						'estadosF' => $model -> obtenerDatosEstadoInsert($_POST['idEstadof']),
-						'nameMunicipioFiscal' => $_POST[''],
+						'nameMunicipioFiscal' => $_POST['idMunicipiof'],
 							// Combobox Municipios
-						'municipiosF' => $_POST[''],
-						'nameLocalityFiscal' => $_POST[''],
+						'municipiosF' => $model -> obtenerDatosMunicipioInsert($_POST['idEstadof'], $_POST['idMunicipiof']),
+						'nameLocalityFiscal' => $_POST['txt_localidad_f'],
 							// Table localidades
-						'localidadesF' => $_POST[''],
+						'localidadesF' => $model -> obtener_direccion($_POST['idEstadof'], $_POST['idMunicipiof'], $_POST['txt_localidad_f']),
 
-						'cpFiscal' => $_POST[''],
+						'cpFiscal' => $_POST['idcp-localityFiscal'],
 						'streetFiscal' => $_POST['txt_calle_f'],
 						'n_extFiscal' => $_POST['txt_noext_f'],
 						'n_intFiscal' => $_POST['txt_noint_f'],
