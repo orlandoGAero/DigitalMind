@@ -619,6 +619,10 @@ public function mostrarContactos(){
 				if($_POST['txt_noint'] == ""){
 					$_POST['txt_noint'] = "s/n";
 				}
+
+				if($_POST['txt_noint_f'] == ""){
+					$_POST['txt_noint_f'] = "s/n";
+				}
 				
 				if($model->registrarProveedores($_POST['txt_iddir'],
 												$_POST['txt_calle'],
@@ -627,6 +631,13 @@ public function mostrarContactos(){
 												$_POST['txt_col'],
 												$_POST['txt_ref'],
 												$_POST['idcp-locality'],
+												$_POST['txt_iddir_fis'],
+												$_POST['txt_calle_f'],
+												$_POST['txt_noext_f'],
+												$_POST['txt_noint_f'],
+												$_POST['txt_col_f'],
+												$_POST['txt_ref_f'],
+												$_POST['idcp-localityFiscal'],
 												$_POST['txt_iddf'],
 												$_POST['txt_razon_s'],
 												$_POST['txt_rfc'],
@@ -885,6 +896,10 @@ public function mostrarContactos(){
 			$detProveedor = $model->obtenerDetalleProveedor($idProveedor);
 
 			$obtenerDatosProveedor = $detProveedor;
+			//obtener direccion fiscal del proveedor
+			$detProvDirFis = $model->DetalleDirFiscalProv($idProveedor);
+
+			$obtDirFiscal = $detProvDirFis;
 
 			require __DIR__ . '/templates/proveedor/verProveedor.php';
 		}

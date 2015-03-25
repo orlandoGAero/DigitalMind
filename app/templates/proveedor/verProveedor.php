@@ -51,39 +51,39 @@
 				<caption>Direcci&oacute;n Fiscal</caption>
 				<tr>
 					<th>Calle</th>
-					<td><?php echo $detProveedor['calle'] ?></td>
+					<td><?php echo $detProvDirFis['calle'] ?></td>
 				</tr>
 				<tr>
 					<th>N&uacute;mero Ext</th>
-					<td><?php echo $detProveedor['num_ext'] ?></td>
+					<td><?php echo $detProvDirFis['num_ext'] ?></td>
 				</tr>
 				<tr>
 					<th>N&uacute;mero Int</th>
-					<td><?php echo $detProveedor['num_int'] ?></td>
+					<td><?php echo $detProvDirFis['num_int'] ?></td>
 				</tr>
 				<tr>
 					<th>Colonia</th>
-					<td><?php echo $detProveedor['colonia'] ?></td>
+					<td><?php echo $detProvDirFis['colonia'] ?></td>
 				</tr>
 				<tr>
 					<th>Referencia</th>
-					<td><?php echo $detProveedor['referencia'] ?></td>
+					<td><?php echo $detProvDirFis['referencia'] ?></td>
 				</tr>
 				<tr>
 					<th>C.P.</th>
-					<td><?php echo $detProveedor['codigoP'] ?></td>
+					<td><?php echo $detProvDirFis['codigoP'] ?></td>
 				</tr>
 				<tr>
 					<th>Localidad</th>
-					<td><?php echo $detProveedor['localidad'] ?></td>
+					<td><?php echo $detProvDirFis['localidad'] ?></td>
 				</tr>
 				<tr>
 					<th>Municipio</th>
-					<td><?php echo $detProveedor['municipio'] ?></td>
+					<td><?php echo $detProvDirFis['municipio'] ?></td>
 				</tr>
 				<tr>
 					<th>Estado</th>
-					<td><?php echo $detProveedor['estado'] ?></td>
+					<td><?php echo $detProvDirFis['estado'] ?></td>
 				</tr>
 			</table>
 		</div>

@@ -888,6 +888,25 @@
 			
 			return $rowsPro;
 		}
+
+		public function DetalleDirFiscalProv($IDProv)
+		{
+			$sqlDetProFis = "SELECT dir.id_direccion,dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,
+							       cp.codigoP, cp.localidad, cp.municipio, 
+							       sta.estado
+							FROM datos_fiscales df,direcciones dir,proveedores prov,codigos_postales cp,estados sta
+							WHERE dir.id_direccion=df.id_direccion
+							AND df.id_datFiscal=prov.id_datFiscal
+							AND cp.id_cp=dir.id_cp
+							AND sta.id_estado=cp.id_estado
+							AND prov.id_prov=".$IDProv;
+			$ejecutar_sqlDetProFis = mysql_query($sqlDetProFis, $this->conexion);
+
+			$detalleDirfiscalProv = array();
+			$rowProFis = mysql_fetch_assoc($ejecutar_sqlDetProFis);
+
+			return $rowProFis;
+		}
 		
 		// funcion para obtener el id de la tabla proveedor
 		public function obtenerIdProveedor()
@@ -1059,6 +1078,7 @@
 
 		// Función para registrar proveedores
 		public function registrarProveedores($id_dire,$street,$noext,$noint,$col,$referen,$cp,
+											 $id_direFiscal,$streetFiscal,$noextFiscal,$nointFiscal,$colFiscal,$referenFiscal,$cpFiscal,						 
 											 $id_datf,$razon_s,$rfc,
 											 $id_prov,$prov,$cat,$phone,$dweb,
 											 $id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta) 
@@ -1067,6 +1087,8 @@
 			$razon_s = mb_strtoupper($razon_s);
 			$street = mb_strtoupper($street);
 			$col = mb_strtoupper($col);
+			$streetFiscal = mb_strtoupper($streetFiscal);
+			$colFiscal = mb_strtoupper($colFiscal);
 			$sucu = mb_strtoupper($sucu);
 			$titular = mb_strtoupper($titular);
 
@@ -1078,7 +1100,7 @@
 			}
 			$band = 0;
 
-			if ($prov != "" && $cat != "" && $phone != "" && $dweb != "" && $razon_s != "" && $rfc != "" && $street != "" && $noext != "" && $col != "" && $id_bank != "" && $sucu != "" && $titular != "" && $nocuent != "" && $clabe != "" && $id_tcuenta != "") 
+			if ($prov != "" && $cat != "" && $phone != "" && $dweb != "" && $razon_s != "" && $rfc != "" && $streetFiscal != "" && $noextFiscal != "" && $colFiscal != "" && $street != "" && $noext != "" && $col != "" && $id_bank != "" && $sucu != "" && $titular != "" && $nocuent != "" && $clabe != "" && $id_tcuenta != "") 
 			{
 				
 			} else {
@@ -1114,10 +1136,15 @@
 				$sqlinsertdir = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia,id_cp)
 								 VALUES (".$id_dire.",'".$street."',".$noext.",'".$noint."','".$col."','".$referen."',".$cp.");";
 				$ejecutar_sqlinsertdir = mysql_query($sqlinsertdir,$this->conexion) or die("Error en insertar direcciones ".mysql_error());
+				
+				// consulta para insertar en la tabla de direcciones para la dirección fiscal
+				$sqlinsertdirFis = "INSERT INTO direcciones (id_direccion,calle,num_ext,num_int,colonia,referencia,id_cp)
+								    VALUES (".$id_direFiscal.",'".$streetFiscal."',".$noextFiscal.",'".$nointFiscal."','".$colFiscal."','".$referenFiscal."',".$cpFiscal.");";
+				$ejecutar_sqlinsertdirFis = mysql_query($sqlinsertdirFis,$this->conexion) or die("Error en insertar dirección Fiscal ".mysql_error());
 
 				// consulta para insertar en la tabla de datos fiscales
-				$sqlinsertdf = "INSERT INTO datos_fiscales (id_datFiscal,razon_social,rfc,tipo_ra)
-								 VALUES (".$id_datf.",'".$razon_s."','".$rfc."','".$tipo_rs."');";
+				$sqlinsertdf = "INSERT INTO datos_fiscales (id_datFiscal,razon_social,rfc,tipo_ra,id_direccion)
+								 VALUES (".$id_datf.",'".$razon_s."','".$rfc."','".$tipo_rs."','".$id_direFiscal."');";
 				$ejecutar_sqlinsertdf = mysql_query($sqlinsertdf,$this->conexion) or die ("Error en insertar datos fiscales ".mysql_error());
 				
 				// consulta para insertar en la tabla de proveedores
@@ -1140,7 +1167,7 @@
 									 VALUES (".$id_prov.",".$id_dtb.");";
 				$ejecutar_sqlinsertdb_prov = mysql_query($sqlinsertdb_prov,$this->conexion) or die("Error en insertar datos bancarios proveedor ".mysql_error());
 				
-				return $sqlinsertdir && $sqlinsertdf && $sqlinsertprov && $sqlinsertdb && $sqlinsertdb_prov && $sqlinsertprov_contact;
+				return $sqlinsertdir && $sqlinsertdirFis && $sqlinsertdf && $sqlinsertprov && $sqlinsertdb && $sqlinsertdb_prov && $sqlinsertprov_contact;
 			}		
 		}
 

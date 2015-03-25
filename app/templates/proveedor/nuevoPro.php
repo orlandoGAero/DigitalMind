@@ -3,15 +3,7 @@
 		<b><span style="color: red;"><?php echo $parametrosProveedores['mensaje'] ?></span></b>
 	<?php endif; ?>
 	 <br/>
- 	 <!--<script type="text/javascript" src="js/jquery-1.4.2.min.js">
-		$(function (agregar) {
-			$('#frm_dbank').submit(function (agregar) {
-				agregar.preventDefault()
-				$('#datos_bancarios').load('index.php?url=DatosBancarios ?' + $('#frm_dbank').serialize())
-			})
-		})
-	</script>-->
-	
+ 	
 	<!-- JS Formulario Listas Desplegables -->
 	<!-- modificar linea de abajo-->
 	<script type="text/javascript" src="js/jquery.lksMenu.js"></script>
@@ -298,13 +290,13 @@
 
 												<li>
 													<label for="lbl_calle_f">Calle:</label>
-													<input type="text" name="txt_calle_f"/>
+													<input type="text" name="txt_calle_f" required onChange="conMayusculas(this)"/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
 												<li>
 													<label for="lbl_noext_f">No. Ext:</label>
-													<input type="text" name="txt_noext_f"/>
+													<input type="text" name="txt_noext_f" required/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
@@ -315,13 +307,13 @@
 
 												<li>
 													<label for="lbl_col_f">Colonia:</label>
-													<input type="text" name="txt_col_f"/>
+													<input type="text" name="txt_col_f" required onChange="conMayusculas(this)"/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
 												<li>
 													<label for="lbl_ref_f">Referencia:</label>
-													<input type="text" name="txt_ref_f"/>	
+													<input type="text" name="txt_ref_f" onChange="conMayusculas(this)"/>	
 												</li>
 											</ul>
 										</li>
