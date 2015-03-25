@@ -1326,8 +1326,6 @@
 			$validar=$m->validaformTwo($idcli);	
 		}
 		
-		
-		// -----------------------FUNCIONES PROVEEDORES---------------------------------
 	
 		// -----------------------FUNCIONES PROVEEDORES---------------------------------
 	
@@ -1624,6 +1622,25 @@
 			$obtenerDatosProveedor = $detProveedor;
 
 			require __DIR__ . '/templates/proveedor/verProveedor.php';
+		}
+		
+		//-------------------------TRANSACCIONES-------------------------------------------
+		public function crearCompra()
+		{
+			// if (!isset($_GET['id_Proveedor'])) {
+				// throw new Exception("Página no encontrada", 1);
+			// } 
+// 
+			// $idProveedor = $_GET['id_Proveedor'];
+// 
+			// $model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						// config::$mvc_db_pass, config::$mvc_db_hostname);
+// 
+			// $detProveedor = $model->obtenerDetalleProveedor($idProveedor);
+// 
+			// $obtenerDatosProveedor = $detProveedor;
+
+			require __DIR__ . '/templates/contactos/insertarCompra.php';
 		}
     }
 ?>

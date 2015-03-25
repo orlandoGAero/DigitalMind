@@ -79,6 +79,9 @@
 	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'mostrarContactos'),
 	     'EditarProveedores' => array('controller' =>'Controller', 'action' =>'ModificarProveedor'),
 	     'BorrarProveedores' => array('controller' =>'Controller', 'action' =>'EliminarProveedor'),
+	     
+		 //-------------------------TRANSACCIONES-------------------------------------------
+		 'compra' => array('controller' =>'Controller', 'action' =>'crearCompra'),
 	 );
 	 
  	// PARSEO DE LA RUTA
