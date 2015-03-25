@@ -1625,7 +1625,7 @@
 		}
 		
 		//-------------------------TRANSACCIONES-------------------------------------------
-		public function crearCompra()
+		public function nuevaTransaccion()
 		{
 			// if (!isset($_GET['id_Proveedor'])) {
 				// throw new Exception("Página no encontrada", 1);
@@ -1640,7 +1640,22 @@
 // 
 			// $obtenerDatosProveedor = $detProveedor;
 
-			require __DIR__ . '/templates/contactos/insertarCompra.php';
+			require __DIR__ . '/templates/transacciones/elegirTransaccion.php';
 		}
+		
+		public function cargarFormTransaccion(){
+			// echo $_REQUEST['sltTrans'];
+			if($_REQUEST['sltTrans'] != ""){
+				// 1 = Compra
+				if($_REQUEST['sltTrans'] == 1){
+					require __DIR__ . '/templates/transacciones/transaccionCompra.php';
+				}
+				// 2 = Venta
+				elseif($_REQUEST['sltTrans'] == 2){
+					require __DIR__ . '/templates/transacciones/transaccionVenta.php';
+				}
+			}
+		}
+
     }
 ?>

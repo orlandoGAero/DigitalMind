@@ -115,7 +115,7 @@
                         </div>
                         
                         <div class="menu-item blue">
-                            <a href="index.php?url=compra"><img src="images/icono-money.png"/><br><b>TRANSACCIONES</b></a> 
+                            <a href="index.php?url=transacciones"><img src="images/icono-money.png"/><br><b>TRANSACCIONES</b></a> 
                         </div>
                         
                         <div class="menu-item blue">

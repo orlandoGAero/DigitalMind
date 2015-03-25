@@ -253,7 +253,12 @@
 													================================================================================================================================================-->
 													<li><label>Calle</label><input type="text" name="street" autocomplete="off" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['calle'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Número Exterior</label><input type="text" class="keysNumbers" name="numExt" autocomplete="off" required="required" maxlength="5" value="<?php echo $obtenerDatosContacto['num_ext'] ?>"  /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Número Interior</label><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $obtenerDatosContacto['num_int'] ?>" />&nbsp;&nbsp;&nbsp;</li>
+													<?php if($obtenerDatosContacto['num_int'] != 0) :?>
+														<li><label>Número Interior</label><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $obtenerDatosContacto['num_int'] ?>" />&nbsp;&nbsp;&nbsp;</li>
+													<?php else :?>
+														<?php $obtenerDatosContacto['num_int'] = "" ?>
+														<li><label>Número Interior</label><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $obtenerDatosContacto['num_int'] ?>" />&nbsp;&nbsp;&nbsp;</li>
+													<?php endif; ?>
 													<li><label>Colonia</label><input type="text" name="colonia" autocomplete="off" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['colonia'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Referencia</label><input type="text" name="reference" autocomplete="off" value="<?php echo $obtenerDatosContacto['referencia'] ?>" onChange="conMayusculas(this)" />&nbsp;&nbsp;&nbsp;</li>
 												</ul>

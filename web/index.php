@@ -81,7 +81,8 @@
 	     'BorrarProveedores' => array('controller' =>'Controller', 'action' =>'EliminarProveedor'),
 	     
 		 //-------------------------TRANSACCIONES-------------------------------------------
-		 'compra' => array('controller' =>'Controller', 'action' =>'crearCompra'),
+		 'transacciones' => array('controller' =>'Controller', 'action' =>'nuevaTransaccion'),
+		 'viewFormTrans' => array('controller' =>'Controller', 'action' =>'cargarFormTransaccion'),
 	 );
 	 
  	// PARSEO DE LA RUTA

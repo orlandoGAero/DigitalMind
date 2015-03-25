@@ -18,7 +18,7 @@
 	<!-- Script de Tiny Table Sorter -->
 	<script type="text/javascript" src="<?php echo 'js/'.config::$tinyTableSorter_js ?>"></script>
 	
-	<?php if($obtenerDatosContactos['contactos'] != "") :?>
+	<?php if($obtenerDatosContactos['contactos'] != NULL) :?>
 		<div id="busqueda" class="buscar">
 			<form name="formBusqueda" method="POST" id="filtros" target="_self">
 				<ul>
