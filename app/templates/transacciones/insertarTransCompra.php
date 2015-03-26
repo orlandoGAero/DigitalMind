@@ -15,7 +15,7 @@
 				<section id="principal">
 					<div class="menu-pro">
 						<ul>
-							<form action="index.php?url=continuarTransaccion" method="POST" id="formTransacion" target="_self">
+							<form action="" method="POST" id="formTransacion" target="_self">
 								<li><a href="#">Datos Compra</a>
 									<ul>
 										<li>
@@ -30,20 +30,24 @@
 																<th>No. Compra</th>
 																<td><?php echo $parametrosCompra2['noComprovanteC'] ?></td>
 															</tr>
-															<tr>
-																<th>Proveedor</th>
-																<td><?php echo $parametrosCompra2['nomProveedor'] ?></td>
-															</tr>
-															<tr>
-																<th>Fecha</th>
-															</tr>
-															<tr>
-																<th>Hora</th>
-															</tr>
+															<?php foreach($parametrosCompra2['datosCompra'] as $compra) :?>
+																<tr>
+																	<th>Proveedor</th>
+																	<td><?php echo $compra['proveedor'] ?></td>
+																</tr>
+																<tr>
+																	<th>Fecha</th>
+																	<td><?php echo $compra['fecha_compra'] ?></td>
+																</tr>
+																<tr>
+																	<th>Hora</th>
+																	<td><?php echo $compra['hora_compra'] ?></td>
+																</tr>
+															<?php endforeach; ?>
 														</table>
 												<li>
 													<label>Productos</label>
-													<select name="idProducto" required="required" >
+													<select name="idProducto" id="id_prod" required="required" >
 														<option value="" disabled="disabled">Seleccione producto</option>
 														<?php foreach ($parametrosCompra2['productos'] as $proveedor) :?>
 															<option value="<?php echo $proveedor['id_producto'] ?>"><?php echo $proveedor['nombre_producto'] ?></option>
@@ -52,7 +56,7 @@
 													<span style="color: red;"><b>*</b></span>
 												</li>
 												<li>
-													
+													<div id="datosProd"></div>
 												</li>
 												<li>
 													<label>Cantidad</label>
@@ -65,10 +69,9 @@
 								</li>
 								
 								<!-- Botones -->
-								<input type="submit" class="boton2" value="Guardar" name="btnGuardar" />
-								&nbsp;&nbsp;
-								<a href="index.php?url=inicio" title="Regresar" onclick="return confirm('¿Desea salir antes de guardar?');">
-									<input type="button" class="boton2" value="Cancelar" />
+
+								<a href="index.php?url=transacciones" title="Regresar" onclick="return confirm('¿Desea salir antes de guardar?');">
+									<input type="button" class="boton2" value="Finalizar" />
 								</a>
 																
 							</form>
@@ -84,6 +87,10 @@
 		$('document').ready(function(){
 			$('.menu-pro').lksMenu();
 		});
+		
+		$('#id_prod').change(function(){
+		 	$('#datosProd').load('index.php?url=verInfoProd&idProducto=' + this.options[this.selectedIndex].value)
+		 })
 		
 	</script>
 	

@@ -1666,9 +1666,7 @@
 					
 					$parametrosCompra2 = array(
 						'noComprovanteC' => $_POST['numCompra'],
-						'nomProveedor' => $m -> obtenerNombreProveedor($_POST['idProveedor']),
-						// 'fechaC' => $POST[''],
-						// 'horaC' => $POST[''],
+						'datosCompra' => $m -> obtenerDatosCompra($_POST['numCompra']),
 						'productos' => $m -> obtieneProductosProveedores($_POST['idProveedor']),
 					);
 				}
@@ -1679,6 +1677,21 @@
 			elseif($_POST['sltTrans'] == 2){
 				require __DIR__ . '/templates/transacciones/transaccionVenta.php';
 			}
+		}
+		
+		public function verInformacionProducto(){
+			if(!isset($_GET['idProducto'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			echo $claveProducto = $_GET['idProducto'];
+			$datosProducto = $m -> obtenerInformacionProducto($claveProducto);
+			$obtenerDatosProducto = $datosProducto;
+			
+			require __DIR__ . '/templates/transacciones/verDatosProducto.php';			
 		}
 
     }

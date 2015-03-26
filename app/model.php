@@ -2519,19 +2519,27 @@
 			$filas = mysql_num_rows($ejecutar);
 			
 			if($filas==0){
-				$noComprobCompr = "001";
+				$noComprobCompr = 1;
+				$longitud = strlen($noComprobCompr);
+				$longMax = 3;
+				for ($i=0; $i < $longMax; $i++) { 
+					$noComprobCompr = "0".$noComprobCompr;
+				}
 			}else{
 				$noComprobCompr = mysql_result($ejecutar,0,'no_trans_compra');
-				$noComprobCompr = substr($noComprobCompr, 2,2) + 1;
-				$noComprobCompr = "00".$noComprobCompr;
+				$longitud = strlen($noComprobCompr);
+				$noComprobCompr = ($noComprobCompr + 1);
+				$longMax = 3;
+				for ($i=0; $i < $longMax; $i++) { 
+					$noComprobCompr = "0".$noComprobCompr;
+				}
 			}
 			
 			return $noComprobCompr;
 		}
 		
 		//combo dinamico para obtener proveedores que ya tengan asignado algún producto
-		public function obtieneProveedorProd()
-    	{
+		public function obtieneProveedorProd(){
     		$consultaProvP = "SELECT prov.id_prov,prov.proveedor FROM proveedores prov INNER JOIN productos prod ON prov.id_prov = prod.id_prov;";
 			$ejecutarProvP = mysql_query($consultaProvP)or die ("Error de Consulta-ProvCombo");
 			$filasProvP = mysql_num_rows($ejecutarProvP);
@@ -2554,22 +2562,31 @@
 			return $ejecutarRTC;
 		}
 		
-		public function obtenerNombreProveedor($idProveedor)
-    	{
-    		$consultaNomPr = "SELECT proveedor FROM proveedores WHERE id_prov = ".$idProveedor;
-			$ejecutarNomPr = mysql_query($consultaNomPr)or die ("Error de Consulta Nombre Proveedor");
-			$filasNomPr = mysql_num_rows($ejecutarNomPr);
 		
-            if($filasNomPr != 0){
-				$nombreProveedor = mysql_result($ejecutarNomPr, 0, 'proveedor');
+		public function obtenerDatosCompra($idCompra){
+    		$idCompra = (int) $idCompra;
 			
-				return $nombreProveedor;
+    		$consultaDCompr = "SELECT 
+											  prov.proveedor,
+											  tc.fecha_compra,
+											  tc.hora_compra 
+											FROM
+											  proveedores prov 
+											  INNER JOIN transacciones_compras tc 
+											    ON prov.id_prov = tc.id_prov 
+											WHERE tc.no_trans_compra = ".$idCompra;
+			$ejecutarDCompr = mysql_query($consultaDCompr,$this->conexion) or die (mysql_error());
+		
+            $datosCompra = array();
+			while ($rows = mysql_fetch_array($ejecutarDCompr)) {
+				$datosCompra[] = $rows;
 			}
+			
+			return $datosCompra;
 		}
 		
 		//combo de productos según el proveedor
-		public function obtieneProductosProveedores($idProveedor)
-    	{
+		public function obtieneProductosProveedores($idProveedor){
     		$consultaOPP = "SELECT nombre_producto FROM productos WHERE id_prov = ".$idProveedor;
 			$ejecutarOPP = mysql_query($consultaOPP)or die ("Error de Consulta-ProductoCombo");
 			$filasOPP = mysql_num_rows($ejecutarOPP);
@@ -2582,6 +2599,44 @@
 			
 				return $comboProductos;
 			}
+		}
+		
+		public function obtenerInformacionProducto($idProducto){
+			$consultaProd = "SELECT 
+										  prod.id_producto,
+										  prod.modelo,
+										  m.nombre_marca,
+										  f.nombre_fam,
+										  l.nombre_linea,
+										  sc.subCategoria,
+										  tprod.tipo_prod,
+										  u.unidad,
+										  prod.existencia,
+										  prod.descripcion,
+										  prod.precio_unitario 
+										FROM
+										  marca m 
+										  INNER JOIN familia f 
+										  INNER JOIN linea l 
+										  INNER JOIN subcategoria sc 
+										  INNER JOIN tipo_prod tprod 
+										  INNER JOIN unidad u 
+										  INNER JOIN productos prod 
+										    ON m.id_marca = prod.id_marca 
+										    AND f.id_fam = prod.id_fam 
+										    AND l.id_linea = prod.id_linea 
+										    AND sc.id_subCat = prod.id_subCat 
+										    AND tprod.id_tipoProd = prod.id_tipoProd 
+										    AND u.id_unidad = prod.id_unidad 
+										WHERE prod.id_producto = ".$idProducto;
+			$ejecutarProd = 	mysql_query($consultaProd,$this->conexion) or die (mysql_error());
+			
+			$infoProd = array();
+			while($rows = mysql_fetch_assoc($ejecutarProd)){
+				$infoProd[] = $rows;
+			}
+			
+			return $infoProd;
 		}
     }	
 ?>
