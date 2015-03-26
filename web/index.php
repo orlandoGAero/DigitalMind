@@ -50,7 +50,7 @@
 	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'mostrarContactos'),
 	     'EditarProveedores' => array('controller' =>'Controller', 'action' =>'ModificarProveedor'),
 	     'BorrarProveedores' => array('controller' =>'Controller', 'action' =>'EliminarProveedor'),
-	     'DatosBancarios' => array('controller' =>'Controller', 'action' =>'cargarDatosBancarios'),
+	     'DatosBancarios' => array('controller' =>'Controller', 'action' =>'InsertarDatosBancariosP'),
 	 	 'verMunicipioFiscal' => array('controller' =>'Controller', 'action' =>'obtenerMunicipioDirFiscal'),
 	 	 'verLocalidadFiscal' => array('controller' =>'Controller', 'action' =>'obtenerDireccionLocalidadDirFiscal'),
 

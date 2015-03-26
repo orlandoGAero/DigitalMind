@@ -717,24 +717,79 @@ public function mostrarContactos(){
 					
 					$parametrosProveedores['mensaje'] = 'Error al registrar Proveedores . Revise el formulario';
 
-				} //end else
-
-				
-					// $parametrosDatosBank = array(
-					// 	// datos bancarios
-					// 	'idBank' => $_POST['txt_iddb'],
-					// 	'banco' => $_POST['slt_banco'],
-					// 	'sucursal' => $_POST['txt_suc'],
-					// 	'titular' => $_POST['txt_titul'],
-					// 	'num_cuenta' => $_POST['txt_cuenta'],
-					// 	'clabe' => $_POST['txt_clabe'],
-					// 	'tipo_cta' => $_POST['slt_tipo_c'],
-					// );
-				
+				} /*endelse*/
 			}
 
 			require '/templates/proveedor/nuevoPro_parte2.php';
 
+		}
+
+		public function InsertarDatosBancariosP()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			// print "<pre>"; print_r($_POST); print "</pre>\n";
+
+			$parametrosDatosBank = array(
+				// clave proveedor
+				'idProv' => '',
+
+				// datos bancarios
+				'idBank' => $model->incrementoDB(),
+				'banco' => $model->obtieneBanco(),
+				'sucursal' => '',
+				'titular' => '',
+				'num_cuenta' => '',
+				'clabe' => '',
+				'tipo_cta' => $model->obtieneTipoC(),
+			);
+
+			$div = $_REQUEST['div'];
+			
+			/* validación si el div es igual a frmDB muestra el formulario datos bancarios*/
+			if($div == 'frmDB') {
+				if ($_SERVER['REQUEST_METHOD'] == 'REQUEST') {
+					
+					if($model->registrarProv_DatosBank($_REQUEST['txt_iddb'],
+														$_REQUEST['slt_banco'],
+														$_REQUEST['txt_suc'],
+														$_REQUEST['txt_titul'],
+														$_REQUEST['txt_cuenta'],
+														$_REQUEST['txt_clabe'],
+														$_REQUEST['slt_tipo_c'],
+														$_REQUEST['txt_idProv'])
+					){
+
+					} else {	
+						$parametrosDatosBank = array(
+							// clave proveedor
+							'idProv' => $_REQUEST['txt_idProv'],
+
+							// datos bancarios
+							'idBank' => $_REQUEST['txt_iddb'],
+							'banco' => $_REQUEST['slt_banco'],
+							'sucursal' => $_REQUEST['txt_suc'],
+							'titular' => $_REQUEST['txt_titul'],
+							'num_cuenta' => $_REQUEST['txt_cuenta'],
+							'clabe' => $_REQUEST['txt_clabe'],
+							'tipo_cta' => $_REQUEST['slt_tipo_c'],
+						);
+					} /*endelse*/
+				} /*endIf server request*/
+			} /*endIf frmDB*/
+
+			/*validación si el div es igual a tblDB muestra la tabla de datos bancarios*/
+			if($div == 'tblDB') {
+				
+				$id_Prove = $_REQUEST['txt_idProv'];
+
+				$tablaDB_Prov = $model->obtDatBankPro($id_Prove);
+
+			} /*endIf tblDB*/
+
+
+			require '/templates/proveedor/addDBancarios.php';
 		}
 
 		public function ModificarProveedor()

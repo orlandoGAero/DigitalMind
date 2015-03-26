@@ -1076,6 +1076,28 @@
             }
 		}
 
+		/*función para obtener los datos bancarios del proveedor*/
+		public function obtDatBankPro($idPROV)
+		{
+			$sqlobtDbProv = "SELECT bank.nombre_banco,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,tcta.tipo_cuenta
+							FROM bancos bank,datos_bancarios db,tipo_cuenta tcta,det_bank_prov detdb,proveedores prov
+							WHERE bank.id_banco=db.id_banco
+							AND tcta.id_tipo_cuenta=db.id_tipo_cuenta
+							AND prov.id_prov=detdb.id_prov
+							AND db.id_datBank=detdb.id_datBank
+							AND prov.id_prov=".$idPROV;
+			$ejecutar_sqlobtDbProv = mysql_query($sqlobtDbProv, $this->conexion) or die("Erro de consulta obtener datos bancarios proveedores".mysql_error());
+
+			$rowsDb = mysql_num_rows($ejecutar_sqlobtDbProv);
+
+			$tableDb = array();
+			while ($rowsDb = mysql_fetch_assoc($ejecutar_sqlobtDbProv)) {
+			 	$tableDb[] = $rowsDb; 
+			 } 
+
+			 return $tableDb;
+		}
+
 		// Función para registrar proveedores
 		public function registrarProveedores($id_dire,$street,$noext,$noint,$col,$referen,$cp,
 											$id_direFiscal,$streetFiscal,$noextFiscal,$nointFiscal,$colFiscal,$referenFiscal,$cpFiscal,						 
@@ -1153,7 +1175,7 @@
 			}		
 		}
 
-		public function registrarProv_DatosBank($id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta)
+		public function registrarProv_DatosBank($id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta,$id_pro)
 		{
 			$sucu = mb_strtoupper($sucu);
 			$titular = mb_strtoupper($titular);
@@ -1176,7 +1198,7 @@
 
 				// consulta para insertar en la tabla detalle datos bancarios
 				$sqlinsertdb_prov = "INSERT INTO det_bank_prov (id_prov,id_datBank)
-									 VALUES (".$id_prov.",".$id_dtb.");";
+									 VALUES (".$id_pro.",".$id_dtb.");";
 				$ejecutar_sqlinsertdb_prov = mysql_query($sqlinsertdb_prov,$this->conexion) or die("Error en insertar datos bancarios proveedor ".mysql_error());
 				
 				return $sqlinsertdb && $sqlinsertdb_prov;

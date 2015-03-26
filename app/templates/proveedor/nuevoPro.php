@@ -293,13 +293,13 @@
 
 												<li>
 													<label for="lbl_noext_f">No. Ext:</label>
-													<input type="text" name="txt_noext_f" required/>
+													<input type="text" class="keysNumbers" name="txt_noext_f" required/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
 												<li>
 													<label for="lbl_noint_f">No. Int:</label>
-													<input type="text" name="txt_noint_f" />
+													<input type="text" class="keysNumbers" name="txt_noint_f" />
 												</li>
 
 												<li>
@@ -416,13 +416,13 @@
 
 												<li>
 													<label for="lbl_noext">No. Ext:</label>
-													<input type="text" name="txt_noext" required/>
+													<input type="text" class="keysNumbers" name="txt_noext" required/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
 												<li>
 													<label for="lbl_noint">No. Int:</label>
-													<input type="text" name="txt_noint" />
+													<input type="text" class="keysNumbers" name="txt_noint" />
 												</li>
 
 												<li>
