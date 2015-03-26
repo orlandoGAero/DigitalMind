@@ -83,6 +83,7 @@
 		 //-------------------------TRANSACCIONES-------------------------------------------
 		 'transacciones' => array('controller' =>'Controller', 'action' =>'nuevaTransaccion'),
 		 'viewFormTrans' => array('controller' =>'Controller', 'action' =>'cargarFormTransaccion'),
+		 'continuarTransaccion' => array('controller' =>'Controller', 'action' =>'insertarTransaccion'),
 	 );
 	 
  	// PARSEO DE LA RUTA

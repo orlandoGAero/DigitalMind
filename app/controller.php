@@ -1627,33 +1627,57 @@
 		//-------------------------TRANSACCIONES-------------------------------------------
 		public function nuevaTransaccion()
 		{
-			// if (!isset($_GET['id_Proveedor'])) {
-				// throw new Exception("Página no encontrada", 1);
-			// } 
-// 
-			// $idProveedor = $_GET['id_Proveedor'];
-// 
-			// $model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						// config::$mvc_db_pass, config::$mvc_db_hostname);
-// 
-			// $detProveedor = $model->obtenerDetalleProveedor($idProveedor);
-// 
-			// $obtenerDatosProveedor = $detProveedor;
-
 			require __DIR__ . '/templates/transacciones/elegirTransaccion.php';
 		}
 		
 		public function cargarFormTransaccion(){
-			// echo $_REQUEST['sltTrans'];
+				
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
 			if($_REQUEST['sltTrans'] != ""){
 				// 1 = Compra
 				if($_REQUEST['sltTrans'] == 1){
+					
+					$parametrosCompra = array(
+						'noComprovanteC' => $m -> obtenerNoComprobanteCompr(),
+						'proveedores' => $m -> obtieneProveedorProd(),
+					);
+					
 					require __DIR__ . '/templates/transacciones/transaccionCompra.php';
 				}
 				// 2 = Venta
 				elseif($_REQUEST['sltTrans'] == 2){
 					require __DIR__ . '/templates/transacciones/transaccionVenta.php';
 				}
+			}
+		}
+		
+		public function insertarTransaccion()
+		{
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+				
+			if($_POST['sltTrans'] == 1){
+					
+				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+					print_r($_POST);
+					$m -> registrarTransCompra($_POST['numCompra'],$_POST['idProveedor']);
+					
+					$parametrosCompra2 = array(
+						'noComprovanteC' => $_POST['numCompra'],
+						'nomProveedor' => $m -> obtenerNombreProveedor($_POST['idProveedor']),
+						// 'fechaC' => $POST[''],
+						// 'horaC' => $POST[''],
+						'productos' => $m -> obtieneProductosProveedores($_POST['idProveedor']),
+					);
+				}
+				
+				require __DIR__ . '/templates/transacciones/insertarTransCompra.php';					
+			}
+			// 2 = Venta
+			elseif($_POST['sltTrans'] == 2){
+				require __DIR__ . '/templates/transacciones/transaccionVenta.php';
 			}
 		}
 

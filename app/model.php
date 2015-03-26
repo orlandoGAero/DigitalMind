@@ -2513,5 +2513,75 @@
 		
 		//-------------------------TRANSACCIONES-------------------------------------------
 		
+		public function obtenerNoComprobanteCompr(){
+			$consulta = "SELECT no_trans_compra FROM transacciones_compras ORDER BY no_trans_compra DESC LIMIT 1;";
+			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+			$filas = mysql_num_rows($ejecutar);
+			
+			if($filas==0){
+				$noComprobCompr = "001";
+			}else{
+				$noComprobCompr = mysql_result($ejecutar,0,'no_trans_compra');
+				$noComprobCompr = substr($noComprobCompr, 2,2) + 1;
+				$noComprobCompr = "00".$noComprobCompr;
+			}
+			
+			return $noComprobCompr;
+		}
+		
+		//combo dinamico para obtener proveedores que ya tengan asignado algún producto
+		public function obtieneProveedorProd()
+    	{
+    		$consultaProvP = "SELECT prov.id_prov,prov.proveedor FROM proveedores prov INNER JOIN productos prod ON prov.id_prov = prod.id_prov;";
+			$ejecutarProvP = mysql_query($consultaProvP)or die ("Error de Consulta-ProvCombo");
+			$filasProvP = mysql_num_rows($ejecutarProvP);
+		
+            if($filasProvP != 0){
+			$comboProvP = array();
+			while ($rows = mysql_fetch_assoc($ejecutarProvP)) {
+				$comboProvP[] = $rows;
+			}
+			
+			return $comboProvP;
+			}
+		}
+		
+		public function registrarTransCompra($idCompra,$idProveedor){
+			$consultaRTC = "INSERT INTO transacciones_compras(no_trans_compra,id_prov,fecha_compra,hora_compra)
+														VALUES ('".$idCompra."',".$idProveedor.",NOW(),NOW());";
+			$ejecutarRTC = mysql_query($consultaRTC,$this->conexion) or die (mysql_error());
+			
+			return $ejecutarRTC;
+		}
+		
+		public function obtenerNombreProveedor($idProveedor)
+    	{
+    		$consultaNomPr = "SELECT proveedor FROM proveedores WHERE id_prov = ".$idProveedor;
+			$ejecutarNomPr = mysql_query($consultaNomPr)or die ("Error de Consulta Nombre Proveedor");
+			$filasNomPr = mysql_num_rows($ejecutarNomPr);
+		
+            if($filasNomPr != 0){
+				$nombreProveedor = mysql_result($ejecutarNomPr, 0, 'proveedor');
+			
+				return $nombreProveedor;
+			}
+		}
+		
+		//combo de productos según el proveedor
+		public function obtieneProductosProveedores($idProveedor)
+    	{
+    		$consultaOPP = "SELECT nombre_producto FROM productos WHERE id_prov = ".$idProveedor;
+			$ejecutarOPP = mysql_query($consultaOPP)or die ("Error de Consulta-ProductoCombo");
+			$filasOPP = mysql_num_rows($ejecutarOPP);
+		
+            if($filasOPP != 0){
+				$comboProductos = array();
+				while ($rows = mysql_fetch_assoc($ejecutarOPP)) {
+					$comboProductos[] = $rows;
+				}
+			
+				return $comboProductos;
+			}
+		}
     }	
 ?>

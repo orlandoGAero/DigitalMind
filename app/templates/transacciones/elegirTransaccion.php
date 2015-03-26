@@ -1,10 +1,6 @@
-<!-- Insertar Compra -->
+<!--  -->
 <?php ob_start() ?>
 
-	<!-- <?php if (isset($parametrosContactos['mensaje'])) :?>
-		<b><span style="color: red;"><?php echo $parametrosContactos['mensaje'] ?></span></b>
-	<?php endif; ?> -->
-	 <br/>
 	 <!-- Style CSS valid & invalid-->
         <link href="<?php echo 'css/'.config::$style_valid_invalid_css ?>" rel="stylesheet" />
         
@@ -19,7 +15,7 @@
 					<section id="principal">
 						<div class="menu-pro">
 							<ul>
-								<form action="index.php?url=compra" method="POST" id="formTransacion" target="_self">
+								<form action="index.php?url=continuarTransaccion" method="POST" id="formTransacion" target="_self">
 									<li><a href="#">Datos Transacción</a>
 										<ul>
 											<li>
@@ -49,7 +45,7 @@
 										</ul>
 									</li>
 										<!-- Botones -->
-										<input type="submit" class="boton2" value="Guardar" name="btnGuardar" />
+										<input type="submit" class="boton2" value="Continuar" name="btnContinuar" />
 										&nbsp;&nbsp;
 										<a href="index.php?url=inicio" title="Regresar" onclick="return confirm('¿Desea salir antes de guardar?');">
 											<input type="button" class="boton2" value="Cancelar" />
@@ -74,16 +70,6 @@
 		        	$('#resultado_transaccion').load('index.php?url=viewFormTrans&' + $('#formTransacion').serialize())	
 		        }
 		 }
-		    
-		jQuery(document).ready(function() {
-		    jQuery('.keysNumbers').keypress(function(tecla) {
-		        if(tecla.charCode < 48 || tecla.charCode > 57) return false;
-		    });
-		});
-		
-		function conMayusculas(field) {
-	            field.value = field.value.toUpperCase()
-		}
 	</script>
 	
 <?php $contenido = ob_get_clean() ?>

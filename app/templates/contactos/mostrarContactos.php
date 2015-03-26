@@ -1,19 +1,11 @@
 <!-- Listar Contactos -->
  <?php 
  	/**
-	 * ob_start() envia todos los resultados del script desde la invocación de la función a un buffer interno. Dichos resultados se recojen a través de la función ob_get_clean().
+	 * ob_start() envia todos los resultados del script desde la invocación de la función a un buffer interno. 
+	 * Dichos resultados se recojen a través de la función ob_get_clean().
 	 */
 ?>
 <?php ob_start() ?>
-	<!-- CSS -->
-        <link rel="stylesheet" href="css/fancybox/jquery.fancybox-buttons.css">        
-        <link rel="stylesheet" href="css/fancybox/jquery.fancybox.css">
-
-	<!-- Grab Google CDN's jQuery, fall back to local if offline -->
- 		<script>window.jQuery || document.write('<script src="js/fancybox/libs/jquery-1.7.1.min.js"><\/script>')</script>
-        
-	<!-- FancyBox -->
-		<script src="js/fancybox/jquery.fancybox.js"></script>
 		
 	<!-- Script de Tiny Table Sorter -->
 	<script type="text/javascript" src="<?php echo 'js/'.config::$tinyTableSorter_js ?>"></script>
