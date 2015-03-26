@@ -1,9 +1,22 @@
 <?php ob_start() ?>
+	
+	<!-- Style CSS valid & invalid-->
+ 	<link href="<?php echo 'css/'.config::$style_valid_invalid_css ?>" rel="stylesheet" />	<!-- JS Formulario Listas Desplegables -->
+	
 	<!-- JS Formulario Listas Desplegables -->
 	<!-- modificar linea de abajo-->
-	<script type="text/javascript" src="js/jquery.lksMenu.js">
+	<script type="text/javascript" src="js/jquery.lksMenu.js"></script>
+	<script>
 		$('document').ready(function(){
 			$('.menu-pro').lksMenu();
+		});
+
+		/*Funcion para Agregar Datos Bancarios*/
+		$(function (agregar) {
+			$('#frm_dbank').submit(function (agregar) {
+				agregar.preventDefault()
+				$('#datos_bancarios').load('index.php?url=DatosBancarios&' + $('#frm_dbank').serialize())
+			});
 		});
 	</script>
 
@@ -22,11 +35,6 @@
 									<li>	
 										<ul>
 											
-												<a href="javascript:abrir(">
-													<img alt="Nuevo Contacto" title="Nuevo Contacto" src="images/new-contacto.png">
-												</a>
-												<!-- <a href=""><img alt="Selecionar Contacto" title="Seleccionar Contacto" src="images/select-contacto.png"></a> -->
-												
 										</ul>
 									</li>
 								</ul>
@@ -36,14 +44,14 @@
 								<ul>
 									<li>
 										<ul>
-											<!-- <form action="" name="frm_dbank" id="frm_dbank" method="POST" target="_self"> -->
+											<form action="" name="frm_dbank" id="frm_dbank" method="POST" target="_self">
 												<!-- clave datos bancarios -->
-													<input type="hidden"  name="txt_iddb" value="<?php echo $parametrosProveedores['idBank'] ?>" readonly />
+													<input type="text"  name="txt_iddb" value="<?php echo $parametrosDatosBank['idBank'] ?>" readonly />
 												<li>
 													<label for="lbl_banco">Banco:</label>
 													<select id="banco" name="slt_banco" required>
 														<option value selected>Selecciona un banco...</option>
-														<?php foreach($parametrosProveedores ['banco'] as $bank) : ?>
+														<?php foreach($parametrosDatosBank ['banco'] as $bank) : ?>
 														<option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
 														<?php endforeach; ?>
 													</select>
@@ -78,7 +86,7 @@
 													<label for="lbl_tipo_cuenta">Tipo de cuenta:</label>
 													<select id="tipo_c" name="slt_tipo_c" required>
 														<option value selected>Selecciona un tipo de cuenta...</option>
-														<?php foreach ($parametrosProveedores ['tipo_cta'] as $tipo_c) : ?>
+														<?php foreach ($parametrosDatosBank ['tipo_cta'] as $tipo_c) : ?>
 														<option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
 														<?php endforeach; ?>
 													</select>
@@ -86,14 +94,18 @@
 												</li>
 
 												<li>
-													<input type="submit" name="btnAddBank" id="btnAddBank" value="Agregar"/>
+													<input type="submit" class="boton2" name="btnAddBank" id="btnAddBank" value="Agregar"/>
 												</li>
-											<!-- </form> -->
-											<!-- <div id="datos_bancarios"></div> -->
+											</form>
+											<div id="datos_bancarios"></div>
 										</ul>
 									</li>
 								</ul>
 							</li>
+							
+							<form action="index.php?url=NuevoProveedorPart2" name="formGuardar" method="POST" target="_self">
+								<input type="submit" class="boton2" name="btnGuardar" id="btnGuardar" value="Guardar"/>
+							</form>
 						</ul>
 					</div> <!-- fin de div menu-pro -->
 				</section> <!-- fin de seccion principal -->

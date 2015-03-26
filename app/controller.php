@@ -559,7 +559,8 @@ public function mostrarContactos(){
 			require '/templates/proveedor/mostrarProveedores.php';
 		}
 
-		public function InsertarProveedor()
+		
+		public function InsertarProveedor_part1()
 		{
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
@@ -602,7 +603,19 @@ public function mostrarContactos(){
 				'n_int' => '',
 				'colo' => '',
 				'ref' => '',
-				
+			);
+
+			require '/templates/proveedor/nuevoPro.php';;
+		}
+
+		public function InsertarProveedores_part2()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			// print "<pre>"; print_r($_POST); print "</pre>\n";
+
+			$parametrosDatosBank = array(
 				// datos bancarios
 				'idBank' => $model->incrementoDB(),
 				'banco' => $model->obtieneBanco(),
@@ -614,8 +627,7 @@ public function mostrarContactos(){
 			);
 
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				// print_r($_POST);
-
+				// print "<pre>"; print_r($_POST); print "</pre>\n";
 				if($_POST['txt_noint'] == ""){
 					$_POST['txt_noint'] = "s/n";
 				}
@@ -623,8 +635,8 @@ public function mostrarContactos(){
 				if($_POST['txt_noint_f'] == ""){
 					$_POST['txt_noint_f'] = "s/n";
 				}
-				
-				if($model->registrarProveedores($_POST['txt_iddir'],
+
+				if ($model->registrarProveedores($_POST['txt_iddir'],
 												$_POST['txt_calle'],
 												$_POST['txt_noext'],
 												$_POST['txt_noint'],
@@ -645,19 +657,13 @@ public function mostrarContactos(){
 												$_POST['txt_nombrepro'],
 												$_POST['slt_catprov'],
 												$_POST['txt_tel_pro'],
-												$_POST['txt_url_web'],
-												$_POST['txt_iddb'],
-												$_POST['slt_banco'],
-												$_POST['txt_suc'],
-												$_POST['txt_titul'],
-												$_POST['txt_cuenta'],
-												$_POST['txt_clabe'],
-												$_POST['slt_tipo_c'])){
-					header('Location: index.php?url=Proveedores');
+												$_POST['txt_url_web'])
+				){
+					# code...header('Location: index.php?url=Proveedores');
 				} else {
 
 					$parametrosProveedores = array(
-					
+							
 						// datos proveedor
 						'idprov' => $_POST['txt_idProv'],
 						'proveedor' => $_POST['txt_nombrepro'],
@@ -707,48 +713,27 @@ public function mostrarContactos(){
 						'n_int' => $_POST['txt_noint'],
 						'colo' => $_POST['txt_col'],
 						'ref' => $_POST['txt_ref'],
-
-						// datos bancarios
-						'idBank' => $_POST['txt_iddb'],
-						'banco' => $_POST['slt_banco'],
-						'sucursal' => $_POST['txt_suc'],
-						'titular' => $_POST['txt_titul'],
-						'num_cuenta' => $_POST['txt_cuenta'],
-						'clabe' => $_POST['txt_clabe'],
-						'tipo_cta' => $_POST['slt_tipo_c'],
 					);
 					
-					// QUITAR
-					// $obtenerDatosDir = array(
-					// 	'codigoP' => $model -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
-					// 	'idCP' => $_POST['idcp-locality'], 
-					// 	'localidadC' => $model -> obtieneNombreLocalidad($_POST['idcp-locality']), 
-					// 	'municipio' => $_POST['state'],
-					// 	'estado' => $_POST['municipality'], 
-					// );
-
 					$parametrosProveedores['mensaje'] = 'Error al registrar Proveedores . Revise el formulario';
-				}
 
+				} //end else
+
+				
+					// $parametrosDatosBank = array(
+					// 	// datos bancarios
+					// 	'idBank' => $_POST['txt_iddb'],
+					// 	'banco' => $_POST['slt_banco'],
+					// 	'sucursal' => $_POST['txt_suc'],
+					// 	'titular' => $_POST['txt_titul'],
+					// 	'num_cuenta' => $_POST['txt_cuenta'],
+					// 	'clabe' => $_POST['txt_clabe'],
+					// 	'tipo_cta' => $_POST['slt_tipo_c'],
+					// );
+				
 			}
 
-			require '/templates/proveedor/nuevoPro.php';
-		}
-
-		public function InsertarProveedor_part1()
-		{
-			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-			require _DIR_ '/templates/proveedor/nuevoPro.php';
-		}
-
-		public function InsertarProveedores_part2()
-		{
-			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-			require __DIR__ '/templates/proveedor/nuevoPro_parte2.php';
+			require '/templates/proveedor/nuevoPro_parte2.php';
 
 		}
 

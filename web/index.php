@@ -43,7 +43,8 @@
      	 
      	 /*------------------------------PROVEEDOR----------------------------------------------*/
 	     'Proveedores' => array('controller' =>'Controller', 'action' =>'Proveedor'),
-	     'NuevoProveedor' => array('controller' =>'Controller', 'action' =>'InsertarProveedor'),
+	     'NuevoProveedor' => array('controller' =>'Controller', 'action' =>'InsertarProveedor_part1'),
+	     'NuevoProveedorPart2' => array('controller' =>'Controller', 'action' =>'InsertarProveedores_part2'),
 	     'TablaContactos' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
 	     'DetalleProveedor' => array('controller' =>'Controller', 'action' =>'verProveedor'),
 	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'mostrarContactos'),

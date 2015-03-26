@@ -4,7 +4,9 @@
 	<?php endif; ?>
 	 <br/>
  	
-	<!-- JS Formulario Listas Desplegables -->
+	<!-- Style CSS valid & invalid-->
+ 	<link href="<?php echo 'css/'.config::$style_valid_invalid_css ?>" rel="stylesheet" />	<!-- JS Formulario Listas Desplegables -->
+	
 	<!-- modificar linea de abajo-->
 	<script type="text/javascript" src="js/jquery.lksMenu.js"></script>
 	<script>
@@ -110,6 +112,12 @@
 		function conMayusculas(field) {
 	            field.value = field.value.toUpperCase()
 		}
+
+		jQuery(document).ready(function() {
+		    jQuery('.keysNumbers').keypress(function(tecla) {
+		        if(tecla.charCode < 48 || tecla.charCode > 57) return false;
+		    });
+		});
 	</script>
 		
 	<div class="col-lg-14">
@@ -125,12 +133,12 @@
 				<section id="principal">
 					<div class="menu-pro">
 						<ul>
-							<form action="index.php?url=NuevoProveedor" method="POST" name="formprov" id="formprov" target="_self">
+							<form action="index.php?url=NuevoProveedorPart2" method="POST" name="formprov" id="formprov" target="_self">
 								<li><a href="#"><b>Datos Proveedor</b></a>
 									<ul>
 										<li>	
 											<li>
-												<input type="hidden" name="txt_idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
+												<input type="text" name="txt_idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
 											</li>
 
 											<ul>
@@ -153,7 +161,7 @@
 
 												<li>
 													<label for="lbl_tele">Tel&eacute;fono:</label>
-													<input type="tel" name="txt_tel_pro" maxlength="10" required pattern="[0-9]{10}"/>
+													<input type="tel" class="keysNumbers" name="txt_tel_pro" maxlength="10" required pattern="[0-9]{10}"/>
 													<span style="color: red;"><b>&nbsp;*</b></span>
 												</li>
 
@@ -172,7 +180,7 @@
 										<li>	
 											<ul>
 												<!-- clave razon social -->
-												<input type="hidden"  name="txt_iddf" value="<?php echo $parametrosProveedores['idDatFis'] ?>" readonly />
+												<input type="text"  name="txt_iddf" value="<?php echo $parametrosProveedores['idDatFis'] ?>" readonly />
 												<li>
 													<label for="lbl_razon">Raz&oacute;n Social:</label>
 													<input type="text" name="txt_razon_s" required onchange="conMayusculas(this)"/>
@@ -433,7 +441,7 @@
 								</li>
 
 									<!-- boton -->
-									<input type="submit" class="boton2" id="" value="Continuar" name="btnContinuar" />
+									<input type="submit" class="boton2" id="" value="Guardar" name="btnContinuar" />
 									&nbsp;&nbsp;
 									<a href="index.php?url=Proveedores" title="Regresar" onclick="return confirm('¿Desea salir antes de guardar?');">
 										<input type="button" class="boton2" value="Cancelar" />

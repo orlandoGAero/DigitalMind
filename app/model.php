@@ -1078,10 +1078,9 @@
 
 		// Función para registrar proveedores
 		public function registrarProveedores($id_dire,$street,$noext,$noint,$col,$referen,$cp,
-											 $id_direFiscal,$streetFiscal,$noextFiscal,$nointFiscal,$colFiscal,$referenFiscal,$cpFiscal,						 
-											 $id_datf,$razon_s,$rfc,
-											 $id_prov,$prov,$cat,$phone,$dweb,
-											 $id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta) 
+											$id_direFiscal,$streetFiscal,$noextFiscal,$nointFiscal,$colFiscal,$referenFiscal,$cpFiscal,						 
+											$id_datf,$razon_s,$rfc,
+											$id_prov,$prov,$cat,$phone,$dweb) 
 		{
 			$prov = mb_strtoupper($prov);
 			$razon_s = mb_strtoupper($razon_s);
@@ -1089,9 +1088,7 @@
 			$col = mb_strtoupper($col);
 			$streetFiscal = mb_strtoupper($streetFiscal);
 			$colFiscal = mb_strtoupper($colFiscal);
-			$sucu = mb_strtoupper($sucu);
-			$titular = mb_strtoupper($titular);
-
+			
 			if (strlen($rfc) == 12)
 			{
 					$tipo_rs = "Moral";
@@ -1100,7 +1097,7 @@
 			}
 			$band = 0;
 
-			if ($prov != "" && $cat != "" && $phone != "" && $dweb != "" && $razon_s != "" && $rfc != "" && $streetFiscal != "" && $noextFiscal != "" && $colFiscal != "" && $street != "" && $noext != "" && $col != "" && $id_bank != "" && $sucu != "" && $titular != "" && $nocuent != "" && $clabe != "" && $id_tcuenta != "") 
+			if ($prov != "" && $cat != "" && $phone != "" && $dweb != "" && $razon_s != "" && $rfc != "" && $streetFiscal != "" && $noextFiscal != "" && $colFiscal != "" && $street != "" && $noext != "" && $col != "") 
 			{
 				
 			} else {
@@ -1152,11 +1149,26 @@
 								  VALUES (".$id_prov.",NOW(),'".$prov."','".$phone."','".$dweb."',".$cat.",".$id_datf.",".$id_dire.",'si');";
 				$ejecutar_sqlinsertprov = mysql_query($sqlinsertprov,$this->conexion) or die("Error en insertar proveedores ".mysql_error());
 
-				// consulta para insertar en la tabla de proveedores_contacto
-				$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_prov,id_contacto)
-										  VALUES (".$id_prov.",1);";
-				$ejecutar_sqlinsertprov_contact = mysql_query($sqlinsertprov_contact,$this->conexion) or die("Error en insertar proveedores-contactos".mysql_error());
+				return $sqlinsertdir && $sqlinsertdirFis && $sqlinsertdf && $sqlinsertprov;
+			}		
+		}
 
+		public function registrarProv_DatosBank($id_dtb,$id_bank,$sucu,$titular,$nocuent,$clabe,$id_tcuenta)
+		{
+			$sucu = mb_strtoupper($sucu);
+			$titular = mb_strtoupper($titular);
+
+			$band = 0;
+
+			if ($id_bank != "" && $sucu != "" && $titular != "" && $nocuent != "" && $clabe != "" && $id_tcuenta != "") 
+			{
+				
+			} else {
+				$band = 1;
+				echo" <script> alert('Complete toda la información requerida antes de continuar') </script> ";
+			}
+
+			if ($band == 0) {
 				// consulta para insertar en la tabla datos bancarios
 				$sqlinsertdb = "INSERT INTO datos_bancarios (id_datBank,id_banco,sucursal,titular,no_cuenta,no_cuenta_interbancario,id_tipo_cuenta)
 								VALUES (".$id_dtb.",".$id_bank.",'".$sucu."','".$titular."','".$nocuent."','".$clabe."',".$id_tcuenta.");";
@@ -1167,8 +1179,18 @@
 									 VALUES (".$id_prov.",".$id_dtb.");";
 				$ejecutar_sqlinsertdb_prov = mysql_query($sqlinsertdb_prov,$this->conexion) or die("Error en insertar datos bancarios proveedor ".mysql_error());
 				
-				return $sqlinsertdir && $sqlinsertdirFis && $sqlinsertdf && $sqlinsertprov && $sqlinsertdb && $sqlinsertdb_prov && $sqlinsertprov_contact;
-			}		
+				return $sqlinsertdb && $sqlinsertdb_prov;
+			}
+		}
+
+		public function registrarProv_Contact()
+		{
+			// consulta para insertar en la tabla de proveedores_contacto
+				$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_prov,id_contacto)
+										  VALUES (".$id_prov.",1);";
+				$ejecutar_sqlinsertprov_contact = mysql_query($sqlinsertprov_contact,$this->conexion) or die("Error en insertar proveedores-contactos".mysql_error());
+				
+				return $sqlinsertprov_contact;
 		}
 
 		public function actualizarProveedores($id_datf,$razon_s,$rfc,
