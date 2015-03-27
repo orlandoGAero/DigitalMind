@@ -2656,5 +2656,38 @@
 
 			return $rowsProd;
 		}
+		
+		public function registrarDetalleTransCompra($noCompra,$claveProducto,$cantidadProducto){
+			$band =0;
+			
+			$consultaRDTC = "INSERT INTO transacciones_detalle_compras (no_trans_compra,id_producto,cant_producto_compra	) 
+										VALUES (".$noCompra.", ".$claveProducto.", ".$cantidadProducto.")";
+			$ejecutarRDTC = mysql_query($consultaRDTC,$this->conexion) or die (mysql_error());
+			
+			// echo "<script>alert('Producto guardado')</script>";
+			return $ejecutarRDTC;			
+		}
+		
+		public function obtenerProductosAgregados($noCompra){
+			$consultaOPA = "SELECT 
+										  prod.id_producto,
+										  prod.nombre_producto,
+										  prod.precio_unitario,
+										  tdc.id_detalle_compra,
+										  tdc.no_trans_compra,
+										  tdc.cant_producto_compra 
+										FROM
+										  productos prod 
+										  INNER JOIN transacciones_detalle_compras tdc 
+										    ON prod.id_producto = tdc.id_producto 
+										WHERE tdc.no_trans_compra = ".$noCompra."
+										ORDER BY prod.nombre_producto";
+			$ejecutarOPA = mysql_query($consultaOPA,$this->conexion) or die (mysql_error());
+			
+			$rowsprodAdd = mysql_fetch_assoc($ejecutarOPA);
+			
+			return $rowsprodAdd;
+		}
+		
     }	
 ?>

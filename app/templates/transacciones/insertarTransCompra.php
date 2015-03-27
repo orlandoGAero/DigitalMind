@@ -45,6 +45,7 @@
 																</tr>
 															<?php endforeach; ?>
 														</table>
+												<li><!-- No. Comprobante de Compra --><input type="hidden" name="txtNumCompr" value="<?php echo $parametrosCompra2['noComprovanteC'] ?>" readonly="readonly"/></li>
 												<li>
 													<label>Productos</label>
 													<select name="idProducto" id="id_prod" required="required" >
@@ -68,8 +69,8 @@
 								
 								<!-- Botones -->
 
-								<a href="index.php?url=transacciones" title="Regresar" onclick="return confirm('¿Desea salir antes de guardar?');">
-									<input type="button" class="boton2" value="Finalizar" style="margin-left: 700px"/>
+								<a href="index.php?url=transacciones" title="Cancelar" onclick="return confirm('¿Desea salir antes de guardar?');">
+									<input type="button" class="boton2" value="Cancelar" style="margin-left: 700px"/>
 								</a>
 																
 							</form>
@@ -96,7 +97,7 @@
 		$(function (e) {
 			$('#formTransacionSegundo').submit(function (e) {
 				e.preventDefault()
-				$('#productosAgregados').load('index.php?url=addProdCompra' + $('#formTransacionSegundo').serialize())
+				$('#productosAgregados').load('index.php?url=addProdCompra&' + $('#formTransacionSegundo').serialize())
 			})
 		})
 		

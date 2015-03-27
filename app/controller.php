@@ -1706,13 +1706,12 @@
 		public function agregarProdCompra(){
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
-						
-			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				print_r($_POST);
-				
-				if($m -> registrarDetalleTransCompra()){
-					
-				}	
+			
+			if ($_REQUEST != "") {
+				if($m -> registrarDetalleTransCompra($_REQUEST['txtNumCompr'],$_REQUEST['idProducto'],$_REQUEST['txtCantProd'])){
+					$productAdd = $m -> obtenerProductosAgregados($_REQUEST['txtNumCompr']);
+					var_dump($productAdd);
+				}
 			}
 			
 			require __DIR__ . '/templates/transacciones/agregarProducto.php';
