@@ -66,9 +66,9 @@
 		});
 		
 		function cargarFormularioTrans(form) {
-		        if ($('#tipo_transaccion').val() != "") {
-		        	$('#resultado_transaccion').load('index.php?url=viewFormTrans&' + $('#formTransacion').serialize())	
-		        }
+	        if ($('#tipo_transaccion').val() != "") {
+	        	$('#resultado_transaccion').load('index.php?url=viewFormTrans&' + $('#formTransacion').serialize())	
+	        }
 		 }
 	</script>
 	

@@ -2540,7 +2540,14 @@
 		
 		//combo dinamico para obtener proveedores que ya tengan asignado algún producto
 		public function obtieneProveedorProd(){
-    		$consultaProvP = "SELECT prov.id_prov,prov.proveedor FROM proveedores prov INNER JOIN productos prod ON prov.id_prov = prod.id_prov;";
+    		$consultaProvP = "SELECT 
+							  prov.id_prov,
+							  prov.proveedor 
+							FROM
+							  proveedores prov 
+							  INNER JOIN productos prod 
+							    ON prov.id_prov = prod.id_prov 
+							GROUP BY prov.proveedor;";
 			$ejecutarProvP = mysql_query($consultaProvP)or die ("Error de Consulta-ProvCombo");
 			$filasProvP = mysql_num_rows($ejecutarProvP);
 		
@@ -2555,8 +2562,22 @@
 		}
 		
 		public function registrarTransCompra($idCompra,$idProveedor){
-			$consultaRTC = "INSERT INTO transacciones_compras(no_trans_compra,id_prov,fecha_compra,hora_compra)
-														VALUES ('".$idCompra."',".$idProveedor.",NOW(),NOW());";
+				
+				// validar que no se vuelva a guardar
+				
+			$consultaRTC = "INSERT INTO transacciones_compras (
+							  no_trans_compra,
+							  id_prov,
+							  fecha_compra,
+							  hora_compra
+							) 
+							VALUES
+							  (
+							    '".$idCompra."',
+							    ".$idProveedor.",
+							    NOW(),
+							    NOW()
+							  );";
 			$ejecutarRTC = mysql_query($consultaRTC,$this->conexion) or die (mysql_error());
 			
 			return $ejecutarRTC;
@@ -2567,14 +2588,14 @@
     		$idCompra = (int) $idCompra;
 			
     		$consultaDCompr = "SELECT 
-											  prov.proveedor,
-											  tc.fecha_compra,
-											  tc.hora_compra 
-											FROM
-											  proveedores prov 
-											  INNER JOIN transacciones_compras tc 
-											    ON prov.id_prov = tc.id_prov 
-											WHERE tc.no_trans_compra = ".$idCompra;
+								  prov.proveedor,
+								  tc.fecha_compra,
+								  tc.hora_compra 
+								FROM
+								  proveedores prov 
+								  INNER JOIN transacciones_compras tc 
+								    ON prov.id_prov = tc.id_prov 
+								WHERE tc.no_trans_compra = ".$idCompra;
 			$ejecutarDCompr = mysql_query($consultaDCompr,$this->conexion) or die (mysql_error());
 		
             $datosCompra = array();
@@ -2587,7 +2608,7 @@
 		
 		//combo de productos según el proveedor
 		public function obtieneProductosProveedores($idProveedor){
-    		$consultaOPP = "SELECT nombre_producto FROM productos WHERE id_prov = ".$idProveedor;
+    		$consultaOPP = "SELECT id_producto,nombre_producto FROM productos WHERE id_prov = ".$idProveedor;
 			$ejecutarOPP = mysql_query($consultaOPP)or die ("Error de Consulta-ProductoCombo");
 			$filasOPP = mysql_num_rows($ejecutarOPP);
 		
@@ -2603,40 +2624,37 @@
 		
 		public function obtenerInformacionProducto($idProducto){
 			$consultaProd = "SELECT 
-										  prod.id_producto,
-										  prod.modelo,
-										  m.nombre_marca,
-										  f.nombre_fam,
-										  l.nombre_linea,
-										  sc.subCategoria,
-										  tprod.tipo_prod,
-										  u.unidad,
-										  prod.existencia,
-										  prod.descripcion,
-										  prod.precio_unitario 
-										FROM
-										  marca m 
-										  INNER JOIN familia f 
-										  INNER JOIN linea l 
-										  INNER JOIN subcategoria sc 
-										  INNER JOIN tipo_prod tprod 
-										  INNER JOIN unidad u 
-										  INNER JOIN productos prod 
-										    ON m.id_marca = prod.id_marca 
-										    AND f.id_fam = prod.id_fam 
-										    AND l.id_linea = prod.id_linea 
-										    AND sc.id_subCat = prod.id_subCat 
-										    AND tprod.id_tipoProd = prod.id_tipoProd 
-										    AND u.id_unidad = prod.id_unidad 
-										WHERE prod.id_producto = ".$idProducto;
-			$ejecutarProd = 	mysql_query($consultaProd,$this->conexion) or die (mysql_error());
+							  prod.id_producto,
+							  prod.modelo,
+							  m.nombre_marca,
+							  f.nombre_fam,
+							  l.nombre_linea,
+							  sc.subCategoria,
+							  tprod.tipo_prod,
+							  u.unidad,
+							  prod.existencia,
+							  prod.descripcion,
+							  prod.precio_unitario 
+							FROM
+							  marca m 
+							  INNER JOIN familia f 
+							  INNER JOIN linea l 
+							  INNER JOIN subcategoria sc 
+							  INNER JOIN tipo_prod tprod 
+							  INNER JOIN unidad u 
+							  INNER JOIN productos prod 
+							    ON m.id_marca = prod.id_marca 
+							    AND f.id_fam = prod.id_fam 
+							    AND l.id_linea = prod.id_linea 
+							    AND sc.id_subCat = prod.id_subCat 
+							    AND tprod.id_tipoProd = prod.id_tipoProd 
+							    AND u.id_unidad = prod.id_unidad 
+							WHERE prod.id_producto = ".$idProducto;
+			$ejecutarProd = mysql_query($consultaProd,$this->conexion) or die (mysql_error());
 			
-			$infoProd = array();
-			while($rows = mysql_fetch_assoc($ejecutarProd)){
-				$infoProd[] = $rows;
-			}
-			
-			return $infoProd;
+			$rowsProd = mysql_fetch_assoc($ejecutarProd);
+
+			return $rowsProd;
 		}
     }	
 ?>

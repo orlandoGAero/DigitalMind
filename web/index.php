@@ -85,6 +85,7 @@
 		 'viewFormTrans' => array('controller' =>'Controller', 'action' =>'cargarFormTransaccion'),
 		 'continuarTransaccion' => array('controller' =>'Controller', 'action' =>'insertarTransaccion'),
 		 'verInfoProd' => array('controller' =>'Controller', 'action' =>'verInformacionProducto'),
+		 'addProdCompra' => array('controller' =>'Controller', 'action' =>'agregarProdCompra'),
 	 );
 	 
  	// PARSEO DE LA RUTA

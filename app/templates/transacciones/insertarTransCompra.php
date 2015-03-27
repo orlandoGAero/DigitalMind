@@ -15,7 +15,7 @@
 				<section id="principal">
 					<div class="menu-pro">
 						<ul>
-							<form action="" method="POST" id="formTransacion" target="_self">
+							<form action="index.php?url=continuarTransaccion" method="POST" id="formTransacionSegundo" target="_self">
 								<li><a href="#">Datos Compra</a>
 									<ul>
 										<li>
@@ -59,9 +59,7 @@
 													<div id="datosProd"></div>
 												</li>
 												<li>
-													<label>Cantidad</label>
-													<input type="text" name="cantProd"/>
-													<span style="color: red;"><b>*</b></span>
+													<div id="productosAgregados"></div>
 												</li>
 											</ul>
 										</li>
@@ -71,7 +69,7 @@
 								<!-- Botones -->
 
 								<a href="index.php?url=transacciones" title="Regresar" onclick="return confirm('¿Desea salir antes de guardar?');">
-									<input type="button" class="boton2" value="Finalizar" />
+									<input type="button" class="boton2" value="Finalizar" style="margin-left: 700px"/>
 								</a>
 																
 							</form>
@@ -88,9 +86,19 @@
 			$('.menu-pro').lksMenu();
 		});
 		
-		$('#id_prod').change(function(){
-		 	$('#datosProd').load('index.php?url=verInfoProd&idProducto=' + this.options[this.selectedIndex].value)
-		 })
+		$(function (a) {			
+			$('#id_prod').change(function(a)
+			{
+				$('#datosProd').load('index.php?url=verInfoProd&IDproducto=' + this.options[this.selectedIndex].value);
+			});
+		});
+		
+		$(function (e) {
+			$('#formTransacionSegundo').submit(function (e) {
+				e.preventDefault()
+				$('#productosAgregados').load('index.php?url=addProdCompra' + $('#formTransacionSegundo').serialize())
+			})
+		})
 		
 	</script>
 	

@@ -1658,40 +1658,64 @@
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 				
-			if($_POST['sltTrans'] == 1){
+			if(isset($_POST['sltTrans'])){
+				if($_POST['sltTrans'] == 1){
+						
+					if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+						print_r($_POST);
+						
+						if($m -> registrarTransCompra($_POST['numCompra'],$_POST['idProveedor'])){
+							$parametrosCompra2 = array(
+								'noComprovanteC' => $_POST['numCompra'],
+								'datosCompra' => $m -> obtenerDatosCompra($_POST['numCompra']),
+								'productos' => $m -> obtieneProductosProveedores($_POST['idProveedor']),
+							);
+						}		
+					}
 					
-				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-					print_r($_POST);
-					$m -> registrarTransCompra($_POST['numCompra'],$_POST['idProveedor']);
-					
-					$parametrosCompra2 = array(
-						'noComprovanteC' => $_POST['numCompra'],
-						'datosCompra' => $m -> obtenerDatosCompra($_POST['numCompra']),
-						'productos' => $m -> obtieneProductosProveedores($_POST['idProveedor']),
-					);
+					require __DIR__ . '/templates/transacciones/insertarTransCompra.php';					
 				}
-				
-				require __DIR__ . '/templates/transacciones/insertarTransCompra.php';					
-			}
-			// 2 = Venta
-			elseif($_POST['sltTrans'] == 2){
-				require __DIR__ . '/templates/transacciones/transaccionVenta.php';
+				// 2 = Venta
+				elseif($_POST['sltTrans'] == 2){
+					require __DIR__ . '/templates/transacciones/transaccionVenta.php';
+				}
+			}else {
+				// redireccionar
+				header("Location: index.php?url=transacciones");
+				exit;
 			}
 		}
 		
 		public function verInformacionProducto(){
-			if(!isset($_GET['idProducto'])){
+			if(!isset($_GET['IDproducto'])){
 				throw new Exception("Página no encontrada", 1);
 			}
+			
+			$claveProducto = $_GET['IDproducto'];
 			
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 						
-			echo $claveProducto = $_GET['idProducto'];
-			$datosProducto = $m -> obtenerInformacionProducto($claveProducto);
-			$obtenerDatosProducto = $datosProducto;
 			
-			require __DIR__ . '/templates/transacciones/verDatosProducto.php';			
+			$datosProducto = $m -> obtenerInformacionProducto($claveProducto);
+			$mandarDatosProducto = $datosProducto;
+			
+			require __DIR__ . '/templates/transacciones/verDatosProducto.php';
+		}
+		
+		public function agregarProdCompra(){
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				print_r($_POST);
+				
+				if($m -> registrarDetalleTransCompra()){
+					
+				}	
+			}
+			
+			require __DIR__ . '/templates/transacciones/agregarProducto.php';
 		}
 
     }
