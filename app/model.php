@@ -1086,7 +1086,7 @@
 							AND prov.id_prov=detdb.id_prov
 							AND db.id_datBank=detdb.id_datBank
 							AND prov.id_prov=".$idPROV;
-			$ejecutar_sqlobtDbProv = mysql_query($sqlobtDbProv, $this->conexion) or die("Erro de consulta obtener datos bancarios proveedores".mysql_error());
+			$ejecutar_sqlobtDbProv = mysql_query($sqlobtDbProv, $this->conexion) or die("Error de consulta obtener datos bancarios proveedores".mysql_error());
 
 			$rowsDb = mysql_num_rows($ejecutar_sqlobtDbProv);
 

@@ -614,6 +614,13 @@ public function mostrarContactos(){
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
 			// print "<pre>"; print_r($_POST); print "</pre>\n";
+			
+			
+			$parametrosProveedores = array(
+							
+			// datos proveedor
+			'idprov' => $_POST['txt_idProv'],
+			);
 
 			$parametrosDatosBank = array(
 				// datos bancarios
@@ -729,12 +736,15 @@ public function mostrarContactos(){
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
-			// print "<pre>"; print_r($_POST); print "</pre>\n";
+			print "<pre>"; print_r($_REQUEST); print "</pre>\n";
+
+			$id_Prove = $_REQUEST['txt_IDProv'];
+			
+			$parametrosProveedores = array(
+				'idprov' => '',
+			);
 
 			$parametrosDatosBank = array(
-				// clave proveedor
-				'idProv' => '',
-
 				// datos bancarios
 				'idBank' => $model->incrementoDB(),
 				'banco' => $model->obtieneBanco(),
@@ -749,7 +759,7 @@ public function mostrarContactos(){
 			
 			/* validación si el div es igual a frmDB muestra el formulario datos bancarios*/
 			if($div == 'frmDB') {
-				if ($_SERVER['REQUEST_METHOD'] == 'REQUEST') {
+				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					
 					if($model->registrarProv_DatosBank($_REQUEST['txt_iddb'],
 														$_REQUEST['slt_banco'],
@@ -758,14 +768,17 @@ public function mostrarContactos(){
 														$_REQUEST['txt_cuenta'],
 														$_REQUEST['txt_clabe'],
 														$_REQUEST['slt_tipo_c'],
-														$_REQUEST['txt_idProv'])
+														$_REQUEST['txt_IDProv'])
 					){
+						
+					} else {
 
-					} else {	
+						$parametrosProveedores = array(
+							'idprov' => $_REQUEST['txt_IDProv'],
+						);	
+						
 						$parametrosDatosBank = array(
-							// clave proveedor
-							'idProv' => $_REQUEST['txt_idProv'],
-
+							
 							// datos bancarios
 							'idBank' => $_REQUEST['txt_iddb'],
 							'banco' => $_REQUEST['slt_banco'],
@@ -782,8 +795,6 @@ public function mostrarContactos(){
 			/*validación si el div es igual a tblDB muestra la tabla de datos bancarios*/
 			if($div == 'tblDB') {
 				
-				$id_Prove = $_REQUEST['txt_idProv'];
-
 				$tablaDB_Prov = $model->obtDatBankPro($id_Prove);
 
 			} /*endIf tblDB*/
