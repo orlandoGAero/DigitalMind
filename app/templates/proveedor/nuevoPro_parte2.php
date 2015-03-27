@@ -18,6 +18,10 @@
 				$('#datos_bancarios').load('index.php?url=DatosBancarios&div=frmDB&' + $('#frm_dbank').serialize())
 			});
 		});
+
+		function conMayusculas(field) {
+	        field.value = field.value.toUpperCase()
+		}
 	</script>
 
 	<div class="col-lg-14">

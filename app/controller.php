@@ -738,65 +738,47 @@ public function mostrarContactos(){
 
 			print "<pre>"; print_r($_REQUEST); print "</pre>\n";
 
-			$id_Prove = $_REQUEST['txt_IDProv'];
-			
-			$parametrosProveedores = array(
-				'idprov' => '',
-			);
-
-			$parametrosDatosBank = array(
-				// datos bancarios
-				'idBank' => $model->incrementoDB(),
-				'banco' => $model->obtieneBanco(),
-				'sucursal' => '',
-				'titular' => '',
-				'num_cuenta' => '',
-				'clabe' => '',
-				'tipo_cta' => $model->obtieneTipoC(),
-			);
-
 			$div = $_REQUEST['div'];
 			
 			/* validación si el div es igual a frmDB muestra el formulario datos bancarios*/
 			if($div == 'frmDB') {
-				if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+				$id_Prove = $_REQUEST['txt_IDProv'];
+			
+				$parametrosProveedores = array(
+					'idprov' => '',
+				);
+
+				$parametrosDatosBank = array(
+					// datos bancarios
+					'idBank' => $model->incrementoDB(),
+					'banco' => $model->obtieneBanco(),
+					'sucursal' => '',
+					'titular' => '',
+					'num_cuenta' => '',
+					'clabe' => '',
+					'tipo_cta' => $model->obtieneTipoC(),
+				);
 					
-					if($model->registrarProv_DatosBank($_REQUEST['txt_iddb'],
+					$model->registrarProv_DatosBank($_REQUEST['txt_iddb'],
 														$_REQUEST['slt_banco'],
 														$_REQUEST['txt_suc'],
 														$_REQUEST['txt_titul'],
 														$_REQUEST['txt_cuenta'],
 														$_REQUEST['txt_clabe'],
 														$_REQUEST['slt_tipo_c'],
-														$_REQUEST['txt_IDProv'])
-					){
-						
-					} else {
-
-						$parametrosProveedores = array(
-							'idprov' => $_REQUEST['txt_IDProv'],
-						);	
-						
-						$parametrosDatosBank = array(
-							
-							// datos bancarios
-							'idBank' => $_REQUEST['txt_iddb'],
-							'banco' => $_REQUEST['slt_banco'],
-							'sucursal' => $_REQUEST['txt_suc'],
-							'titular' => $_REQUEST['txt_titul'],
-							'num_cuenta' => $_REQUEST['txt_cuenta'],
-							'clabe' => $_REQUEST['txt_clabe'],
-							'tipo_cta' => $_REQUEST['slt_tipo_c'],
-						);
-					} /*endelse*/
-				} /*endIf server request*/
+														$_REQUEST['txt_IDProv']);
+					
 			} /*endIf frmDB*/
 
 			/*validación si el div es igual a tblDB muestra la tabla de datos bancarios*/
 			if($div == 'tblDB') {
 				
-				$tablaDB_Prov = $model->obtDatBankPro($id_Prove);
-
+				$id_Prove = $_REQUEST['txt_IDProv'];
+				
+				$tablaDB_Prov = array(
+					'datos-bancarios' => $model->obtDatBankPro($id_Prove)
+				);
 			} /*endIf tblDB*/
 
 

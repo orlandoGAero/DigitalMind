@@ -6,10 +6,15 @@
             $('#datos_bancarios').load('index.php?url=DatosBancarios&div=frmDB&' + $('#frm_dbank').serialize())
         });
     });
+
     $('document').ready(function(){
 	
         $('#table_datos_bancarios').load('index.php?url=DatosBancarios&div=tblDB&' + $('#frm_dbank').serialize())
-    });                 
+    }); 
+
+    function conMayusculas(field) {
+        field.value = field.value.toUpperCase()
+    }                
 </script> 
 
 <?php if($div == 'frmDB') : ?>
@@ -22,7 +27,7 @@
             <select id='banco' name='slt_banco' required>
                 <option selected>Selecciona un banco...</option>
                     <?php foreach($parametrosDatosBank ['banco'] as $bank) : ?>
-                        <option value="$bank['id_banco']"><?php echo $bank['nombre_banco'] ?></option>
+                        <option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
                     <?php endforeach; ?>
                 </select>
             <span style='color: red;'><b>&nbsp;*</b></span>
@@ -57,7 +62,7 @@
             <select id='tipo_c' name='slt_tipo_c' required>
                 <option value selected>Selecciona un tipo de cuenta...</option>
                 <?php foreach ($parametrosDatosBank ['tipo_cta'] as $tipo_c) : ?>
-                    <option value="$tipo_c['id_tipo_cuenta']"><?php echo $tipo_c['tipo_cuenta'] ?></option>
+                    <option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
                 <?php endforeach; ?>
             </select>
             <span style='color: red;'><b>&nbsp;*</b></span>
@@ -71,7 +76,7 @@
 <?php endif; ?> <!-- Fin del if div frmDB-->
 
 <?php if($div == 'tblDB') : ?>
-<table>
+    <table class="table" id="miTabla">
         <caption>Datos Bancarios</caption>
         <tr>
             <th>Banco</th>
@@ -83,16 +88,17 @@
             <th>Operaciones</th>
         </tr>
 
-        <?php if(isset($tablaDatosBancarios)) :?>
-            <?php foreach($tablaDatosBancarios as $tableDB_P) :?>
+        <?php var_dump($tablaDB_Prov['datos-bancarios']); 
+        if($tablaDB_Prov['datos-bancarios'] != NULL) :?>
+            <?php foreach($tablaDB_Prov['datos-bancarios'] as $tableDB) :?>
                 <tr>
-                    <td><?php echo $tableDB_P['nombre_banco'] ?></td>
-                    <td><?php echo $tableDB_P['sucursal'] ?></td>
-                    <td><?php echo $tableDB_P['titular'] ?></td>
-                    <td><?php echo $tableDB_P['no_cuenta'] ?></td>
-                    <td><?php echo $tableDB_P['no_cuenta_interbancario'] ?></td>
-                    <td><?php echo $tableDB_P['tipo_cuenta'] ?></td>
-                    <td></td>
+                    <td><?php echo $tableDB['nombre_banco'] ?></td>
+                    <td><?php echo $tableDB['sucursal'] ?></td>
+                    <td><?php echo $tableDB['titular'] ?></td>
+                    <td><?php echo $tableDB['no_cuenta'] ?></td>
+                    <td><?php echo $tableDB['no_cuenta_interbancario'] ?></td>
+                    <td><?php echo $tableDB['tipo_cuenta'] ?></td>
+                    <td>OPCIONES</td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?> 
