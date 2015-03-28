@@ -1085,7 +1085,7 @@
 							AND tcta.id_tipo_cuenta=db.id_tipo_cuenta
 							AND prov.id_prov=detdb.id_prov
 							AND db.id_datBank=detdb.id_datBank
-							AND prov.id_prov=".$claveP;
+							AND prov.id_prov=$claveP";
 			$ejecutar_sqlobtDbProv = mysql_query($sqlobtDbProv, $this->conexion) or die("Error de consulta obtener datos bancarios proveedores ".mysql_error());
 
 			$rowsDb = mysql_num_rows($ejecutar_sqlobtDbProv);
@@ -1207,6 +1207,7 @@
 
 		public function registrarProv_Contact()
 		{
+			$band=0;
 			// consulta para insertar en la tabla de proveedores_contacto
 				$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_prov,id_contacto)
 										  VALUES (".$id_prov.",1);";

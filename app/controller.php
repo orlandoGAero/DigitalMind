@@ -785,6 +785,11 @@ public function mostrarContactos(){
 			require '/templates/proveedor/addDBancarios.php';
 		}
 
+		public function insertar3()
+		{
+			
+		}
+
 		public function ModificarProveedor()
 		{
 			if(!isset($_GET['id_Proveedor'])){
