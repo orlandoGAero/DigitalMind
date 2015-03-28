@@ -1207,7 +1207,6 @@
 
 		public function registrarProv_Contact()
 		{
-			$band=0;
 			// consulta para insertar en la tabla de proveedores_contacto
 				$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_prov,id_contacto)
 										  VALUES (".$id_prov.",1);";

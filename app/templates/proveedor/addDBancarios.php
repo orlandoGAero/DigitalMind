@@ -98,7 +98,7 @@
                     <td><?php echo $tableDB['no_cuenta'] ?></td>
                     <td><?php echo $tableDB['no_cuenta_interbancario'] ?></td>
                     <td><?php echo $tableDB['tipo_cuenta'] ?></td>
-                    <td><form></form></td>
+                    <td></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?> 
