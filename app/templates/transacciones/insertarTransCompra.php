@@ -22,45 +22,31 @@
 											<span class="span">&nbsp;* Información requerida</span>
 											<ul>
 												<li>
-													<div class="table-responsive">
-														<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
-															"id" para incluir los estilos a la tabla -->
-												    	<table id="miTabla">
-															<tr>
-																<th>No. Compra</th>
-																<td><?php echo $parametrosCompra2['noComprovanteC'] ?></td>
-															</tr>
-															<?php foreach($parametrosCompra2['datosCompra'] as $compra) :?>
-																<tr>
-																	<th>Proveedor</th>
-																	<td><?php echo $compra['proveedor'] ?></td>
-																</tr>
-																<tr>
-																	<th>Fecha</th>
-																	<td><?php echo $compra['fecha_compra'] ?></td>
-																</tr>
-																<tr>
-																	<th>Hora</th>
-																	<td><?php echo $compra['hora_compra'] ?></td>
-																</tr>
-															<?php endforeach; ?>
-														</table>
-												<li><!-- No. Comprobante de Compra --><input type="hidden" name="txtNumCompr" value="<?php echo $parametrosCompra2['noComprovanteC'] ?>" readonly="readonly"/></li>
-												<li>
-													<label>Productos</label>
-													<select name="idProducto" id="id_prod" required="required" >
-														<option value="" disabled="disabled">Seleccione producto</option>
-														<?php foreach ($parametrosCompra2['productos'] as $proveedor) :?>
-															<option value="<?php echo $proveedor['id_producto'] ?>"><?php echo $proveedor['nombre_producto'] ?></option>
+													<div align="left">
+														<p><h5><b>&nbsp;&nbsp;&nbsp;No. Compra:</b> <?php echo $parametrosCompra2['noComprovanteC'] ?></h5></p>
+														<?php foreach($parametrosCompra2['datosCompra'] as $compra) :?>
+															<p><h5><b>&nbsp;&nbsp;&nbsp;Proveedor:</b> <?php echo $compra['proveedor'] ?></h5></p>
+															<p><h5><b>&nbsp;&nbsp;&nbsp;Fecha:</b> <?php echo $compra['fecha_compra'] ?></h5></p>
+															<p><h5><b>&nbsp;&nbsp;&nbsp;Hora:</b> <?php echo $compra['hora_compra'] ?></h5></p>
 														<?php endforeach; ?>
-													</select>
-													<span style="color: red;"><b>*</b></span>
-												</li>
-												<li>
-													<div id="datosProd"></div>
-												</li>
-												<li>
-													<div id="productosAgregados"></div>
+													</div>
+													<li><!-- No. Comprobante de Compra --><input type="hidden" name="txtNumCompr" value="<?php echo $parametrosCompra2['noComprovanteC'] ?>" readonly="readonly"/></li>
+													<li>
+														<label>Productos</label>
+														<select name="idProducto" id="id_prod" required="required" >
+															<option value="" disabled="disabled">Seleccione producto</option>
+															<?php foreach ($parametrosCompra2['productos'] as $proveedor) :?>
+																<option value="<?php echo $proveedor['id_producto'] ?>"><?php echo $proveedor['nombre_producto'] ?></option>
+															<?php endforeach; ?>
+														</select>
+														<span style="color: red;"><b>*</b></span>
+													</li>
+													<li>
+														<div id="datosProd"></div>
+													</li>
+													<li>
+														<div id="productosAgregados"></div>
+													</li>
 												</li>
 											</ul>
 										</li>

@@ -30,11 +30,12 @@
 									<!-- boton borrar -->
 									<form action='' method = 'POST' enctype='application/x-www-form-urlencoded' name='formBorrar' id='formBorrar' target='_self'>
 									<!-- input hidden-->
+									<?php echo "idc:".$productAdd['id_detalle_compra'] ?>
+									<?php echo "no.tc:".$productAdd['no_trans_compra'] ?>
 									<input type="hidden"  name="idDetTransCompr" value="<?php echo $productAdd['id_detalle_compra'] ?>" />
 									<input type="hidden"  name="folioCompra" value="<?php echo $productAdd['no_trans_compra'] ?>" />
 									<input type="hidden"  name="idProductoC" value="<?php echo $idPr ?>" />
 									<input type="hidden"  name="cantProdC" value="<?php echo $productAdd['cant_producto_compra'] ?>" />
-									<!-- Botón -->
 									<input type="button" name="btnBorrar" class="boton2 borrarProducto" value="Borrar">
 									</form>
 								</td>

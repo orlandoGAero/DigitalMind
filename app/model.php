@@ -2660,33 +2660,67 @@
 		public function registrarDetalleTransCompra($noCompra,$claveProducto,$cantidadProducto){
 			$band =0;
 			
-			$consultaRDTC = "INSERT INTO transacciones_detalle_compras (no_trans_compra,id_producto,cant_producto_compra	) 
-										VALUES (".$noCompra.", ".$claveProducto.", ".$cantidadProducto.")";
-			$ejecutarRDTC = mysql_query($consultaRDTC,$this->conexion) or die (mysql_error());
+			if($band == 0){
+				$sqlValidarProdAdd = "SELECT no_trans_compra,id_producto
+									FROM transacciones_detalle_compras
+									WHERE no_trans_compra = ".$noCompra." AND id_producto = ".$claveProducto;
+				$ejecutarValidarProdAdd = mysql_query($sqlValidarProdAdd,$this->conexion) or die (mysql_error());
+				$rowsValidarProdAdd = mysql_num_rows($ejecutarValidarProdAdd);
+				if($rowsValidarProdAdd != 0){
+					$band = 1;
+					echo "<script>alert('El Producto ya ha sido agregado anteriormente')</script>";
+				}
+			}
 			
-			// echo "<script>alert('Producto guardado')</script>";
-			return $ejecutarRDTC;			
+			if($band == 0){
+				$consultaRDTC = "INSERT INTO transacciones_detalle_compras (no_trans_compra,id_producto,cant_producto_compra	) 
+										VALUES (".$noCompra.", ".$claveProducto.", ".$cantidadProducto.")";
+				$ejecutarRDTC = mysql_query($consultaRDTC,$this->conexion) or die (mysql_error());
+				
+				$sqlUpdateExist = "UPDATE 
+									  productos 
+									SET
+									  existencia = (existencia + ".$cantidadProducto.") 
+									WHERE id_producto = ".$claveProducto;
+				mysql_query($sqlUpdateExist,$this->conexion) or die (mysql_error());
+				
+				return $ejecutarRDTC;
+			}
 		}
 		
 		public function obtenerProductosAgregados($noCompra){
 			$consultaOPA = "SELECT 
-										  prod.id_producto,
-										  prod.nombre_producto,
-										  prod.precio_unitario,
-										  tdc.id_detalle_compra,
-										  tdc.no_trans_compra,
-										  tdc.cant_producto_compra 
-										FROM
-										  productos prod 
-										  INNER JOIN transacciones_detalle_compras tdc 
-										    ON prod.id_producto = tdc.id_producto 
-										WHERE tdc.no_trans_compra = ".$noCompra."
-										ORDER BY prod.nombre_producto";
+							  prod.id_producto,
+							  prod.nombre_producto,
+							  prod.precio_unitario,
+							  tdc.id_detalle_compra,
+							  tdc.no_trans_compra,
+							  tdc.cant_producto_compra 
+							FROM
+							  productos prod 
+							  INNER JOIN transacciones_detalle_compras tdc 
+							    ON prod.id_producto = tdc.id_producto 
+							WHERE tdc.no_trans_compra = ".$noCompra;
 			$ejecutarOPA = mysql_query($consultaOPA,$this->conexion) or die (mysql_error());
 			
-			$rowsprodAdd = mysql_fetch_assoc($ejecutarOPA);
+			$prodAdd = array();
+			while ($rows = mysql_fetch_assoc($ejecutarOPA)) {
+				$prodAdd[] = $rows;
+			}
 			
-			return $rowsprodAdd;
+			return $prodAdd;
+		}
+		
+		public function borrarProductosAgregados($idDetCompr,$claveProducto,$cantidadProducto){
+			$consultaBPA = "DELETE FROM transacciones_detalle_compras WHERE id_detalle_compra = ".$idDetCompr;
+			$ejecutarBPA = mysql_query($consultaBPA,$this->conexion) or die (mysql_error());
+			
+			$sqlUpdateExist = "UPDATE 
+								  productos 
+								SET
+								  existencia = (existencia - ".$cantidadProducto.") 
+								WHERE id_producto = ".$claveProducto;
+			mysql_query($sqlUpdateExist,$this->conexion) or die (mysql_error());
 		}
 		
     }	

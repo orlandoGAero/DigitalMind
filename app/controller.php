@@ -1709,12 +1709,33 @@
 			
 			if ($_REQUEST != "") {
 				if($m -> registrarDetalleTransCompra($_REQUEST['txtNumCompr'],$_REQUEST['idProducto'],$_REQUEST['txtCantProd'])){
-					$productAdd = $m -> obtenerProductosAgregados($_REQUEST['txtNumCompr']);
-					var_dump($productAdd);
+					// list($numFilas,$productAdd) = $m -> obtenerProductosAgregados($_REQUEST['txtNumCompr']);
+					$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['txtNumCompr']);
+					$obtenerDatosProductosAdd = $datosProductosAdd;
+				}else{
+					$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['txtNumCompr']);
+					$obtenerDatosProductosAdd = $datosProductosAdd;
 				}
 			}
 			
 			require __DIR__ . '/templates/transacciones/agregarProducto.php';
+		}
+		
+		public function eliminarProdCompra(){
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			if ($_REQUEST != "") {
+				if($m -> borrarProductosAgregados($_REQUEST['idDetTransCompr'],$_REQUEST['idProductoC'],$_REQUEST['cantProdC'])){
+					$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['folioCompra']);
+					$obtenerDatosProductosAdd = $datosProductosAdd;
+				}else{
+					$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['folioCompra']);
+					$obtenerDatosProductosAdd = $datosProductosAdd;
+				}
+			}
+			
+			require __DIR__ . '/templates/transacciones/borrarProducto.php';
 		}
 
     }

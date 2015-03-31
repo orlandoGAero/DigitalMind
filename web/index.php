@@ -86,6 +86,7 @@
 		 'continuarTransaccion' => array('controller' =>'Controller', 'action' =>'insertarTransaccion'),
 		 'verInfoProd' => array('controller' =>'Controller', 'action' =>'verInformacionProducto'),
 		 'addProdCompra' => array('controller' =>'Controller', 'action' =>'agregarProdCompra'),
+		 'deleteProdCompra' => array('controller' =>'Controller', 'action' =>'eliminarProdCompra'),
 	 );
 	 
  	// PARSEO DE LA RUTA
