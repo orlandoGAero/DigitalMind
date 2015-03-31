@@ -15,7 +15,7 @@
     function conMayusculas(field) {
         field.value = field.value.toUpperCase()
     }                
-</script> 
+</script>
 
 <?php if($div == 'frmDB') : ?>
     <form action='' method='POST' name='frm_dbank' id='frm_dbank' target='_self'>
@@ -98,10 +98,9 @@
                     <td><?php echo $tableDB['no_cuenta'] ?></td>
                     <td><?php echo $tableDB['no_cuenta_interbancario'] ?></td>
                     <td><?php echo $tableDB['tipo_cuenta'] ?></td>
-                    <td></td>
+                    <td>OPCIONES</td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?> 
     </table>
-<?php endif; ?> 
-
+<?php endif; ?>    
