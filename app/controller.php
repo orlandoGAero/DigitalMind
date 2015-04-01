@@ -553,7 +553,7 @@ public function mostrarContactos(){
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
 			$obtenerDat = array(
-			'proveedores' => $model->obtenerProveedores(),
+				'proveedores' => $model->obtenerProveedores(),
 			);
 
 			require '/templates/proveedor/mostrarProveedores.php';

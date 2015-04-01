@@ -1,24 +1,27 @@
-<script type="text/javascript">
-    /*Funcion para Agregar Datos Bancarios*/
-    $(function (agregar) {
-        $('#frm_dbank').submit(function (agregar) {
-            agregar.preventDefault()
-            $('#datos_bancarios').load('index.php?url=DatosBancarios&div=frmDB&' + $('#frm_dbank').serialize())
-        });
-    });
-
-    $('document').ready(function(){
-	
-        $('#table_datos_bancarios').load('index.php?url=DatosBancarios&div=tblDB&' + $('#frm_dbank').serialize())
-    }); 
-
+<script>
     function conMayusculas(field) {
         field.value = field.value.toUpperCase()
-    }                
+    } 
 </script>
 
 <?php if($div == 'frmDB') : ?>
-    <form action='' method='POST' name='frm_dbank' id='frm_dbank' target='_self'>
+    <script type="text/javascript">
+        /*Funcion para Agregar Datos Bancarios*/
+        $(function (agregar) {
+            $('#frm_dbank').submit(function (agregar) {
+                agregar.preventDefault()
+                $('#datos_bancarios').load('index.php?url=DatosBancarios&div=frmDB&' + $('#frm_dbank').serialize())
+            });
+        });
+
+        $('document').ready(function(){
+    	
+            $('#table_datos_bancarios').load('index.php?url=DatosBancarios&div=tblDB&' + $('#frm_dbank').serialize())
+        });                
+    </script>
+
+
+    <form action='#' method='POST' name='frm_dbank' id='frm_dbank' target='_self'>
 
           <!-- clave datos bancarios -->
          <input type='text'  name='txt_iddb' value="<?php echo $parametrosDatosBank['idBank'] ?>" readonly />
@@ -98,7 +101,13 @@
                     <td><?php echo $tableDB['no_cuenta'] ?></td>
                     <td><?php echo $tableDB['no_cuenta_interbancario'] ?></td>
                     <td><?php echo $tableDB['tipo_cuenta'] ?></td>
-                    <td>OPCIONES</td>
+                    <td>
+                        <form action="" method="POST" enctype='application/x-www-form-urlencoded' name="frmDel" id="frmDel" target="_self">
+                            <input type="text" value="<?php echo $tableDB['id_datBank'] ?>" name="idDB" id="idDB">
+                            <input type="text" value="<?php echo $tableDB['id_det_bp'] ?>" name="iddetDB" id="iddetDB">
+                            <input type="button" name="btn_borrarDB" value="Borrar">
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?> 
