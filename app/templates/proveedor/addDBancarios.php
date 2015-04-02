@@ -91,7 +91,7 @@
             <th>Operaciones</th>
         </tr>
 
-        <?php var_dump($tablaDB_Prov['datos-bancarios']); 
+        <?php /*var_dump($tablaDB_Prov['datos-bancarios']);*/ 
         if($tablaDB_Prov['datos-bancarios'] != NULL) :?>
             <?php foreach($tablaDB_Prov['datos-bancarios'] as $tableDB) :?>
                 <tr>
@@ -103,9 +103,9 @@
                     <td><?php echo $tableDB['tipo_cuenta'] ?></td>
                     <td>
                         <form action="" method="POST" enctype='application/x-www-form-urlencoded' name="frmDel" id="frmDel" target="_self">
-                            <input type="text" value="<?php echo $tableDB['id_datBank'] ?>" name="idDB" id="idDB">
-                            <input type="text" value="<?php echo $tableDB['id_det_bp'] ?>" name="iddetDB" id="iddetDB">
-                            <input type="button" name="btn_borrarDB" value="Borrar">
+                            <input type="hidden" value="<?php echo $tableDB['id_datBank'] ?>" name="idDB" id="idDB">
+                            <input type="hidden" value="<?php echo $tableDB['id_det_bp'] ?>" name="iddetDB" id="iddetDB">
+                            <input type="button" class="boton2"name="btn_borrarDB" value="Borrar">
                         </form>
                     </td>
                 </tr>

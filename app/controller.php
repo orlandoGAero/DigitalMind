@@ -546,7 +546,8 @@ public function mostrarContactos(){
 		}
 
 		// -----------------------FUNCIONES PROVEEDORES---------------------------------
-	
+		
+		/* funcion para mostrar la vista de proveedores*/
 		public function Proveedor()
 		{
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
@@ -613,7 +614,7 @@ public function mostrarContactos(){
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
-			// print "<pre>"; print_r($_POST); print "</pre>\n";
+			/* print "<pre>"; print_r($_POST); print "</pre>\n";*/
 			
 			
 			$parametrosProveedores = array(
@@ -634,7 +635,7 @@ public function mostrarContactos(){
 			);
 
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				// print "<pre>"; print_r($_POST); print "</pre>\n";
+				/* print "<pre>"; print_r($_POST); print "</pre>\n";*/
 				if($_POST['txt_noint'] == ""){
 					$_POST['txt_noint'] = "s/n";
 				}
@@ -666,7 +667,7 @@ public function mostrarContactos(){
 												$_POST['txt_tel_pro'],
 												$_POST['txt_url_web'])
 				){
-					# code...header('Location: index.php?url=Proveedores');
+					
 				} else {
 
 					$parametrosProveedores = array(
@@ -736,21 +737,30 @@ public function mostrarContactos(){
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
-			print "<pre>"; print_r($_REQUEST); print "</pre>\n";
+			/* print "<pre>"; print_r($_REQUEST); print "</pre>\n"; */
+
+			$id_Prove = $_REQUEST['txt_IDProv'];
 
 			$div = $_REQUEST['div'];
 			
 			/* validación si el div es igual a frmDB muestra el formulario datos bancarios*/
 			if($div == 'frmDB') {
 
-				$id_Prove = $_REQUEST['txt_IDProv'];
-			
+				$model->registrarProv_DatosBank($_REQUEST['txt_iddb'],
+												$_REQUEST['slt_banco'],
+												$_REQUEST['txt_suc'],
+												$_REQUEST['txt_titul'],
+												$_REQUEST['txt_cuenta'],
+												$_REQUEST['txt_clabe'],
+												$_REQUEST['slt_tipo_c'],
+												$_REQUEST['txt_IDProv']);
+				
 				$parametrosProveedores = array(
-					'idprov' => '',
+					'idprov' => $_REQUEST['txt_IDProv'],
 				);
 
 				$parametrosDatosBank = array(
-					// datos bancarios
+					/* datos bancarios */
 					'idBank' => $model->incrementoDB(),
 					'banco' => $model->obtieneBanco(),
 					'sucursal' => '',
@@ -760,21 +770,10 @@ public function mostrarContactos(){
 					'tipo_cta' => $model->obtieneTipoC(),
 				);
 					
-					$model->registrarProv_DatosBank($_REQUEST['txt_iddb'],
-														$_REQUEST['slt_banco'],
-														$_REQUEST['txt_suc'],
-														$_REQUEST['txt_titul'],
-														$_REQUEST['txt_cuenta'],
-														$_REQUEST['txt_clabe'],
-														$_REQUEST['slt_tipo_c'],
-														$_REQUEST['txt_IDProv']);
-					
 			} /*endIf frmDB*/
 
 			/*validación si el div es igual a tblDB muestra la tabla de datos bancarios*/
 			if($div == 'tblDB') {
-				
-				$id_Prove = $_REQUEST['txt_IDProv'];
 				
 				$tablaDB_Prov = array(
 					'datos-bancarios' => $model->obtDatBankPro($id_Prove)

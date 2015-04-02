@@ -1079,7 +1079,7 @@
 		/*función para obtener los datos bancarios del proveedor*/
 		public function obtDatBankPro($claveP)
 		{
-			$sqlobtDbProv = "SELECT bank.nombre_banco,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,tcta.tipo_cuenta
+			$sqlobtDbProv = "SELECT bank.nombre_banco,db.id_datBank,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,detdb.id_det_bp,tcta.tipo_cuenta
 							FROM bancos bank,datos_bancarios db,tipo_cuenta tcta,det_bank_prov detdb,proveedores prov
 							WHERE bank.id_banco=db.id_banco
 							AND tcta.id_tipo_cuenta=db.id_tipo_cuenta
@@ -1205,14 +1205,14 @@
 			}
 		}
 
-		public function registrarProv_Contact()
+		public function registrarProv_Contact($idprov,$idcont)
 		{
 			// consulta para insertar en la tabla de proveedores_contacto
-				$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_prov,id_contacto)
-										  VALUES (".$id_prov.",1);";
-				$ejecutar_sqlinsertprov_contact = mysql_query($sqlinsertprov_contact,$this->conexion) or die("Error en insertar proveedores-contactos".mysql_error());
-				
-				return $sqlinsertprov_contact;
+			$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_prov,id_contacto)
+									  VALUES (".$idprov.",".$idcont.");";
+			$ejecutar_sqlinsertprov_contact = mysql_query($sqlinsertprov_contact,$this->conexion) or die("Error en insertar proveedores-contactos".mysql_error());
+			
+			return $sqlinsertprov_contact;
 		}
 
 		public function actualizarProveedores($id_datf,$razon_s,$rfc,

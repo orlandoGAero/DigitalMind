@@ -22,6 +22,10 @@
 		function conMayusculas(field) {
 	        field.value = field.value.toUpperCase()
 		}
+
+		function abrir_pag(url){
+			window.open(url,"Contactos","width=300,height=400,top=50px,left=50px,scrollbars=NO,resizable=NO")
+		}
 	</script>
 
 	<div class="col-lg-14">
@@ -39,7 +43,12 @@
 								<ul>
 									<li>	
 										<ul>
-											<h1>Contactos</h1>
+											<div class="azul">
+												<h3>Agregue los contactos del Proveedor</h3></br>
+												<a href="javascript:abrir_pag('index.php?url=insertContact')">
+													<center><img src='images/new-contacto.png' alt='Nuevo Contacto' title='Nuevo Contacto'></center>
+												</a>
+							 				</div>
 										</ul>
 									</li>
 								</ul>
