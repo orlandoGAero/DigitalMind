@@ -823,6 +823,7 @@
 		}	*/	
 	//---------------------------------------PROVEEDORES-----------------------------------------------------
 
+		/*función para obtener los datos de proveedores de la vista principal */
 		public function obtenerProveedores()
 		{
 			$sqlPro = " SELECT pro.id_prov, pro.proveedor, datf.razon_social, datf.rfc, catprov.categoria, pro.tel, pro.dirweb,cp.municipio
@@ -841,10 +842,11 @@
 			return $proveedores;
 		}
 
+		/*función para obtener el detalle del proveedor*/
 		public function obtenerDetalleProveedor($idProv)
 		{
 			$idProv = htmlspecialchars($idProv);
-			//cambiar consulta por cambio tipo de razon
+			
 			$sqldetPro = "SELECT pro.id_prov, pro.proveedor, pro.tel, pro.dirweb, 
 							       ctepro.id_categoria,ctepro.categoria,
 							       datf.id_datFiscal,datf.razon_social, datf.rfc, datf.tipo_ra,
@@ -889,6 +891,7 @@
 			return $rowsPro;
 		}
 
+		/*función para obtener la direccion fiscal del proveedor*/
 		public function DetalleDirFiscalProv($IDProv)
 		{
 			$sqlDetProFis = "SELECT dir.id_direccion,dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,
@@ -908,7 +911,7 @@
 			return $rowProFis;
 		}
 		
-		// funcion para obtener el id de la tabla proveedor
+		/*funcion para obtener el id de la tabla proveedor*/
 		public function obtenerIdProveedor()
 		{
 			$sqlidProv = " SELECT id_prov
@@ -928,7 +931,7 @@
 			return $idProv;
 		}
 
-		// funcion para obtener una categoria del proveedor
+		/*funcion para obtener una categoria del proveedor*/
 		public function obtenerCategoria()
 		{
 			$sqlCat = "SELECT categoria,id_categoria
@@ -944,6 +947,7 @@
 			return $categoriaPro;
 		}
 
+		/*funcion para obtener una categoria del proveedor en la actualización*/
 		public function obtCategoriaUpdate($idPro)
 		{
 			$sqlCatPro = "SELECT catpro.id_categoria, catpro.categoria
@@ -1006,6 +1010,7 @@
             }
 		}
 
+		/*función para obtener banco del formulario de actualizar proveedores*/
 		public function obtBankUpdateProv($IDprov)
 		{
 			$sqlBankProv = "SELECT bank.id_banco,bank.nombre_banco
@@ -1041,6 +1046,7 @@
             }
 		}
 
+		/*función para obtener tipo de cuenta del formulario de actualizar proveedores*/
 		public function obtTctaUpdateProv($idP)
 		{
 			$sqlTctaProv = "SELECT tcta.id_tipo_cuenta,tcta.tipo_cuenta
@@ -1098,7 +1104,7 @@
 			 return $tableDb;
 		}
 
-		// Función para registrar proveedores
+		/*Función para registrar la 1ra parte de proveedores*/
 		public function registrarProveedores($id_dire,$street,$noext,$noint,$col,$referen,$cp,
 											$id_direFiscal,$streetFiscal,$noextFiscal,$nointFiscal,$colFiscal,$referenFiscal,$cpFiscal,						 
 											$id_datf,$razon_s,$rfc,
@@ -1188,6 +1194,23 @@
 			} else {
 				$band = 1;
 				echo" <script> alert('Complete toda la información requerida antes de continuar') </script> ";
+			}
+
+			/*validar duplicidad de datos bancarios*/
+			if($band == 0){
+				$sql_db_dupli = "SELECT db.id_datBank,bank.nombre_banco,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,tc.tipo_cuenta
+								 FROM bancos bank,datos_bancarios db,tipo_cuenta tc
+								 WHERE bank.id_banco=db.id_banco AND tc.id_tipo_cuenta=db.id_tipo_cuenta
+								 AND bank.nombre_banco = '".$id_bank."' AND db.sucursal = '".$sucu."' AND db.titular = '".$titular."' AND db.no_cuenta = ".$nocuent." AND db.no_cuenta_interbancario = ".$clabe." AND tc.tipo_cuenta = '".$id_tcuenta."'
+								 AND db.id_datBank !=".$id_dtb;
+				$ejecutar_sql_db_dupli = mysql_query($sql_db_dupli,$this->conexion) or die (mysql_error());
+				
+				$rowsdb = mysql_num_rows($ejecutar_sql_db_dupli);
+				
+				if($rowsdb != 0){
+					$band = 1;
+					echo "<pre>Los datos bancarios ya se han registrado</pre>";
+				}
 			}
 
 			if ($band == 0) {
@@ -1344,6 +1367,17 @@
 			echo" <script> alert('El registro ha sido eliminado correctamente') 
 							window.location='index.php?url=Proveedores';
 					 	</script> ";
+		}
+
+		public function borrarDatosBancarios_add($id_db,$id_det_db)
+		{
+			$sql_del_det_db = "DELETE FROM det_bank_prov
+						   WHERE id_det_bp=".$id_det_dp;
+			$ejecutar_sql_del_det_db = mysql_query($sql_del_det_db,$this->conexion) or die(mysql_error());
+			
+			$sql_deldb = "DELETE FROM datos_bancarios
+						  WHERE id_datBank=".$id_db;
+			$ejecutar_sql_deldb = mysql_error($sql_deldb,$this->conexion) or die(mysql_error());
 		}
     }
 ?>

@@ -780,6 +780,22 @@ public function mostrarContactos(){
 				);
 			} /*endIf tblDB*/
 
+			if ($div == 'delDB') {
+				
+				$clave_DB = $_REQUEST['idDB'];
+				$clave_detDB = $_REQUEST['iddetDB'];
+
+				$print_r($_REQUEST);
+
+				$model->borrarDatosBancarios_add($clave_DB,$clave_detDB);
+
+				$div = 'tblDB';
+
+				$tablaDB_Prov = array(
+					'datos-bancarios' => $model->obtDatBankPro($id_Prove)
+				);
+			} /*end delDB*/
+
 
 			require '/templates/proveedor/addDBancarios.php';
 		}

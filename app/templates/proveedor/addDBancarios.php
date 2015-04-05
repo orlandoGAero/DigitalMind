@@ -17,7 +17,15 @@
         $('document').ready(function(){
     	
             $('#table_datos_bancarios').load('index.php?url=DatosBancarios&div=tblDB&' + $('#frm_dbank').serialize())
-        });                
+        });
+        
+        $(function () {
+            $('.btn_borrarDB').click(
+                function () {
+                    formulario = this.form;
+                    $('#table_datos_bancarios').load('index.php?url=DatosBancarios&div=delDB&txt_IDProv=<?php echo $parametrosProveedores['idprov']; ?>&',$(formulario).serialize());
+                });
+        });               
     </script>
 
 
@@ -105,7 +113,7 @@
                         <form action="" method="POST" enctype='application/x-www-form-urlencoded' name="frmDel" id="frmDel" target="_self">
                             <input type="hidden" value="<?php echo $tableDB['id_datBank'] ?>" name="idDB" id="idDB">
                             <input type="hidden" value="<?php echo $tableDB['id_det_bp'] ?>" name="iddetDB" id="iddetDB">
-                            <input type="button" class="boton2"name="btn_borrarDB" value="Borrar">
+                            <input type="button" class="boton2 btn_borrarDB" name="btn_borrarDB" value="Borrar">
                         </form>
                     </td>
                 </tr>

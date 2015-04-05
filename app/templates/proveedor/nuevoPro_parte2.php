@@ -26,6 +26,11 @@
 		function abrir_pag(url){
 			window.open(url,"Contactos","width=300,height=400,top=50px,left=50px,scrollbars=NO,resizable=NO")
 		}
+
+		function confirmar () {
+		  msg = confirm('¿Estas seguro que deseas abandonar este proceso ?');
+		  return msg;
+	  	}
 	</script>
 
 	<div class="col-lg-14">
@@ -121,6 +126,9 @@
 							</li>
 						</ul>
 					</div> <!-- fin de div menu-pro -->
+					<form action="index.php?url=Proveedores">
+						<input type="submit" class="boton2" value="Finalizar" name="Guardar" onclick="javascript:return confirmar();">
+					</form>
 				</section> <!-- fin de seccion principal -->
 			</div> <!-- fin de div panel-body --> 
 		</div> <!-- fin de div panel-default -->
