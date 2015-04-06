@@ -22,7 +22,7 @@
         });
 
         $('document').ready(function(){
-    	
+        
             $('#table_datos_bancarios').load('index.php?url=DatosBancarios&div=tblDB&' + $('#frm_dbank').serialize())
         });             
     </script>

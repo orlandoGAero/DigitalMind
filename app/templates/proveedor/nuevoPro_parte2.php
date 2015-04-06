@@ -24,7 +24,7 @@
 		}
 
 		function abrir_pag(url){
-			window.open(url,"Contactos","width=300,height=400,top=50px,left=50px,scrollbars=NO,resizable=NO")
+			window.open(url,"Contactos","width=700px,height=1040px,top=50px,left=50px,scrollbars=NO,resizable=NO")
 		}
 
 		function confirmar () {

@@ -1085,7 +1085,7 @@
 		/*función para obtener los datos bancarios del proveedor*/
 		public function obtDatBankPro($claveP)
 		{
-			$sqlobtDbProv = "SELECT bank.nombre_banco,db.id_datBank,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,detdb.id_det_bp,tcta.tipo_cuenta
+			$sqlobtDbProv = "SELECT prov.id_prov,bank.nombre_banco,db.id_datBank,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,detdb.id_det_bp,tcta.tipo_cuenta
 							FROM bancos bank,datos_bancarios db,tipo_cuenta tcta,det_bank_prov detdb,proveedores prov
 							WHERE bank.id_banco=db.id_banco
 							AND tcta.id_tipo_cuenta=db.id_tipo_cuenta
@@ -1369,15 +1369,12 @@
 					 	</script> ";
 		}
 
-		public function borrarDatosBancarios_add($id_db,$id_det_db)
+		public function borrarDatosBancarios_add($id_det_db,$id_db)
 		{
-			$sql_del_det_db = "DELETE FROM det_bank_prov
-						   WHERE id_det_bp=".$id_det_dp;
-			$ejecutar_sql_del_det_db = mysql_query($sql_del_det_db,$this->conexion) or die(mysql_error());
-			
-			$sql_deldb = "DELETE FROM datos_bancarios
-						  WHERE id_datBank=".$id_db;
-			$ejecutar_sql_deldb = mysql_error($sql_deldb,$this->conexion) or die(mysql_error());
+			$sql_del_det_db = "DELETE detb,db
+							   FROM det_bank_prov detb,datos_bancarios db
+							   WHERE detb.id_det_bp=".$id_det_db." AND db.id_datBank=".$id_db;
+			mysql_query($sql_del_det_db,$this->conexion) or die("error borrar datos bancarios".mysql_error());
 		}
     }
 ?>
