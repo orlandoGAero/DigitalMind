@@ -18,7 +18,10 @@
 					<li>
 						<input type="search" class="elementosBusqueda" name="nombreContacto" maxlength="50" placeholder="Nombre contacto" title="Nombre Contacto" />
 						<input type="search" class="elementosBusqueda" name="municipioContacto" maxlength="30" placeholder="Municipio" title="Municipio"/>
+						<input type="search" class="elementosBusqueda" name="coloniaContacto" maxlength="30" placeholder="Colonia" title="Colonia"/>
 						<input type="search" class="elementosBusqueda" name="areaContacto" maxlength="30" placeholder="Área" title="Área"/>
+						<input type="search" class="elementosBusqueda" name="telMovilContacto" maxlength="30" placeholder="Télefono Móvil" title="Télefono Móvil" class="keysNumbers"/>
+						<input type="search" class="elementosBusqueda" name="emailPerContacto" maxlength="30" placeholder="Correo Personal" title="Correo Personal"/>
 						<input type="submit" class="boton2" value="Filtrar" name="btnFiltrar"/>
 					</li>
 				</ul>
@@ -135,6 +138,12 @@
 		sorter.currentid = "currentpage";
 		sorter.limitid = "pagelimit";
 		sorter.init("miTabla",0);
+		
+		jQuery(document).ready(function() {
+		    jQuery('.keysNumbers').keypress(function(tecla) {
+		        if(tecla.charCode < 48 || tecla.charCode > 57) return false;
+		    });
+		});
   	</script>
 	
 <?php $contenido = ob_get_clean() ?>

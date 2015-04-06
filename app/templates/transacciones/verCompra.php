@@ -5,8 +5,7 @@
         
 	<!-- JS Formulario Listas Desplegables -->
 		<script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
-	
-	<section id="principal">
+
 		<a href="index.php?url=listarCompras"><img src="images/leftarrow.png" title="Regresar" align='left' width="40px" height="40px" /></a>
 		<h3 class="azul">Detalle de Compra</h3>
 		<?php if(isset($obtenerDatosProductosAdd)) :?>
@@ -72,14 +71,14 @@
 			<br />
 			<div class="col-lg-14">
 		    	<div class="panel panel-default">
-					<h1>Nueva Producto</h1>
+					<h1>Agregar Producto</h1>
 					<div class="panel-heading">    </div>
 				    <div class="panel-body">	
 						<section id="principal">
 							<div class="menu-pro">
 								<ul>
 									<form action="" method="POST" id="formAgregarProducto" target="_self">
-										<li><a href="#">Datos Compra</a>
+										<li><a href="#principal">Datos Compra</a>
 											<ul>
 												<li>
 													<span class="span">&nbsp;* Información requerida</span>
@@ -111,9 +110,7 @@
 					</div>
 				</div>
 			</div>
-		<?php endif; ?>
-	</section>
-	
+		<?php endif; ?>	
 
 <script type="text/javascript">
 	$('document').ready(function(){
