@@ -81,12 +81,16 @@
 	     'BorrarProveedores' => array('controller' =>'Controller', 'action' =>'EliminarProveedor'),
 	     
 		 //-------------------------TRANSACCIONES-------------------------------------------
+		 'menuTransacciones' => array('controller' =>'Controller', 'action' =>'verMenuTransacciones'),
 		 'transacciones' => array('controller' =>'Controller', 'action' =>'nuevaTransaccion'),
 		 'viewFormTrans' => array('controller' =>'Controller', 'action' =>'cargarFormTransaccion'),
 		 'continuarTransaccion' => array('controller' =>'Controller', 'action' =>'insertarTransaccion'),
 		 'verInfoProd' => array('controller' =>'Controller', 'action' =>'verInformacionProducto'),
-		 'addProdCompra' => array('controller' =>'Controller', 'action' =>'agregarProdCompra'),
-		 'deleteProdCompra' => array('controller' =>'Controller', 'action' =>'eliminarProdCompra'),
+		 	// COMPRAS
+		 	'addProdCompra' => array('controller' =>'Controller', 'action' =>'agregarProdCompra'),
+		 	'deleteProdCompra' => array('controller' =>'Controller', 'action' =>'eliminarProdCompra'),
+		 	'listarCompras' => array('controller' =>'Controller', 'action' =>'listarComprasTrans'),
+		 	'detalleCompra' => array('controller' =>'Controller', 'action' =>'detalleCompraTrans'),
 	 );
 	 
  	// PARSEO DE LA RUTA

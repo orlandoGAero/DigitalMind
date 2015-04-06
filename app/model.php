@@ -2563,9 +2563,20 @@
 		
 		public function registrarTransCompra($idCompra,$idProveedor){
 				
-				// validar que no se vuelva a guardar
-				
-			$consultaRTC = "INSERT INTO transacciones_compras (
+			$band = 0;
+			// validar que no se vuelva a guardar
+			if($band == 0){
+				$consultaVRTC = "SELECT no_trans_compra FROM transacciones_compras WHERE no_trans_compra = ".$idCompra;
+				$ejecutarVRTC = mysql_query($consultaVRTC,$this->conexion) or die (mysql_error());
+				$filasVRTC = mysql_num_rows($ejecutarVRTC);
+				if($filasVRTC != 0){
+					$band = 1;
+					echo "<script>alert('El número $idCompra de la transacción de compra ya fue registrado anteriormente')</script>";
+				}
+			}
+			
+			if($band == 0){
+				$consultaRTC = "INSERT INTO transacciones_compras (
 							  no_trans_compra,
 							  id_prov,
 							  fecha_compra,
@@ -2578,9 +2589,10 @@
 							    NOW(),
 							    NOW()
 							  );";
-			$ejecutarRTC = mysql_query($consultaRTC,$this->conexion) or die (mysql_error());
-			
-			return $ejecutarRTC;
+				$ejecutarRTC = mysql_query($consultaRTC,$this->conexion) or die (mysql_error());
+				
+				return $ejecutarRTC;	
+			}
 		}
 		
 		
@@ -2688,6 +2700,7 @@
 			}
 		}
 		
+		//COMPRAS
 		public function obtenerProductosAgregados($noCompra){
 			$consultaOPA = "SELECT 
 							  prod.id_producto,
@@ -2721,6 +2734,27 @@
 								  existencia = (existencia - ".$cantidadProducto.") 
 								WHERE id_producto = ".$claveProducto;
 			mysql_query($sqlUpdateExist,$this->conexion) or die (mysql_error());
+		}
+		
+		public function listarCompras(){
+			$consultaLC = "SELECT 
+							  tc.no_trans_compra,
+							  prov.id_prov,
+							  prov.proveedor,
+							  tc.fecha_compra,
+							  tc.hora_compra 
+							FROM
+							  proveedores prov 
+							  INNER JOIN transacciones_compras tc 
+							    ON prov.id_prov = tc.id_prov";
+			$ejecutarLC = mysql_query($consultaLC,$this->conexion) or die (mysql_error());
+			
+			$listCompr = array();
+			while ($rowsLC = mysql_fetch_assoc($ejecutarLC)) {
+				$listCompr[] = $rowsLC;
+			}
+			
+			return $listCompr;
 		}
 		
     }	

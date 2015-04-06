@@ -1625,6 +1625,11 @@
 		}
 		
 		//-------------------------TRANSACCIONES-------------------------------------------
+		public function verMenuTransacciones()
+		{
+			require __DIR__ . '/templates/transacciones/menuTransacciones.php';
+		}
+		
 		public function nuevaTransaccion()
 		{
 			require __DIR__ . '/templates/transacciones/elegirTransaccion.php';
@@ -1662,7 +1667,6 @@
 				if($_POST['sltTrans'] == 1){
 						
 					if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-						print_r($_POST);
 						
 						if($m -> registrarTransCompra($_POST['numCompra'],$_POST['idProveedor'])){
 							$parametrosCompra2 = array(
@@ -1670,7 +1674,16 @@
 								'datosCompra' => $m -> obtenerDatosCompra($_POST['numCompra']),
 								'productos' => $m -> obtieneProductosProveedores($_POST['idProveedor']),
 							);
-						}		
+						}else{
+							$parametrosCompra2 = array(
+								'noComprovanteC' => $_POST['numCompra'],
+								'datosCompra' => $m -> obtenerDatosCompra($_POST['numCompra']),
+								'productos' => $m -> obtieneProductosProveedores($_POST['idProveedor']),
+							);
+							
+							$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['numCompra']);
+							$obtenerDatosProductosAdd = $datosProductosAdd;
+						}	
 					}
 					
 					require __DIR__ . '/templates/transacciones/insertarTransCompra.php';					
@@ -1703,6 +1716,7 @@
 			require __DIR__ . '/templates/transacciones/verDatosProducto.php';
 		}
 		
+		//COMPRAS
 		public function agregarProdCompra(){
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
@@ -1736,6 +1750,45 @@
 			}
 			
 			require __DIR__ . '/templates/transacciones/borrarProducto.php';
+		}
+		
+		public function listarComprasTrans(){
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$obtenerDatosListCompras = array(
+				'compras' => $m -> listarCompras(),
+			);
+			
+			require __DIR__ . '/templates/transacciones/mostrarCompras.php';
+		}
+		
+		public function detalleCompraTrans(){
+			if(!isset($_GET['numCompr'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			if(!isset($_GET['idPro'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$folioCompra = $_GET['numCompr'];
+			$IDproveedor = $_GET['idPro'];
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$datosProductosAdd = $m->obtenerProductosAgregados($folioCompra);
+			
+			$obtenerDatosProductosAdd = $datosProductosAdd;
+			
+			$informacionCompra = array(
+				'noComprovanteC' => $folioCompra,
+				'datosCompra' => $m -> obtenerDatosCompra($folioCompra),
+				'productos' => $m -> obtieneProductosProveedores($IDproveedor),
+			);
+			
+			require __DIR__ . '/templates/transacciones/verCompra.php';
 		}
 
     }

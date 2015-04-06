@@ -24,14 +24,12 @@
 							
 							<tr>
 								<td><?php echo $productAdd['nombre_producto'] ?></td>
-								<td>$<?php echo $productAdd['precio_unitario'] ?></td>
+								<td>$<?php echo number_format($productAdd['precio_unitario'],2,'.',',') ?></td>
 								<td><?php echo $productAdd['cant_producto_compra'] ?></td>
 								<td>
 									<!-- boton borrar -->
 									<form action='' method = 'POST' enctype='application/x-www-form-urlencoded' name='formBorrar' id='formBorrar' target='_self'>
 									<!-- input hidden-->
-									<?php echo "idc:".$productAdd['id_detalle_compra'] ?>
-									<?php echo "no.tc:".$productAdd['no_trans_compra'] ?>
 									<input type="hidden"  name="idDetTransCompr" value="<?php echo $productAdd['id_detalle_compra'] ?>" />
 									<input type="hidden"  name="folioCompra" value="<?php echo $productAdd['no_trans_compra'] ?>" />
 									<input type="hidden"  name="idProductoC" value="<?php echo $idPr ?>" />
@@ -45,10 +43,10 @@
 					</table>
 				</div>
 			</div>
-			<?php echo "<b>Total: $".$costoTotal."</b>"  ?>
+			<?php echo "<b>Total: $".number_format($costoTotal,2,'.',',')."</b>"  ?>
 	<?php else :?>
 		<pre>
-			<h3 class="azul">No se encuentra agregado  ningún producto</h3>
+			<h3 class="azul">No se encuentra agregado ningún producto</h3>
 		</pre>
 	<?php endif; ?>
 <?php endif; ?>
@@ -62,5 +60,4 @@
 			}
 		);
 	});
-</script>
 </script>

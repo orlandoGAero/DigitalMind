@@ -40,16 +40,16 @@
                            <a href="index.php?url=listaCliente"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>
                         </div>
                         
-                        <div class="menu-item green">
+                        <div class="menu-item blue">
                             <a href="index.php?url=listContact"><img src="images/icono-agenda.png"/><br><b>CONTACTOS</b></a> 
                         </div>
                         
 						
-						<div class="menu-item color responsive">
+						<div class="menu-item blue responsive">
                              <a href="index.php?url=Proveedores"><img src="images/icono-instructores.png"/><br><b>PROVEEDORES</b></a>                     
                         </div>
                      							
-                        <div class="menu-item light-red">
+                        <div class="menu-item blue responsive">
                              <a href="index.php?url=listaProducto"><img src="images/icono-videos.png"/><br><b>PRODUCTOS</b></a> 
                         </div>
                         
@@ -89,13 +89,13 @@
                         
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="menu-item color responsive">
+                                <div class="menu-item blue responsive">
                                     <a href="index.php?url=listaFam"><img src="images/icono-lineas.png"/><br><b>FAMILIAS</b></a>                    
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="menu-item light-orange responsive-2">
+                                <div class="menu-item blue responsive">
 									<a href="index.php?url=listaMarca"><img src="images/icono-cursos.png"/><br><b>MARCAS</b></a> 
                                 </div>
                             </div>
@@ -106,16 +106,16 @@
                     
                     <div class="col-md-3">
                         
-                        <div class="menu-item light-red">
+                        <div class="menu-item blue">
                             <a href="index.php?url=listaLinea"><img src="images/icono-lineas2.png"/><br><b>LÍNEAS</b></a> 
                         </div>
                         
-                        <div class="menu-item color">
+                        <div class="menu-item blue">
                              <a href="./status"><img src="images/icono-casa.png"/><br><b>STATUS</b></a> 
                         </div>
                         
                         <div class="menu-item blue">
-                            <a href="index.php?url=transacciones"><img src="images/icono-money.png"/><br><b>TRANSACCIONES</b></a> 
+                            <a href="index.php?url=menuTransacciones"><img src="images/icono-money.png"/><br><b>TRANSACCIONES</b></a> 
                         </div>
                         
                         <div class="menu-item blue">

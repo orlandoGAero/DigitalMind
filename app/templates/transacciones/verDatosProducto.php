@@ -7,7 +7,7 @@
 	<tr><th>Tipo Producto</th><td><?php echo $datosProducto['tipo_prod'] ?></td></tr>
 	<tr><th>Unidad</th><td><?php echo $datosProducto['unidad'] ?></td></tr>
 	<tr><th>Descripción</th><td><?php echo $datosProducto['descripcion'] ?></td></tr>
-	<tr><th>Precio</th><td>$<?php echo $datosProducto['precio_unitario'] ?></td></tr>
+	<tr><th>Precio</th><td>$<?php echo number_format($datosProducto['precio_unitario'],2,'.',',') ?></td></tr>
 </table>
 <!-- <li><label>Modelo</label><input type="text" name="txtModelo" value="<?php echo $datosProducto['modelo'] ?>" readonly="readonly" class="desabilitar" />&nbsp;&nbsp;&nbsp;</li>
 <li><label>Marca</label><input type="text" name="txtMarca" value="<?php echo $datosProducto['nombre_marca'] ?>" readonly="readonly" class="desabilitar" />&nbsp;&nbsp;&nbsp;</li>
@@ -19,5 +19,13 @@
 <li><label>Existencia</label><input type="text" name="txtExistencia" value="<?php echo $datosProducto['existencia'] ?>" readonly="readonly" class="desabilitar" />&nbsp;&nbsp;&nbsp;</li>
 <li><label>Descripción</label><textarea name="txtDescripcion" readonly="readonly" class="desabilitar"><?php echo $datosProducto['descripcion'] ?></textarea>&nbsp;&nbsp;&nbsp;</li>
 <li><label>Precio unitario</label><input type="text" name="txtPrecioU" value="<?php echo $datosProducto['precio_unitario'] ?>" readonly="readonly" class="desabilitar" />&nbsp;&nbsp;&nbsp;</li> -->
-<li><label>Cantidad</label><input type="text" name="txtCantProd" required="required" /><span style="color: red;"><b>*</b></span></li>
+<li><label>Cantidad</label><input type="text" name="txtCantProd" class="keysNumbers" required="required" /><span style="color: red;"><b>*</b></span></li>
 <li><input type="submit" class="boton2" value="Agregar" name="btnAgregar" /></li>
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+	    jQuery('.keysNumbers').keypress(function(tecla) {
+	        if(tecla.charCode < 48 || tecla.charCode > 57) return false;
+	    });
+	});
+</script>
