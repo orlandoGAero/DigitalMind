@@ -780,9 +780,19 @@ public function mostrarContactos(){
 				);
 			} /*endIf tblDB*/
 
-			require '/templates/proveedor/addDBancarios.php';
-		}
+			if ($div == 'delDB') {
+				
+				if ($_REQUEST != "") {
+					if ($model->borrarDatosBancarios_add($_REQUEST['iddetDB'],$_REQUEST['idDB'])) {
+						
+						$tablaDB_Prov = array('datos-bancarios' => $model->obtDatBankPro($idProv));
+					}
+				}			
+			}
 
+			require __DIR__ . '/templates/proveedor/addDBancarios.php';
+		}
+		/*
 		public function borrarDatosB()
 		{
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
@@ -791,7 +801,7 @@ public function mostrarContactos(){
 			$idProv = $_REQUEST['idPr'];
 
 			if ($_REQUEST != "") {
-				if ($model->borrarDatosBancarios_ad($_REQUEST['iddetDB'],$_REQUEST['idDB'])) {
+				if ($model->borrarDatosBancarios_add($_REQUEST['iddetDB'],$_REQUEST['idDB'])) {
 					
 					$tablaDB_Prov = array(
 						'datos-bancarios' => $model->obtDatBankPro($idProv)
@@ -800,7 +810,7 @@ public function mostrarContactos(){
 			}
 
 			require __DIR__ . '/templates/proveedor/DelDBancarios.php';
-		}
+		}*/
 
 		public function ModificarProveedor()
 		{

@@ -2,17 +2,17 @@
     function conMayusculas(field) {
         field.value = field.value.toUpperCase()
     } 
+
+     $(function () {
+            $('.borrarDB').click(function () {
+                    formdb = this.form;
+                    $('#table_datos_bancarios').load('index.php?url=DatosBancarios&div=delDB&',$(formdb).serialize());
+                });
+        });
 </script>
 
 <?php if($div == 'frmDB') : ?>
     <script type="text/javascript">
-        $(function () {
-            $('.borrarDB').click(function () {
-                    formdb = this.form;
-                    $('#table_datos_bancarios').load('index.php?url=DeleteDatosBancarios&',$(formdb).serialize());
-                });
-        });
-
         /*Funcion para Agregar Datos Bancarios*/
         $(function (agregar) {
             $('#frm_dbank').submit(function (agregar) {
@@ -109,13 +109,12 @@
                     <td><?php echo $tableDB['no_cuenta_interbancario'] ?></td>
                     <td><?php echo $tableDB['tipo_cuenta'] ?></td>
                     <td>
-                        <form action='' method='POST' enctype='application/x-www-form-urlencoded' target="_self">
+                        <form action='#' method='POST' enctype='application/x-www-form-urlencoded' target="_self">
                             <input type="hidden" value="<?php echo $tableDB['id_datBank'] ?>" name="idDB" id="idDB"/>
                             <input type="hidden" value="<?php echo $tableDB['id_det_bp'] ?>" name="iddetDB" id="iddetDB"/>
                             <input type="hidden" value="<?php echo $tableDB['id_prov'] ?>" name="idPr" id="idPr"/>
                             <!-- botón de tabla datos bancarios -->
-                            <input type="button" value="Borrar" class="boton2 borrarDB"/>
-                            <!-- <button class="boton2 borrarDB">del</button> -->
+                            <input type="button" value="Borrar" class="borrarDB boton2"/>
                         </form>
                     </td>
                 </tr>
