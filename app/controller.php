@@ -203,7 +203,8 @@
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 						
 			$obtenerDatosContactos = array(
-				'contactos' => $m->busquedaContactos($_REQUEST['nombreContacto'],$_REQUEST['municipioContacto'],$_REQUEST['areaContacto']),
+				'contactos' => $m->busquedaContactos($_REQUEST['nombreContacto'],$_REQUEST['municipioContacto'],$_REQUEST['coloniaContacto'],
+																				$_REQUEST['areaContacto'],$_REQUEST['telMovilContacto'],$_REQUEST['emailPerContacto']),
 			); 
 			
 			require __DIR__.'/templates/contactos/mostrarContactosFiltros.php';
@@ -1653,6 +1654,12 @@
 				}
 				// 2 = Venta
 				elseif($_REQUEST['sltTrans'] == 2){
+					
+					$parametrosVenta = array(
+						'noComprovanteV' => $m -> obtenerNoComprobanteVenta(),
+						'clientes' => $m -> obtienerClientesVent(),
+					);
+					
 					require __DIR__ . '/templates/transacciones/transaccionVenta.php';
 				}
 			}

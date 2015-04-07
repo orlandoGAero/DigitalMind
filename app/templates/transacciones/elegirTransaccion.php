@@ -29,11 +29,11 @@
 														<option value="" selected="selected" disabled="disabled">Seleccione una transacción</option>
 														<option value="1">Compra</option>
 														<option value="2">Venta</option>
-														<option value="3">Pedido</option>
+														<!-- <option value="3">Pedido</option>
 														<option value="4">Cotización</option>
 														<option value="4">Garanttia</option>
 														<option value="4">Nota de Credito</option>
-														<option value="4">Nota de Venta</option>
+														<option value="4">Nota de Venta</option> -->
 													</select>
 													<span style="color: red;"><b>&nbsp;*</b></span>
 												</li>

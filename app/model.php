@@ -303,67 +303,38 @@
 				
 			$filtro = "";
 			
-			// Si ningún criterio esta vacío.
-			if (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
-							  AND cp.municipio LIKE '".$nomMunicipio."%' 
-							  AND d.colonia LIKE '".$nomColonia."%'
-							  AND c.nombre_area LIKE '".$nomArea."%'
-							  AND c.movil LIKE '".$numMovil."%'
-							  AND c.correo_p LIKE '".$emailPersonal."%'";
-			//Si NOMBRE CONTACTO se encuentra vacío.
-			}elseif (empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
-				$filtro .= "cp.municipio LIKE '".$nomMunicipio."%' 
-							  AND d.colonia LIKE '".$nomColonia."%'
-							  AND c.nombre_area LIKE '".$nomArea."%'
-							  AND c.movil LIKE '".$numMovil."%'
-							  AND c.correo_p LIKE '".$emailPersonal."%'";
-			//Si MUNICIPIO se encuentra vacío.
-			}elseif (!empty($nomCont) && empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
-							  AND d.colonia LIKE '".$nomColonia."%'
-							  AND c.nombre_area LIKE '".$nomArea."%'
-							  AND c.movil LIKE '".$numMovil."%'
-							  AND c.correo_p LIKE '".$emailPersonal."%'";
-			//Si COLONIA se encuentra vacía.
-			}elseif (!empty($nomCont) && !empty($nomMunicipio) && empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
-							  AND cp.municipio LIKE '".$nomMunicipio."%'
-							  AND c.nombre_area LIKE '".$nomArea."%'
-							  AND c.movil LIKE '".$numMovil."%'
-							  AND c.correo_p LIKE '".$emailPersonal."%'";
-			//Si ÁREA se encuentra vacía.
-			}elseif (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
-							  AND cp.municipio LIKE '".$nomMunicipio."%' 
-							  AND d.colonia LIKE '".$nomColonia."%'
-							  AND c.movil LIKE '".$numMovil."%'
-							  AND c.correo_p LIKE '".$emailPersonal."%'";
-			//Si TÉLEFONO MÓVIL se encuentra vacío.
-			}elseif (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && empty($numMovil) && !empty($emailPersonal)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
-							  AND cp.municipio LIKE '".$nomMunicipio."%' 
-							  AND d.colonia LIKE '".$nomColonia."%'
-							  AND c.nombre_area LIKE '".$nomArea."%'
-							  AND c.correo_p LIKE '".$emailPersonal."%'";
-			//Si CORREO PERSONAL se encuentra vacío.
-			}elseif (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && empty($emailPersonal)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
-							  AND cp.municipio LIKE '".$nomMunicipio."%' 
-							  AND d.colonia LIKE '".$nomColonia."%'
-							  AND c.nombre_area LIKE '".$nomArea."%'
-							  AND c.movil LIKE '".$numMovil."%'";
+			if(empty($filtro) && !empty($nomCont)){
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."')";
+			}
 			
-			}elseif (!empty($nomCont) && empty($nomMunicipio) && !empty($nomArea)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND c.nombre_area LIKE '".$nomArea."%'";
-			}elseif (empty($nomCont) && !empty($nomMunicipio) && !empty($nomArea)) {
-				$filtro .= "cp.municipio LIKE '".$nomMunicipio."%' AND c.nombre_area LIKE '".$nomArea."%'";
-			}elseif (!empty($nomCont) && empty($nomMunicipio) && empty($nomArea)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."')";
-			}elseif (empty($nomCont) && !empty($nomMunicipio) && empty($nomArea)) {
-				$filtro .= "cp.municipio LIKE '".$nomMunicipio."%'";
-			}elseif (empty($nomCont) && empty($nomMunicipio) && !empty($nomArea)) {
-				$filtro .= "c.nombre_area LIKE '".$nomArea."%'";	
+			if(empty($filtro) && !empty($nomMunicipio)){
+				$filtro .= "cp.municipio LIKE '".$nomMunicipio."%' ";
+			}elseif(!empty($filtro) && !empty($nomMunicipio)){
+				$filtro .= " AND cp.municipio LIKE '".$nomMunicipio."%' ";
+			}
+			
+			if(empty($filtro) && !empty($nomColonia)){
+				$filtro .= "d.colonia  LIKE '".$nomColonia."%' ";
+			}elseif(!empty($filtro) && !empty($nomColonia)){
+				$filtro .= " AND d.colonia LIKE '".$nomColonia."%' ";
+			}
+			
+			if(empty($filtro) && !empty($nomArea)){
+				$filtro .= "c.nombre_area   LIKE '".$nomArea."%' ";
+			}elseif(!empty($filtro) && !empty($nomArea)){
+				$filtro .= " AND c.nombre_area LIKE '".$nomArea."%' ";
+			}
+			
+			if(empty($filtro) && !empty($numMovil)){
+				$filtro .= "c.movil LIKE '".$numMovil."%' ";
+			}elseif(!empty($filtro) && !empty($numMovil)){
+				$filtro .= " AND c.movil LIKE '".$numMovil."%' ";
+			}
+			
+			if(empty($filtro) && !empty($emailPersonal)){
+				$filtro .= "c.correo_p LIKE '".$emailPersonal."%' ";
+			}elseif(!empty($filtro) && !empty($emailPersonal)){
+				$filtro .= " AND c.correo_p LIKE '".$emailPersonal."%' ";
 			}
 			
 			if($filtro != ""){
@@ -380,7 +351,6 @@
 				
 				return $contactos;
 			}
-			
 			
 		}
 		
@@ -2558,129 +2528,7 @@
 		}
 		
 		//-------------------------TRANSACCIONES-------------------------------------------
-		
-		public function obtenerNoComprobanteCompr(){
-			$consulta = "SELECT no_trans_compra FROM transacciones_compras ORDER BY no_trans_compra DESC LIMIT 1;";
-			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
-			$filas = mysql_num_rows($ejecutar);
-			
-			if($filas==0){
-				$noComprobCompr = 1;
-				$longitud = strlen($noComprobCompr);
-				$longMax = 3;
-				for ($i=0; $i < $longMax; $i++) { 
-					$noComprobCompr = "0".$noComprobCompr;
-				}
-			}else{
-				$noComprobCompr = mysql_result($ejecutar,0,'no_trans_compra');
-				$longitud = strlen($noComprobCompr);
-				$noComprobCompr = ($noComprobCompr + 1);
-				$longMax = 3;
-				for ($i=0; $i < $longMax; $i++) { 
-					$noComprobCompr = "0".$noComprobCompr;
-				}
-			}
-			
-			return $noComprobCompr;
-		}
-		
-		//combo dinamico para obtener proveedores que ya tengan asignado algún producto
-		public function obtieneProveedorProd(){
-    		$consultaProvP = "SELECT 
-							  prov.id_prov,
-							  prov.proveedor 
-							FROM
-							  proveedores prov 
-							  INNER JOIN productos prod 
-							    ON prov.id_prov = prod.id_prov 
-							GROUP BY prov.proveedor;";
-			$ejecutarProvP = mysql_query($consultaProvP)or die ("Error de Consulta-ProvCombo");
-			$filasProvP = mysql_num_rows($ejecutarProvP);
-		
-            if($filasProvP != 0){
-			$comboProvP = array();
-			while ($rows = mysql_fetch_assoc($ejecutarProvP)) {
-				$comboProvP[] = $rows;
-			}
-			
-			return $comboProvP;
-			}
-		}
-		
-		public function registrarTransCompra($idCompra,$idProveedor){
-				
-			$band = 0;
-			// validar que no se vuelva a guardar
-			if($band == 0){
-				$consultaVRTC = "SELECT no_trans_compra FROM transacciones_compras WHERE no_trans_compra = ".$idCompra;
-				$ejecutarVRTC = mysql_query($consultaVRTC,$this->conexion) or die (mysql_error());
-				$filasVRTC = mysql_num_rows($ejecutarVRTC);
-				if($filasVRTC != 0){
-					$band = 1;
-					echo "<script>alert('El número $idCompra de la transacción de compra ya fue registrado anteriormente')</script>";
-				}
-			}
-			
-			if($band == 0){
-				$consultaRTC = "INSERT INTO transacciones_compras (
-							  no_trans_compra,
-							  id_prov,
-							  fecha_compra,
-							  hora_compra
-							) 
-							VALUES
-							  (
-							    '".$idCompra."',
-							    ".$idProveedor.",
-							    NOW(),
-							    NOW()
-							  );";
-				$ejecutarRTC = mysql_query($consultaRTC,$this->conexion) or die (mysql_error());
-				
-				return $ejecutarRTC;	
-			}
-		}
-		
-		
-		public function obtenerDatosCompra($idCompra){
-    		$idCompra = (int) $idCompra;
-			
-    		$consultaDCompr = "SELECT 
-								  prov.proveedor,
-								  tc.fecha_compra,
-								  tc.hora_compra 
-								FROM
-								  proveedores prov 
-								  INNER JOIN transacciones_compras tc 
-								    ON prov.id_prov = tc.id_prov 
-								WHERE tc.no_trans_compra = ".$idCompra;
-			$ejecutarDCompr = mysql_query($consultaDCompr,$this->conexion) or die (mysql_error());
-		
-            $datosCompra = array();
-			while ($rows = mysql_fetch_array($ejecutarDCompr)) {
-				$datosCompra[] = $rows;
-			}
-			
-			return $datosCompra;
-		}
-		
-		//combo de productos según el proveedor
-		public function obtieneProductosProveedores($idProveedor){
-    		$consultaOPP = "SELECT id_producto,nombre_producto FROM productos WHERE id_prov = ".$idProveedor;
-			$ejecutarOPP = mysql_query($consultaOPP)or die ("Error de Consulta-ProductoCombo");
-			$filasOPP = mysql_num_rows($ejecutarOPP);
-		
-            if($filasOPP != 0){
-				$comboProductos = array();
-				while ($rows = mysql_fetch_assoc($ejecutarOPP)) {
-					$comboProductos[] = $rows;
-				}
-			
-				return $comboProductos;
-			}
-		}
-		
-		public function obtenerInformacionProducto($idProducto){
+			public function obtenerInformacionProducto($idProducto){
 			$consultaProd = "SELECT 
 							  prod.id_producto,
 							  prod.modelo,
@@ -2715,93 +2563,242 @@
 			return $rowsProd;
 		}
 		
-		public function registrarDetalleTransCompra($noCompra,$claveProducto,$cantidadProducto){
-			$band =0;
+			// COMPRAS
+			public function obtenerNoComprobanteCompr(){
+				$consulta = "SELECT no_trans_compra FROM transacciones_compras ORDER BY no_trans_compra DESC LIMIT 1;";
+				$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+				$filas = mysql_num_rows($ejecutar);
+				
+				if($filas==0){
+					$noComprobCompr = 1;
+					$longitud = strlen($noComprobCompr);
+					$longMax = 3;
+					for ($i=0; $i < $longMax; $i++) { 
+						$noComprobCompr = "0".$noComprobCompr;
+					}
+				}else{
+					$noComprobCompr = mysql_result($ejecutar,0,'no_trans_compra');
+					$longitud = strlen($noComprobCompr);
+					$noComprobCompr = ($noComprobCompr + 1);
+					$longMax = 3;
+					for ($i=0; $i < $longMax; $i++) { 
+						$noComprobCompr = "0".$noComprobCompr;
+					}
+				}
+				
+				return $noComprobCompr;
+			}
 			
-			if($band == 0){
-				$sqlValidarProdAdd = "SELECT no_trans_compra,id_producto
-									FROM transacciones_detalle_compras
-									WHERE no_trans_compra = ".$noCompra." AND id_producto = ".$claveProducto;
-				$ejecutarValidarProdAdd = mysql_query($sqlValidarProdAdd,$this->conexion) or die (mysql_error());
-				$rowsValidarProdAdd = mysql_num_rows($ejecutarValidarProdAdd);
-				if($rowsValidarProdAdd != 0){
-					$band = 1;
-					echo "<script>alert('El Producto ya ha sido agregado anteriormente')</script>";
+			//combo dinamico para obtener proveedores que ya tengan asignado algún producto
+			public function obtieneProveedorProd(){
+	    		$consultaProvP = "SELECT 
+								  prov.id_prov,
+								  prov.proveedor 
+								FROM
+								  proveedores prov 
+								  INNER JOIN productos prod 
+								    ON prov.id_prov = prod.id_prov 
+								GROUP BY prov.proveedor;";
+				$ejecutarProvP = mysql_query($consultaProvP)or die ("Error de Consulta-ProvCombo");
+				$filasProvP = mysql_num_rows($ejecutarProvP);
+			
+	            if($filasProvP != 0){
+				$comboProvP = array();
+				while ($rows = mysql_fetch_assoc($ejecutarProvP)) {
+					$comboProvP[] = $rows;
+				}
+				
+				return $comboProvP;
 				}
 			}
 			
-			if($band == 0){
-				$consultaRDTC = "INSERT INTO transacciones_detalle_compras (no_trans_compra,id_producto,cant_producto_compra	) 
-										VALUES (".$noCompra.", ".$claveProducto.", ".$cantidadProducto.")";
-				$ejecutarRDTC = mysql_query($consultaRDTC,$this->conexion) or die (mysql_error());
+			public function registrarTransCompra($idCompra,$idProveedor){
+					
+				$band = 0;
+				// validar que no se vuelva a guardar
+				if($band == 0){
+					$consultaVRTC = "SELECT no_trans_compra FROM transacciones_compras WHERE no_trans_compra = ".$idCompra;
+					$ejecutarVRTC = mysql_query($consultaVRTC,$this->conexion) or die (mysql_error());
+					$filasVRTC = mysql_num_rows($ejecutarVRTC);
+					if($filasVRTC != 0){
+						$band = 1;
+						echo "<script>alert('El número $idCompra de la transacción de compra ya fue registrado anteriormente')</script>";
+					}
+				}
+				
+				if($band == 0){
+					$consultaRTC = "INSERT INTO transacciones_compras (
+								  no_trans_compra,
+								  id_prov,
+								  fecha_compra,
+								  hora_compra
+								) 
+								VALUES
+								  (
+								    '".$idCompra."',
+								    ".$idProveedor.",
+								    NOW(),
+								    NOW()
+								  );";
+					$ejecutarRTC = mysql_query($consultaRTC,$this->conexion) or die (mysql_error());
+					
+					return $ejecutarRTC;	
+				}
+			}
+			
+			public function obtenerDatosCompra($idCompra){
+	    		$idCompra = (int) $idCompra;
+				
+	    		$consultaDCompr = "SELECT 
+									  prov.proveedor,
+									  tc.fecha_compra,
+									  tc.hora_compra 
+									FROM
+									  proveedores prov 
+									  INNER JOIN transacciones_compras tc 
+									    ON prov.id_prov = tc.id_prov 
+									WHERE tc.no_trans_compra = ".$idCompra;
+				$ejecutarDCompr = mysql_query($consultaDCompr,$this->conexion) or die (mysql_error());
+			
+	            $datosCompra = array();
+				while ($rows = mysql_fetch_array($ejecutarDCompr)) {
+					$datosCompra[] = $rows;
+				}
+				
+				return $datosCompra;
+			}
+			
+			//combo de productos según el proveedor
+			public function obtieneProductosProveedores($idProveedor){
+	    		$consultaOPP = "SELECT id_producto,nombre_producto FROM productos WHERE id_prov = ".$idProveedor;
+				$ejecutarOPP = mysql_query($consultaOPP)or die ("Error de Consulta-ProductoCombo");
+				$filasOPP = mysql_num_rows($ejecutarOPP);
+			
+	            if($filasOPP != 0){
+					$comboProductos = array();
+					while ($rows = mysql_fetch_assoc($ejecutarOPP)) {
+						$comboProductos[] = $rows;
+					}
+				
+					return $comboProductos;
+				}
+			}
+		
+			public function registrarDetalleTransCompra($noCompra,$claveProducto,$cantidadProducto){
+				$band =0;
+				
+				if($band == 0){
+					$sqlValidarProdAdd = "SELECT no_trans_compra,id_producto
+										FROM transacciones_compras_det
+										WHERE no_trans_compra = ".$noCompra." AND id_producto = ".$claveProducto;
+					$ejecutarValidarProdAdd = mysql_query($sqlValidarProdAdd,$this->conexion) or die (mysql_error());
+					$rowsValidarProdAdd = mysql_num_rows($ejecutarValidarProdAdd);
+					if($rowsValidarProdAdd != 0){
+						$band = 1;
+						echo "<script>alert('El Producto ya ha sido agregado anteriormente')</script>";
+					}
+				}
+				
+				if($band == 0){
+					$consultaRDTC = "INSERT INTO transacciones_compras_det (no_trans_compra,id_producto,cant_producto_compra	) 
+											VALUES (".$noCompra.", ".$claveProducto.", ".$cantidadProducto.")";
+					$ejecutarRDTC = mysql_query($consultaRDTC,$this->conexion) or die (mysql_error());
+					
+					$sqlUpdateExist = "UPDATE 
+										  productos 
+										SET
+										  existencia = (existencia + ".$cantidadProducto.") 
+										WHERE id_producto = ".$claveProducto;
+					mysql_query($sqlUpdateExist,$this->conexion) or die (mysql_error());
+					
+					return $ejecutarRDTC;
+				}
+			}
+		
+			public function obtenerProductosAgregados($noCompra){
+				$consultaOPA = "SELECT 
+								  prod.id_producto,
+								  prod.nombre_producto,
+								  prod.precio_unitario,
+								  tdc.id_detalle_compra,
+								  tdc.no_trans_compra,
+								  tdc.cant_producto_compra 
+								FROM
+								  productos prod 
+								  INNER JOIN transacciones_compras_det tdc 
+								    ON prod.id_producto = tdc.id_producto 
+								WHERE tdc.no_trans_compra = ".$noCompra;
+				$ejecutarOPA = mysql_query($consultaOPA,$this->conexion) or die (mysql_error());
+				
+				$prodAdd = array();
+				while ($rows = mysql_fetch_assoc($ejecutarOPA)) {
+					$prodAdd[] = $rows;
+				}
+				
+				return $prodAdd;
+			}
+			
+			public function borrarProductosAgregados($idDetCompr,$claveProducto,$cantidadProducto){
+				$consultaBPA = "DELETE FROM transacciones_compras_det WHERE id_detalle_compra = ".$idDetCompr;
+				$ejecutarBPA = mysql_query($consultaBPA,$this->conexion) or die (mysql_error());
 				
 				$sqlUpdateExist = "UPDATE 
 									  productos 
 									SET
-									  existencia = (existencia + ".$cantidadProducto.") 
+									  existencia = (existencia - ".$cantidadProducto.") 
 									WHERE id_producto = ".$claveProducto;
 				mysql_query($sqlUpdateExist,$this->conexion) or die (mysql_error());
+			}
+			
+			public function listarCompras(){
+				$consultaLC = "SELECT 
+								  tc.no_trans_compra,
+								  prov.id_prov,
+								  prov.proveedor,
+								  tc.fecha_compra,
+								  tc.hora_compra 
+								FROM
+								  proveedores prov 
+								  INNER JOIN transacciones_compras tc 
+								    ON prov.id_prov = tc.id_prov";
+				$ejecutarLC = mysql_query($consultaLC,$this->conexion) or die (mysql_error());
 				
-				return $ejecutarRDTC;
-			}
-		}
-		
-		//COMPRAS
-		public function obtenerProductosAgregados($noCompra){
-			$consultaOPA = "SELECT 
-							  prod.id_producto,
-							  prod.nombre_producto,
-							  prod.precio_unitario,
-							  tdc.id_detalle_compra,
-							  tdc.no_trans_compra,
-							  tdc.cant_producto_compra 
-							FROM
-							  productos prod 
-							  INNER JOIN transacciones_detalle_compras tdc 
-							    ON prod.id_producto = tdc.id_producto 
-							WHERE tdc.no_trans_compra = ".$noCompra;
-			$ejecutarOPA = mysql_query($consultaOPA,$this->conexion) or die (mysql_error());
-			
-			$prodAdd = array();
-			while ($rows = mysql_fetch_assoc($ejecutarOPA)) {
-				$prodAdd[] = $rows;
+				$listCompr = array();
+				while ($rowsLC = mysql_fetch_assoc($ejecutarLC)) {
+					$listCompr[] = $rowsLC;
+				}
+				
+				return $listCompr;
 			}
 			
-			return $prodAdd;
-		}
-		
-		public function borrarProductosAgregados($idDetCompr,$claveProducto,$cantidadProducto){
-			$consultaBPA = "DELETE FROM transacciones_detalle_compras WHERE id_detalle_compra = ".$idDetCompr;
-			$ejecutarBPA = mysql_query($consultaBPA,$this->conexion) or die (mysql_error());
-			
-			$sqlUpdateExist = "UPDATE 
-								  productos 
-								SET
-								  existencia = (existencia - ".$cantidadProducto.") 
-								WHERE id_producto = ".$claveProducto;
-			mysql_query($sqlUpdateExist,$this->conexion) or die (mysql_error());
-		}
-		
-		public function listarCompras(){
-			$consultaLC = "SELECT 
-							  tc.no_trans_compra,
-							  prov.id_prov,
-							  prov.proveedor,
-							  tc.fecha_compra,
-							  tc.hora_compra 
-							FROM
-							  proveedores prov 
-							  INNER JOIN transacciones_compras tc 
-							    ON prov.id_prov = tc.id_prov";
-			$ejecutarLC = mysql_query($consultaLC,$this->conexion) or die (mysql_error());
-			
-			$listCompr = array();
-			while ($rowsLC = mysql_fetch_assoc($ejecutarLC)) {
-				$listCompr[] = $rowsLC;
+			// VENTAS
+			public function obtenerNoComprobanteVenta(){
+				$consulta = "SELECT no_trans_venta FROM transacciones_ventas ORDER BY no_trans_venta DESC LIMIT 1;";
+				$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
+				$filas = mysql_num_rows($ejecutar);
+				
+				if($filas==0){
+					$noComprobVent = 1;
+					$longitud = strlen($noComprobVent);
+					$longMax = 3;
+					for ($i=0; $i < $longMax; $i++) { 
+						$noComprobVent = "0".$noComprobVent;
+					}
+				}else{
+					$noComprobVent = mysql_result($ejecutar,0,'no_trans_compra');
+					$longitud = strlen($noComprobVent);
+					$noComprobVent = ($noComprobVent + 1);
+					$longMax = 3;
+					for ($i=0; $i < $longMax; $i++) { 
+						$noComprobVent = "0".$noComprobVent;
+					}
+				}
+				
+				return $noComprobVent;
 			}
 			
-			return $listCompr;
-		}
-		
+			public function obtienerClientesVent(){
+				
+			}
     }	
 ?>
