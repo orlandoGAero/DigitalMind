@@ -126,8 +126,8 @@
 							</li>
 						</ul>
 					</div> <!-- fin de div menu-pro -->
-					<form action="index.php?url=Proveedores">
-						<input type="submit" class="boton2" value="Finalizar" name="Guardar" onclick="javascript:return confirmar();">
+					<form action="">
+						<input type="submit" class="boton2" value="Finalizar" name="btnFin" onclick="javascript:return confirmar();">
 					</form>
 				</section> <!-- fin de seccion principal -->
 			</div> <!-- fin de div panel-body --> 

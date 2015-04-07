@@ -852,37 +852,19 @@
 							       datf.id_datFiscal,datf.razon_social, datf.rfc, datf.tipo_ra,
 							       cp.codigoP, cp.localidad, cp.municipio, 
 							       sta.estado,
-							       dir.id_direccion,dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,dir.id_cp,
-							       bank.id_banco,bank.nombre_banco,
-							       datbank.id_datBank,datbank.sucursal,datbank.titular,datbank.no_cuenta,datbank.no_cuenta_interbancario,
-							       tcuenta.id_tipo_cuenta,tcuenta.tipo_cuenta,
-							       cont.nombreCon,cont.ap_paterno,cont.ap_materno,cont.nombre_area,cont.movil,
-							       cont.tel_oficina,cont.tel_emergencia,cont.correo_p,cont.correo_instu,
-							       cont.facebook,cont.twitter,cont.skype,cont.direccion_web
+							       dir.id_direccion,dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,dir.id_cp
 							FROM proveedores pro, 
 							     categoria_prov ctepro,
 							     datos_fiscales datf, 
 							     codigos_postales cp,
 							     estados sta, 
-							     direcciones dir,
-							     bancos bank,
-							     datos_bancarios datbank,
-							     tipo_cuenta tcuenta,
-							     det_bank_prov dtbapro,
-							     contactos cont,
-							     proveedores_contacto procont
+							     direcciones dir
 							WHERE pro.id_prov = ".$idProv."
 							AND ctepro.id_categoria=pro.id_categoria
 							AND datf.id_datFiscal=pro.id_datFiscaL
 							AND cp.id_cp=dir.id_cp
 							AND sta.id_estado=cp.id_estado
-							AND dir.id_direccion=pro.id_direccion
-							AND bank.id_banco=datbank.id_banco
-							AND tcuenta.id_tipo_cuenta=datbank.id_tipo_cuenta
-							AND pro.id_prov=dtbapro.id_prov
-							AND datbank.id_datBank=dtbapro.id_datBank
-							AND pro.id_prov=procont.id_prov
-							AND cont.id_contacto=procont.id_contacto";
+							AND dir.id_direccion=pro.id_direccion";
 			$ejecutardetPro = mysql_query($sqldetPro, $this->conexion);
 
 			$detallePro = array();

@@ -133,34 +133,46 @@
 		<div class="columns_left" >
 			<table id="miTabla" >
 				<caption>Datos Bancarios</caption>
-				<tr>
-					<th>Banco</th>
-					<td><?php echo $detProveedor['nombre_banco'] ?></td>
-				</tr>
-				<tr>
-					<th>Sucursal</th>
-					<td><?php echo $detProveedor['sucursal'] ?></td>
-				</tr>
-				<tr>
-					<th>Titular</th>
-					<td><?php echo $detProveedor['titular'] ?></td>
-				</tr>
-				<tr>
-					<th>No.Cuenta</th>
-					<td><?php echo $detProveedor['no_cuenta'] ?></td>
-				</tr>
-				<tr>
-					<th>Clabe Interbancaria</th>
-					<td><?php echo $detProveedor['no_cuenta_interbancario'] ?></td>
-				</tr>
-				<tr>
-					<th>Tipo de cuenta</th>
-					<td><?php echo $detProveedor['tipo_cuenta'] ?></td>
-				</tr>
+					<tr>
+						<th>Banco</th>
+						<?php foreach($detDatosBancarios['datosbank'] as $detDB) : ?>
+							<td><?php echo $detDB['nombre_banco'] ?></td>
+						<?php endforeach; ?>
+					</tr>
+					<tr>
+						<th>Sucursal</th>
+						<?php foreach($detDatosBancarios['datosbank'] as $detDB) : ?>
+							<td><?php echo $detDB['sucursal'] ?></td>
+						<?php endforeach; ?>
+					</tr>
+					<tr>
+						<th>Titular</th>
+						<?php foreach($detDatosBancarios['datosbank'] as $detDB) : ?>
+							<td><?php echo $detDB['titular'] ?></td>
+						<?php endforeach; ?>
+					</tr>
+					<tr>
+						<th>No.Cuenta</th>
+						<?php foreach($detDatosBancarios['datosbank'] as $detDB) : ?>
+							<td><?php echo $detDB['no_cuenta'] ?></td>
+						<?php endforeach; ?>
+					</tr>
+					<tr>
+						<th>Clabe Interbancaria</th>
+						<?php foreach($detDatosBancarios['datosbank'] as $detDB) : ?>
+							<td><?php echo $detDB['no_cuenta_interbancario'] ?></td>
+						<?php endforeach; ?>
+					</tr>
+					<tr>
+						<th>Tipo de cuenta</th>
+						<?php foreach($detDatosBancarios['datosbank'] as $detDB) : ?>
+							<td><?php echo $detDB['tipo_cuenta'] ?></td>
+						<?php endforeach; ?>
+					</tr>
 			</table>
 		</div>
 
-		<div class="columns_left">
+		<!-- <div class="">
 			<table id="miTabla" >
 				<caption>Contactos</caption>
 				<tr>
@@ -216,7 +228,7 @@
 					<td><?php echo $detProveedor['direccion_web'] ?></td>
 				</tr>
 			</table>
-		</div>
+		</div> -->
 	</div> <!-- fin div table-responsive -->
 
 <?php $contenido = ob_get_clean() ?>

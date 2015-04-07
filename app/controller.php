@@ -644,6 +644,7 @@ public function mostrarContactos(){
 					$_POST['txt_noint_f'] = "s/n";
 				}
 
+
 				if ($model->registrarProveedores($_POST['txt_iddir'],
 												$_POST['txt_calle'],
 												$_POST['txt_noext'],
@@ -783,7 +784,7 @@ public function mostrarContactos(){
 				$tablaDB_Prov = array(
 					'datos-bancarios' => $model->obtDatBankPro($id_Prove)
 				);
-				print "<pre>"; var_dump($tablaDB_Prov); print "</pre>\n"; 
+				// print "<pre>"; var_dump($tablaDB_Prov); print "</pre>\n"; 
 			} /*endIf tblDB*/
 
 			if ($div == 'delDB') {
@@ -794,7 +795,7 @@ public function mostrarContactos(){
 						$div = 'tblDB';
 
 						$tablaDB_Prov = array('datos-bancarios' => $model->obtDatBankPro($id_Prove));
-						var_dump($tablaDB_Prov);
+						// var_dump($tablaDB_Prov);
 
 						$parametrosProveedores = array(
 							'idprov' => $_REQUEST['txt_IDProv'],
@@ -804,7 +805,7 @@ public function mostrarContactos(){
 						$div = 'tblDB';
 						
 						$tablaDB_Prov = array('datos-bancarios' => $model->obtDatBankPro($id_Prove));
-						print "<pre>"; var_dump($tablaDB_Prov); print "</pre>\n"; 
+						// print "<pre>"; var_dump($tablaDB_Prov); print "</pre>\n"; 
 						
 						$parametrosProveedores = array(
 							'idprov' => $_REQUEST['txt_IDProv'],
@@ -813,28 +814,14 @@ public function mostrarContactos(){
 				}			
 			}
 
-			require __DIR__ . '/templates/proveedor/addDBancarios.php';
-		}
-		/*
-		public function borrarDatosB()
-		{
-			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-
-			$idProv = $_REQUEST['idPr'];
-
-			if ($_REQUEST != "") {
-				if ($model->borrarDatosBancarios_add($_REQUEST['iddetDB'],$_REQUEST['idDB'])) {
-					
-					$tablaDB_Prov = array(
-						'datos-bancarios' => $model->obtDatBankPro($idProv)
-					);
-				}
+			if (isset($_POST['btnFin'])) {
+				header('Location: index.php?url=Proveedores');
+				exit;
 			}
 
-			require __DIR__ . '/templates/proveedor/DelDBancarios.php';
-		}*/
-
+			require __DIR__ . '/templates/proveedor/addDBancarios.php';
+		}
+		
 		public function ModificarProveedor()
 		{
 			if(!isset($_GET['id_Proveedor'])){
@@ -994,12 +981,19 @@ public function mostrarContactos(){
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
 			$detProveedor = $model->obtenerDetalleProveedor($idProveedor);
-
 			$obtenerDatosProveedor = $detProveedor;
-			//obtener direccion fiscal del proveedor
-			$detProvDirFis = $model->DetalleDirFiscalProv($idProveedor);
 
+			/*obtener direccion fiscal del proveedor*/
+			$detProvDirFis = $model->DetalleDirFiscalProv($idProveedor);
 			$obtDirFiscal = $detProvDirFis;
+
+			/*obtener datos bancarios*/
+			$detDatosBancarios = array(
+				'datosbank' => $model->obtDatBankPro($idProveedor),
+			);
+
+			/*obtener contactos del proveedor*/
+
 
 			require __DIR__ . '/templates/proveedor/verProveedor.php';
 		}
