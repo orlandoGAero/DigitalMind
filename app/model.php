@@ -1085,7 +1085,7 @@
 		/*función para obtener los datos bancarios del proveedor*/
 		public function obtDatBankPro($claveP)
 		{
-			$sqlobtDbProv = "SELECT prov.id_prov,bank.nombre_banco,db.id_datBank,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,detdb.id_det_bp,tcta.tipo_cuenta
+			$sqlobtDbProv = "SELECT bank.nombre_banco,db.id_datBank,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,detdb.id_det_bp,tcta.tipo_cuenta
 							FROM bancos bank,datos_bancarios db,tipo_cuenta tcta,det_bank_prov detdb,proveedores prov
 							WHERE bank.id_banco=db.id_banco
 							AND tcta.id_tipo_cuenta=db.id_tipo_cuenta

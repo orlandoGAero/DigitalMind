@@ -734,11 +734,12 @@ public function mostrarContactos(){
 
 		public function InsertarDatosBancariosP()
 		{
+			// print "<pre>"; print_r($_REQUEST); print "</pre>\n";
+
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
-			/* print "<pre>"; print_r($_REQUEST); print "</pre>\n"; */
-
+			
 			$id_Prove = $_REQUEST['txt_IDProv'];
 
 			$div = $_REQUEST['div'];
@@ -775,9 +776,14 @@ public function mostrarContactos(){
 			/*validación si el div es igual a tblDB muestra la tabla de datos bancarios*/
 			if($div == 'tblDB') {
 				
+				$parametrosProveedores = array(
+					'idprov' => $_REQUEST['txt_IDProv'],
+				);
+
 				$tablaDB_Prov = array(
 					'datos-bancarios' => $model->obtDatBankPro($id_Prove)
 				);
+				print "<pre>"; var_dump($tablaDB_Prov); print "</pre>\n"; 
 			} /*endIf tblDB*/
 
 			if ($div == 'delDB') {
@@ -785,8 +791,25 @@ public function mostrarContactos(){
 				if ($_REQUEST != "") {
 					if ($model->borrarDatosBancarios_add($_REQUEST['iddetDB'],$_REQUEST['idDB'])) {
 						
-						$tablaDB_Prov = array('datos-bancarios' => $model->obtDatBankPro($idProv));
-					}
+						$div = 'tblDB';
+
+						$tablaDB_Prov = array('datos-bancarios' => $model->obtDatBankPro($id_Prove));
+						var_dump($tablaDB_Prov);
+
+						$parametrosProveedores = array(
+							'idprov' => $_REQUEST['txt_IDProv'],
+						);
+					} else {
+
+						$div = 'tblDB';
+						
+						$tablaDB_Prov = array('datos-bancarios' => $model->obtDatBankPro($id_Prove));
+						print "<pre>"; var_dump($tablaDB_Prov); print "</pre>\n"; 
+						
+						$parametrosProveedores = array(
+							'idprov' => $_REQUEST['txt_IDProv'],
+						);
+					}			
 				}			
 			}
 

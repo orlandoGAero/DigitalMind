@@ -6,7 +6,7 @@
      $(function () {
             $('.borrarDB').click(function () {
                     formdb = this.form;
-                    $('#table_datos_bancarios').load('index.php?url=DatosBancarios&div=delDB&',$(formdb).serialize());
+                    $('#table_datos_bancarios').load('index.php?url=DatosBancarios&div=delDB',$(formdb).serialize());
                 });
         });
 </script>
@@ -112,7 +112,7 @@
                         <form action='#' method='POST' enctype='application/x-www-form-urlencoded' target="_self">
                             <input type="hidden" value="<?php echo $tableDB['id_datBank'] ?>" name="idDB" id="idDB"/>
                             <input type="hidden" value="<?php echo $tableDB['id_det_bp'] ?>" name="iddetDB" id="iddetDB"/>
-                            <input type="hidden" value="<?php echo $tableDB['id_prov'] ?>" name="idPr" id="idPr"/>
+                            <input type="text" name="txt_IDProv" value="<?php echo $parametrosProveedores['idprov'] ?>"> 
                             <!-- botón de tabla datos bancarios -->
                             <input type="button" value="Borrar" class="borrarDB boton2"/>
                         </form>
