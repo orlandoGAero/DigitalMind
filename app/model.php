@@ -793,6 +793,23 @@
 
 			return $ejecutar1 & $ejecutar2;
 			}
+
+		//combo dinamico para proveedores
+		public function obtieneProvCombo()
+    	{
+    		$sql3 = "SELECT * FROM proveedores";
+			$ejecutar = mysql_query($sql3)or die ("Error de Consulta-ProvCombo");
+			$filas = mysql_num_rows($ejecutar);
+		
+            if($filas != 0){
+			$comboP = array();
+			while ($rows = mysql_fetch_assoc($ejecutar)) {
+				$comboP[] = $rows;
+			}
+			
+			return $comboP;
+			}
+		}
 	//-----------------------------------------------------------------------------------------------------------------
 	
 	//CODIGOS POSTALES
@@ -1357,6 +1374,23 @@
 							   FROM det_bank_prov detb,datos_bancarios db
 							   WHERE detb.id_det_bp=".$id_det_db." AND db.id_datBank=".$id_db;
 			mysql_query($sql_del_det_db,$this->conexion) or die("error borrar datos bancarios".mysql_error());
+		}
+/*----------------------------------------------INVENTARIO-----------------------------------------------------------------------*/
+		//combo dinamico para productos
+		public function obtieneProductoCombo()
+    	{
+    		$sql_obtProd = "SELECT * FROM productos";
+			$ejecutar_sql_obtProd = mysql_query($sql_obtProd)or die ("Error de Consulta Combo Productos");
+			$filasP = mysql_num_rows($ejecutar_sql_obtProd);
+		
+            if($filasP != 0){
+			$comboProd = array();
+			while ($rows = mysql_fetch_assoc($ejecutar_sql_obtProd)) {
+				$comboProd[] = $rows;
+			}
+			
+			return $comboProd;
+			}
 		}
     }
 ?>

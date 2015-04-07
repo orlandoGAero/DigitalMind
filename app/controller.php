@@ -1017,6 +1017,12 @@ public function mostrarContactos(){
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
+			$parametrosInventario = array(
+				'idInv' => '',
+				'proveedores' => $model->obtieneProvCombo(),
+				'productos' => $model->obtieneProductoCombo(),
+			);
+
 			require '/templates/inventario/nuevoInventario.php';
 		}
     }

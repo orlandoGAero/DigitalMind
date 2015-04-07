@@ -21,16 +21,24 @@
 											<input type="text" name="txt_idInv" />
 											<li>
 												<label for="lbl_Prov">Proveedor:</label>
-												<select name="slt_Prov">
-													<option selected="">Ingresa un proveedor...</option>
+												<select name="slt_Prov" required>
+													<option value selected>Ingresa un proveedor...</option>
+													<?php foreach ($parametrosInventario['proveedores'] as $pro) : ?>
+														<option value="<?php echo $pro['id_prov'] ?>"><?php echo $pro['proveedor'] ?></option>
+													<?php endforeach; ?>
 												</select>
+												<span style="color: red;"><b>&nbsp;*</b></span>
 											</li>
 
 											<li>
 												<label for="lbl_prod">Producto:</label>
-												<select name="slt_Prod">
-													<option selected="">Ingresa un producto ...</option>
+												<select name="slt_Prod" required>
+													<option value selected>Ingresa un producto ...</option>
+													<?php foreach ($parametrosInventario['productos'] as $prod) : ?>
+														<option value="<?php echo $prod['id_producto'] ?>"><?php echo $prod['nombre_producto'] ?></option>
+													<?php endforeach; ?>
 												</select>
+												<span style="color: red;"><b>&nbsp;*</b></span>
 											</li>
 
 											<li>
