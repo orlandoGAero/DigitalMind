@@ -299,15 +299,61 @@
 			
 		}
 		
-		public function busquedaContactos($nomCont,$nomMunicipio,$nomArea){
+		public function busquedaContactos($nomCont,$nomMunicipio,$nomColonia,$nomArea,$numMovil,$emailPersonal){
 				
 			$filtro = "";
 			
-			// Si ningún criterio esta vacío
-			if (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomArea)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND cp.municipio LIKE '".$nomMunicipio."%' AND c.nombre_area LIKE '".$nomArea."%'";
-			}elseif (!empty($nomCont) && !empty($nomMunicipio) && empty($nomArea)) {
-				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND cp.municipio LIKE '".$nomMunicipio."%'";
+			// Si ningún criterio esta vacío.
+			if (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
+							  AND cp.municipio LIKE '".$nomMunicipio."%' 
+							  AND d.colonia LIKE '".$nomColonia."%'
+							  AND c.nombre_area LIKE '".$nomArea."%'
+							  AND c.movil LIKE '".$numMovil."%'
+							  AND c.correo_p LIKE '".$emailPersonal."%'";
+			//Si NOMBRE CONTACTO se encuentra vacío.
+			}elseif (empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
+				$filtro .= "cp.municipio LIKE '".$nomMunicipio."%' 
+							  AND d.colonia LIKE '".$nomColonia."%'
+							  AND c.nombre_area LIKE '".$nomArea."%'
+							  AND c.movil LIKE '".$numMovil."%'
+							  AND c.correo_p LIKE '".$emailPersonal."%'";
+			//Si MUNICIPIO se encuentra vacío.
+			}elseif (!empty($nomCont) && empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
+							  AND d.colonia LIKE '".$nomColonia."%'
+							  AND c.nombre_area LIKE '".$nomArea."%'
+							  AND c.movil LIKE '".$numMovil."%'
+							  AND c.correo_p LIKE '".$emailPersonal."%'";
+			//Si COLONIA se encuentra vacía.
+			}elseif (!empty($nomCont) && !empty($nomMunicipio) && empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
+							  AND cp.municipio LIKE '".$nomMunicipio."%'
+							  AND c.nombre_area LIKE '".$nomArea."%'
+							  AND c.movil LIKE '".$numMovil."%'
+							  AND c.correo_p LIKE '".$emailPersonal."%'";
+			//Si ÁREA se encuentra vacía.
+			}elseif (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && empty($nomArea) && !empty($numMovil) && !empty($emailPersonal)) {
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
+							  AND cp.municipio LIKE '".$nomMunicipio."%' 
+							  AND d.colonia LIKE '".$nomColonia."%'
+							  AND c.movil LIKE '".$numMovil."%'
+							  AND c.correo_p LIKE '".$emailPersonal."%'";
+			//Si TÉLEFONO MÓVIL se encuentra vacío.
+			}elseif (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && empty($numMovil) && !empty($emailPersonal)) {
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
+							  AND cp.municipio LIKE '".$nomMunicipio."%' 
+							  AND d.colonia LIKE '".$nomColonia."%'
+							  AND c.nombre_area LIKE '".$nomArea."%'
+							  AND c.correo_p LIKE '".$emailPersonal."%'";
+			//Si CORREO PERSONAL se encuentra vacío.
+			}elseif (!empty($nomCont) && !empty($nomMunicipio) && !empty($nomColonia) && !empty($nomArea) && !empty($numMovil) && empty($emailPersonal)) {
+				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST ('".$nomCont."') 
+							  AND cp.municipio LIKE '".$nomMunicipio."%' 
+							  AND d.colonia LIKE '".$nomColonia."%'
+							  AND c.nombre_area LIKE '".$nomArea."%'
+							  AND c.movil LIKE '".$numMovil."%'";
+			
 			}elseif (!empty($nomCont) && empty($nomMunicipio) && !empty($nomArea)) {
 				$filtro .= "MATCH(c.nombreCon,c.ap_paterno,c.ap_materno) AGAINST('".$nomCont."') AND c.nombre_area LIKE '".$nomArea."%'";
 			}elseif (empty($nomCont) && !empty($nomMunicipio) && !empty($nomArea)) {
