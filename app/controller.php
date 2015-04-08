@@ -1657,7 +1657,7 @@
 					
 					$parametrosVenta = array(
 						'noComprovanteV' => $m -> obtenerNoComprobanteVenta(),
-						'clientes' => $m -> obtienerClientesVent(),
+						'clientes' => $m -> obtenerClientesVent(),
 					);
 					
 					require __DIR__ . '/templates/transacciones/transaccionVenta.php';
@@ -1697,7 +1697,24 @@
 				}
 				// 2 = Venta
 				elseif($_POST['sltTrans'] == 2){
-					require __DIR__ . '/templates/transacciones/transaccionVenta.php';
+					
+					if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+						if ($m -> registrarTransVenta($_POST['numVenta'],$_POST['idCliente'])) {
+							$parametrosVenta2 = array(
+								'noComprovanteV' => $_POST['numVenta'],
+								'datosVenta' => $m -> obtenerDatosVenta($_POST['numVenta']),
+								
+							);
+						}else {
+							$parametrosVenta2 = array(
+								'noComprovanteV' => $_POST['numVenta'],
+								'datosVenta' => $m -> obtenerDatosVenta($_POST['numVenta']),
+								
+							);
+						}
+					}
+					
+					require __DIR__ . '/templates/transacciones/insertarTransVenta.php';
 				}
 			}else {
 				// redireccionar

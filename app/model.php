@@ -2797,8 +2797,72 @@
 				return $noComprobVent;
 			}
 			
-			public function obtienerClientesVent(){
+			public function obtenerClientesVent(){
+				$consulta = "SELECT id_cliente,nombre FROM clientes WHERE activo = 'Si' ORDER BY nombre";
+				$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 				
+				$clientes = array();
+				while ($rows = mysql_fetch_assoc($ejecutar)) {
+					$clientes[] = $rows;
+				}
+				
+				return $clientes;				
+			}
+			
+			public function registrarTransVenta($idVenta,$idCliente){
+					
+				$band = 0;
+				// validar que no se vuelva a guardar
+				if($band == 0){
+					$consultaVRTV = "SELECT no_trans_venta FROM transacciones_ventas WHERE no_trans_venta = ".$idVenta;
+					$ejecutarVRTV = mysql_query($consultaVRTV,$this->conexion) or die (mysql_error());
+					$filasVRTV = mysql_num_rows($ejecutarVRTV);
+					if($filasVRTV != 0){
+						$band = 1;
+						echo "<script>alert('El número $idVenta de la transacción de venta ya fue registrado anteriormente')</script>";
+					}
+				}
+				
+				if($band == 0){
+					$consultaRTV = "INSERT INTO transacciones_ventas (
+								  no_trans_venta,
+								  id_cliente,
+								  fecha_venta,
+								  hora_venta
+								) 
+								VALUES
+								  (
+								    ".$idVenta.",
+								    ".$idCliente.",
+								    NOW(),
+								    NOW()
+								  );";
+					$ejecutarRTV = mysql_query($consultaRTV,$this->conexion) or die (mysql_error());
+					
+					return $ejecutarRTV;	
+				}
+			}
+			
+			public function obtenerDatosVenta($idVenta){
+	    		$idVenta = (int) $idVenta;
+				
+	    		$consultaDVent = "SELECT 
+								  cl.nombre,
+								  tv.fecha_venta,
+								  tv.hora_venta 
+								FROM
+								  clientes cl 
+								  INNER JOIN transacciones_ventas tv 
+								    ON cl.id_cliente = tv.id_cliente 
+								WHERE tv.no_trans_venta =  ".$idVenta;
+				$ejecutarDVent = mysql_query($consultaDVent,$this->conexion) or die (mysql_error());
+			
+	            $datosVenta = array();
+				while ($rows = mysql_fetch_array($ejecutarDVent)) {
+					$datosVenta[] = $rows;
+				}
+				
+				return $datosVenta;
 			}
     }	
 ?>

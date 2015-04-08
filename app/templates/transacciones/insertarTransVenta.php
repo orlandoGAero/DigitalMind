@@ -1,36 +1,46 @@
 <!--  -->
 <?php ob_start() ?>
-
+	
 	<!-- Style CSS valid & invalid-->
         <link href="<?php echo 'css/'.config::$style_valid_invalid_css ?>" rel="stylesheet" />
         
 	<!-- JS Formulario Listas Desplegables -->
 		<script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
-	 	
+	
 	<div class="col-lg-14">
     	<div class="panel panel-default">
-			<h1>Nueva Compra</h1>
+			<h1>Nueva Venta</h1>
 			<div class="panel-heading">    </div>
 		    <div class="panel-body">	
 				<section id="principal">
 					<div class="menu-pro">
 						<ul>
 							<form action="index.php?url=continuarTransaccion" method="POST" id="formTransacionSegundo" target="_self">
-								<li><a href="#">Datos Compra</a>
+								<li><a href="#">Datos Venta</a>
 									<ul>
 										<li>
 											<span class="span">&nbsp;* Información requerida</span>
 											<ul>
 												<li>
 													<div align="left">
-														<p><h5><b>&nbsp;&nbsp;&nbsp;No. Compra:</b> <?php echo $parametrosCompra2['noComprovanteC'] ?></h5></p>
-														<?php foreach($parametrosCompra2['datosCompra'] as $compra) :?>
-															<p><h5><b>&nbsp;&nbsp;&nbsp;Proveedor:</b> <?php echo $compra['proveedor'] ?></h5></p>
-															<p><h5><b>&nbsp;&nbsp;&nbsp;Fecha:</b> <?php echo $compra['fecha_compra'] ?></h5></p>
-															<p><h5><b>&nbsp;&nbsp;&nbsp;Hora:</b> <?php echo $compra['hora_compra'] ?></h5></p>
+														<p><h5><b>&nbsp;&nbsp;&nbsp;No. Venta:</b> <?php echo $parametrosVenta2['noComprovanteV'] ?></h5></p>
+														<?php foreach($parametrosVenta2['datosVenta'] as $compra) :?>
+															<p><h5><b>&nbsp;&nbsp;&nbsp;Cliente:</b> <?php echo $compra['nombre'] ?></h5></p>
+															<p><h5><b>&nbsp;&nbsp;&nbsp;Fecha:</b> <?php echo $compra['fecha_venta'] ?></h5></p>
+															<p><h5><b>&nbsp;&nbsp;&nbsp;Hora:</b> <?php echo $compra['hora_venta'] ?></h5></p>
 														<?php endforeach; ?>
 													</div>
-													<li><!-- No. Comprobante de Compra --><input type="hidden" name="txtNumCompr" value="<?php echo $parametrosCompra2['noComprovanteC'] ?>" readonly="readonly"/></li>
+													<li><!-- No. Comprobante de Venta --><input type="hidden" name="txtNumVenta" value="<?php echo $parametrosVenta2['noComprovanteV'] ?>" readonly="readonly"/></li>
+													<li>
+														<label>Proveedores</label>
+														<select name="idProveedor" id="id_prove" required="required" >
+															<option value="" disabled="disabled">Seleccione proveedor</option>
+															<?php foreach ($parametrosVenta2['proveedores'] as $proveedor) :?>
+																<option value="<?php echo $proveedor['id_prov'] ?>"><?php echo $proveedor['proveedor'] ?></option>
+															<?php endforeach; ?>
+														</select>
+														<span style="color: red;"><b>*</b></span>
+													</li>
 													<li>
 														<label>Productos</label>
 														<select name="idProducto" id="id_prod" required="required" >
