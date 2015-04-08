@@ -1,6 +1,6 @@
 <!--  -->
-<?php if(isset($obtenerDatosProductosAdd)) :?>
-	<?php if($obtenerDatosProductosAdd != NULL) :?>
+<?php if(isset($obtenerDatosProdAddCompr)) :?>
+	<?php if($obtenerDatosProdAddCompr != NULL) :?>
 		<!--  Para hacer la tabla responsiva utilizamos la clase "table-responsive" de bootstrap incluida en un div -->
 		<div class="table-responsive">
 			<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
@@ -18,7 +18,7 @@
 				
 				<?php $costoTotal = 0; ?>
 				
-				<?php foreach($obtenerDatosProductosAdd as $productAdd) :?>
+				<?php foreach($obtenerDatosProdAddCompr as $productAdd) :?>
 					
 					<?php $idPr = $productAdd['id_producto']; ?>
 					

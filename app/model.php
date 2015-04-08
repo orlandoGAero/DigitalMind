@@ -2715,8 +2715,8 @@
 				}
 			}
 		
-			public function obtenerProductosAgregados($noCompra){
-				$consultaOPA = "SELECT 
+			public function obtenerProductosAgregadosCompra($noCompra){
+				$consultaOPAC = "SELECT 
 								  prod.id_producto,
 								  prod.nombre_producto,
 								  prod.precio_unitario,
@@ -2728,17 +2728,17 @@
 								  INNER JOIN transacciones_compras_det tdc 
 								    ON prod.id_producto = tdc.id_producto 
 								WHERE tdc.no_trans_compra = ".$noCompra;
-				$ejecutarOPA = mysql_query($consultaOPA,$this->conexion) or die (mysql_error());
+				$ejecutarOPAC = mysql_query($consultaOPAC,$this->conexion) or die (mysql_error());
 				
 				$prodAdd = array();
-				while ($rows = mysql_fetch_assoc($ejecutarOPA)) {
+				while ($rows = mysql_fetch_assoc($ejecutarOPAC)) {
 					$prodAdd[] = $rows;
 				}
 				
 				return $prodAdd;
 			}
 			
-			public function borrarProductosAgregados($idDetCompr,$claveProducto,$cantidadProducto){
+			public function borrarProductosAgregadosCompra($idDetCompr,$claveProducto,$cantidadProducto){
 				$consultaBPA = "DELETE FROM transacciones_compras_det WHERE id_detalle_compra = ".$idDetCompr;
 				$ejecutarBPA = mysql_query($consultaBPA,$this->conexion) or die (mysql_error());
 				
@@ -2785,7 +2785,7 @@
 						$noComprobVent = "0".$noComprobVent;
 					}
 				}else{
-					$noComprobVent = mysql_result($ejecutar,0,'no_trans_compra');
+					$noComprobVent = mysql_result($ejecutar,0,'no_trans_venta');
 					$longitud = strlen($noComprobVent);
 					$noComprobVent = ($noComprobVent + 1);
 					$longMax = 3;
@@ -2863,6 +2863,60 @@
 				}
 				
 				return $datosVenta;
+			}
+			
+			public function registrarDetalleTransVenta($noVenta,$claveProveedor,$claveProducto,$cantidadProducto){
+				$band =0;
+				
+				if($band == 0){
+					$sqlValidarProdAdd = "SELECT no_trans_venta,id_producto
+										FROM transacciones_ventas_det
+										WHERE no_trans_venta = ".$noVenta." AND id_producto = ".$claveProducto;
+					$ejecutarValidarProdAdd = mysql_query($sqlValidarProdAdd,$this->conexion) or die (mysql_error());
+					$rowsValidarProdAdd = mysql_num_rows($ejecutarValidarProdAdd);
+					if($rowsValidarProdAdd != 0){
+						$band = 1;
+						echo "<script>alert('El Producto ya ha sido agregado anteriormente')</script>";
+					}
+				}
+				
+				if($band == 0){
+					$consultaRDTV = "INSERT INTO transacciones_venta_det (no_trans_venta,id_prov,id_producto,cant_producto_venta	) 
+											VALUES (".$noVenta.", ".$claveProveedor.",".$claveProducto.", ".$cantidadProducto.")";
+					$ejecutarRDTV = mysql_query($consultaRDTV,$this->conexion) or die (mysql_error());
+					
+					$sqlUpdateExist = "UPDATE 
+										  productos 
+										SET
+										  existencia = (existencia - ".$cantidadProducto.") 
+										WHERE id_producto = ".$claveProducto;
+					mysql_query($sqlUpdateExist,$this->conexion) or die (mysql_error());
+					
+					return $ejecutarRDTC;
+				}
+			}
+		
+			public function obtenerProductosAgregadosVenta($noVenta){
+				$consultaOPAV = "SELECT 
+								  prod.id_producto,
+								  prod.nombre_producto,
+								  prod.precio_unitario,
+								  tdv.id_detalle_venta,
+								  tdv.no_trans_venta,
+								  tdv.cant_producto_venta 
+								FROM
+								  productos prod 
+								  INNER JOIN transacciones_ventas_det tdv 
+								    ON prod.id_producto = tdc.id_producto 
+								WHERE tdv.no_trans_venta = ".$noVenta;
+				$ejecutarOPAV = mysql_query($consultaOPAV,$this->conexion) or die (mysql_error());
+				
+				$prodAdd = array();
+				while ($rows = mysql_fetch_assoc($ejecutarOPAV)) {
+					$prodAdd[] = $rows;
+				}
+				
+				return $prodAdd;
 			}
     }	
 ?>

@@ -43,11 +43,8 @@
 													</li>
 													<li>
 														<label>Productos</label>
-														<select name="idProducto" id="id_prod" required="required" >
-															<option value="" disabled="disabled">Seleccione producto</option>
-															<?php foreach ($parametrosCompra2['productos'] as $producto) :?>
-																<option value="<?php echo $producto['id_producto'] ?>"><?php echo $producto['nombre_producto'] ?></option>
-															<?php endforeach; ?>
+														<select name="idProducto" id="id_prod" required="required"  disabled="disabled">
+															
 														</select>
 														<span style="color: red;"><b>*</b></span>
 													</li>
@@ -135,17 +132,37 @@
 			$('.menu-pro').lksMenu();
 		});
 		
+		$(function () {
+		    $('#id_prove').change(function (a) {
+		        if ($(this).val() != "") {
+		            $('#id_prod').removeAttr('disabled');
+		            $('#id_prod').load('index.php?url=viewProductProd&prove=' + this.options[this.selectedIndex].value );
+		        }//else{
+		        	// $('#id_prod').attr('disabled','disabled').val("");
+		        	// $("#datosProd").css("display", "none");
+		       	// }
+		    });
+		
+		    if ($('#id_prove option:selected').val() != "") {
+		        $('#id_prod').removeAttr('disabled');
+		    }
+		});
+		
 		$(function (a) {			
-			$('#id_prod').change(function(a)
-			{
-				$('#datosProd').load('index.php?url=verInfoProd&IDproducto=' + this.options[this.selectedIndex].value);
+			$('#id_prod').change(function(a){
+				if($('#id_prod').val() != ""){
+					$('#datosProd').load('index.php?url=verInfoProd&IDproducto=' + this.options[this.selectedIndex].value);
+		        }else{
+			        $('#id_prod').removeAttr('disabled');
+			        $("#datosProd").css("display", "none");
+		        }
 			});
 		});
 		
 		$(function (e) {
 			$('#formTransacionSegundo').submit(function (e) {
 				e.preventDefault()
-				$('#productosAgregados').load('index.php?url=addProdCompra&' + $('#formTransacionSegundo').serialize())
+				$('#productosAgregados').load('index.php?url=addProdVenta&' + $('#formTransacionSegundo').serialize())
 			})
 		})
 		
@@ -153,7 +170,7 @@
 			$('.borrarProducto').click(
 				function () {
 					formTransacionSegundo = this.form;
-					$('#productosAgregados').load('index.php?url=deleteProdCompra&',$(formTransacionSegundo).serialize());
+					$('#productosAgregados').load('index.php?url=deleteProdVenta&',$(formTransacionSegundo).serialize());
 				}
 			);
 		});

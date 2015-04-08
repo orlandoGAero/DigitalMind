@@ -1688,8 +1688,8 @@
 								'productos' => $m -> obtieneProductosProveedores($_POST['idProveedor']),
 							);
 							
-							$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['numCompra']);
-							$obtenerDatosProductosAdd = $datosProductosAdd;
+							$datosProdAddCompr = $m -> obtenerProductosAgregadosCompra($_REQUEST['numCompra']);
+							$obtenerDatosProdAddCompr= $datosProdAddCompr;
 						}	
 					}
 					
@@ -1703,13 +1703,13 @@
 							$parametrosVenta2 = array(
 								'noComprovanteV' => $_POST['numVenta'],
 								'datosVenta' => $m -> obtenerDatosVenta($_POST['numVenta']),
-								
+								'proveedores' => $m -> obtieneProvCombo(),
 							);
 						}else {
 							$parametrosVenta2 = array(
 								'noComprovanteV' => $_POST['numVenta'],
 								'datosVenta' => $m -> obtenerDatosVenta($_POST['numVenta']),
-								
+								'proveedores' => $m -> obtieneProvCombo(),
 							);
 						}
 					}
@@ -1747,16 +1747,15 @@
 			
 			if ($_REQUEST != "") {
 				if($m -> registrarDetalleTransCompra($_REQUEST['txtNumCompr'],$_REQUEST['idProducto'],$_REQUEST['txtCantProd'])){
-					// list($numFilas,$productAdd) = $m -> obtenerProductosAgregados($_REQUEST['txtNumCompr']);
-					$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['txtNumCompr']);
-					$obtenerDatosProductosAdd = $datosProductosAdd;
+					$datosProdAddCompr = $m -> obtenerProductosAgregadosCompra($_REQUEST['txtNumCompr']);
+					$obtenerDatosProdAddCompr= $datosProdAddCompr;
 				}else{
-					$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['txtNumCompr']);
-					$obtenerDatosProductosAdd = $datosProductosAdd;
+					$datosProdAddCompr = $m -> obtenerProductosAgregadosCompra($_REQUEST['txtNumCompr']);
+					$obtenerDatosProdAddCompr= $datosProdAddCompr;
 				}
 			}
 			
-			require __DIR__ . '/templates/transacciones/agregarProducto.php';
+			require __DIR__ . '/templates/transacciones/agregarProductoCompra.php';
 		}
 		
 		public function eliminarProdCompra(){
@@ -1764,16 +1763,16 @@
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 						
 			if ($_REQUEST != "") {
-				if($m -> borrarProductosAgregados($_REQUEST['idDetTransCompr'],$_REQUEST['idProductoC'],$_REQUEST['cantProdC'])){
-					$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['folioCompra']);
-					$obtenerDatosProductosAdd = $datosProductosAdd;
+				if($m -> borrarProductosAgregadosCompra($_REQUEST['idDetTransCompr'],$_REQUEST['idProductoC'],$_REQUEST['cantProdC'])){
+					$datosProdAddCompr = $m -> obtenerProductosAgregadosCompra($_REQUEST['folioCompra']);
+					$obtenerDatosProdAddCompr= $datosProdAddCompr;
 				}else{
-					$datosProductosAdd = $m -> obtenerProductosAgregados($_REQUEST['folioCompra']);
-					$obtenerDatosProductosAdd = $datosProductosAdd;
+					$datosProdAddCompr = $m -> obtenerProductosAgregadosCompra($_REQUEST['folioCompra']);
+					$obtenerDatosProdAddCompr= $datosProdAddCompr;
 				}
 			}
 			
-			require __DIR__ . '/templates/transacciones/borrarProducto.php';
+			require __DIR__ . '/templates/transacciones/borrarProductoCompra.php';
 		}
 		
 		public function listarComprasTrans(){
@@ -1802,9 +1801,9 @@
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 			
-			$datosProductosAdd = $m->obtenerProductosAgregados($folioCompra);
+			$datosProdAddCompr = $m -> obtenerProductosAgregadosCompra($folioCompra);
 			
-			$obtenerDatosProductosAdd = $datosProductosAdd;
+			$obtenerDatosProdAddCompr= $datosProdAddCompr;
 			
 			$informacionCompra = array(
 				'noComprovanteC' => $folioCompra,
@@ -1813,6 +1812,39 @@
 			);
 			
 			require __DIR__ . '/templates/transacciones/verCompra.php';
+		}
+		
+		// VENTAS
+		function obtenerProductosProvee()
+		{
+			if ($_REQUEST['prove']!="") {
+				
+				$nameProveedor= $_REQUEST['prove'];
+				
+				$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+							config::$mvc_db_pass, config::$mvc_db_hostname);
+							
+				$productos = $m->obtieneProductosProveedores($nameProveedor);			
+				$obtenerDatosProductos = $productos;
+			}
+			require __DIR__ . '/templates/transacciones/verProductosProveedor.php';
+		}
+		
+		public function agregarProdVenta(){
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			if ($_REQUEST != "") {
+				if($m -> registrarDetalleTransVenta($_REQUEST['txtNumVenta'],$_REQUEST['idProveedor'],$_REQUEST['idProducto'],$_REQUEST['txtCantProd'])){
+					$datosProdAddVent = $m -> obtenerProductosAgregadosVenta($_REQUEST['txtNumVenta']);
+					$obtenerDatosProdAddVent = $datosProdAddVent;
+				}else{
+					$datosProdAddVent = $m -> obtenerProductosAgregadosVenta($_REQUEST['txtNumVenta']);
+					$obtenerDatosProdAddVent = $datosProdAddVent;
+				}
+			}
+			
+			require __DIR__ . '/templates/transacciones/agregarProductoVenta.php';
 		}
 
     }

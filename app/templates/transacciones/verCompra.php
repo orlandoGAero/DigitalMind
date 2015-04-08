@@ -8,7 +8,7 @@
 
 		<a href="index.php?url=listarCompras"><img src="images/leftarrow.png" title="Regresar" align='left' width="40px" height="40px" /></a>
 		<h3 class="azul">Detalle de Compra</h3>
-		<?php if(isset($obtenerDatosProductosAdd)) :?>
+		<?php if(isset($obtenerDatosProdAddCompr)) :?>
 			<div align="left">
 				<p><h5><b>&nbsp;&nbsp;&nbsp;No. Compra:</b> <?php echo $informacionCompra['noComprovanteC'] ?></h5></p>
 				<?php foreach($informacionCompra['datosCompra'] as $compra) :?>
@@ -17,7 +17,7 @@
 					<p><h5><b>&nbsp;&nbsp;&nbsp;Hora:</b> <?php echo $compra['hora_compra'] ?></h5></p>
 				<?php endforeach; ?>
 			</div>
-			<?php if($obtenerDatosProductosAdd != NULL) :?>
+			<?php if($obtenerDatosProdAddCompr != NULL) :?>
 				<div id="productosAgregados">
 					<!--  Para hacer la tabla responsiva utilizamos la clase "table-responsive" de bootstrap incluida en un div -->
 					<div class="table-responsive">
@@ -36,7 +36,7 @@
 							
 							<?php $costoTotal = 0; ?>
 							
-							<?php foreach($obtenerDatosProductosAdd as $productAdd) :?>
+							<?php foreach($obtenerDatosProdAddCompr as $productAdd) :?>
 								
 								<?php $idPr = $productAdd['id_producto']; ?>
 								

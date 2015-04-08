@@ -2,10 +2,14 @@
 <li>
 	<label>Proveedores</label>
 	<select name="idProveedor" required="required" >
-		<option value="" disabled="disabled" >Seleccione proveedor</option>
-		<?php foreach ($parametrosCompra['proveedores'] as $proveedor) :?>
-			<option value="<?php echo $proveedor['id_prov'] ?>"><?php echo $proveedor['proveedor'] ?></option>
-		<?php endforeach; ?>
+		<?php if($parametrosCompra['proveedores'] != NULL) :?>
+			<option value="" disabled="disabled" >Seleccione proveedor</option>
+			<?php foreach ($parametrosCompra['proveedores'] as $proveedor) :?>
+				<option value="<?php echo $proveedor['id_prov'] ?>"><?php echo $proveedor['proveedor'] ?></option>
+			<?php endforeach; ?>
+		<?php else :?>
+			<option value="" disabled="disabled" >No hay proveedores asignados a algún producto</option>
+		<?php endif; ?>
 	</select>
 	<span style="color: red;"><b>*</b></span>
 </li>
