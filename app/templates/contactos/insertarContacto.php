@@ -10,7 +10,11 @@
         
 	 <!-- JS Formulario Listas Desplegables -->
 	 <script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
-	 	
+	 
+	 <script type="text/javascript"> 
+		//refresca la ventana madre del popup 
+		window.opener.location.href=window.opener.location.href; 
+	</script>
 	<div class="col-lg-14">
         <div class="panel panel-default">
 			<h1>Nuevo Contacto</h1>

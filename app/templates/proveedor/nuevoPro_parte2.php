@@ -5,6 +5,7 @@
 	
 	<!-- JS Formulario Listas Desplegables -->
 	<!-- modificar linea de abajo-->
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.lksMenu.js"></script>
 	<script>
 		$('document').ready(function(){
@@ -24,13 +25,26 @@
 		}
 
 		function abrir_pag(url){
-			window.open(url,"Contactos","width=700px,height=1040px,top=50px,left=50px,scrollbars=NO,resizable=NO")
+			window.open(url,"Contactos","width=900px,height=400px,top=50px,left=50px,scrollbars=NO,resizable=NO")
 		}
 
 		function confirmar () {
 		  msg = confirm('¿Estas seguro que deseas abandonar este proceso ?');
 		  return msg;
 	  	}
+
+	  	$('document').ready(function()
+		{
+			$('#tablaCont').load('index.php?url=TablaContactos');
+		});
+
+		function recargar() {
+		    //Invocamos a nuestro script PHP
+		    $.post("index.php?url=TablaContactos", function(data){
+		       //Ponemos la respuesta de nuestro script en el DIV recargado
+		    $("#tablaCont").html(data);
+		    });       
+		}
 	</script>
 
 	<div class="col-lg-14">
@@ -53,6 +67,11 @@
 												<a href="javascript:abrir_pag('index.php?url=insertContact')">
 													<center><img src='images/new-contacto.png' alt='Nuevo Contacto' title='Nuevo Contacto'></center>
 												</a>
+							 				</div>
+							 				<a href="#" onclick="javascript:recargar();">actualizar</a>
+							 				<!-- div para tabla de contactos -->
+							 				<div id="tablaCont">
+								 				
 							 				</div>
 										</ul>
 									</li>
@@ -114,7 +133,7 @@
 													</li>
 
 													<li>
-														<input type="text" name="txt_IDProv" value="<?php echo $parametrosProveedores['idprov'] ?>"> 
+														<input type="hidden" name="txt_IDProv" value="<?php echo $parametrosProveedores['idprov'] ?>"> 
 														<input type="submit" class="boton2" name="btnAddBank" id="btnAddBank" value="Agregar"/>
 													</li>
 												</form>

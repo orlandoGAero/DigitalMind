@@ -814,11 +814,6 @@ public function mostrarContactos(){
 				}			
 			}
 
-			if (isset($_POST['btnFin'])) {
-				header('Location: index.php?url=Proveedores');
-				exit;
-			}
-
 			require __DIR__ . '/templates/proveedor/addDBancarios.php';
 		}
 		
@@ -961,7 +956,7 @@ public function mostrarContactos(){
 		{
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
-
+				
 				$obtContactos = array(
 					'listcontacto' => $model->obtenerContactos(),
 				); 
