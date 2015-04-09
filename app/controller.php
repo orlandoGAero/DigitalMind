@@ -1711,6 +1711,9 @@
 								'datosVenta' => $m -> obtenerDatosVenta($_POST['numVenta']),
 								'proveedores' => $m -> obtieneProvCombo(),
 							);
+							
+							$datosProdAddVent = $m -> obtenerProductosAgregadosVenta($_REQUEST['numVenta']);
+							$obtenerDatosProdAddVent = $datosProdAddVent;
 						}
 					}
 					
@@ -1845,6 +1848,57 @@
 			}
 			
 			require __DIR__ . '/templates/transacciones/agregarProductoVenta.php';
+		}
+		
+		public function eliminarProdVenta(){
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+						
+			if ($_REQUEST != "") {
+				if($m -> borrarProductosAgregadosVenta($_REQUEST['idDetTransVent'],$_REQUEST['idProductoV'],$_REQUEST['cantProdV'])){
+					$datosProdAddVent = $m -> obtenerProductosAgregadosVenta($_REQUEST['folioVenta']);
+					$obtenerDatosProdAddVent = $datosProdAddVent;
+				}else{
+					$datosProdAddVent = $m -> obtenerProductosAgregadosVenta($_REQUEST['folioVenta']);
+					$obtenerDatosProdAddVent = $datosProdAddVent;
+				}
+			}
+			
+			require __DIR__ . '/templates/transacciones/borrarProductoVenta.php';
+		}
+		
+		public function listarVentasTrans(){
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$obtenerDatosListVentas = array(
+				'ventas' => $m -> listarVentas(),
+			);
+			
+			require __DIR__ . '/templates/transacciones/mostrarVentas.php';
+		}
+		
+		public function detalleVentaTrans(){
+			if(!isset($_GET['numVent'])){
+				throw new Exception("Página no encontrada", 1);
+			}
+			
+			$folioVenta = $_GET['numVent'];
+			
+			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$datosProdAddVent = $m -> obtenerProductosAgregadosVenta($folioVenta);
+			
+			$obtenerDatosProdAddVent= $datosProdAddVent;
+			
+			$informacionVenta = array(
+				'noComprovanteV' => $folioVenta,
+				'datosVenta' => $m -> obtenerDatosVenta($folioVenta),
+				'proveedores' => $m -> obtieneProvCombo(),
+			);
+			
+			require __DIR__ . '/templates/transacciones/verVenta.php';
 		}
 
     }

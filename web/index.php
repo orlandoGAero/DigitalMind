@@ -95,6 +95,8 @@
 		 	'viewProductProd' => array('controller' =>'Controller', 'action' =>'obtenerProductosProvee'),
 		 	'addProdVenta' => array('controller' =>'Controller', 'action' =>'agregarProdVenta'),
 		 	'deleteProdVenta' => array('controller' =>'Controller', 'action' =>'eliminarProdVenta'),
+		 	'listarVentas' => array('controller' =>'Controller', 'action' =>'listarVentasTrans'),
+		 	'detalleVenta' => array('controller' =>'Controller', 'action' =>'detalleVentaTrans'),
 	 );
 	 
  	// PARSEO DE LA RUTA

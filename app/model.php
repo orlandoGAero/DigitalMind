@@ -2739,8 +2739,8 @@
 			}
 			
 			public function borrarProductosAgregadosCompra($idDetCompr,$claveProducto,$cantidadProducto){
-				$consultaBPA = "DELETE FROM transacciones_compras_det WHERE id_detalle_compra = ".$idDetCompr;
-				$ejecutarBPA = mysql_query($consultaBPA,$this->conexion) or die (mysql_error());
+				$consultaBPAC = "DELETE FROM transacciones_compras_det WHERE id_detalle_compra = ".$idDetCompr;
+				$ejecutarBPAC = mysql_query($consultaBPAC,$this->conexion) or die (mysql_error());
 				
 				$sqlUpdateExist = "UPDATE 
 									  productos 
@@ -2878,10 +2878,18 @@
 						$band = 1;
 						echo "<script>alert('El Producto ya ha sido agregado anteriormente')</script>";
 					}
+					
+					$sqlValidarExistencia = "SELECT existencia FROM productos WHERE id_producto = ".$claveProducto;
+					$ejecutarValidarExistencia = mysql_query($sqlValidarExistencia,$this->conexion) or die (mysql_error());
+					$existProduct = mysql_result($ejecutarValidarExistencia, 0, 'existencia');
+					if($existProduct < $cantidadProducto){
+						$band = 1;
+						echo "<script>alert('La cantidad de producto ingresado supera la existencia del producto. Ingrese una cantidad menor')</script>";
+					}
 				}
 				
 				if($band == 0){
-					$consultaRDTV = "INSERT INTO transacciones_venta_det (no_trans_venta,id_prov,id_producto,cant_producto_venta	) 
+					$consultaRDTV = "INSERT INTO transacciones_ventas_det (no_trans_venta,id_prov,id_producto,cant_producto_venta	) 
 											VALUES (".$noVenta.", ".$claveProveedor.",".$claveProducto.", ".$cantidadProducto.")";
 					$ejecutarRDTV = mysql_query($consultaRDTV,$this->conexion) or die (mysql_error());
 					
@@ -2892,12 +2900,13 @@
 										WHERE id_producto = ".$claveProducto;
 					mysql_query($sqlUpdateExist,$this->conexion) or die (mysql_error());
 					
-					return $ejecutarRDTC;
+					return $ejecutarRDTV;
 				}
 			}
 		
 			public function obtenerProductosAgregadosVenta($noVenta){
 				$consultaOPAV = "SELECT 
+								  prov.proveedor,
 								  prod.id_producto,
 								  prod.nombre_producto,
 								  prod.precio_unitario,
@@ -2907,7 +2916,9 @@
 								FROM
 								  productos prod 
 								  INNER JOIN transacciones_ventas_det tdv 
-								    ON prod.id_producto = tdc.id_producto 
+								  INNER JOIN proveedores prov 
+								    ON prod.id_producto = tdv.id_producto 
+								    AND prov.id_prov = tdv.id_prov 
 								WHERE tdv.no_trans_venta = ".$noVenta;
 				$ejecutarOPAV = mysql_query($consultaOPAV,$this->conexion) or die (mysql_error());
 				
@@ -2917,6 +2928,38 @@
 				}
 				
 				return $prodAdd;
+			}
+			
+			public function borrarProductosAgregadosVenta($idDetVenta,$claveProducto,$cantidadProducto){
+				$consultaBPAV = "DELETE FROM transacciones_ventas_det WHERE id_detalle_venta = ".$idDetVenta;
+				$ejecutarBPAV = mysql_query($consultaBPAV,$this->conexion) or die (mysql_error());
+				
+				$sqlUpdateExist = "UPDATE 
+									  productos 
+									SET
+									  existencia = (existencia + ".$cantidadProducto.") 
+									WHERE id_producto = ".$claveProducto;
+				mysql_query($sqlUpdateExist,$this->conexion) or die (mysql_error());
+			}
+			
+			public function listarVentas(){
+				$consultaLV = "SELECT 
+								  tv.no_trans_venta,
+								  cl.nombre,
+								  tv.fecha_venta,
+								  tv.hora_venta 
+								FROM
+								  clientes cl
+								  INNER JOIN transacciones_ventas tv 
+								    ON cl.id_cliente = tv.id_cliente";
+				$ejecutarLV = mysql_query($consultaLV,$this->conexion) or die (mysql_error());
+				
+				$listVent = array();
+				while ($rowsLV = mysql_fetch_assoc($ejecutarLV)) {
+					$listVent[] = $rowsLV;
+				}
+				
+				return $listVent;
 			}
     }	
 ?>

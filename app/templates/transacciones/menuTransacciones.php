@@ -24,7 +24,7 @@
 		        
 		        <div class="col-md-4">
 		            <div class="menu-item responsive">
-						<a href="index.php?url=-------"><img src="images/menu-ventas.png"/><br><b>VENTAS</b></a> 
+						<a href="index.php?url=listarVentas"><img src="images/menu-ventas.png"/><br><b>VENTAS</b></a> 
 		            </div>
 		        </div>
 		    </div>

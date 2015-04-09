@@ -10,15 +10,15 @@
 	<!-- Script de Tiny Table Sorter -->
 	<script type="text/javascript" src="<?php echo 'js/'.config::$tinyTableSorter_js ?>"></script>
 	
-	<?php if($obtenerDatosListCompras['compras'] != NULL) :?>
+	<?php if($obtenerDatosListVentas['ventas'] != NULL) :?>
 		<div id="busqueda" class="buscar">
 			<form name="formBusqueda" method="POST" id="filtros" target="_self">
 				<ul>
 					<li><b class="azul">Buscar por:</b> <a href='index.php?url=transacciones'><img src="images/menu-nueva_trans.png" title="Nueva Transacción" align='right' width="54px" height="54px"/></a></li>
 					<li>
-						<input type="search" class="elementosBusqueda keysNumbers" name="numCompra" maxlength="50" placeholder="No. Compra" title="No. Compra" />
-						<input type="search" class="elementosBusqueda" name="nomProveedor" maxlength="30" placeholder="Proveedor" title="Proveedor"/>
-						<input type="date" class="elementosBusqueda" name="fechaCompra" min="2015-01-01" title="Fecha"/>
+						<input type="search" class="elementosBusqueda keysNumbers" name="numVenta" maxlength="50" placeholder="No. Venta" title="No. Venta" />
+						<input type="search" class="elementosBusqueda" name="nomCliente" maxlength="30" placeholder="Cliente" title="Cliente"/>
+						<input type="date" class="elementosBusqueda" name="fechaVenta" min="2015-01-01" title="Fecha"/>
 						<input type="text" class="elementosBusqueda" name="timefrom" placeholder="Hora" autocomplete="off" title="Formato de Hora: 00:00" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" />
 						<input type="submit" class="boton2" value="Filtrar" name="btnFiltrar"/>
 					</li>
@@ -53,11 +53,11 @@
 				<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
 					"id" para incluir los estilos a la tabla -->
 		    	<table class="table sortable" id="miTabla">
-		    		<caption>Compras</caption>
+		    		<caption>Ventas</caption>
 					<thead>
 						<tr>
-							<th><h5>No. Compra</h5></th>
-							<th><h5>Proveedor</h5></th>
+							<th><h5>No. Venta</h5></th>
+							<th><h5>Cliente</h5></th>
 							<th><h5>Fecha</h5></th>
 							<th><h5>Hora</h5></th>
 							<th class="nosort"><h5>Operaciones</h5></th>
@@ -65,24 +65,24 @@
 					</thead>			
 					
 					<?php 
-						foreach ($obtenerDatosListCompras['compras'] as $transCompra) :
-						$idTransCompra = $transCompra['no_trans_compra'];
+						foreach ($obtenerDatosListVentas['ventas'] as $transVenta) :
+						$idTransVenta = $transVenta['no_trans_venta'];
 					?>
 						<tr>
 							<?php 
-								$noComprobCompr = $transCompra['no_trans_compra'];
-								$longitud = strlen($noComprobCompr);
+								$noComprobVent = $transVenta['no_trans_venta'];
+								$longitud = strlen($noComprobVent);
 								$longMax = 3;
 								for ($i=0; $i < $longMax; $i++) { 
-									$noComprobCompr = "0".$noComprobCompr;
+									$noComprobVent = "0".$noComprobVent;
 								}
 							?>
-							<td><?php echo $noComprobCompr ?></td>
-							<td><?php echo $transCompra['proveedor'] ?></td>
-							<td><?php echo $transCompra['fecha_compra'] ?></td>
-							<td><?php echo $transCompra['hora_compra'] ?></td>
+							<td><?php echo $noComprobVent ?></td>
+							<td><?php echo $transVenta['nombre'] ?></td>
+							<td><?php echo $transVenta['fecha_venta'] ?></td>
+							<td><?php echo $transVenta['hora_venta'] ?></td>
 							<td>
-								<?php echo "<a href='index.php?url=detalleCompra&numCompr=".$idTransCompra."&idPro=".$transCompra['id_prov']."'>" ?> <img src="images/detalle.png" title="Detalle"/></a>
+								<?php echo "<a href='index.php?url=detalleVenta&numVent=".$idTransVenta."'>" ?> <img src="images/detalle.png" title="Detalle"/></a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -92,7 +92,7 @@
 	<?php else :?>
 		<pre>
 			<a href='index.php?url=transacciones'><img src="images/menu-nueva_trans.png" title="Nueva transacción" align='right' width="54px" height="54px"/></a>
-			<h3 class="azul">No se encuentra registrada ninguna compra</h3>
+			<h3 class="azul">No se encuentra registrada ninguna venta</h3>
 		</pre>
 	<?php endif; ?>
 	
