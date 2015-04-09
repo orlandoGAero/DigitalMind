@@ -1,6 +1,7 @@
 <?php if ($obtContactos['listcontacto'] !=NULL) :?>	
 	<div class="table-responsive">
 		<!-- "id" para incluir los estilos a la tabla -->
+		<?php echo $claveProvee ?>
 		<table class="table" id="miTabla">
 			<caption>Contactos</caption>
 			<thead>
@@ -8,8 +9,8 @@
 					<th>Nombre</th>
 					<th>Apellido Paterno</th>
 					<th>Apellido Materno</th>
-					<th>Área</th>
-					<th>Móvil</th>
+					<th>&Aacute;rea</th>
+					<th>M&oacute;vil</th>
 					<th>Elegir</th>
 				</tr>
 			</thead>
@@ -27,8 +28,9 @@
 					<td><?php echo $contacto['movil'] ?></td>
 					<td>	
 						<form>
-							<input type="text" name="txt_IDProv" value="<?php echo $parametrosProveedores['idprov'] ?>"> 
-							<input type="text" name="txt_idCon" value="<?php echo $idContact ?>"> 
+							
+							<input type="text" name="txt_idCon" disabled value="<?php echo $idContact; ?>"/> 
+							<input type="text" name="txt_idproveedor" disabled value="<?php echo $claveProvee?>"/> 
 							<!-- botón de tabla contactos -->
 							<input type="submit" class="boton2" name="btnAddContacto" id="btnAddContacto" value="Agregar"/>
 						</form>

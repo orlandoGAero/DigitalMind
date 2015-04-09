@@ -35,16 +35,19 @@
 
 	  	$('document').ready(function()
 		{
-			$('#tablaCont').load('index.php?url=TablaContactos');
+			$('#tablaCont').load('index.php?url=TablaContactos&idprov=<?php echo $parametrosProveedores['idprov'] ?>');
 		});
 
 		function recargar() {
 		    //Invocamos a nuestro script PHP
-		    $.post("index.php?url=TablaContactos", function(data){
+		    $.post("index.php?url=TablaContactos&idprov=<?php echo $parametrosProveedores['idprov'] ?>", function(data){
 		       //Ponemos la respuesta de nuestro script en el DIV recargado
 		    $("#tablaCont").html(data);
 		    });       
 		}
+		  
+
+
 	</script>
 
 	<div class="col-lg-14">
@@ -67,11 +70,11 @@
 												<a href="javascript:abrir_pag('index.php?url=insertContact')">
 													<center><img src='images/new-contacto.png' alt='Nuevo Contacto' title='Nuevo Contacto'></center>
 												</a>
-							 				</div>
+											</div>
 							 				<a href="#" onclick="javascript:recargar();">actualizar</a>
 							 				<!-- div para tabla de contactos -->
 							 				<div id="tablaCont">
-								 				
+							 					
 							 				</div>
 										</ul>
 									</li>

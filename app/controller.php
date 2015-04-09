@@ -957,9 +957,20 @@ public function mostrarContactos(){
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 				
+				if (!isset($_REQUEST['idprov'])) {
+					throw new Exception("Página no encontrada", 1);
+				}
+
+				$claveProvee = $_REQUEST['idprov'];
+				print_r($_REQUEST);
+				
 				$obtContactos = array(
 					'listcontacto' => $model->obtenerContactos(),
-				); 
+				);
+
+				
+
+				// var_dump($obtContactos);
 				
 			require __DIR__ . '/templates/proveedor/table-contact.php';
 		}

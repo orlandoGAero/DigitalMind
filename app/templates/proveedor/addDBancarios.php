@@ -79,7 +79,7 @@
         </li>
 
         <li>
-            <input type="text" name="txt_IDProv" value="<?php echo $parametrosProveedores['idprov'] ?>"> 
+            <input type="hidden" name="txt_IDProv" value="<?php echo $parametrosProveedores['idprov'] ?>"> 
             <input type='submit' class='boton2' name='btnAddBank' id='btnAddBank' value='Agregar'/>
         </li>
     </form>
