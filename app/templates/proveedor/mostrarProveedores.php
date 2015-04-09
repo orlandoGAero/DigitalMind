@@ -52,6 +52,7 @@
 					<br>
 
 					<div class="table-responsive">
+						<a href="index.php?url=Proveedores"><img src="images/table_refresh.png" title="Tabla principal" align='left' width="25px" height="25px" /></a>
 						<table class="table sortable" id="miTabla">
 							<caption>Proveedores</caption>
 							<thead> 

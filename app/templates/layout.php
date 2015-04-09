@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,15 +9,15 @@
 
         <title>Intranet|Digital Mind</title>
         
-		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
         <!-- Bootstrap Core CSS -->
         <link href="<?php echo 'bootstrap/css/'.config::$bootstrap_min_css ?>" rel="stylesheet" />
 
         <!-- Font Awesome CSS 
         <link href="css/font-awesome.min.css" rel="stylesheet"> -->
-		
-		<!-- Custom CSS animaciones-->
+        
+        <!-- Custom CSS animaciones-->
         <link href="<?php echo 'css/'.config::$animate_css ?>" rel="stylesheet" />
 
         <!-- Custom CSS -->
@@ -41,17 +40,17 @@
                            <a href="index.php?url=listaCliente"><img src="images/icono-clientes.png"/><br><b>CLIENTES</b></a>
                         </div>
                         
-                        <div class="menu-item green">
+                        <div class="menu-item blue">
                             <a href="index.php?url=listContact"><img src="images/icono-agenda.png"/><br><b>CONTACTOS</b></a> 
                         </div>
                         
-						
-						<div class="menu-item color responsive">
+                        
+                        <div class="menu-item blue responsive">
                              <a href="index.php?url=Proveedores"><img src="images/icono-instructores.png"/><br><b>PROVEEDORES</b></a>                     
                         </div>
-                     							
-                        <div class="menu-item light-red">
-                            <a href="./productos"><img src="images/icono-videos.png"/><br><b>PRODUCTOS</b></a> 
+                                                
+                        <div class="menu-item blue responsive">
+                             <a href="index.php?url=listaProducto"><img src="images/icono-videos.png"/><br><b>PRODUCTOS</b></a> 
                         </div>
                         
                     </div>
@@ -90,14 +89,14 @@
                         
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="menu-item color responsive">
-                                    <a href="./familia"><img src="images/icono-lineas.png"/><br><b>FAMILIAS</b></a>                    
+                                <div class="menu-item blue responsive">
+                                    <a href="index.php?url=listaFam"><img src="images/icono-lineas.png"/><br><b>FAMILIAS</b></a>                    
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="menu-item light-orange responsive-2">
-									<a href="./marca"><img src="images/icono-cursos.png"/><br><b>MARCAS</b></a> 
+                                <div class="menu-item blue responsive">
+                                    <a href="index.php?url=listaMarca"><img src="images/icono-cursos.png"/><br><b>MARCAS</b></a> 
                                 </div>
                             </div>
                             
@@ -108,15 +107,15 @@
                     <div class="col-md-3">
                         
                         <div class="menu-item blue">
-                            <a href="index.php?url=Inventario"><img src="images/inventory.png"><br><b>INVENTARIO</b></a> 
-                        </div>
-
-                        <div class="menu-item light-red">
-                            <a href="./linea"><img src="images/icono-lineas2.png"/><br><b>LÍNEAS</b></a> 
+                            <a href="index.php?url=listaLinea"><img src="images/icono-lineas2.png"/><br><b>LÍNEAS</b></a> 
                         </div>
                         
-                        <div class="menu-item color">
-                             <a href="./status"><img src="images/icono-casa.png"/><br><b>STATUS</b></a> 
+                        <div class="menu-item blue">
+                            <a href="index.php?url=Inventario"><img src="images/inventory.png"><br><b>INVENTARIO</b></a> 
+                        </div>
+                        
+                        <div class="menu-item blue">
+                            <a href="index.php?url=menuTransacciones"><img src="images/icono-money.png"/><br><b>TRANSACCIONES</b></a> 
                         </div>
                         
                         <div class="menu-item blue">
@@ -127,7 +126,5 @@
             </div>
         </div>
         <!-- End Main Body Section -->
-        
     </body>
-    
 </html>
