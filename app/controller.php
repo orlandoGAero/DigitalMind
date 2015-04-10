@@ -816,6 +816,56 @@ public function mostrarContactos(){
 
 			require __DIR__ . '/templates/proveedor/addDBancarios.php';
 		}
+
+		public function cargarContactosPro()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+				
+				if (!isset($_REQUEST['idprov'])) {
+					throw new Exception("Página no encontrada", 1);
+				}
+
+				$claveProvee = $_REQUEST['idprov'];
+				print_r($_REQUEST);
+				
+				$obtContactos = array(
+					'listcontacto' => $model->obtenerContactos(),
+				);
+
+				
+
+				// var_dump($obtContactos);
+				
+			require __DIR__ . '/templates/proveedor/table-contact.php';
+		}
+
+		public function InsertarDatosContactosP()
+		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+
+			$idcontactos = $_REQUEST['txt_idCon'];
+			$idproveedores = $_REQUEST['txt_idproveedor'];
+
+			print_r($_REQUEST);
+
+			$divs = $_REQUEST['div'];
+
+			/* validación si el div es igual a addContacto muestra la tabla de contactos*/
+			if($divs == 'addContacto') {
+
+				$model->registrarProv_Contact($_REQUEST['txt_idproveedor'],$_REQUEST['txt_idCon']);
+				
+				// $claveProvee = $_REQUEST['txt_idproveedor'];
+				// $idContact = $_REQUEST['txt_idCon'];
+
+				$idproveedores = $_REQUEST['txt_idproveedor'];
+				$idcontactos = $_REQUEST['txt_idCon'];
+
+			} /*endIf frmDB*/
+
+		}
 		
 		public function ModificarProveedor()
 		{
@@ -950,29 +1000,6 @@ public function mostrarContactos(){
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 			
 			$eliminarProv = $model-> borrarProveedores($IdPro);
-		}
-
-		public function cargarContactosPro()
-		{
-			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
-						config::$mvc_db_pass, config::$mvc_db_hostname);
-				
-				if (!isset($_REQUEST['idprov'])) {
-					throw new Exception("Página no encontrada", 1);
-				}
-
-				$claveProvee = $_REQUEST['idprov'];
-				print_r($_REQUEST);
-				
-				$obtContactos = array(
-					'listcontacto' => $model->obtenerContactos(),
-				);
-
-				
-
-				// var_dump($obtContactos);
-				
-			require __DIR__ . '/templates/proveedor/table-contact.php';
 		}
 
 		public function verProveedor()

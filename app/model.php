@@ -1227,9 +1227,10 @@
 			}
 		}
 
+		/*función para insertar los contactos del proveedor */
 		public function registrarProv_Contact($idprov,$idcont)
 		{
-			// consulta para insertar en la tabla de proveedores_contacto
+			/* consulta para insertar en la tabla de proveedores_contacto */
 			$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_prov,id_contacto)
 									  VALUES (".$idprov.",".$idcont.");";
 			$ejecutar_sqlinsertprov_contact = mysql_query($sqlinsertprov_contact,$this->conexion) or die("Error en insertar proveedores-contactos".mysql_error());
