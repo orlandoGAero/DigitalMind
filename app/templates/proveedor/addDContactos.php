@@ -1,11 +1,3 @@
-<script type="text/javascript">
-	$(function () {
-        $('.agregarCont').click(function () {
-            formdc = this.form;
-            $('#datos_contact').load('index.php?url=DatosContacto&div=addContacto&txt_idproveedor=<?php $claveProvee ?>&txt_idCon=<?php $idContact ?>',$(formdc).serialize());
-        });
-    });
-</script>	
 	<!-- div addContacto -->
 	<?php if($div == 'addContacto' ) : ?>
 		<?php if ($obtContactos['listcontacto'] !=NULL) :?>	
@@ -38,8 +30,8 @@
 							<td><?php echo $contacto['movil'] ?></td>
 							<td>	
 								<form action="#" method='POST' enctype='application/x-www-form-urlencoded' target="_self">
-									<input type="text" name="txt_idCon" id="txt_idCon" disabled value="<?php echo $idContact; ?>"/> 
-									<input type="text" name="txt_idproveedor" id="txt_idproveedor" disabled value="<?php echo $claveProvee?>"/> 
+									<input type="text" name="idcon" disabled value="<?php echo $idContact; ?>"/> 
+									<input type="text" name="txt_idproveedor" disabled value="<?php echo $claveProvee; ?>"/> 
 									<!-- botón de tabla contactos -->
 									<input type="button" class="boton2 agregarCont" name="btnAddContacto" value="Agregar"/>
 								</form>
@@ -71,3 +63,12 @@
 			</tr>
 		</table>
 	<?php endif; ?> <!--end contactos agregados al proveedor-->
+
+<script type="text/javascript">
+	 $(function () {
+        $('.agregarCont').click(function () {
+                formdc = this.form;
+                $('#datos_contact').load('index.php?url=DatosContacto&div=addContacto&idcon=<?php echo $idContact; ?>&txt_idproveedor=<?php echo $claveProvee; ?>&',$(formdc).serialize());
+            });
+    });
+</script>

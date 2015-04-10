@@ -830,7 +830,7 @@ public function mostrarContactos(){
 				print_r($_REQUEST);
 				
 				$obtContactos = array(
-					'listcontacto' => $model->obtenerContactos(),
+					'listcontacto' => $model->obt_allContactos(),
 				);
 
 				
@@ -845,26 +845,29 @@ public function mostrarContactos(){
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
-			$idcontactos = $_REQUEST['txt_idCon'];
+			$idcontactos = $_REQUEST['idcon'];
 			$idproveedores = $_REQUEST['txt_idproveedor'];
 
+				
 			print_r($_REQUEST);
 
-			$divs = $_REQUEST['div'];
+			$div = $_REQUEST['div'];
 
 			/* validación si el div es igual a addContacto muestra la tabla de contactos*/
-			if($divs == 'addContacto') {
+			if($div == 'addContacto') {
 
-				$model->registrarProv_Contact($_REQUEST['txt_idproveedor'],$_REQUEST['txt_idCon']);
+				$model->registrarProv_Contact($idcontactos,$idproveedores);
 				
-				// $claveProvee = $_REQUEST['txt_idproveedor'];
-				// $idContact = $_REQUEST['txt_idCon'];
+				$div = 'addContacto';
 
-				$idproveedores = $_REQUEST['txt_idproveedor'];
-				$idcontactos = $_REQUEST['txt_idCon'];
+				$obtContactos = array(
+					'listcontacto' => $model->obt_allContactos(),
+				);
 
+				$claveProvee = $_REQUEST['txt_idproveedor'];
 			} /*endIf frmDB*/
 
+			require __DIR__ . '/templates/proveedor/addDContactos.php';
 		}
 		
 		public function ModificarProveedor()

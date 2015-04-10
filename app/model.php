@@ -1103,6 +1103,19 @@
 			 return $tableDb;
 		}
 
+		public function obt_allContactos(){
+			$sql_obt_c = "SELECT *
+							FROM contactos";
+			$ejecutar_sql_obt_c = mysql_query($sql_obt_c,$this->conexion) or die (mysql_error());
+			
+			$Contacts = array();
+			while($rows = mysql_fetch_assoc($ejecutar_sql_obt_c)){
+				$Contacts[] = $rows;
+			}
+			
+			return $Contacts;
+		}
+
 		/*Función para registrar la 1ra parte de proveedores*/
 		public function registrarProveedores($id_dire,$street,$noext,$noint,$col,$referen,$cp,
 											$id_direFiscal,$streetFiscal,$noextFiscal,$nointFiscal,$colFiscal,$referenFiscal,$cpFiscal,						 
@@ -1228,12 +1241,12 @@
 		}
 
 		/*función para insertar los contactos del proveedor */
-		public function registrarProv_Contact($idprov,$idcont)
+		public function registrarProv_Contact($idcont,$idprov)
 		{
 			/* consulta para insertar en la tabla de proveedores_contacto */
-			$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_prov,id_contacto)
-									  VALUES (".$idprov.",".$idcont.");";
-			$ejecutar_sqlinsertprov_contact = mysql_query($sqlinsertprov_contact,$this->conexion) or die("Error en insertar proveedores-contactos".mysql_error());
+			$sqlinsertprov_contact = "INSERT INTO proveedores_contacto (id_contacto,id_prov)
+									  VALUES (".$idcont.",".$idprov.");";
+			$ejecutar_sqlinsertprov_contact = mysql_query($sqlinsertprov_contact,$this->conexion) or die("Error en insertar proveedores-contactos ".mysql_error());
 			
 			return $sqlinsertprov_contact;
 		}

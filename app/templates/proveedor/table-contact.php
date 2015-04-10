@@ -1,11 +1,22 @@
-<script type="text/javascript">
-	 $(function () {
-        $('.agregarCont').click(function () {
-                formdc = this.form;
-                $('#datos_contact').load('index.php?url=DatosContacto&div=addContacto&txt_idproveedor=<?php $claveProvee ?>&txt_idCon=<?php $idContact ?>',$(formdc).serialize());
-            });
-    });
-</script>
+<?php 
+	/* define el array bidimensional */
+	$AgregarContactos[]=array();
+	/* se inicia el valor de k, que generara nuevas posiciones al array a partir de */
+	$k = 0;
+	foreach ($obtContactos['listcontacto'] as $tablaContact) {
+	/* verifica si $item aparece en contactos */
+		if (in_array($tablaContact, $Contactos_Prov)) {
+			# code...
+		} 
+		/*En caso de que el contacto no este en la lista de asignados*/
+		else {
+			/*se agregara el valor del array de $tablaContact(Contactos que no tienen relacion con el proveedor actual) al nuevo array*/
+	    	$AgregarContactos[$k]=$tablaContact;
+	        /*se incrementa el valor de k para nuevos posibles contactos*/
+	    	$k++;    
+	    }
+	}
+?>
 
 <div id="datos_contact">
 	<?php if ($obtContactos['listcontacto'] !=NULL) :?>	
@@ -38,8 +49,8 @@
 						<td><?php echo $contacto['movil'] ?></td>
 						<td>	
 							<form action="#" method='POST' enctype='application/x-www-form-urlencoded' target="_self">
-								<input type="text" name="txt_idCon" id="txt_idCon" disabled value="<?php echo $idContact; ?>"/> 
-								<input type="text" name="txt_idproveedor" id="txt_idproveedor" disabled value="<?php echo $claveProvee?>"/> 
+								<input type="TEXT" name="txt_idCon" disabled value="<?php echo $idContact; ?>"/> 
+								<input type="hidden" name="txt_idproveedor" disabled value="<?php echo $claveProvee; ?>"/> 
 								<!-- botón de tabla contactos -->
 								<input type="button" class="boton2 agregarCont" name="btnAddContacto" value="Agregar"/>
 							</form>
@@ -54,3 +65,12 @@
 			</pre>
 	<?php endif; ?>
 </div>
+
+<script type="text/javascript">
+	 $(function () {
+        $('.agregarCont').click(function () {
+                formdc = this.form;
+                $('#datos_contact').load('index.php?url=DatosContacto&div=addContacto&idcon=<?php echo $idContact; ?>&txt_idproveedor=<?php echo $claveProvee ?>&',$(formdc).serialize());
+            });
+    });
+</script>
