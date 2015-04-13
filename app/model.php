@@ -1344,6 +1344,70 @@
 			}
 		}
 
+		public function buscarProveedores($b_prov,$b_rsocial,$b_rfc,$b_cat,$b_tel,$b_dirweb,$b_muni)
+		{
+			$filtro = "";
+
+			if (empty($filtro) && !empty($b_prov)) {
+				$filtro .= " prov.proveedor LIKE '".$b_prov."%' ";
+			}
+
+			if (empty($filtro) && !empty($b_rsocial)) {
+				$filtro .= " dfis.razon_social LIKE '".$b_rsocial."%' ";
+			} elseif (!empty($filtro) && !empty($b_rsocial)) {
+				$filtro .= " AND dfis.razon_social LIKE '".$b_rsocial."%' ";
+			}
+
+			if (empty($filtro) && !empty($b_rfc)) {
+				$filtro .= " dfis.rfc LIKE '".$b_rfc."%' ";
+			} elseif (!empty($filtro) && !empty($b_rfc)) {
+				$filtro .= " AND dfis.rfc LIKE '".$b_rfc."%' ";
+			}
+
+			if (empty($filtro) && !empty($b_cat)) {
+				$filtro .= " cat.categoria LIKE '".$b_cat."%' ";
+			} elseif (!empty($filtro) && !empty($b_cat)) {
+				$filtro .= " AND cat.categoria LIKE '".$b_cat."%' ";
+			}
+
+			if (empty($filtro) && !empty($b_tel)) {
+				$filtro .= " prov.tel LIKE '".$b_tel."%' ";
+			} elseif (!empty($filtro) && !empty($b_tel)) {
+				$filtro .= " AND prov.tel LIKE '".$b_tel."%' ";
+			}
+
+			if (empty($filtro) && !empty($b_dirweb)) {
+				$filtro .= " prov.dirweb LIKE '".$b_dirweb."%' ";
+			} elseif (!empty($filtro) && !empty($b_dirweb)) {
+				$filtro .= " AND prov.dirweb LIKE '".$b_dirweb."%' ";
+			}
+
+			if (empty($filtro) && !empty($b_muni)) {
+				$filtro .= " cp.municipio LIKE '".$b_muni."%' ";
+			} elseif (!empty($filtro) && !empty($b_muni)) {
+				$filtro .= " AND cp.municipio LIKE '".$b_muni."%' ";
+			}
+
+			if ($filtro != "") {
+				$sql_search = "SELECT prov.proveedor,dfis.razon_social,dfis.rfc,cat.categoria,prov.tel,prov.dirweb,cp.municipio
+								FROM proveedores prov,datos_fiscales dfis,categoria_prov cat,codigos_postales cp,direcciones dir
+								WHERE cat.id_categoria=prov.id_categoria
+								AND dfis.id_datFiscal=prov.id_datFiscal
+								AND cp.id_cp=dir.id_cp
+								AND dir.id_direccion=prov.id_direccion";
+				$ejecutar_sql_search = mysql_query($sql_search) or die("Error de consulta busqueda proveedores ".mysql_error());
+
+				$array_prov = array();
+				while ($fila = mysql_fetch_assoc($ejecutar_sql_search)) {
+					$array_prov[] = $fila;
+				}
+
+				return $array_prov;
+			}
+
+
+		}
+
 		public function borrarProveedores($id_prov)
 		{
 			

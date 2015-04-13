@@ -991,6 +991,11 @@ public function mostrarContactos(){
 			require '/templates/proveedor/editarPro.php';
 		}
 
+		public function ConsultarProveedores()
+		{
+
+		}
+
 		public function EliminarProveedor(){
 				
 			if(!isset($_GET['id_Proveedor'])){
