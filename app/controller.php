@@ -1838,7 +1838,7 @@
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 			
 			if ($_REQUEST != "") {
-				if($m -> registrarDetalleTransVenta($_REQUEST['txtNumVenta'],$_REQUEST['idProveedor'],$_REQUEST['idProducto'],$_REQUEST['txtCantProd'])){
+				if($m -> registrarDetalleTransVenta($_REQUEST['txtNumVenta'],$_REQUEST['idProducto'],$_REQUEST['txtCantProd'])){
 					$datosProdAddVent = $m -> obtenerProductosAgregadosVenta($_REQUEST['txtNumVenta']);
 					$obtenerDatosProdAddVent = $datosProdAddVent;
 				}else{

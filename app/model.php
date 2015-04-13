@@ -2865,7 +2865,7 @@
 				return $datosVenta;
 			}
 			
-			public function registrarDetalleTransVenta($noVenta,$claveProveedor,$claveProducto,$cantidadProducto){
+			public function registrarDetalleTransVenta($noVenta,$claveProducto,$cantidadProducto){
 				$band =0;
 				
 				if($band == 0){
@@ -2889,8 +2889,8 @@
 				}
 				
 				if($band == 0){
-					$consultaRDTV = "INSERT INTO transacciones_ventas_det (no_trans_venta,id_prov,id_producto,cant_producto_venta	) 
-											VALUES (".$noVenta.", ".$claveProveedor.",".$claveProducto.", ".$cantidadProducto.")";
+					$consultaRDTV = "INSERT INTO transacciones_ventas_det (no_trans_venta,id_producto,cant_producto_venta	) 
+											VALUES (".$noVenta.",".$claveProducto.", ".$cantidadProducto.")";
 					$ejecutarRDTV = mysql_query($consultaRDTV,$this->conexion) or die (mysql_error());
 					
 					$sqlUpdateExist = "UPDATE 
@@ -2914,11 +2914,11 @@
 								  tdv.no_trans_venta,
 								  tdv.cant_producto_venta 
 								FROM
-								  productos prod 
+								  proveedores prov
+								  INNER JOIN productos prod 
 								  INNER JOIN transacciones_ventas_det tdv 
-								  INNER JOIN proveedores prov 
-								    ON prod.id_producto = tdv.id_producto 
-								    AND prov.id_prov = tdv.id_prov 
+								    ON prov.id_prov = prod.id_prov 
+								    AND prod.id_producto = tdv.id_producto 
 								WHERE tdv.no_trans_venta = ".$noVenta;
 				$ejecutarOPAV = mysql_query($consultaOPAV,$this->conexion) or die (mysql_error());
 				
