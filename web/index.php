@@ -55,6 +55,7 @@
 	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'InsertarDatosContactosP'),
 	 	 'verMunicipioFiscal' => array('controller' =>'Controller', 'action' =>'obtenerMunicipioDirFiscal'),
 	 	 'verLocalidadFiscal' => array('controller' =>'Controller', 'action' =>'obtenerDireccionLocalidadDirFiscal'),
+	 	 'searchProveedores' => array('controller' =>'Controller', 'action' =>'ConsultarProveedores'),
 
 
 	     // ------------------------------INVENTARIO------------------------------------------

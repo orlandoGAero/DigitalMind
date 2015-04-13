@@ -3,9 +3,9 @@
 			<script type="text/javascript" src="js/tinyTableSorter.js"></script>
 					
 			<?php 
-			// var_dump($obtenerDat['proveedores']);
+			// var_dump($obtenerDatPro['proveedores']);
 
-			if ($obtenerDat['proveedores'] !=NULL) :?>
+			if ($obtenerDatPro['proveedores'] !=NULL) :?>
 				
 				<div id="busqueda" class="buscar">
 					<form name="formBusqInv" method="POST" id="filtrosProv" target="_self">
@@ -15,13 +15,13 @@
 							</li>
 							</br>
 							<li>
-								<input type="search" class="elementosBusqueda" placeholder="Proveedor"/>
-								<input type="search" class="elementosBusqueda" placeholder="Raz&oacute;n Social"/>
-								<input type="search" class="elementosBusqueda" placeholder="Rfc"/>
-								<input type="search" class="elementosBusqueda" placeholder="Categor&iacute;a"/>
-								<input type="search" class="elementosBusqueda" placeholder="Tel&eacute;fono"/>
-								<input type="search" class="elementosBusqueda" placeholder="Direcci&oacute;n Web"/>
-								<input type="search" class="elementosBusqueda" placeholder="Municipio"/>
+								<input type="search" class="elementosBusqueda" name="search_proveedores" placeholder="Proveedor"/>
+								<input type="search" class="elementosBusqueda" name="search_razon" placeholder="Raz&oacute;n Social"/>
+								<input type="search" class="elementosBusqueda" name="search_rfc" placeholder="Rfc"/>
+								<input type="search" class="elementosBusqueda" name="search_cat" placeholder="Categor&iacute;a"/>
+								<input type="search" class="elementosBusqueda" name="search_tel" placeholder="Tel&eacute;fono"/>
+								<input type="search" class="elementosBusqueda" name="search_dirweb" placeholder="Direcci&oacute;n Web"/>
+								<input type="search" class="elementosBusqueda" name="search_municipio" placeholder="Municipio"/>
 								<input type="submit" class="boton2" name="btnFiltrar" value="Filtrar">
 							</li>
 						</ul>
@@ -69,7 +69,7 @@
 								</tr>
 							</thead>
 							<?php 
-								foreach ($obtenerDat['proveedores'] as $prov) :
+								foreach ($obtenerDatPro['proveedores'] as $prov) :
 									$idpro = $prov['id_prov'];
 							?>
 								<script type="text/javascript">
@@ -105,6 +105,16 @@
 
 			<!-- Script para ordenar columnas, paginado y mostrar cierta cantidad de registros TINY Table Sorter -->
 			<script type="text/javascript">
+
+			$(function (e) {
+				$('#filtrosProv').submit(function (e) {
+					e.preventDefault()
+					$('#resultadoBusqueda').load('index.php?url=searchProveedores&' + $('#filtrosProv').serialize())
+				})
+			})
+		
+
+			// Script para ordenar columnas, paginado y mostrar cierta cantidad de registros TINY Table Sorter
 			  var sorter = new TINY.table.sorter("sorter");
 				sorter.head = "head";
 				sorter.asc = "asc";

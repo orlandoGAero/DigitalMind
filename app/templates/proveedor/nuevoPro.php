@@ -118,6 +118,20 @@
 		        if(tecla.charCode < 48 || tecla.charCode > 57) return false;
 		    });
 		});
+
+		function mandarValores()
+		{
+			state
+			document.getElementById("state").value=document.getElementById("statef").value;
+			document.getElementById("municipio").value=document.getElementById("idMunicipiof").value;
+			document.getElementById("localidad").value=document.getElementById("localidadf").value;
+			document.getElementById("txt_calle").value=document.getElementById("txt_calle_f").value;
+			document.getElementById("txt_noext").value=document.getElementById("txt_noext_f").value;
+			document.getElementById("txt_noint").value=document.getElementById("txt_noint_f").value;
+			document.getElementById("txt_col").value=document.getElementById("txt_col_f").value;
+			document.getElementById("txt_ref").value=document.getElementById("txt_ref_f").value;
+			
+		}
 	</script>
 		
 	<div class="col-lg-14">
@@ -287,30 +301,30 @@
 
 												<li>
 													<label for="lbl_calle_f">Calle:</label>
-													<input type="text" name="txt_calle_f" required onChange="conMayusculas(this)"/>
+													<input type="text" name="txt_calle_f" id="txt_calle_f" required onChange="conMayusculas(this)"/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
 												<li>
 													<label for="lbl_noext_f">No. Ext:</label>
-													<input type="text" class="keysNumbers" name="txt_noext_f" required/>
+													<input type="text" class="keysNumbers" name="txt_noext_f" id="txt_noext_f" required/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
 												<li>
 													<label for="lbl_noint_f">No. Int:</label>
-													<input type="text" class="keysNumbers" name="txt_noint_f" />
+													<input type="text" class="keysNumbers" name="txt_noint_f" id="txt_noint_f" />
 												</li>
 
 												<li>
 													<label for="lbl_col_f">Colonia:</label>
-													<input type="text" name="txt_col_f" required onChange="conMayusculas(this)"/>
+													<input type="text" name="txt_col_f" id="txt_col_f" required onChange="conMayusculas(this)"/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
 												<li>
 													<label for="lbl_ref_f">Referencia:</label>
-													<input type="text" name="txt_ref_f" onChange="conMayusculas(this)"/>	
+													<input type="text" name="txt_ref_f" id="txt_ref_f" onChange="conMayusculas(this)"/>	
 												</li>
 											</ul>
 										</li>
@@ -321,6 +335,7 @@
 									<ul>
 										<li>	
 											<ul>
+												<a onclick="mandarValores()">Utilizar Direccion fiscal</a>
 												<!-- clave razon social -->
 												<input type="text"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
 												<li>
@@ -406,7 +421,7 @@
 
 												<li>
 													<label for="lbl_calle">Calle:</label>
-													<input type="text" name="txt_calle" required onChange="conMayusculas(this)"/>
+													<input type="text" name="txt_calle" id="txt_calle" required onChange="conMayusculas(this)"/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
@@ -416,24 +431,24 @@
 
 												<li>
 													<label for="lbl_noext">No. Ext:</label>
-													<input type="text" class="keysNumbers" name="txt_noext" required/>
+													<input type="text" class="keysNumbers" name="txt_noext" id="txt_noext" required/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
 												<li>
 													<label for="lbl_noint">No. Int:</label>
-													<input type="text" class="keysNumbers" name="txt_noint" />
+													<input type="text" class="keysNumbers" name="txt_noint" id="txt_noint" />
 												</li>
 
 												<li>
 													<label for="lbl_col">Colonia:</label>
-													<input type="text" name="txt_col" required onChange="conMayusculas(this)"/>
+													<input type="text" name="txt_col" id="txt_col" required onChange="conMayusculas(this)"/>
 													<span style="color: red;"><b>&nbsp;*</b></span>	
 												</li>
 
 												<li>
 													<label for="lbl_ref">Referencia:</label>
-													<input type="text" name="txt_ref" onChange="conMayusculas(this)"/>	
+													<input type="text" name="txt_ref" id="txt_ref" onChange="conMayusculas(this)"/>	
 												</li>
 											</ul>
 										</li>

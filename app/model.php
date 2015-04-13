@@ -1389,12 +1389,13 @@
 			}
 
 			if ($filtro != "") {
-				$sql_search = "SELECT prov.proveedor,dfis.razon_social,dfis.rfc,cat.categoria,prov.tel,prov.dirweb,cp.municipio
+				$sql_search = "SELECT prov.id_prov,prov.proveedor,dfis.razon_social,dfis.rfc,cat.categoria,prov.tel,prov.dirweb,cp.municipio
 								FROM proveedores prov,datos_fiscales dfis,categoria_prov cat,codigos_postales cp,direcciones dir
 								WHERE cat.id_categoria=prov.id_categoria
 								AND dfis.id_datFiscal=prov.id_datFiscal
 								AND cp.id_cp=dir.id_cp
-								AND dir.id_direccion=prov.id_direccion";
+								AND dir.id_direccion=prov.id_direccion
+								AND ".$filtro;
 				$ejecutar_sql_search = mysql_query($sql_search) or die("Error de consulta busqueda proveedores ".mysql_error());
 
 				$array_prov = array();

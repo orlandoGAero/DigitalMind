@@ -553,7 +553,7 @@ public function mostrarContactos(){
 			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
 
-			$obtenerDat = array(
+			$obtenerDatPro = array(
 				'proveedores' => $model->obtenerProveedores(),
 			);
 
@@ -993,7 +993,14 @@ public function mostrarContactos(){
 
 		public function ConsultarProveedores()
 		{
+			$model = new model(config::$mvc_db_name, config::$mvc_db_user,
+						config::$mvc_db_pass, config::$mvc_db_hostname);
+			
+			$obtenerDatPro = array(
+				'proveedores' => $model->buscarProveedores($_REQUEST['search_proveedores'],$_REQUEST['search_razon'],$_REQUEST['search_rfc'],$_REQUEST['search_cat'],$_REQUEST['search_tel'],$_REQUEST['search_dirweb'],$_REQUEST['search_municipio']),
+			);
 
+			require '/templates/proveedor/MostrarProveedoresFiltros.php';	
 		}
 
 		public function EliminarProveedor(){
