@@ -179,11 +179,25 @@
 		
 		//------------------------------------------------------------------CONTACTOS------------------------------------------------------------------------//		
 		public function obtenerContactos(){
-			$consulta = "SELECT cp.municipio,d.colonia,c.id_contacto,c.nombreCon,c.ap_paterno,c.ap_materno,
-							c.nombre_area,c.movil,c.whatsapp,c.correo_p,c.activo
-						FROM codigos_postales cp, direcciones d, contactos c
-						WHERE cp.id_cp=d.id_cp
-							AND d.id_direccion=c.id_direccion
+			$consulta = "SELECT 
+						  cp.municipio,
+						  d.colonia,
+						  c.id_contacto,
+						  c.nombreCon,
+						  c.ap_paterno,
+						  c.ap_materno,
+						  c.nombre_area,
+						  c.movil,
+						  c.whatsapp,
+						  c.correo_p,
+						  c.activo 
+						FROM
+						  codigos_postales cp 
+						  INNER JOIN direcciones d 
+						  INNER JOIN contactos c 
+						    ON cp.id_cp = d.id_cp 
+						    AND d.id_direccion = c.id_direccion 
+						WHERE c.activo = 'Si' 
 						ORDER BY nombreCon;";
 			$ejecutar = mysql_query($consulta,$this->conexion) or die (mysql_error());
 			
@@ -308,33 +322,33 @@
 			}
 			
 			if(empty($filtro) && !empty($nomMunicipio)){
-				$filtro .= "cp.municipio LIKE '".$nomMunicipio."%' ";
+				$filtro .= "cp.municipio LIKE '%".$nomMunicipio."%' ";
 			}elseif(!empty($filtro) && !empty($nomMunicipio)){
-				$filtro .= " AND cp.municipio LIKE '".$nomMunicipio."%' ";
+				$filtro .= " AND cp.municipio LIKE '%".$nomMunicipio."%' ";
 			}
 			
 			if(empty($filtro) && !empty($nomColonia)){
-				$filtro .= "d.colonia  LIKE '".$nomColonia."%' ";
+				$filtro .= "d.colonia  LIKE '%".$nomColonia."%' ";
 			}elseif(!empty($filtro) && !empty($nomColonia)){
-				$filtro .= " AND d.colonia LIKE '".$nomColonia."%' ";
+				$filtro .= " AND d.colonia LIKE '%".$nomColonia."%' ";
 			}
 			
 			if(empty($filtro) && !empty($nomArea)){
-				$filtro .= "c.nombre_area   LIKE '".$nomArea."%' ";
+				$filtro .= "c.nombre_area   LIKE '%".$nomArea."%' ";
 			}elseif(!empty($filtro) && !empty($nomArea)){
-				$filtro .= " AND c.nombre_area LIKE '".$nomArea."%' ";
+				$filtro .= " AND c.nombre_area LIKE '%".$nomArea."%' ";
 			}
 			
 			if(empty($filtro) && !empty($numMovil)){
-				$filtro .= "c.movil LIKE '".$numMovil."%' ";
+				$filtro .= "c.movil LIKE '%".$numMovil."%' ";
 			}elseif(!empty($filtro) && !empty($numMovil)){
-				$filtro .= " AND c.movil LIKE '".$numMovil."%' ";
+				$filtro .= " AND c.movil LIKE '%".$numMovil."%' ";
 			}
 			
 			if(empty($filtro) && !empty($emailPersonal)){
-				$filtro .= "c.correo_p LIKE '".$emailPersonal."%' ";
+				$filtro .= "c.correo_p LIKE '%".$emailPersonal."%' ";
 			}elseif(!empty($filtro) && !empty($emailPersonal)){
-				$filtro .= " AND c.correo_p LIKE '".$emailPersonal."%' ";
+				$filtro .= " AND c.correo_p LIKE '%".$emailPersonal."%' ";
 			}
 			
 			if($filtro != ""){
@@ -555,7 +569,7 @@
 				if($Activo != 'No'){
 					$cunsultaActualiza = "UPDATE contactos SET activo = 'No' WHERE id_contacto = ".$idCont;
 					$ejecutarActualiza = mysql_query($cunsultaActualiza,$this->conexion) or die (mysql_error());
-					echo" <script> alert('El registro no puede ser eliminado, soló se desactivo') 
+					echo" <script> alert('El registro no puede ser eliminado, solo se desactivo') 
 								window.location='index.php?url=listContact';
 						 	</script> ";
 				}else{

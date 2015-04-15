@@ -49,6 +49,7 @@
 			<br />
 		<!--  Para hacer la tabla responsiva utilizamos la clase "table-responsive" de bootstrap incluida en un div -->
 			<div class="table-responsive">
+				<a href="index.php?url=listarCompras"><img src="images/table_refresh.png" title="Tabla principal" align='left' width="25px" height="25px" /></a>
 				<!-- <a href="index.php?url=listContact"><img src="images/table_refresh.png" title="Tabla principal" align='left' width="25px" height="25px" /></a> -->
 				<!-- "class" donde se incluye el estilo de la librería de bootstrap y 
 					"id" para incluir los estilos a la tabla -->

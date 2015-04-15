@@ -65,39 +65,46 @@
 		//---------------------------------------------CONTACTOS-------------------------------------------
 		public function listarContacto()
 		{
+			// Realiza la conexión a la Base de datoss
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
-						
+			
+			//Se crea un array dentro de la variable $obtenerDatosContactos
 			$obtenerDatosContactos = array(
+				/*Se crea un parámetro que manda a llamar la conexión 
+				 * a la BD para obtener acceso a la función de obtenerContactos(),
+				 * dicha función realiza la consulta de los contactos activos*/
 				'contactos' => $m->obtenerContactos(),
 			); 
-						
+			// Manda a llamar el archivo mostrarContactos.php
 			require __DIR__ . '/templates/contactos/mostrarContactos.php';
 		}
-		
+		// La funcion ver contacto muestra el detalle del contacto
 		public function verContacto(){
+			// Se valida que se reciba el id del contacto
 			if(!isset($_GET['idContact'])){
 				throw new Exception("Página no encontrada", 1);
 			}
 			
 			$IdContacto = $_GET['idContact'];
-			
+			// Realiza la conexión a la Base de datos
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
-			
+			/*Dentro de la varible se manda a llamar la conexión a la BD para obtener
+			 * acceso a la función obtener contacto, la cual recibe como parámetro el id del contacto*/
 			$detalleContacto = $m->obtenerContacto($IdContacto);
 			
 			$obtenerDatosContacto = $detalleContacto;
-			
+			// Manda a llamar el archivo verContacto.php
 			require __DIR__ . '/templates/contactos/verContacto.php';
 			
 		}
 		
 		public function insertarContacto(){
-				
+			// Realiza la conexión a la Base de datos	
 			$m = new model(config::$mvc_db_name, config::$mvc_db_user,
 						config::$mvc_db_pass, config::$mvc_db_hostname);
-			
+			//Se crea un array con los datos del contacto
 			$parametrosContactos = array(
 				//Datos Contacto
 				'idCont' => $m->obtenerIdContacto(),
@@ -131,15 +138,15 @@
 			);
 			
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				// print_r($_POST);
-				
+				//Valida si el número interior esta vacío le asigna un 0 
 				if($_POST['numInt'] == ""){
 					$_POST['numInt'] = 0;
 				}
-				
+				// Valida si no se recibe la variable le asigna un 0
 				if(!isset($_POST['idcp-locality'])){
 					$_POST['idcp-locality'] = 0;
 				}
+				// Valida si se ejecuta la función de registarContacto redirecciona a la lista de contactos
 				if($m->registrarContacto($_POST['idAddress'],$_POST['idcp-locality'],$_POST['street'],$_POST['numExt'],$_POST['numInt'],$_POST['colonia'],$_POST['reference'],
 					$_POST['idContact'],$_POST['nameContact'],$_POST['ApPContact'],$_POST['ApMContact'],$_POST['nameArea'],$_POST['telMovil'],$_POST['whatsappMovil'],
 					$_POST['extC'],$_POST['telOficina'],$_POST['telEmergencia'],$_POST['emailPersonal'],$_POST['emailInstitucional'],$_POST['redSocialF'],$_POST['redSocialT'],
@@ -193,7 +200,7 @@
 					$parametrosContactos['mensaje'] = 'Error al registrar contacto. Revise el formulario';
 				}
 			}
-			
+			// Manda a llamar el archivo insertarContacto.php
 			require __DIR__.'/templates/contactos/insertarContacto.php';
 		}
 
