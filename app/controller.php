@@ -213,7 +213,7 @@
 				'contactos' => $m->busquedaContactos($_REQUEST['nombreContacto'],$_REQUEST['municipioContacto'],$_REQUEST['coloniaContacto'],
 																				$_REQUEST['areaContacto'],$_REQUEST['telMovilContacto'],$_REQUEST['emailPerContacto']),
 			); 
-			
+			// Manda a llamar el archivo mostrarContactosFiltros.php
 			require __DIR__.'/templates/contactos/mostrarContactosFiltros.php';
 		}
 		
