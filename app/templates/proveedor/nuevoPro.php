@@ -152,7 +152,7 @@
 									<ul>
 										<li>	
 											<li>
-												<input type="text" name="txt_idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
+												<input type="hidden" name="txt_idProv" value="<?php echo $parametrosProveedores['idprov'] ?>" readonly/>
 											</li>
 
 											<ul>
@@ -194,7 +194,7 @@
 										<li>	
 											<ul>
 												<!-- clave razon social -->
-												<input type="text"  name="txt_iddf" value="<?php echo $parametrosProveedores['idDatFis'] ?>" readonly />
+												<input type="hidden"  name="txt_iddf" value="<?php echo $parametrosProveedores['idDatFis'] ?>" readonly />
 												<li>
 													<label for="lbl_razon">Raz&oacute;n Social:</label>
 													<input type="text" name="txt_razon_s" required onchange="conMayusculas(this)"/>
@@ -216,7 +216,7 @@
 										<li>
 											<ul>
 												<!-- clave direccion fiscal-->
-												<input type="text"  name="txt_iddir_fis" value="<?php echo $parametrosProveedores['idDireFiscal'] ?>" readonly />
+												<input type="hidden"  name="txt_iddir_fis" value="<?php echo $parametrosProveedores['idDireFiscal'] ?>" readonly />
 												
 												<li>
 													<label for="lbl_estadof">Estado:</label>
@@ -335,9 +335,9 @@
 									<ul>
 										<li>	
 											<ul>
-												<a onclick="mandarValores()">Utilizar Direccion fiscal</a>
+												<!-- <a onclick="mandarValores()">Utilizar Direccion fiscal</a> -->
 												<!-- clave razon social -->
-												<input type="text"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
+												<input type="hidden"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
 												<li>
 													<label for="lbl_estado">Estado:</label>
 													<select name="idEstado" id="state" required>

@@ -1116,6 +1116,25 @@
 			return $Contacts;
 		}
 
+		public function obtDatContactAdd($llavePro)
+		{
+			$sqlobtDcon = "SELECT con.*
+							FROM contactos con,proveedores prov,proveedores_contacto pcon
+							WHERE prov.id_prov=pcon.id_prov
+							AND con.id_contacto=pcon.id_contacto 
+							AND prov.id_prov=".$llavePro;
+			$ejecutar_sqlobtDcon = mysql_query($sqlobtDcon, $this->conexion) or die("Error de consulta obtener datos contactos proveedores ".mysql_error());
+
+			$rowsDc = mysql_num_rows($ejecutar_sqlobtDcon);
+
+			$tableDc = array();
+			while ($rowsDc = mysql_fetch_assoc($ejecutar_sqlobtDcon)) {
+			 	$tableDc[] = $rowsDc; 
+			 } 
+
+			 return $tableDc;
+		}
+
 		/*Función para registrar la 1ra parte de proveedores*/
 		public function registrarProveedores($id_dire,$street,$noext,$noint,$col,$referen,$cp,
 											$id_direFiscal,$streetFiscal,$noextFiscal,$nointFiscal,$colFiscal,$referenFiscal,$cpFiscal,						 

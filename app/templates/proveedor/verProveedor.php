@@ -172,63 +172,90 @@
 			</table>
 		</div>
 
-		<!-- <div class="">
+		<div class="columns_right">
+			</br></br></br></br></br></br>
 			<table id="miTabla" >
 				<caption>Contactos</caption>
 				<tr>
 					<th>Nombre</th>
-					<td><?php echo $detProveedor['nombreCon'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['nombreCon'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Apellido Paterno</th>
-					<td><?php echo $detProveedor['ap_paterno'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['ap_paterno'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Apellido Materno</th>
-					<td><?php echo $detProveedor['ap_paterno'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['ap_paterno'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>&Aacute;rea</th>
-					<td><?php echo $detProveedor['nombre_area'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['nombre_area'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Tel&eacute;fono M&oacute;vil</th>
-					<td><?php echo $detProveedor['movil'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['movil'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Tel&eacute;fono Oficina</th>
-					<td><?php echo $detProveedor['tel_oficina'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['tel_oficina'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Tel&eacute;fono Emergencia</th>
-					<td><?php echo $detProveedor['tel_emergencia'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['tel_emergencia'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Correo Personal</th>
-					<td><?php echo $detProveedor['correo_p'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['correo_p'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Correo Institucional</th>
-					<td><?php echo $detProveedor['correo_instu'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['correo_instu'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Facebook</th>
-					<td><?php echo $detProveedor['facebook'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['facebook'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Twitter</th>
-					<td><?php echo $detProveedor['twitter'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['twitter'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Skype</th>
-					<td><?php echo $detProveedor['skype'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['skype'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 				<tr>
 					<th>Direcci&oacute;n Web</th>
-					<td><?php echo $detProveedor['direccion_web'] ?></td>
+					<?php foreach ($detProveedor_Cont['datoscontact_pro'] as $detDcon) : ?>
+						<td><?php echo $detDcon['direccion_web'] ?></td>
+					<?php endforeach; ?>
 				</tr>
 			</table>
-		</div> -->
+		</div>
 	</div> <!-- fin div table-responsive -->
 
 <?php $contenido = ob_get_clean() ?>

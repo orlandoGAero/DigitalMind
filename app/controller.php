@@ -827,7 +827,7 @@ public function mostrarContactos(){
 				}
 
 				$claveProvee = $_REQUEST['idprov'];
-				print_r($_REQUEST);
+				// print_r($_REQUEST);
 				
 				$obtContactos = array(
 					'listcontacto' => $model->obt_allContactos(),
@@ -1041,7 +1041,9 @@ public function mostrarContactos(){
 			);
 
 			/*obtener contactos del proveedor*/
-
+			$detProveedor_Cont = array(
+				'datoscontact_pro' => $model->obtDatContactAdd($idProveedor),
+			);
 
 			require __DIR__ . '/templates/proveedor/verProveedor.php';
 		}

@@ -1,22 +1,4 @@
-<?php 
-	/* define el array bidimensional */
-	$AgregarContactos[]=array();
-	/* se inicia el valor de k, que generara nuevas posiciones al array a partir de */
-	$k = 0;
-	foreach ($obtContactos['listcontacto'] as $tablaContact) {
-	/* verifica si $item aparece en contactos */
-		if (in_array($tablaContact, $Contactos_Prov)) {
-			# code...
-		} 
-		/*En caso de que el contacto no este en la lista de asignados*/
-		else {
-			/*se agregara el valor del array de $tablaContact(Contactos que no tienen relacion con el proveedor actual) al nuevo array*/
-	    	$AgregarContactos[$k]=$tablaContact;
-	        /*se incrementa el valor de k para nuevos posibles contactos*/
-	    	$k++;    
-	    }
-	}
-?>
+
 
 <div id="datos_contact">
 	<?php if ($obtContactos['listcontacto'] !=NULL) :?>	
@@ -49,7 +31,7 @@
 						<td><?php echo $contacto['movil'] ?></td>
 						<td>	
 							<form action="#" method='POST' enctype='application/x-www-form-urlencoded' target="_self">
-								<input type="TEXT" name="txt_idCon" disabled value="<?php echo $idContact; ?>"/> 
+								<input type="hidden" name="txt_idCon" disabled value="<?php echo $idContact; ?>"/> 
 								<input type="hidden" name="txt_idproveedor" disabled value="<?php echo $claveProvee; ?>"/> 
 								<!-- botón de tabla contactos -->
 								<input type="button" class="boton2 agregarCont" name="btnAddContacto" value="Agregar"/>
