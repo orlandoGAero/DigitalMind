@@ -870,7 +870,7 @@ public function mostrarContactos(){
 			require __DIR__ . '/templates/proveedor/addDContactos.php';
 		}
 		
-		public function ModificarProveedor()
+		public function ModificarProveedor_part1()
 		{
 			if(!isset($_GET['id_Proveedor'])){
 				throw new Exception("Página no encontrada", 1);
@@ -891,102 +891,106 @@ public function mostrarContactos(){
 				'categoriaprov' => $model ->  obtCategoriaUpdate($IdProv),
 			);
 
-			// obtener direccion
-			$obtenerDatosDir = array(
-				'codigoP' => $model -> obtenerDatosDireccionUpdateProv($IdProv),
-			);
+			/* obtener dirección fiscal */
+			$detalleDirFiscal = $model->DetalleDirFiscalProv($IdProv);
+			$obtenerDirFiscal = $detalleDirFiscal;
 
-			//obtener banco
-			$obtenerBank = array(
-				'bancarios' => $model -> obtBankUpdateProv($IdProv),
-			);
+			// // obtener direccion
+			// $obtenerDatosDir = array(
+			// 	'codigoP' => $model -> obtenerDatosDireccionUpdateProv($IdProv),
+			// );
 
-			//obtener tipo de cuenta
-			$obtenerTaccount = array(
-				'tipo_cta' => $model -> obtTctaUpdateProv($IdProv),
-			);
+			// //obtener banco
+			// $obtenerBank = array(
+			// 	'bancarios' => $model -> obtBankUpdateProv($IdProv),
+			// );
+
+			// //obtener tipo de cuenta
+			// $obtenerTaccount = array(
+			// 	'tipo_cta' => $model -> obtTctaUpdateProv($IdProv),
+			// );
 
 
-			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-				print_r($_POST);
-				if($_POST['txt_noint'] == ""){
-					$_POST['txt_noint'] = "s/n";
-				}
+			// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			// 	print_r($_POST);
+			// 	if($_POST['txt_noint'] == ""){
+			// 		$_POST['txt_noint'] = "s/n";
+			// 	}
 				
-				if($model->actualizarProveedores($_POST['txt_iddf'],
-												$_POST['txt_razon_s'],
-												$_POST['txt_rfc'],
-												$_POST['txt_iddir'],
-												$_POST['txt_calle'],
-												$_POST['txt_noext'],
-												$_POST['txt_noint'],
-												$_POST['txt_col'],
-												$_POST['txt_ref'],
-												$_POST['idcp-locality'],
-												$_POST['txt_idProv'],
-												$_POST['txt_nombrepro'],
-												$_POST['slt_catprov'],
-												$_POST['txt_tel_pro'],
-												$_POST['txt_url_web'],
-												$_POST['txt_iddb'],
-												$_POST['slt_banco'],
-												$_POST['txt_suc'],
-												$_POST['txt_titul'],
-												$_POST['txt_cuenta'],
-												$_POST['txt_clabe'],
-												$_POST['slt_tipo_c'])){
-					header('Location: index.php?url=Proveedores');
-				} else {
+			// 	if($model->actualizarProveedores($_POST['txt_iddf'],
+			// 									$_POST['txt_razon_s'],
+			// 									$_POST['txt_rfc'],
+			// 									$_POST['txt_iddir'],
+			// 									$_POST['txt_calle'],
+			// 									$_POST['txt_noext'],
+			// 									$_POST['txt_noint'],
+			// 									$_POST['txt_col'],
+			// 									$_POST['txt_ref'],
+			// 									$_POST['idcp-locality'],
+			// 									$_POST['txt_idProv'],
+			// 									$_POST['txt_nombrepro'],
+			// 									$_POST['slt_catprov'],
+			// 									$_POST['txt_tel_pro'],
+			// 									$_POST['txt_url_web'],
+			// 									$_POST['txt_iddb'],
+			// 									$_POST['slt_banco'],
+			// 									$_POST['txt_suc'],
+			// 									$_POST['txt_titul'],
+			// 									$_POST['txt_cuenta'],
+			// 									$_POST['txt_clabe'],
+			// 									$_POST['slt_tipo_c'])){
+			// 		header('Location: index.php?url=Proveedores');
+			// 	} else {
 
-					$obtenerDatosProv = array(
+			// 		$obtenerDatosProv = array(
 					
-						// datos proveedor
-						'idprov' => $_POST['txt_idProv'],
-						'proveedor' => $_POST['txt_nombrepro'],
-						'phone' => $_POST['txt_tel_pro'],
-						'direweb' => $_POST['txt_url_web'],
+			// 			// datos proveedor
+			// 			'idprov' => $_POST['txt_idProv'],
+			// 			'proveedor' => $_POST['txt_nombrepro'],
+			// 			'phone' => $_POST['txt_tel_pro'],
+			// 			'direweb' => $_POST['txt_url_web'],
 						
-						// datos fiscales
-						'idDatFis' => $_POST['txt_iddf'],
-						'razon_s' => $_POST['txt_razon_s'],
-						'rfc' => $_POST['txt_rfc'],
+			// 			// datos fiscales
+			// 			'idDatFis' => $_POST['txt_iddf'],
+			// 			'razon_s' => $_POST['txt_razon_s'],
+			// 			'rfc' => $_POST['txt_rfc'],
 
-						// datos direccion fisica
-						'idDire' => $_POST['txt_iddir'],
-						'street' => $_POST['txt_calle'],
-						'n_ext' => $_POST['txt_noext'],
-						'n_int' => $_POST['txt_noint'],
-						'colo' => $_POST['txt_col'],
-						'ref' => $_POST['txt_ref'],
+			// 			// datos direccion fisica
+			// 			'idDire' => $_POST['txt_iddir'],
+			// 			'street' => $_POST['txt_calle'],
+			// 			'n_ext' => $_POST['txt_noext'],
+			// 			'n_int' => $_POST['txt_noint'],
+			// 			'colo' => $_POST['txt_col'],
+			// 			'ref' => $_POST['txt_ref'],
 						
-						// datos bancarios
-						'idBank' => $_POST['txt_iddb'],
-						'sucursal' => $_POST['txt_suc'],
-						'titular' => $_POST['txt_titul'],
-						'num_cuenta' => $_POST['txt_cuenta'],
-						'clabe' => $_POST['txt_clabe'],
-					);
+			// 			// datos bancarios
+			// 			'idBank' => $_POST['txt_iddb'],
+			// 			'sucursal' => $_POST['txt_suc'],
+			// 			'titular' => $_POST['txt_titul'],
+			// 			'num_cuenta' => $_POST['txt_cuenta'],
+			// 			'clabe' => $_POST['txt_clabe'],
+			// 		);
 						
-					$obtenerCatPro = array(
-						'categoriaprov' => $_POST['slt_catprov'],
-					);
+					// $obtenerCatPro = array(
+					// 	'categoriaprov' => $_POST['slt_catprov'],
+					// );
 						
-					$obtenerDatosDir = array(
-						'codigoP' => $model -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
-						'id_cp' => $_POST['idcp-locality'], 
-						'localidad' => $model -> obtieneNombreLocalidad($_POST['idcp-locality']), 
+					// $obtenerDatosDir = array(
+					// 	'codigoP' => $model -> obtenerDatosDireccionInsert($_POST['postcode'],$_POST['idcp-locality']),
+					// 	'id_cp' => $_POST['idcp-locality'], 
+					// 	'localidad' => $model -> obtieneNombreLocalidad($_POST['idcp-locality']), 
 						
-					);
+					// );
 
-					$obtenerBank = array(
-						'banco' => $_POST['slt_banco'],
-					);
+					// $obtenerBank = array(
+					// 	'banco' => $_POST['slt_banco'],
+					// );
 
-					$obtenerTaccount = array(
-						'tipo_cta' => $_POST['slt_tipo_c'],
-					);
-				}
-			}
+					// $obtenerTaccount = array(
+					// 	'tipo_cta' => $_POST['slt_tipo_c'],
+					// );
+			// 	}
+			// }
 
 			require '/templates/proveedor/editarPro.php';
 		}

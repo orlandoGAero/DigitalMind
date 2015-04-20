@@ -10,6 +10,9 @@
 	<!DOCTYPE html>
 	<html>
 		<head>
+			<!-- Style CSS valid & invalid-->
+ 			<link href="<?php echo 'css/'.config::$style_valid_invalid_css ?>" rel="stylesheet" />	<!-- JS Formulario Listas Desplegables -->
+	
 		    <!-- JS Formulario Listas Desplegables -->
 			<!-- modificar linea de abajo-->
 			<script type="text/javascript" src="js/jquery.lksMenu.js"></script>
@@ -103,21 +106,128 @@
 															<input type="text" name="txt_rfc" value="<?php echo $obtenerDatosProv['rfc'] ?>"required/>
 															<span style="color: red;"><b>&nbsp;*</b></span>
 														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
 
-														<!-- <li>
-															<label for="lbl_tipo">Tipo Raz&oacute;n:</label></td>
-															<select id="tipo_rs" name="slt_tipo_rs" required>
-																	<?php //if($obtenerDatosProv['tipo'] != "") :?>
-																	<option value="<?php //echo $obtenerDatosProv['id_tipo_ra'] ?>"><?php echo $obtenerDatosProv['tipo'] ?></option>
-																	<?php //else :?>
-																	<option value="0">Ingresa un tipo de raz&oacute;n...</option>
-																	<?php //endif; ?>
-																	<?php //foreach($obtenerDatosProv ['tipo'] as $tipors) : ?>
-																	<option value="<?php echo $tipors['id_tipo_ra'] ?>"><?php echo $tipors['tipo'] ?></option>
-																	<?php //endforeach; ?>
+										<li><a href="#"><b>Direcci&oacute;n Fiscal</b></a>
+											<ul>
+												<li>
+													<ul>
+														<!-- clave direccion fiscal-->
+														<input type="text"  name="txt_iddir_fis" value="<?php echo $obtenerDirFiscal['id_direccion'] ?>" readonly />
+														
+														<li>
+															<label for="lbl_estadof">Estado:</label>
+															<select name="idEstadof" id="statef" required>
+																<?php if ($obtenerDirFiscal['estado'] != "") :?>
+																	<option value="<?php echo $obtenerDirFiscal['id_estado'] ?>">
+																		<?php echo $obtenerDirFiscal['estado'] ?>
+																	</option>
+																	<?php /*foreach ($parametrosProveedores['idStateFiscal'] as $estado) :?>
+																		<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																	<?php endforeach;?>
+																<?php else :?>
+																	<option value="<?php echo $parametrosProveedores['idStateFiscal'] ?>"><?php echo $parametrosProveedores['nameEstadoFiscal'] ?></option>
+																	<?php foreach ($parametrosContactos['estadosF'] as $estado) :?>
+																		<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																	<?php endforeach; */?>
+																<?php endif; ?>
 															</select>
 															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+
+														<li>
+															<label for="lbl_municipio_f">Municipio:</label>
+															<?php if($obtenerDirFiscal['municipio'] != "") :?>	
+																<select name="idMunicipiof" id="idMunicipiof" required disabled="disabled" onchange="ValidarMunicipioDirF();">
+																
+																</select>
+															<?php else :?>
+																<select name="idMunicipiof" id="idMunicipiof" required disabled="disabled" onchange="ValidarMunicipioDirF();">
+																	<option value="<?php echo $obtenerDirFiscal['id_cp'] ?>">
+																		<?php echo $obtenerDirFiscal['municipio'] ?>
+																	</option>
+																	<?php /*foreach($parametrosProveedores['municipiosF'] as $nameMuni) :?>
+																		<option value="<?php echo $nameMuni['municipio'] ?>">
+																			<?php echo $nameMuni['municipio'] ?>
+																		</option>
+																	<?php endforeach; */?> 	
+																</select>
+															<?php endif; ?>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+
+														<li>
+															<label for="lbl_localidad_f">Localidad:</label>
+															<input type="text" name="txt_localidad_f" id="localidadf" value="<?php echo $obtenerDirFiscal['localidad']?>" required disabled="disabled" autocomplete="off" value="<?php echo $parametrosProveedores['nameLocalityFiscal'] ?>" onkeyup="dirtxtViewDirFis(this.form)"/>
+															<span style="color: red;"><b>&nbsp;*</b></span>
+														</li>
+
+														<!--<li>
+															<?php if($parametrosProveedores['nameLocalityFiscal'] == "") :?>
+																<div id="divResult"></div>
+																<?php else :?>
+																<div id="divResult">
+																	<?php if($parametrosProveedores['localidadesF'] == NULL) :?>
+																		<pre><center><table><tr><td><span class="span">Ingresa una localidad valida</span></td></tr></table></center></pre>
+																		<?php else :?>
+																		<table class="table" id="miTabla">
+																			<tr>
+																				<th>Estado</th>
+																				<th>Municipio</th>
+																				<th>Localidad</th>
+																				<th>CP</th>
+																				<th>Elegir</th>
+																			</tr>
+
+																			<?php foreach($parametrosProveedores['localidadesF'] as $dir) :?>
+																				<tr>
+																					<td><?php echo $dir['estado'] ?></td>
+																					<td><?php echo $dir['municipio'] ?></td>
+																					<td><?php echo $dir['localidad'] ?></td>
+																					<td><?php echo $dir['codigoP'] ?></td>
+																					<?php if($dir['id_cp'] == $parametrosProveedores['cpFiscal']) :?>
+																						<td><input type="radio" name="idcp-localityFiscal" checked="checked" value="<?php echo $dir['id_cp'] ?>"/></td>
+																						<?php else :?>
+																							<td><input type="radio" name="idcp-localityFiscal" value="<?php echo $dir['id_cp'] ?>" /></td>
+																					<?php endif; ?>
+																				</tr>
+																			<?php endforeach; ?>
+																		</table>
+																	<?php endif; ?>
+																</div>
+															<?php endif; ?>
 														</li> -->
+
+														<li>
+															<label for="lbl_calle_f">Calle:</label>
+															<input type="text" name="txt_calle_f" id="txt_calle_f" value="<?php echo $obtenerDirFiscal['calle'] ?>" required onChange="conMayusculas(this)"/>
+															<span style="color: red;"><b>&nbsp;*</b></span>	
+														</li>
+
+														<li>
+															<label for="lbl_noext_f">No. Ext:</label>
+															<input type="text" class="keysNumbers" name="txt_noext_f" id="txt_noext_f" value="<?php echo $obtenerDirFiscal['num_ext'] ?>" required/>
+															<span style="color: red;"><b>&nbsp;*</b></span>	
+														</li>
+
+														<li>
+															<label for="lbl_noint_f">No. Int:</label>
+															<input type="text" class="keysNumbers" name="txt_noint_f" id="txt_noint_f" value="<?php echo $obtenerDirFiscal['num_int'] ?>" />
+														</li>
+
+														<li>
+															<label for="lbl_col_f">Colonia:</label>
+															<input type="text" name="txt_col_f" id="txt_col_f" value="<?php echo $obtenerDirFiscal['colonia'] ?>" required onChange="conMayusculas(this)"/>
+															<span style="color: red;"><b>&nbsp;*</b></span>	
+														</li>
+
+														<li>
+															<label for="lbl_ref_f">Referencia:</label>
+															<input type="text" name="txt_ref_f" id="txt_ref_f" value="<?php echo $obtenerDirFiscal['referencia'] ?>" onChange="conMayusculas(this)"/>	
+														</li>
 													</ul>
 												</li>
 											</ul>
@@ -198,102 +308,7 @@
 											</ul>
 										</li>
 
-										<li><a href="#">Datos Contacto</a>
-											<ul>
-												<li>	
-													<div class="dform">
-														<div align="left">
-															<table><tr>
-																		<td><a href=""><img alt="Nuevo Contacto" title="Nuevo Contacto" src="images/new-contacto.png"></a></td>
-																		<td><a href=""><img alt="Selecionar Contacto" title="Seleccionar Contacto" src="images/select-contacto.png"></a></td>
-																   </tr>
-															</table>
-															<div> <!-- div para seleccionar contacto-->
-																															
-																<div id="SignupForm"> <!-- div SignupForm -->
-																	<!-- paso numero 1 -->
-																	<fieldset>
-																		<legend>Seleccionar Contacto</legend>
-																			<div id="tablaCont"></div>
-																	</fieldset>
-																	<!-- paso numero 2 -->
-																	<fieldset>
-																		<legend>Contacto Seleccionado</legend>
-																			<div id='accion'>
-																				
-																			</div>
-																	</fieldset>
-																</div>	<!-- </div> fin div SignupForm -->
-															</div> <!--fin de div para seleccionar contactos-->
-														</div>
-													</div>
-												</li>
-											</ul>
-										</li>
-
-										<li><a href="#"><b>Datos Bancarios</b></a>
-											<ul>
-												<li>
-													<ul>
-														<!-- clave datos bancarios -->
-															<input type="text"  name="txt_iddb" value="<?php echo $obtenerDatosProv['id_datBank'] ?>" readonly />
-														<li>
-															<label for="lbl_banco">Banco:</label>
-															<select id="banco" name="slt_banco" required>
-																<?php if($obtenerDatosProv['nombre_banco'] != "") :?>
-																	<option value="<?php echo $obtenerDatosProv['id_banco'] ?>"><?php echo $obtenerDatosProv['nombre_banco'] ?></option>
-																<?php else :?>
-																<option value="0">Selecciona un banco...</option>
-																<?php endif; ?>
-																<?php foreach($obtenerBank['banco'] as $bank) : ?>
-																<option value="<?php echo $bank['id_banco'] ?>"><?php echo $bank['nombre_banco'] ?></option>
-																<?php endforeach; ?>
-															</select>
-															<span style="color: red;"><b>&nbsp;*</b></span>
-														</li>
-															
-														<li>
-															<label for="lbl_sucursal">Sucursal:</label>
-															<input type="text" name="txt_suc" id="" value="<?php echo $obtenerDatosProv['sucursal'] ?>" required/>
-															<span style="color: red;"><b>&nbsp;*</b></span>
-														</li>
-
-														<li>
-															<label for="lbl_titular">Titular:</label>
-															<input type="text" name="txt_titul" value="<?php echo $obtenerDatosProv['titular'] ?>" required/>
-															<span style="color: red;"><b>&nbsp;*</b></span>
-														</li>
-
-														<li>
-															<label for="lbl_cuenta">No. Cuenta:</label>
-															<input type="text" name="txt_cuenta" value="<?php echo $obtenerDatosProv['no_cuenta'] ?>" required/>
-															<span style="color: red;"><b>&nbsp;*</b></span>
-														</li>
-
-														<li>
-															<label for="lbl_clabe">Clabe Interbancaria:</label>
-															<input type="text" name="txt_clabe" maxlength="18" value="<?php echo $obtenerDatosProv['no_cuenta_interbancario'] ?>" required/>
-															<span style="color: red;"><b>&nbsp;*</b></span>
-														</li>
-
-														<li>
-															<label for="lbl_tipo_cuenta">Tipo de cuenta:</label>
-															<select id="tipo_c" name="slt_tipo_c" required>
-																<?php if($obtenerDatosProv['tipo_cuenta'] != "") :?>
-																<option value="<?php echo $obtenerDatosProv['id_tipo_cuenta'] ?>"><?php echo $obtenerDatosProv['tipo_cuenta'] ?></option>
-																<?php else :?>
-																<option value="0">Selecciona un tipo de cuenta...</option>
-																<?php endif; ?>
-																<?php foreach ($obtenerTaccount ['tipo_cta'] as $tipo_c) : ?>
-																<option value="<?php echo $tipo_c['id_tipo_cuenta'] ?>"><?php echo $tipo_c['tipo_cuenta'] ?></option>
-																<?php endforeach; ?>
-															</select>
-															<span style="color: red;"><b>&nbsp;*</b></span>
-														</li>
-													</ul>
-												</li>
-											</ul>
-										</li>
+																			
 											<!-- Botones -->
 											<input type="submit" class="boton2" value="Actualizar" name="btnActualizar" id="btnActualizar"/>
 											&nbsp;&nbsp;

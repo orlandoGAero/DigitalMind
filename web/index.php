@@ -48,7 +48,7 @@
 	     'TablaContactos' => array('controller' =>'Controller', 'action' =>'cargarContactosPro'),
 	     'DetalleProveedor' => array('controller' =>'Controller', 'action' =>'verProveedor'),
 	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'mostrarContactos'),
-	     'EditarProveedores' => array('controller' =>'Controller', 'action' =>'ModificarProveedor'),
+	     'EditarProveedores' => array('controller' =>'Controller', 'action' =>'ModificarProveedor_part1'),
 	     'BorrarProveedores' => array('controller' =>'Controller', 'action' =>'EliminarProveedor'),
 	     'DeleteDatosBancarios' => array('controller' =>'Controller', 'action' =>'borrarDatosB'),
 	     'DatosBancarios' => array('controller' =>'Controller', 'action' =>'InsertarDatosBancariosP'),
