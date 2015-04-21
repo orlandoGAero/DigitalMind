@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="utf-8">
@@ -43,12 +43,11 @@
                         <div class="menu-item blue">
                             <a href="index.php?url=listContact"><img src="images/icono-agenda.png"/><br><b>CONTACTOS</b></a> 
                         </div>
-                        
-                        
-                        <div class="menu-item blue responsive">
+                
+						<div class="menu-item blue responsive">
                              <a href="index.php?url=Proveedores"><img src="images/icono-instructores.png"/><br><b>PROVEEDORES</b></a>                     
                         </div>
-                                                
+                     							
                         <div class="menu-item blue responsive">
                              <a href="index.php?url=listaProducto"><img src="images/icono-videos.png"/><br><b>PRODUCTOS</b></a> 
                         </div>
@@ -96,10 +95,9 @@
                             
                             <div class="col-md-6">
                                 <div class="menu-item blue responsive">
-                                    <a href="index.php?url=listaMarca"><img src="images/icono-cursos.png"/><br><b>MARCAS</b></a> 
+									<a href="index.php?url=listaMarca"><img src="images/icono-cursos.png"/><br><b>MARCAS</b></a> 
                                 </div>
                             </div>
-                            
                         </div>
                         
                     </div>
@@ -113,7 +111,7 @@
                         <div class="menu-item blue">
                             <a href="index.php?url=Inventario"><img src="images/inventory.png"><br><b>INVENTARIO</b></a> 
                         </div>
-                        
+                       
                         <div class="menu-item blue">
                             <a href="index.php?url=menuTransacciones"><img src="images/icono-money.png"/><br><b>TRANSACCIONES</b></a> 
                         </div>

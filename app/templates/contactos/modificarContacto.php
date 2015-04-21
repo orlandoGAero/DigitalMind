@@ -11,8 +11,7 @@
         
 	 <!-- JS Formulario Listas Desplegables -->
 	 <script type="text/javascript" src="<?php echo 'js/'.config::$jquery_lksMenu_js ?>"></script>
-	 	<?php var_dump($obtenerDatosContacto) ?>
-		
+	 		
 	<div class="col-lg-14">
         <div class="panel panel-default">
 			<h1>Editar Contacto</h1>
@@ -51,14 +50,14 @@
 													<?php endif; ?>
 													<li><label>Extensión</label><input type="text" id="tel" class="keysNumbers" name="extC" autocomplete="off" required="required" maxlength="3" pattern="[0-9]{3}" value="<?php echo $obtenerDatosContacto['extension'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Teléfono Oficina</label><input type="text" id="tel" class="keysNumbers" name="telOficina" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $obtenerDatosContacto['tel_oficina'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Teléfono Emergencia</label><input type="text" id="tel" class="keysNumbers" name="telEmergencia" autocomplete="off" required="required" maxlength="10" pattern="[0-9]{10}" value="<?php echo $obtenerDatosContacto['tel_emergencia'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
+													<li><label>Teléfono Emergencia</label><input type="text" id="tel" class="keysNumbers" name="telEmergencia" autocomplete="off" maxlength="10" pattern="[0-9]{10}" value="<?php echo $obtenerDatosContacto['tel_emergencia'] ?>" />&nbsp;&nbsp;&nbsp;</li>
 													<li><label>Correo Personal</label><input type="email" name="emailPersonal" autocomplete="off" required="required" maxlength="50" placeholder="nombre@ejemplo.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value="<?php echo $obtenerDatosContacto['correo_p'] ?>" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Correo Institucional</label><input type="email" name="emailInstitucional" autocomplete="off" maxlength="50" placeholder="nombre@ejemplo.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value="<?php echo $obtenerDatosContacto['correo_instu'] ?>" />&nbsp;&nbsp;&nbsp;</li>
 													<li><label>Facebook </label><input type="text" name="redSocialF"  autocomplete="off" maxlength="20" pattern="^[a-z\d\.]{5,}$" value="<?php echo $obtenerDatosContacto['facebook'] ?>" />&nbsp;&nbsp;&nbsp;</li>
 													<li><label>Twitter</label><input type="text" name="redSocialT" autocomplete="off" maxlength="20" value="<?php echo $obtenerDatosContacto['twitter'] ?>" />&nbsp;&nbsp;&nbsp;</li>
 													<li><label>Skype</label><input type="text" name="redSocialS"  autocomplete="off" maxlength="20" value="<?php echo $obtenerDatosContacto['skype'] ?>" />&nbsp;&nbsp;&nbsp;</li>
 													<li><label>Página Web</label><input type="url" name="webPage"  autocomplete="off" maxlength="30" placeholder="http://www.ejemplo.com" value="<?php echo $obtenerDatosContacto['direccion_web'] ?>" />&nbsp;&nbsp;&nbsp;</li>
-													<?php if ($obtenerDatosContacto['activo'] == "Si") :?>
+													<!-- <?php if ($obtenerDatosContacto['activo'] == "Si") :?>
 														<li class="li_radio" >
 															<label>Activo</label>
 															<input type="radio" name="activoC" value="Si" checked  /> Si
@@ -70,7 +69,7 @@
 															<input type="radio" name="activoC" value="Si" /> Si
 															<input type="radio" name="activoC" value="No" checked /> No
 														</li>
-													<?php endif; ?>
+													<?php endif; ?> -->
 												</ul>
 											</li>
 										</ul>
@@ -83,30 +82,44 @@
 												
 												<ul>
 													<li><!-- IdDirección --><input type="hidden"  name="idAddress" value="<?php echo $obtenerDatosContacto['id_direccion'] ?>" readonly /></li>
-													<li>
-														<label>Estado</label>
-														<select name="idEstado" id="state" required='required'>
-															<?php if($obtenerDatosContacto['estado'] == "") :?>
-																<option value="">Seleccione estado</option>
-																<?php foreach ($obtenerDatosContacto['id_estado'] as $estado) :?>
-																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
-																<?php endforeach; ?>
-															<?php else :?>
-																<option value="<?php echo $obtenerDatosContacto['id_estado'] ?>"><?php echo $obtenerDatosContacto['estado'] ?></option>
-																<?php foreach ($obtenerDatosDir['estados'] as $estado) :?>
-																	<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
-																<?php endforeach; ?>
-															<?php endif; ?>
-														</select>
-														<span style="color: red;"><b>*</b></span>
-													</li>
-													<li>
+													<!--===================== Estado =====================-->
+													<?php if(!isset($obtenerDatosContacto['estadoAfter'])) :?>
+														<li>
+															<label>Estado</label>
+															<select name="idEstado" id="state" required='required'>
+																<?php if($obtenerDatosContacto['estado'] != "") :?>
+																	<option value="<?php echo $obtenerDatosContacto['id_estado'] ?>"><?php echo $obtenerDatosContacto['estado'] ?></option>
+																	<?php foreach ($obtenerDatosDir['estados'] as $estado) :?>
+																		<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																	<?php endforeach; ?>
+																<?php endif; ?>
+															</select>
+															<span style="color: red;"><b>*</b></span>
+														</li>
+													<?php else :?>
+														<li>
+															<label>Estado</label>
+															<select name="idEstado" id="state" required='required'>
+																<?php if($obtenerDatosContacto['estadoAfter'] == "") :?>
+																	<option value="">Seleccione estado</option>
+																	<?php foreach ($obtenerDatosContacto['id_estado'] as $estado) :?>
+																		<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estadoAfter'] ?></option>
+																	<?php endforeach; ?>
+																<?php else :?>
+																	<option value="<?php echo $obtenerDatosContacto['id_estado'] ?>"><?php echo $obtenerDatosContacto['estadoAfter'] ?></option>
+																	<?php foreach ($obtenerDatosContacto['estados'] as $estado) :?>
+																		<option value="<?php echo $estado['id_estado'] ?>"><?php echo $estado['estado'] ?></option>
+																	<?php endforeach; ?>
+																<?php endif; ?>
+															</select>
+															<span style="color: red;"><b>*</b></span>
+														</li>
+													<?php endif; ?>
+													<!--===================== Municipio =====================-->
+													<?php if(!isset($obtenerDatosContacto['municipioAfter'])) :?>
+														<li>
 															<label>Municipio</label>
-															<?php if($obtenerDatosContacto['municipio'] == "") :?>
-																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
-																	
-																</select>
-															<?php else :?>
+															<?php if($obtenerDatosContacto['municipio'] != "") :?>
 																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
 																	<option value="<?php echo $obtenerDatosContacto['municipio'] ?>"><?php echo $obtenerDatosContacto['municipio'] ?></option>
 																	<?php foreach ($obtenerDatosDir['municipios'] as $nameMunicipality) : ?>
@@ -115,7 +128,26 @@
 																</select>
 															<?php endif; ?>
 															<span style="color: red;"><b>*</b></span>
-													</li>
+														</li>
+													<?php else :?>
+														<li>
+															<label>Municipio</label>
+															<?php if($obtenerDatosContacto['municipioAfter'] == "") :?>
+																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
+																	
+																</select>
+															<?php else :?>
+																<select name="municipio" id="municipio" required='required' disabled="disabled" onchange="ValidarMunicipio();">
+																	<option value="<?php echo $obtenerDatosContacto['municipioAfter'] ?>"><?php echo $obtenerDatosContacto['municipioAfter'] ?></option>
+																	<?php foreach ($obtenerDatosContacto['municipios'] as $nameMunicipality) : ?>
+																			<option value="<?php echo $nameMunicipality['municipio'] ?>"> <?php echo $nameMunicipality['municipio'] ?> </option> ?>
+																	<?php endforeach; ?>
+																</select>
+															<?php endif; ?>
+															<span style="color: red;"><b>*</b></span>
+														</li>
+													<?php endif; ?>
+													<!--===================== Localidad =====================-->
 													<?php if(!isset($obtenerDatosContacto['localidadAfter'])) :?>
 														<li>
 															<label>Localidad</label>
@@ -221,7 +253,12 @@
 													================================================================================================================================================-->
 													<li><label>Calle</label><input type="text" name="street" autocomplete="off" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['calle'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Número Exterior</label><input type="text" class="keysNumbers" name="numExt" autocomplete="off" required="required" maxlength="5" value="<?php echo $obtenerDatosContacto['num_ext'] ?>"  /><span style="color: red;"><b>&nbsp;*</b></span></li>
-													<li><label>Número Interior</label><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $obtenerDatosContacto['num_int'] ?>" />&nbsp;&nbsp;&nbsp;</li>
+													<?php if($obtenerDatosContacto['num_int'] != 0) :?>
+														<li><label>Número Interior</label><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $obtenerDatosContacto['num_int'] ?>" />&nbsp;&nbsp;&nbsp;</li>
+													<?php else :?>
+														<?php $obtenerDatosContacto['num_int'] = "" ?>
+														<li><label>Número Interior</label><input type="text" class="keysNumbers" name="numInt" autocomplete="off" maxlength="5" value="<?php echo $obtenerDatosContacto['num_int'] ?>" />&nbsp;&nbsp;&nbsp;</li>
+													<?php endif; ?>
 													<li><label>Colonia</label><input type="text" name="colonia" autocomplete="off" required="required" maxlength="50" value="<?php echo $obtenerDatosContacto['colonia'] ?>" onChange="conMayusculas(this)" /><span style="color: red;"><b>&nbsp;*</b></span></li>
 													<li><label>Referencia</label><input type="text" name="reference" autocomplete="off" value="<?php echo $obtenerDatosContacto['referencia'] ?>" onChange="conMayusculas(this)" />&nbsp;&nbsp;&nbsp;</li>
 												</ul>

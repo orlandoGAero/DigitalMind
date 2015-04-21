@@ -7,7 +7,15 @@
 		<tr>
 			<td width="100%">
 				<form name="formBusqueda" action="index.php?url=buscarXC" method="POST">
-				<b class="azul">Buscar</b> <input type="text" name="busqueda" maxlength="50" required />
+				<!--<input type="text" name="busqueda" placeholder="Ingresa Criterio" maxlength="100"/>-->
+				<!--Carga el combo con las razones sociales existentes-->
+				<?php echo"<select name='razonTipo'>
+                   <option value='0'>Seleccione una Opción</option>";
+				foreach($CargaCombo4 as $nombreRS): 										 
+					echo "<option value=".$nombreRS['razon_social'].">".$nombreRS['id_datFiscal']."----". $nombreRS['razon_social']."</option>";
+				endforeach; 
+				echo "</select>";?>
+				<input name="submit" type="submit" value="Buscar" class="boton2">				
 				</form>
 				<td>
 				<a href='index.php?url=agregarCl'><img src="images/add.png" width="25px" height="25px"/></a></td>

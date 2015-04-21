@@ -116,7 +116,7 @@
 					
 					<tr>
 						<th>Estado</th>
-						<td><?php $detalleContacto['estado'] = mb_strtoupper($detalleContacto['estado']); echo $detalleContacto['estado'] ?></td>
+						<td><?php echo $detalleContacto['estado'] ?></td>
 					</tr>
 					<tr>
 						<th>Referencia</th>

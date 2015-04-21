@@ -37,7 +37,7 @@
 					<th><h5>Télefono Móvill</h5></th>
 					<th class="nosort"><h5><img src="images/whatsapp.png" title="WhatsApp"/></h5></th>
 					<th><h5>Correo Personal</h5></th>
-					<th><h5>Activo</h5></th>
+					<!-- <th><h5>Activo</h5></th> -->
 					<th class="nosort"><h5>Operaciones</h5></th>
 				</tr>
 			</thead>			
@@ -63,7 +63,7 @@
 						<td><img src="images/not.png" width="23px" height="23px" title="No" /></td>
 					<?php endif ?>
 					<td><?php echo $contact['correo_p'] ?></td>
-					<td><?php echo $contact['activo'] ?></td>
+					<!-- <td><?php echo $contact['activo'] ?></td> -->
 					<td>
 						<?php echo "<a href='index.php?url=viewContact&idContact=".$idContacto."'>" ?> <img src="images/detalle.png" title="Detalle"/></a>
 						<?php echo "<a href='index.php?url=updateContact&idContact=".$idContacto."'>" ?> <img src="images/editar.png" title="Modificar"/></a>

@@ -1,24 +1,16 @@
 <!-- Listar Contactos -->
  <?php 
  	/**
-	 * ob_start() envia todos los resultados del script desde la invocación de la función a un buffer interno. Dichos resultados se recojen a través de la función ob_get_clean().
+	 * ob_start() envia todos los resultados del script desde la invocación de la función a un buffer interno. 
+	 * Dichos resultados se recojen a través de la función ob_get_clean().
 	 */
 ?>
 <?php ob_start() ?>
-	<!-- CSS -->
-        <link rel="stylesheet" href="css/fancybox/jquery.fancybox-buttons.css">        
-        <link rel="stylesheet" href="css/fancybox/jquery.fancybox.css">
-
-	<!-- Grab Google CDN's jQuery, fall back to local if offline -->
- 		<script>window.jQuery || document.write('<script src="js/fancybox/libs/jquery-1.7.1.min.js"><\/script>')</script>
-        
-	<!-- FancyBox -->
-		<script src="js/fancybox/jquery.fancybox.js"></script>
 		
 	<!-- Script de Tiny Table Sorter -->
 	<script type="text/javascript" src="<?php echo 'js/'.config::$tinyTableSorter_js ?>"></script>
 	
-	<?php if($obtenerDatosContactos['contactos'] != "") :?>
+	<?php if($obtenerDatosContactos['contactos'] != NULL) :?>
 		<div id="busqueda" class="buscar">
 			<form name="formBusqueda" method="POST" id="filtros" target="_self">
 				<ul>
@@ -26,7 +18,10 @@
 					<li>
 						<input type="search" class="elementosBusqueda" name="nombreContacto" maxlength="50" placeholder="Nombre contacto" title="Nombre Contacto" />
 						<input type="search" class="elementosBusqueda" name="municipioContacto" maxlength="30" placeholder="Municipio" title="Municipio"/>
+						<input type="search" class="elementosBusqueda" name="coloniaContacto" maxlength="30" placeholder="Colonia" title="Colonia"/>
 						<input type="search" class="elementosBusqueda" name="areaContacto" maxlength="30" placeholder="Área" title="Área"/>
+						<input type="search" class="elementosBusqueda keysNumbers" name="telMovilContacto" maxlength="10" placeholder="Télefono Móvil" title="Télefono Móvil" />
+						<input type="search" class="elementosBusqueda" name="emailPerContacto" maxlength="30" placeholder="Correo Personal" title="Correo Personal"/>
 						<input type="submit" class="boton2" value="Filtrar" name="btnFiltrar"/>
 					</li>
 				</ul>
@@ -72,7 +67,7 @@
 							<th><h5>Télefono Móvill</h5></th>
 							<th class="nosort"><h5><img src="images/whatsapp.png" title="WhatsApp"/></h5></th>
 							<th><h5>Correo Personal</h5></th>
-							<th><h5>Activo</h5></th>
+							<!-- <th><h5>Activo</h5></th> -->
 							<th class="nosort"><h5>Operaciones</h5></th>
 						</tr>
 					</thead>			
@@ -100,7 +95,7 @@
 								<td><img src="images/not.png" width="23px" height="23px" title="No" /></td>
 							<?php endif ?>
 							<td><?php echo $contact['correo_p'] ?></td>
-							<td><?php echo $contact['activo'] ?></td>
+							<!-- <td><?php echo $contact['activo'] ?></td> -->
 							<td>
 								<?php echo "<a href='index.php?url=viewContact&idContact=".$idContacto."'>" ?> <img src="images/detalle.png" title="Detalle"/></a>
 								<?php echo "<a href='index.php?url=updateContact&idContact=".$idContacto."'>" ?> <img src="images/editar.png" title="Modificar"/></a>
@@ -143,6 +138,12 @@
 		sorter.currentid = "currentpage";
 		sorter.limitid = "pagelimit";
 		sorter.init("miTabla",0);
+		
+		jQuery(document).ready(function() {
+		    jQuery('.keysNumbers').keypress(function(tecla) {
+		        if(tecla.charCode < 48 || tecla.charCode > 57) return false;
+		    });
+		});
   	</script>
 	
 <?php $contenido = ob_get_clean() ?>
