@@ -1368,7 +1368,7 @@
 			$validar=$m->validaformTwo($idcli);	
 		}
 		
-		// -----------------------FUNCIONES PROVEEDORES---------------------------------
+		// -----------------------FUNCIONES_PROVEEDORES---------------------------------
 		
 			/* funcion para mostrar la vista de proveedores*/
 			public function Proveedor()
@@ -1652,11 +1652,12 @@
 					$claveProvee = $_REQUEST['idprov'];
 					// print_r($_REQUEST);
 					
-					$obtContactos = array(
-						'listcontacto' => $model->obt_allContactos(),
-					);
-
+					/*obtiene todos los contactos*/
+					$obtContactos = $model->obt_allContactos($claveProvee);
 					
+					/*obtener contactos del proveedor*/
+					$Cont_Prov = $model->obtDatContactAdd($claveProvee);
+				
 
 					// var_dump($obtContactos);
 					
@@ -1668,27 +1669,20 @@
 				$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 							config::$mvc_db_pass, config::$mvc_db_hostname);
 
-				$idcontactos = $_REQUEST['idcon'];
+				/*recibir */
+				$idcontactos = $_REQUEST['txt_idCon'];
 				$idproveedores = $_REQUEST['txt_idproveedor'];
 
-					
 				print_r($_REQUEST);
 
-				$div = $_REQUEST['div'];
-
-				/* validación si el div es igual a addContacto muestra la tabla de contactos*/
-				if($div == 'addContacto') {
-
+				
 					$model->registrarProv_Contact($idcontactos,$idproveedores);
-					
-					$div = 'addContacto';
+				
+					/*obtiene todos los contactos*/
+					$obtContactos = $model->obt_allContactos($idproveedores);
 
-					$obtContactos = array(
-						'listcontacto' => $model->obt_allContactos(),
-					);
-
-					$claveProvee = $_REQUEST['txt_idproveedor'];
-				} /*endIf frmDB*/
+					/*obtener contactos del proveedor*/
+					$Cont_Prov = $model->obtDatContactAdd($idproveedores);
 
 				require __DIR__ . '/templates/proveedor/addDContactos.php';
 			}
@@ -1717,11 +1711,14 @@
 				/* obtener dirección fiscal */
 				$detalleDirFiscal = $model->DetalleDirFiscalProv($IdProv);
 				$obtenerDirFiscal = $detalleDirFiscal;
+				
+				$obtDatosDir = array(
+					'allestados' => $model -> obtDatEstadoUpdateProv($IdProv),
+					'allmunicipio' => $model -> obtDatMunicipioUpdateProv($IdProv),
+					'all_localidad' => $model -> obtdirUpdateProv($IdProv),
+				);
 
-				// // obtener direccion
-				// $obtenerDatosDir = array(
-				// 	'codigoP' => $model -> obtenerDatosDireccionUpdateProv($IdProv),
-				// );
+				
 
 				// //obtener banco
 				// $obtenerBank = array(

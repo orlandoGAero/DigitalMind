@@ -2117,7 +2117,7 @@
             }
 		}
 
-	//---------------------------------------PROVEEDORES-----------------------------------------------------
+	//---------------------------------------FUNCIONES_PROVEEDORES-----------------------------------------------------
 
 		/*función para obtener los datos de proveedores de la vista principal */
 		public function obtenerProveedores()
@@ -2147,7 +2147,7 @@
 							       ctepro.id_categoria,ctepro.categoria,
 							       datf.id_datFiscal,datf.razon_social, datf.rfc, datf.tipo_ra,
 							       cp.codigoP, cp.localidad, cp.municipio, 
-							       sta.estado,
+							       sta.id_estado,sta.estado,
 							       dir.id_direccion,dir.calle,dir.num_ext,dir.num_int,dir.colonia,dir.referencia,dir.id_cp
 							FROM proveedores pro, 
 							     categoria_prov ctepro,
@@ -2189,6 +2189,71 @@
 			return $rowProFis;
 		}
 		
+		/*función para obtener los datos bancarios del proveedor*/
+		public function obtDatBankPro($claveP)
+		{
+			$sqlobtDbProv = "SELECT bank.nombre_banco,db.id_datBank,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,detdb.id_det_bp,tcta.tipo_cuenta
+							FROM bancos bank,datos_bancarios db,tipo_cuenta tcta,det_bank_prov detdb,proveedores prov
+							WHERE bank.id_banco=db.id_banco
+							AND tcta.id_tipo_cuenta=db.id_tipo_cuenta
+							AND prov.id_prov=detdb.id_prov
+							AND db.id_datBank=detdb.id_datBank
+							AND prov.id_prov=$claveP";
+			$ejecutar_sqlobtDbProv = mysql_query($sqlobtDbProv, $this->conexion) or die("Error de consulta obtener datos bancarios proveedores ".mysql_error());
+
+			$rowsDb = mysql_num_rows($ejecutar_sqlobtDbProv);
+
+			$tableDb = array();
+			while ($rowsDb = mysql_fetch_assoc($ejecutar_sqlobtDbProv)) {
+			 	$tableDb[] = $rowsDb; 
+			 } 
+
+			 return $tableDb;
+		}
+
+		public function obt_allContactos($id_provee){
+			
+			$sql_pr = "SELECT id_prov
+					   FROM proveedores
+					   WHERE id_prov=$id_provee";
+			$ejecutar_sql_pr = mysql_query($sql_pr,$this->conexion) or die (mysql_error());
+			
+			$Proveedores = array();
+			while($row = mysql_fetch_assoc($ejecutar_sql_pr)){
+				$Proveedores[] = $row;
+			}
+
+			$sql_obt_c = "SELECT *
+							FROM contactos
+							ORDER by nombreCon";
+			$ejecutar_sql_obt_c = mysql_query($sql_obt_c,$this->conexion) or die (mysql_error());
+			
+			$Contacts = array();
+			while($rows = mysql_fetch_assoc($ejecutar_sql_obt_c)){
+				$Contacts[] = $rows;
+			}
+			
+			return $Contacts;
+		}
+
+		public function obtDatContactAdd($llavePro)
+		{
+			$sqlobtDcon = "SELECT con.*,prov.id_prov
+							FROM contactos con,proveedores prov,proveedores_contacto pcon
+							WHERE prov.id_prov=pcon.id_prov
+							AND con.id_contacto=pcon.id_contacto 
+							AND prov.id_prov=".$llavePro;
+			$ejecutar_sqlobtDcon = mysql_query($sqlobtDcon, $this->conexion) or die("Error de consulta obtener datos contactos proveedores ".mysql_error());
+
+			$rowsDc = mysql_num_rows($ejecutar_sqlobtDcon);
+
+			$tableDc = array();
+			while ($rowsDc = mysql_fetch_assoc($ejecutar_sqlobtDcon)) {
+			 	$tableDc[] = $rowsDc; 
+			 } 
+
+			 return $tableDc;
+		}
 		/*funcion para obtener el id de la tabla proveedor*/
 		public function obtenerIdProveedor()
 		{
@@ -2259,34 +2324,138 @@
             }
 		}
 
-		/*Funcion para cargar div de los datos del formulario Dirección según el CP ingresado y con el  parametro de clave de proveedor */
-		public function obtenerDatosDireccionUpdateProv($idProv)
+		/* Función para obtener el estado de la dirección fisica del proveedor en la actualización */
+		public function obtDatEstadoUpdateProv($claveProvee)
 		{
-			$sqldirProv = "SELECT cp.id_cp,cp.codigoP
-						  FROM codigos_postales cp, direcciones d, proveedores prov
-						  WHERE cp.id_cp = d.id_cp
-						  AND d.id_direccion = prov.id_direccion
-						  AND prov.id_prov = ".$idProv;
-			$ejecutar_sqldirProv = mysql_query($sqldirProv, $this->conexion) or die (mysql_error());
-			$filas1 = mysql_num_rows($ejecutar_sqldirProv);
-			if ($filas1 != 0) {
-				$CodigoPostal = mysql_result($ejecutar_sqldirProv, 0, 'codigoP');
-				$idCp = mysql_result($ejecutar_sqldirProv, 0, 'id_cp');
+			$sql_obt_st = "SELECT est.id_estado,est.estado
+						   FROM estados est INNER JOIN codigos_postales cp 
+							INNER JOIN direcciones dir INNER JOIN proveedores prov
+							ON est.id_estado=cp.id_estado
+							AND cp.id_cp=dir.id_cp
+							AND dir.id_direccion=prov.id_direccion
+						   WHERE prov.id_prov =".$claveProvee;
+			$ejecutar_sql_obt_st = mysql_query($sql_obt_st, $this->conexion) or die (mysql_error());
+			$f1 = mysql_num_rows($ejecutar_sql_obt_st);
+			
+			if($f1 != 0){
+				$id_state = mysql_result($ejecutar_sql_obt_st,0,'id_estado');
 			}
-				
-			$sqlcp = "SELECT * FROM codigos_postales WHERE codigoP = ".$CodigoPostal." AND id_cp != ".$idCp." ORDER BY localidad";
-			$ejecutar_sqlcp = mysql_query($sqlcp, $this->conexion) or die (mysql_error());
-			$filas2 = mysql_num_rows($ejecutar_sqlcp);
+			
+			$sql_all_states = "SELECT id_estado,estado FROM estados WHERE id_estado != ".$id_state." ORDER BY estado;";
+			$ejecutar_sql_all_states = mysql_query($sql_all_states, $this->conexion) or die (mysql_error());
+			$f2 = mysql_num_rows($ejecutar_sql_all_states);
 		
-            if($filas2 != 0){
-            	$codigoPostal= array();
-            	while ($rows = mysql_fetch_assoc($ejecutar_sqlcp)) {
-					$codigosPostales[] = $rows;
+            if($f2 != 0){
+            	$estadoDist= array();
+            	while ($rows = mysql_fetch_assoc($ejecutar_sql_all_states)) {
+					$estadoDist[] = $rows;
 				}
             
-		    	return $codigosPostales;
+		    	return $estadoDist;
             }
 		}
+
+		/* Función para obtener el municipio de la dirección fisica del proveedor en la actualización */
+		public function obtDatMunicipioUpdateProv($Id_pro){
+			$sql_obt_mun = "SELECT est.id_estado,cp.municipio
+							FROM estados est 
+							  INNER JOIN codigos_postales cp 
+							  INNER JOIN direcciones dir 
+							  INNER JOIN proveedores prov 
+							    ON est.id_estado = cp.id_estado 
+							    AND cp.id_cp = dir.id_cp
+							    AND dir.id_direccion = prov.id_direccion 
+							WHERE prov.id_prov =".$Id_pro ;
+			$ejecutar_sql_obt_mun = mysql_query($sql_obt_mun, $this->conexion) or die (mysql_error());
+			$filas1 = mysql_num_rows($ejecutar_sql_obt_mun);
+			
+			if($filas1){
+				$ID_stado = mysql_result($ejecutar_sql_obt_mun,0,'id_estado');
+				$Municipio = mysql_result($ejecutar_sql_obt_mun,0,'municipio');
+			}
+			
+			$sql_all_mun = "SELECT municipio FROM codigos_postales WHERE id_estado = ".$ID_stado." AND municipio != '".$Municipio."' GROUP BY municipio;";
+			$ejecutar_sql_all_mun = mysql_query($sql_all_mun, $this->conexion) or die (mysql_error());
+			$filas2 = mysql_num_rows($ejecutar_sql_all_mun);
+		
+            if($filas2 != 0){
+            	$municipioDist= array();
+            	while ($rows = mysql_fetch_assoc($ejecutar_sql_all_mun)) {
+					$municipioDist[] = $rows;
+				}
+            
+		    	return $municipioDist;
+            }
+		}	
+
+		public function obtdirUpdateProv($IdProveedor){
+			$sql_obt_dir = "SELECT 
+						  	e.id_estado,
+						  	cp.municipio,
+						  	cp.id_cp,
+						  	cp.localidad
+						  FROM
+						  	estados e 
+						  	INNER JOIN codigos_postales cp 
+						  	INNER JOIN direcciones d 
+						  	INNER JOIN proveedores prov 
+						    	ON e.id_estado = cp.id_estado 
+						    	AND cp.id_cp = d.id_cp
+						    	AND d.id_direccion = prov.id_direccion 
+						  WHERE prov.id_prov =".$IdProveedor;
+			$ejecutar_sql_obt_dir = mysql_query($sql_obt_dir,$this->conexion) or die (mysql_error());
+			$filas1 = mysql_num_rows($ejecutar_sql_obt_dir);
+			
+			if($filas1 != 0){
+				$state = mysql_result($ejecutar_sql_obt_dir,0,'id_estado');
+				$municipy = mysql_result($ejecutar_sql_obt_dir,0,'municipio');
+				$idcp = mysql_result($ejecutar_sql_obt_dir, 0,'id_cp');
+				$localidads = mysql_result($ejecutar_sql_obt_dir,0,'localidad');
+			}
+				
+			$sql2 = "SELECT e.estado,cp.id_cp,cp.municipio,cp.localidad,cp.codigoP
+								FROM estados e,codigos_postales cp
+								WHERE e.id_estado=cp.id_estado
+									AND cp.id_estado = '".$state."' AND cp.municipio = '".$municipy."' AND cp.id_cp=".$idcp." AND  cp.localidad LIKE '".$localidads."%'
+									ORDER BY cp.localidad;";
+			$ejecutar_sql2 = mysql_query($sql2,$this->conexion) or die (mysql_error());
+			
+			$dire = array();
+			while($rows = mysql_fetch_assoc($ejecutar_sql2)){
+				$dire[] = $rows;
+			}
+			
+			return $dire;
+		}	
+
+		/*Funcion para cargar div de los datos del formulario Dirección según el CP ingresado y con el  parametro de clave de proveedor */
+		// public function obtenerDatosDireccionUpdateProv($idProv)
+		// {
+		// 	$sqldirProv = "SELECT cp.id_cp,cp.codigoP
+		// 				  FROM codigos_postales cp, direcciones d, proveedores prov
+		// 				  WHERE cp.id_cp = d.id_cp
+		// 				  AND d.id_direccion = prov.id_direccion
+		// 				  AND prov.id_prov = ".$idProv;
+		// 	$ejecutar_sqldirProv = mysql_query($sqldirProv, $this->conexion) or die (mysql_error());
+		// 	$filas1 = mysql_num_rows($ejecutar_sqldirProv);
+		// 	if ($filas1 != 0) {
+		// 		$CodigoPostal = mysql_result($ejecutar_sqldirProv, 0, 'codigoP');
+		// 		$idCp = mysql_result($ejecutar_sqldirProv, 0, 'id_cp');
+		// 	}
+				
+		// 	$sqlcp = "SELECT * FROM codigos_postales WHERE codigoP = ".$CodigoPostal." AND id_cp != ".$idCp." ORDER BY localidad";
+		// 	$ejecutar_sqlcp = mysql_query($sqlcp, $this->conexion) or die (mysql_error());
+		// 	$filas2 = mysql_num_rows($ejecutar_sqlcp);
+		
+  //           if($filas2 != 0){
+  //           	$codigoPostal= array();
+  //           	while ($rows = mysql_fetch_assoc($ejecutar_sqlcp)) {
+		// 			$codigosPostales[] = $rows;
+		// 		}
+            
+		//     	return $codigosPostales;
+  //           }
+		// }
 
 		/*función para obtener banco del formulario de actualizar proveedores*/
 		public function obtBankUpdateProv($IDprov)
@@ -2358,60 +2527,6 @@
             
 		    	return $tipo_cta;
             }
-		}
-
-		/*función para obtener los datos bancarios del proveedor*/
-		public function obtDatBankPro($claveP)
-		{
-			$sqlobtDbProv = "SELECT bank.nombre_banco,db.id_datBank,db.sucursal,db.titular,db.no_cuenta,db.no_cuenta_interbancario,detdb.id_det_bp,tcta.tipo_cuenta
-							FROM bancos bank,datos_bancarios db,tipo_cuenta tcta,det_bank_prov detdb,proveedores prov
-							WHERE bank.id_banco=db.id_banco
-							AND tcta.id_tipo_cuenta=db.id_tipo_cuenta
-							AND prov.id_prov=detdb.id_prov
-							AND db.id_datBank=detdb.id_datBank
-							AND prov.id_prov=$claveP";
-			$ejecutar_sqlobtDbProv = mysql_query($sqlobtDbProv, $this->conexion) or die("Error de consulta obtener datos bancarios proveedores ".mysql_error());
-
-			$rowsDb = mysql_num_rows($ejecutar_sqlobtDbProv);
-
-			$tableDb = array();
-			while ($rowsDb = mysql_fetch_assoc($ejecutar_sqlobtDbProv)) {
-			 	$tableDb[] = $rowsDb; 
-			 } 
-
-			 return $tableDb;
-		}
-
-		public function obt_allContactos(){
-			$sql_obt_c = "SELECT *
-							FROM contactos";
-			$ejecutar_sql_obt_c = mysql_query($sql_obt_c,$this->conexion) or die (mysql_error());
-			
-			$Contacts = array();
-			while($rows = mysql_fetch_assoc($ejecutar_sql_obt_c)){
-				$Contacts[] = $rows;
-			}
-			
-			return $Contacts;
-		}
-
-		public function obtDatContactAdd($llavePro)
-		{
-			$sqlobtDcon = "SELECT con.*
-							FROM contactos con,proveedores prov,proveedores_contacto pcon
-							WHERE prov.id_prov=pcon.id_prov
-							AND con.id_contacto=pcon.id_contacto 
-							AND prov.id_prov=".$llavePro;
-			$ejecutar_sqlobtDcon = mysql_query($sqlobtDcon, $this->conexion) or die("Error de consulta obtener datos contactos proveedores ".mysql_error());
-
-			$rowsDc = mysql_num_rows($ejecutar_sqlobtDcon);
-
-			$tableDc = array();
-			while ($rowsDc = mysql_fetch_assoc($ejecutar_sqlobtDcon)) {
-			 	$tableDc[] = $rowsDc; 
-			 } 
-
-			 return $tableDc;
 		}
 
 		/*Función para registrar la 1ra parte de proveedores*/
@@ -2709,40 +2824,88 @@
 
 		public function borrarProveedores($id_prov)
 		{
-			
-			$sql_select = "SELECT db.id_datBank,df.id_datFiscal,dir.id_direccion,cont.id_contacto
-							FROM datos_bancarios db,proveedores prov,det_bank_prov dbp,datos_fiscales df,direcciones dir,proveedores_contacto provcont,contactos cont
-							WHERE db.id_datBank=dbp.id_datBank
-							AND prov.id_prov=dbp.id_prov
-							AND df.id_datFiscal=prov.id_datFiscal
-							AND dir.id_direccion=prov.id_direccion
-							AND cont.id_contacto=provcont.id_contacto
-							AND prov.id_prov=provcont.id_prov
-							AND prov.id_prov=".$id_prov;
-			$ejecutar_sql_select = mysql_query($sql_select) or die("error de consulta".mysql_error());
+			/*consulta para proveedor - contacto*/
+			$sql_pro_con = "SELECT prov.id_prov
+							FROM proveedores prov, proveedores_contacto procon
+							WHERE prov.id_prov = procon.id_prov
+							AND prov.id_prov =".$id_prov;
+			$ejecutar_sql_pro_con = mysql_query($sql_pro_con,$this->conexion) or die("error de consulta id proveedor en relacion proveedor-contacto ".mysql_error());
+			$fila1 = mysql_num_rows($ejecutar_sql_pro_con);
 
-			$id_bancarios = mysql_result($ejecutar_sql_select, 0, 'id_datBank');
-			$id_fiscales = mysql_result($ejecutar_sql_select, 0,'id_datFiscal');
-			$id_dir = mysql_result($ejecutar_sql_select, 0,'id_direccion');
-			$id_contact = mysql_result($ejecutar_sql_select, 0,'id_contacto');
+			/*consulta para proveedor - detalle datos bancarios*/
+			$sql_probank = "SELECT prov.id_prov
+							FROM proveedores prov, det_bank_prov detprov
+							WHERE prov.id_prov = detprov.id_prov
+							AND prov.id_prov =".$id_prov;
+			$ejecutar_sql_probank = mysql_query($sql_probank,$this->conexion) or die("error de consulta id proveedor en relacion proveedor-datos bancarios ".mysql_error());
+			$fila2 = mysql_num_rows($ejecutar_sql_probank);
 
-			$sql_deleteprov = "DELETE dbp,db,proc,prov,dir,df 
-								FROM det_bank_prov dbp, datos_bancarios db, proveedores_contacto proc, proveedores prov, direcciones dir, datos_fiscales df
-								WHERE df.id_datFiscal=prov.id_datFiscal 
-								AND dir.id_direccion=prov.id_direccion 
-								AND prov.id_prov=proc.id_prov
-								AND db.id_datBank=dbp.id_datBank
-								AND prov.id_prov=dbp.id_prov
-								AND prov.id_prov=".$id_prov."
-								AND db.id_datBank=".$id_bancarios."
-								AND proc.id_contacto=".$id_contact." 
-								AND dir.id_direccion=".$id_dir."
-								AND df.id_datFiscal=".$id_fiscales;
-			$ejecutar_sql_deleteprov = mysql_query($sql_deleteprov,$this->conexion) or die("Error de consulta delete proveedores".mysql_error());
-		
-			echo" <script> alert('El registro ha sido eliminado correctamente') 
+			/*consulta para proveedor - transaccion compra*/
+			$sql_pro_transc = "SELECT prov.id_prov
+								 FROM proveedores prov, transacciones_compras trcom
+								 WHERE prov.id_prov = trcom.id_prov
+								 AND prov.id_prov =".$id_prov;
+			$ejecutar_pro_transc = mysql_query($sql_pro_transc,$this->conexion) or die("error de consulta id proveedor - transacciones compra ".mysql_error());
+			$fila3 = mysql_num_rows($ejecutar_pro_transc);
+
+			if ($fila1 != null || $fila2 != null || $fila3 != null)
+			{
+				$sql_actpro = "SELECT activo
+							   FROM proveedores
+							   WHERE id_prov =".$id_prov;
+				$ejecutar_sql_actpro = mysql_query($sql_actpro,$this->conexion) or die("error consulta activo proveedores ".mysql_error());
+				$activ = mysql_result($ejecutar_sql_actpro, 0, 'activo');
+
+				if ($activ != 'no') {
+					
+					$sql_updact = " UPDATE proveedores
+									SET activo = 'no'
+									WHERE id_prov =".$id_prov;
+					$ejecutar_sql_updact = mysql_query($sql_updact,$this->conexion) or die ("error update activo ".mysql_error());
+					echo "<script> alert('El registro no puede ser eliminado, solo se desactivo') 
 							window.location='index.php?url=Proveedores';
-					 	</script> ";
+						  </script> ";
+				} else {
+					echo "<script> alert('El registro ya ha sido desactivado') 
+							window.location='index.php?url=Proveedores';
+						  </script> ";
+				}
+			} else {
+
+					$sql_ids = "SELECT df.id_datFiscal,prov.id_direccion dir_fisica,df.id_direccion dir_fiscal
+								FROM datos_fiscales df, proveedores prov
+								WHERE df.id_datFiscal=prov.id_datFiscal
+								AND prov.id_prov =".$id_prov;
+					$ejecutar_sql_ids = mysql_query($sql_ids,$this->conexion) or die("error de consulta claves de dir y datos fiscales ".mysql_error());
+					
+					$id_datfis = mysql_result($ejecutar_sql_ids, 0, 'id_datFiscal');
+					$id_dirfisc = mysql_result($ejecutar_sql_ids, 0, 'dir_fiscal');
+					$id_dirfisi = mysql_result($ejecutar_sql_ids, 0, 'dir_fisica');
+					
+					/*eliminar proveedor*/
+					$sql_delpr = "DELETE FROM proveedores
+								  WHERE id_prov =".$id_prov;
+					mysql_query($sql_delpr) or die(mysql_error());
+					
+					/*eliminar datos_fiscales*/
+					$sql_deldf = "DELETE FROM datos_fiscales
+								  WHERE id_datFiscal =".$id_datfis;
+					mysql_query($sql_deldf) or die(mysql_error());
+
+					/*eliminar direccion fiscal*/
+					$sql_deldirfisc = "DELETE FROM direcciones
+								       WHERE id_direccion =".$id_dirfisc; 
+					mysql_query($sql_deldirfisc) or die(mysql_error());
+
+					/*eliminar direccion fisca*/
+					$sql_deldirfisi = "DELETE FROM direcciones
+								  WHERE id_direccion =".$id_dirfisi;
+					mysql_query($sql_deldirfisi) or die(mysql_error());
+
+					echo "<script> alert('El registro ha sido eliminado correctamente') 
+							window.location='index.php?url=Proveedores';
+					 	  </script> ";
+			} /*end if*/
 		}
 
 		public function borrarDatosBancarios_add($id_det_db,$id_db)

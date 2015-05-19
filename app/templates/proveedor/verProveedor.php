@@ -6,131 +6,146 @@
 		<br />
 
 	<div class="table-responsive">
-		<div class="columns_left">
-			<table id="miTabla" >
-				<caption>Datos Proveedor</caption>
-				<tr>
-					<th>Proveedor</th>
-					<td><?php echo $detProveedor['proveedor'] ?></td>
-				</tr>
-				<tr>
-					<th>Categor&iacute;a</th>
-					<td><?php echo $detProveedor['categoria'] ?></td>
-				</tr>
-				<tr>
-					<th>Tel&eacute;fono</th>
-					<td><?php echo $detProveedor['tel'] ?></td>
-				</tr>
-				<tr>
-					<th>Direcci&oacute;n Web</th>
-					<td><?php echo $detProveedor['dirweb'] ?></td>
-				</tr>
-			</table>
-		</div>
 
-		<div class="columns_left">
-			<table id="miTabla" >
-				<caption>Datos Fiscales</caption>
-				<tr>
-					<th>Raz&oacute;n Social</th>
-					<td><?php echo $detProveedor['razon_social'] ?></td>
-				</tr>
-				<tr>
-					<th>RFC</th>
-					<td><?php echo $detProveedor['rfc'] ?></td>
-				</tr>
-				<tr>
-					<th>Tipo de Raz&oacute;n</th>
-					<td><?php echo $detProveedor['tipo_ra'] ?></td>
-				</tr>
-			</table>
-		</div>
+		<table align="center" border="0">
+			<tr>
+				<td>
+					<div class="columns_left">
+				<table id="miTabla" >
+					<caption>Datos Proveedor</caption>
+					<tr>
+						<th>Proveedor</th>
+						<td><?php echo $detProveedor['proveedor'] ?></td>
+					</tr>
+					<tr>
+						<th>Categor&iacute;a</th>
+						<td><?php echo $detProveedor['categoria'] ?></td>
+					</tr>
+					<tr>
+						<th>Tel&eacute;fono</th>
+						<td><?php echo $detProveedor['tel'] ?></td>
+					</tr>
+					<tr>
+						<th>Direcci&oacute;n Web</th>
+						<td><?php echo $detProveedor['dirweb'] ?></td>
+					</tr>
+				</table>
+					</div>
+				</td>
+				<td>
+					<div class="columns_right">
+				<table id="miTabla" >
+					<caption>Datos Fiscales</caption>
+					<tr>
+						<th>Raz&oacute;n Social</th>
+						<td><?php echo $detProveedor['razon_social'] ?></td>
+					</tr>
+					<tr>
+						<th>RFC</th>
+						<td><?php echo $detProveedor['rfc'] ?></td>
+					</tr>
+					<tr>
+						<th>Tipo de Raz&oacute;n</th>
+						<td><?php echo $detProveedor['tipo_ra'] ?></td>
+					</tr>
+				</table>
+					</div>
+				</td>
+			</tr>
+		</table>
 
-		<div class="columns_left">
-			<table id="miTabla" >
-				<caption>Direcci&oacute;n Fiscal</caption>
-				<tr>
-					<th>Calle</th>
-					<td><?php echo $detProvDirFis['calle'] ?></td>
-				</tr>
-				<tr>
-					<th>N&uacute;mero Ext</th>
-					<td><?php echo $detProvDirFis['num_ext'] ?></td>
-				</tr>
-				<tr>
-					<th>N&uacute;mero Int</th>
-					<td><?php echo $detProvDirFis['num_int'] ?></td>
-				</tr>
-				<tr>
-					<th>Colonia</th>
-					<td><?php echo $detProvDirFis['colonia'] ?></td>
-				</tr>
-				<tr>
-					<th>Referencia</th>
-					<td><?php echo $detProvDirFis['referencia'] ?></td>
-				</tr>
-				<tr>
-					<th>C.P.</th>
-					<td><?php echo $detProvDirFis['codigoP'] ?></td>
-				</tr>
-				<tr>
-					<th>Localidad</th>
-					<td><?php echo $detProvDirFis['localidad'] ?></td>
-				</tr>
-				<tr>
-					<th>Municipio</th>
-					<td><?php echo $detProvDirFis['municipio'] ?></td>
-				</tr>
-				<tr>
-					<th>Estado</th>
-					<td><?php echo $detProvDirFis['estado'] ?></td>
-				</tr>
-			</table>
-		</div>
+		<table align="center" border="0">
+			<tr>
+				<td>
+					<div class="columns_left">
+						<table id="miTabla" >
+							<caption>Direcci&oacute;n Fiscal</caption>
+							<tr>
+								<th>Calle</th>
+								<td><?php echo $detProvDirFis['calle'] ?></td>
+							</tr>
+							<tr>
+								<th>N&uacute;mero Ext</th>
+								<td><?php echo $detProvDirFis['num_ext'] ?></td>
+							</tr>
+							<tr>
+								<th>N&uacute;mero Int</th>
+								<td><?php echo $detProvDirFis['num_int'] ?></td>
+							</tr>
+							<tr>
+								<th>Colonia</th>
+								<td><?php echo $detProvDirFis['colonia'] ?></td>
+							</tr>
+							<tr>
+								<th>Referencia</th>
+								<td><?php echo $detProvDirFis['referencia'] ?></td>
+							</tr>
+							<tr>
+								<th>C.P.</th>
+								<td><?php echo $detProvDirFis['codigoP'] ?></td>
+							</tr>
+							<tr>
+								<th>Localidad</th>
+								<td><?php echo $detProvDirFis['localidad'] ?></td>
+							</tr>
+							<tr>
+								<th>Municipio</th>
+								<td><?php echo $detProvDirFis['municipio'] ?></td>
+							</tr>
+							<tr>
+								<th>Estado</th>
+								<td><?php echo $detProvDirFis['estado'] ?></td>
+							</tr>
+						</table>
+					</div>
+				</td>
+				<td>
+					<div class="columns_right">
+						<table id="miTabla" >
+							<caption>Direcci&oacute;n F&iacute;sica</caption>
+							<tr>
+								<th>Calle</th>
+								<td><?php echo $detProveedor['calle'] ?></td>
+							</tr>
+							<tr>
+								<th>N&uacute;mero Ext</th>
+								<td><?php echo $detProveedor['num_ext'] ?></td>
+							</tr>
+							<tr>
+								<th>N&uacute;mero Int</th>
+								<td><?php echo $detProveedor['num_int'] ?></td>
+							</tr>
+							<tr>
+								<th>Colonia</th>
+								<td><?php echo $detProveedor['colonia'] ?></td>
+							</tr>
+							<tr>
+								<th>Referencia</th>
+								<td><?php echo $detProveedor['referencia'] ?></td>
+							</tr>
+							<tr>
+								<th>C.P.</th>
+								<td><?php echo $detProveedor['codigoP'] ?></td>
+							</tr>
+							<tr>
+								<th>Localidad</th>
+								<td><?php echo $detProveedor['localidad'] ?></td>
+							</tr>
+							<tr>
+								<th>Municipio</th>
+								<td><?php echo $detProveedor['municipio'] ?></td>
+							</tr>
+							<tr>
+								<th>Estado</th>
+								<td><?php echo $detProveedor['estado'] ?></td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
 
-		<div class="columns_right">
-			<table id="miTabla" >
-				<caption>Direcci&oacute;n</caption>
-				<tr>
-					<th>Calle</th>
-					<td><?php echo $detProveedor['calle'] ?></td>
-				</tr>
-				<tr>
-					<th>N&uacute;mero Ext</th>
-					<td><?php echo $detProveedor['num_ext'] ?></td>
-				</tr>
-				<tr>
-					<th>N&uacute;mero Int</th>
-					<td><?php echo $detProveedor['num_int'] ?></td>
-				</tr>
-				<tr>
-					<th>Colonia</th>
-					<td><?php echo $detProveedor['colonia'] ?></td>
-				</tr>
-				<tr>
-					<th>Referencia</th>
-					<td><?php echo $detProveedor['referencia'] ?></td>
-				</tr>
-				<tr>
-					<th>C.P.</th>
-					<td><?php echo $detProveedor['codigoP'] ?></td>
-				</tr>
-				<tr>
-					<th>Localidad</th>
-					<td><?php echo $detProveedor['localidad'] ?></td>
-				</tr>
-				<tr>
-					<th>Municipio</th>
-					<td><?php echo $detProveedor['municipio'] ?></td>
-				</tr>
-				<tr>
-					<th>Estado</th>
-					<td><?php echo $detProveedor['estado'] ?></td>
-				</tr>
-			</table>
-		</div>
-
-		<div class="columns_left" >
+		<div align="center" class="">
 			<table id="miTabla" >
 				<caption>Datos Bancarios</caption>
 					<tr>
@@ -172,8 +187,9 @@
 			</table>
 		</div>
 
-		<div class="columns_right">
-			</br></br></br></br></br></br>
+		</br>
+		
+		<div align="center" class="">
 			<table id="miTabla" >
 				<caption>Contactos</caption>
 				<tr>

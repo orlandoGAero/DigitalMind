@@ -82,7 +82,7 @@
 	     'BorrarProveedores' => array('controller' =>'Controller', 'action' =>'EliminarProveedor'),
 	     'DeleteDatosBancarios' => array('controller' =>'Controller', 'action' =>'borrarDatosB'),
 	     'DatosBancarios' => array('controller' =>'Controller', 'action' =>'InsertarDatosBancariosP'),
-	     'DatosContacto' => array('controller' =>'Controller', 'action' =>'InsertarDatosContactosP'),
+	     'InsertarContacto' => array('controller' =>'Controller', 'action' =>'InsertarDatosContactosP'),
 	 	 'verMunicipioFiscal' => array('controller' =>'Controller', 'action' =>'obtenerMunicipioDirFiscal'),
 	 	 'verLocalidadFiscal' => array('controller' =>'Controller', 'action' =>'obtenerDireccionLocalidadDirFiscal'),
 	 	 'searchProveedores' => array('controller' =>'Controller', 'action' =>'ConsultarProveedores'),

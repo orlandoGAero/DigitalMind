@@ -335,7 +335,7 @@
 									<ul>
 										<li>	
 											<ul>
-												<!-- <a onclick="mandarValores()">Utilizar Direccion fiscal</a> -->
+												<a onclick="mandarValores()">a<img src=""></a>
 												<!-- clave razon social -->
 												<input type="hidden"  name="txt_iddir" value="<?php echo $parametrosProveedores['idDire'] ?>" readonly />
 												<li>

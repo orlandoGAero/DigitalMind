@@ -1,11 +1,27 @@
 <?php ob_start() ?>
 	
 	<!-- Style CSS valid & invalid-->
- 	<link href="<?php echo 'css/'.config::$style_valid_invalid_css ?>" rel="stylesheet" />	<!-- JS Formulario Listas Desplegables -->
+ 	<link href="<?php echo 'css/'.config::$style_valid_invalid_css ?>" rel="stylesheet" />
 	
+	<!--librerias-->
+	<link rel="stylesheet" href="css/fancybox/jquery.fancybox.css"/>
+
+	<script>window.jQuery || document.write('<script src="js/fancybox/libs/jquery-1.7.1.min.js"><\/script>')</script>
+	<script type="text/javascript" src="js/fancybox/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$('document').ready(function() 
+		{
+			$('#tablaCont').fancybox();
+		});
+
+	  	$('document').ready(function()
+		{
+			$('#allcontact').load('index.php?url=TablaContactos&idprov=<?php echo $parametrosProveedores['idprov'] ?>');
+		});
+	</script>
 	<!-- JS Formulario Listas Desplegables -->
 	<!-- modificar linea de abajo-->
-	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+	<!--<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>-->
 	<script type="text/javascript" src="js/jquery.lksMenu.js"></script>
 	<script>
 		$('document').ready(function(){
@@ -28,21 +44,11 @@
 			window.open(url,"Contactos","width=900px,height=400px,top=50px,left=50px,scrollbars=NO,resizable=NO")
 		}
 
-		function confirmar () {
-		  msg = confirm('¿Estas seguro que deseas abandonar este proceso ?');
-		  return msg;
-	  	}
-
-	  	$('document').ready(function()
-		{
-			$('#tablaCont').load('index.php?url=TablaContactos&idprov=<?php echo $parametrosProveedores['idprov'] ?>');
-		});
-
 		function recargar() {
 		    //Invocamos a nuestro script PHP
 		    $.post("index.php?url=TablaContactos&idprov=<?php echo $parametrosProveedores['idprov'] ?>", function(data){
 		       //Ponemos la respuesta de nuestro script en el DIV recargado
-		    $("#tablaCont").html(data);
+		    $("#allcontact").html(data);
 		    });       
 		}
 		  
@@ -70,12 +76,34 @@
 												<a href="javascript:abrir_pag('index.php?url=insertContact')">
 													<center><img src='images/new-contacto.png' alt='Nuevo Contacto' title='Nuevo Contacto'></center>
 												</a>
+												<!-- vinculo para seleccionar un contacto -->
+												<a href="#allcontact" id="tablaCont" onclick="javascript:recargar();">
+													<img src="images/select-contacto.png" title="Selecciona Contacto" alt="Selecciona Contacto">
+												</a>
 											</div>
-							 				<a href="#" onclick="javascript:recargar();">actualizar</a>
+											<div style="display: none;">
+												<div id="allcontact" style="width:900px;height:450px;overflow:auto;">
+													
+												</div>	
+											</div>
+
+											<div id="tabla_paginacion">
+    
+												<!--Aqui cargan las tablas para asignar o eliminar contacto-->  
+
+												<?php
+												
+												?>
+												    no esta cargando nada :(
+											    
+											</div> 
+							 				
+											<!-- anterior -->
+							 				<!-- <a href="#" onclick="javascript:recargar();">actualizar</a> -->
 							 				<!-- div para tabla de contactos -->
-							 				<div id="tablaCont">
+							 				<!-- <div id="tablaCont">
 							 					
-							 				</div>
+							 				</div> -->
 										</ul>
 									</li>
 								</ul>
@@ -148,9 +176,23 @@
 							</li>
 						</ul>
 					</div> <!-- fin de div menu-pro -->
-					<form action="">
-						<input type="submit" class="boton2" value="Finalizar" name="btnFin" onclick="javascript:return confirmar();">
-					</form>
+
+					<script>
+						function confirmar () {
+						  msg = confirm('¿Estas seguro que deseas abandonar este proceso?.');
+						  return msg;
+					  	}
+					  
+						function GoUrl()
+						{
+						   window.location.href = "index.php?url=Proveedores";
+						}
+					 </script>
+					
+						<a href="javascript:GoUrl()">
+							<button class="boton2" onclick="javascript:return confirmar();">Finalizar</button>
+						</a>	
+					
 				</section> <!-- fin de seccion principal -->
 			</div> <!-- fin de div panel-body --> 
 		</div> <!-- fin de div panel-default -->
