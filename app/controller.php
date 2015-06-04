@@ -1651,9 +1651,11 @@
 
 					$claveProvee = $_REQUEST['idprov'];
 					// print_r($_REQUEST);
-					
-					/*obtiene todos los contactos*/
-					$obtContactos = $model->obt_allContactos($claveProvee);
+
+
+					$obtContactos = array(
+						'listcontacto' => $model->obt_allContactos(),
+					);
 					
 					/*obtener contactos del proveedor*/
 					$Cont_Prov = $model->obtDatContactAdd($claveProvee);
@@ -1666,25 +1668,30 @@
 
 			public function InsertarDatosContactosP()
 			{
+				/*recibir */
+				echo "<br/><h1>proveedor=</h1>". $idproveedores = $_REQUEST['txt_idproveedor'];
+				echo "<br/><h1>contacto=</h1>". $idcontactos = $_REQUEST['txt_idCon'];
+			
+				
+				if ($_REQUEST['txt_idproveedor'] != "" && $_REQUEST['txt_idCon'] != "") {
+								
+
 				$model = new model(config::$mvc_db_name, config::$mvc_db_user,
 							config::$mvc_db_pass, config::$mvc_db_hostname);
-
-				/*recibir */
-				$idcontactos = $_REQUEST['txt_idCon'];
-				$idproveedores = $_REQUEST['txt_idproveedor'];
-
-				print_r($_REQUEST);
-
 				
-					$model->registrarProv_Contact($idcontactos,$idproveedores);
+				$model -> registrarProv_Contact($idcontactos,$idproveedores);
 				
 					/*obtiene todos los contactos*/
-					$obtContactos = $model->obt_allContactos($idproveedores);
+					$obtContactos = array(
+						'listcontacto' => $model->obt_allContactos(),
+					);
 
 					/*obtener contactos del proveedor*/
 					$Cont_Prov = $model->obtDatContactAdd($idproveedores);
 
-				require __DIR__ . '/templates/proveedor/addDContactos.php';
+
+					require __DIR__ . '/templates/proveedor/addDContactos.php';
+				}
 			}
 			
 			public function ModificarProveedor_part1()

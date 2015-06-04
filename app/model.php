@@ -2211,21 +2211,11 @@
 			 return $tableDb;
 		}
 
-		public function obt_allContactos($id_provee){
-			
-			$sql_pr = "SELECT id_prov
-					   FROM proveedores
-					   WHERE id_prov=$id_provee";
-			$ejecutar_sql_pr = mysql_query($sql_pr,$this->conexion) or die (mysql_error());
-			
-			$Proveedores = array();
-			while($row = mysql_fetch_assoc($ejecutar_sql_pr)){
-				$Proveedores[] = $row;
-			}
-
-			$sql_obt_c = "SELECT *
-							FROM contactos
-							ORDER by nombreCon";
+		public function obt_allContactos(){
+		
+			$sql_obt_c = "SELECT id_contacto,nombreCon,ap_paterno,ap_materno,nombre_area,movil
+						  FROM contactos
+						  ORDER BY ap_paterno";
 			$ejecutar_sql_obt_c = mysql_query($sql_obt_c,$this->conexion) or die (mysql_error());
 			
 			$Contacts = array();
